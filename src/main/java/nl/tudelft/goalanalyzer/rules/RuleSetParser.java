@@ -32,7 +32,7 @@ class RuleSetParser {
     /**
      * Gets the minimal severity level that's considered to be an error.
      * @return Minimal error severity level.
-     * @throws InvalidFormatException Thrown when format is incorrect.
+     * @throws MalformedRulesException Thrown when format is incorrect.
      */
     int getErrorSeverity() throws MalformedRulesException {
         if (!isParsed() || object == null) {

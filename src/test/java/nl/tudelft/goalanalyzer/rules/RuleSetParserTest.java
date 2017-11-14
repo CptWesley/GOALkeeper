@@ -1,6 +1,5 @@
 package nl.tudelft.goalanalyzer.rules;
 
-import com.sun.media.sound.InvalidFormatException;
 import nl.tudelft.goalanalyzer.exceptions.MalformedRulesException;
 import nl.tudelft.goalanalyzer.exceptions.NotParsedException;
 import org.junit.jupiter.api.BeforeAll;
@@ -35,7 +34,7 @@ class RuleSetParserTest {
 
     /**
      * Sets up testing environment before each test.
-     * @throws InvalidFormatException should never be thrown.
+     * @throws MalformedRulesException should never be thrown.
      */
     @BeforeEach
     void setup() throws MalformedRulesException {

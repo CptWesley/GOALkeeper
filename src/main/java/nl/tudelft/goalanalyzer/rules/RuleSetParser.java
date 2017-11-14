@@ -3,8 +3,8 @@ package nl.tudelft.goalanalyzer.rules;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.sun.media.sound.InvalidFormatException;
 import lombok.Getter;
+import nl.tudelft.goalanalyzer.exceptions.MalformedRulesException;
 import nl.tudelft.goalanalyzer.exceptions.NotParsedException;
 
 /**
@@ -18,12 +18,13 @@ class RuleSetParser {
     /**
      * Constructor for the rule set parser.
      * @param content JSON string representing our rule set.
+     * @throws MalformedRulesException Thrown when content is not valid json.
      */
-    void parse(String content) throws InvalidFormatException {
+    void parse(String content) throws MalformedRulesException {
         try {
             object = new JsonParser().parse(content).getAsJsonObject();
         } catch (IllegalStateException e) {
-            throw new InvalidFormatException("Invalid JSON file.");
+            throw new MalformedRulesException("Invalid JSON file.");
         }
         parsed = true;
     }
@@ -33,18 +34,18 @@ class RuleSetParser {
      * @return Minimal error severity level.
      * @throws InvalidFormatException Thrown when format is incorrect.
      */
-    int getErrorSeverity() throws InvalidFormatException {
+    int getErrorSeverity() throws MalformedRulesException {
         if (!isParsed() || object == null) {
             throw new NotParsedException();
         }
         JsonElement element = object.get("error-severity");
         if (element == null) {
-            throw new InvalidFormatException("Missing 'error-severity' setting.");
+            throw new MalformedRulesException("Missing 'error-severity' setting.");
         }
         try {
             return Integer.parseInt(element.toString());
         } catch (NumberFormatException e) {
-            throw new InvalidFormatException("Invalid 'error-severity' type.");
+            throw new MalformedRulesException("Invalid 'error-severity' type.");
         }
     }
 }

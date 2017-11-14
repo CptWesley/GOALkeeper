@@ -1,6 +1,7 @@
 package nl.tudelft.goalanalyzer.rules;
 
 import com.sun.media.sound.InvalidFormatException;
+import nl.tudelft.goalanalyzer.exceptions.MalformedRulesException;
 import nl.tudelft.goalanalyzer.exceptions.NotParsedException;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -37,7 +38,7 @@ class RuleSetParserTest {
      * @throws InvalidFormatException should never be thrown.
      */
     @BeforeEach
-    void setup() throws InvalidFormatException {
+    void setup() throws MalformedRulesException {
         parser = new RuleSetParser();
         parser.parse(content);
     }
@@ -59,7 +60,7 @@ class RuleSetParserTest {
     void parseExceptionTest() {
         parser = new RuleSetParser();
         assertThatThrownBy(() -> parser.parse(""))
-                .isInstanceOf(InvalidFormatException.class)
+                .isInstanceOf(MalformedRulesException.class)
                 .hasMessage("Invalid JSON file.");
         assertThat(parser.isParsed()).isFalse();
     }
@@ -68,7 +69,7 @@ class RuleSetParserTest {
      * Checks that error severity getter is functioning correctly.
      */
     @Test
-    void getErrorSeverityTest() throws InvalidFormatException {
+    void getErrorSeverityTest() throws MalformedRulesException {
         assertThat(parser.getErrorSeverity()).isEqualTo(2);
     }
 
@@ -91,11 +92,11 @@ class RuleSetParserTest {
      * while the setting is not defined.
      */
     @Test
-    void getErrorSeverityNotDefinedTest() throws InvalidFormatException {
+    void getErrorSeverityNotDefinedTest() throws MalformedRulesException {
         parser = new RuleSetParser();
         parser.parse("{}");
         assertThatThrownBy(() -> parser.getErrorSeverity())
-                .isInstanceOf(InvalidFormatException.class)
+                .isInstanceOf(MalformedRulesException.class)
                 .hasMessage("Missing 'error-severity' setting.");
     }
 
@@ -104,11 +105,11 @@ class RuleSetParserTest {
      * while the setting is wrongly defined.
      */
     @Test
-    void getErrorSeverityWronglyDefinedTest() throws InvalidFormatException {
+    void getErrorSeverityWronglyDefinedTest() throws MalformedRulesException {
         parser = new RuleSetParser();
         parser.parse("{\"error-severity\": 3.2}");
         assertThatThrownBy(() -> parser.getErrorSeverity())
-                .isInstanceOf(InvalidFormatException.class)
+                .isInstanceOf(MalformedRulesException.class)
                 .hasMessage("Invalid 'error-severity' type.");
     }
 }

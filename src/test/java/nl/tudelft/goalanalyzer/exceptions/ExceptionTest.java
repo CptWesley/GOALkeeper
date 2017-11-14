@@ -7,7 +7,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * Abstract class to test custom exceptions.
  */
-public abstract class ExceptionTest {
+abstract class ExceptionTest {
 
     /**
      * Get an exception instance.

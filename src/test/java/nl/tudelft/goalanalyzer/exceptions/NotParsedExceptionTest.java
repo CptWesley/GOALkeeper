@@ -5,7 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 /**
  * Test class for the NotParsedException class.
  */
-public class NotParsedExceptionTest extends ExceptionTest {
+class NotParsedExceptionTest extends ExceptionTest {
 
     private NotParsedException exception;
 

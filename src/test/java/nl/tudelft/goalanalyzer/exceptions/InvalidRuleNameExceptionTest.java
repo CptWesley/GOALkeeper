@@ -5,7 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 /**
  * Test class for the InvalidRuleNameException class.
  */
-public class InvalidRuleNameExceptionTest extends ExceptionTest {
+class InvalidRuleNameExceptionTest extends ExceptionTest {
 
     private InvalidRuleNameException exception;
 

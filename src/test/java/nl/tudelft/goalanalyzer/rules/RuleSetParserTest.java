@@ -16,7 +16,7 @@ import static org.assertj.core.api.Assertions.assertThatCode;
 /**
  * Test class for the RuleSetParser class
  */
-public class RuleSetParserTest {
+class RuleSetParserTest {
 
     private static String content;
 

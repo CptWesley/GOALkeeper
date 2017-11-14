@@ -10,12 +10,12 @@
         },
         {
           "severity": 1,
-          "min": 201,
+          "min": 200,
           "max": 300
         },
         {
           "severity": 2,
-          "min": 301
+          "min": 300
         }
       ]
     }

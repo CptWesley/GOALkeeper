@@ -1,20 +1,27 @@
 package nl.tudelft.goalanalyzer.exceptions;
 
-import org.junit.jupiter.api.Test;
-
-import static org.assertj.core.api.Assertions.assertThat;
+import org.junit.jupiter.api.BeforeEach;
 
 /**
  * Test class for the InvalidRuleNameException class.
  */
-public class InvalidRuleNameExceptionTest {
+public class InvalidRuleNameExceptionTest extends ExceptionTest {
+
+    private InvalidRuleNameException exception;
 
     /**
-     * Tests that the message is correctly passed to the super class.
+     * Sets up testing environment before each test.
      */
-    @Test
-    void messageTest() {
-        InvalidRuleNameException exception = new InvalidRuleNameException("test123");
-        assertThat(exception.getMessage()).isEqualTo("test123");
+    @BeforeEach
+    void setup() {
+        exception = new InvalidRuleNameException("test123");
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    Exception getException() {
+        return exception;
     }
 }

@@ -1,0 +1,23 @@
+{
+  "error-severity": 2,
+  "rules": {
+    "LOC": {
+      "enabled": true,
+      "stages": [
+        {
+          "severity": 0,
+          "max": 200
+        },
+        {
+          "severity": 1,
+          "min": 201,
+          "max": 300
+        },
+        {
+          "severity": 2,
+          "min": 301
+        }
+      ]
+    }
+  }
+}

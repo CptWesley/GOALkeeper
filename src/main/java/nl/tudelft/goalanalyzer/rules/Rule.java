@@ -32,10 +32,26 @@ class Rule {
     /**
      * Adds a stage to the stage list.
      * @param stage New stage to add.
+     * @return Current Rule.
      */
-    void addStage(Stage stage) {
+    Rule addStage(Stage stage) {
         if (!stages.contains(stage)) {
             stages.add(stage);
         }
+        return this;
+    }
+
+    /**
+     * Gets the severity of a certain value.
+     * @param value Value to check for.
+     * @return Severity level of the value.
+     */
+    int severityOf(double value) {
+        for (Stage stage : stages) {
+            if (value >= stage.getMin() && value < stage.getMax()) {
+                return stage.getSeverity();
+            }
+        }
+        return 0;
     }
 }

@@ -8,9 +8,9 @@ import lombok.Getter;
  */
 class Stage {
 
-    @Getter private int severity;
-    @Getter private double min;
-    @Getter private double max;
+    @Getter private int severity; // NOPMD
+    @Getter private double min; // NOPMD
+    @Getter private double max; // NOPMD
 
     /**
      * Constructor for a class that represents a stage.

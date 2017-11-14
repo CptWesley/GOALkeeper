@@ -12,7 +12,7 @@ import java.util.List;
 class Rule {
 
     private List<Stage> stages;
-    @Getter @Setter private boolean enabled;
+    @Getter @Setter private boolean enabled; // NOPMD
 
     /**
      * Constructor of a rule instance.

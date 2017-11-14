@@ -1,7 +1,7 @@
 package nl.tudelft.goalanalyzer.exceptions;
 
 /**
- * Class for exception thrown when a specified exception is not known to the program.
+ * Class for exception thrown when a specified rule is not known to the program.
  */
 public class InvalidRuleNameException extends Exception {
 

@@ -29,6 +29,7 @@ public final class RuleSet {
     /**
      * Load the rule set.
      * @param path Path of the rule set file.
+     * @return New rule set loaded from file.
      * @throws MalformedRulesException Thrown when rules file is invalid.
      * @throws IOException Thrown when there is an error while loading the file.
      */

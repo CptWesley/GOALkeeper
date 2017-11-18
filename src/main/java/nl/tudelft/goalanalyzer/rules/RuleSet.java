@@ -21,7 +21,7 @@ public final class RuleSet {
     /**
      * Constructor for rule sets.
      */
-    private RuleSet(HashMap<String, Rule> rules, int errorSeverity) {
+    private RuleSet(Map<String, Rule> rules, int errorSeverity) {
         this.rules = rules;
         this.errorSeverity = errorSeverity;
     }
@@ -38,7 +38,8 @@ public final class RuleSet {
         String content = new String(Files.readAllBytes(Paths.get(path)));
         parser.parse(content);
         int errorSeverity = parser.getErrorSeverity();
+        Map<String, Rule> rules = parser.getRules();
 
-        return new RuleSet(null, errorSeverity);
+        return new RuleSet(rules, errorSeverity);
     }
 }

@@ -54,7 +54,7 @@ public final class VerifiedJsonParser {
     public static String getString(JsonObject object, String name)
             throws MalformedRulesException {
         JsonElement element = getElement(object, name);
-        return element.toString();
+        return element.getAsString();
     }
 
     /**
@@ -64,7 +64,7 @@ public final class VerifiedJsonParser {
      * @return The child element.
      * @throws MalformedRulesException Thrown when child can not be found.
      */
-    private static JsonElement getElement(JsonObject object, String name)
+    public static JsonElement getElement(JsonObject object, String name)
             throws MalformedRulesException {
         JsonElement element = object.get(name);
         if (element == null) {

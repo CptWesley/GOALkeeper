@@ -93,7 +93,7 @@ class VerifiedJsonParserTest {
         JsonObject object = Mockito.mock(JsonObject.class);
         JsonElement element = Mockito.mock(JsonElement.class);
         Mockito.when(object.get(Mockito.anyString())).thenReturn(element);
-        Mockito.when(element.toString()).thenReturn("answer");
+        Mockito.when(element.getAsString()).thenReturn("answer");
         assertThat(VerifiedJsonParser.getString(object, "bla")).isEqualTo("answer");
         Mockito.verify(object, Mockito.times(1)).get(Mockito.anyString());
     }

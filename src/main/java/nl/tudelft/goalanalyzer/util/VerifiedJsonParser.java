@@ -7,7 +7,7 @@ import nl.tudelft.goalanalyzer.exceptions.MalformedRulesException;
 /**
  * Wrapped Gson parsing.
  */
-final class VerifiedJsonParser {
+public final class VerifiedJsonParser {
 
     /**
      * Prevents instantiation.
@@ -21,7 +21,7 @@ final class VerifiedJsonParser {
      * @return Integer value at the child.
      * @throws MalformedRulesException Thrown when the json is not formatted properly.
      */
-    static int getInteger(JsonObject object, String name)
+    public static int getInteger(JsonObject object, String name)
             throws MalformedRulesException {
         JsonElement element = getElement(object, name);
         try {
@@ -38,7 +38,7 @@ final class VerifiedJsonParser {
      * @return Integer value at the child.
      * @throws MalformedRulesException Thrown when the json is not formatted properly.
      */
-    static boolean getBoolean(JsonObject object, String name)
+    public static boolean getBoolean(JsonObject object, String name)
             throws MalformedRulesException {
         JsonElement element = getElement(object, name);
         return Boolean.parseBoolean(element.toString());
@@ -51,7 +51,7 @@ final class VerifiedJsonParser {
      * @return Integer value at the child.
      * @throws MalformedRulesException Thrown when the json is not formatted properly.
      */
-    static String getString(JsonObject object, String name)
+    public static String getString(JsonObject object, String name)
             throws MalformedRulesException {
         JsonElement element = getElement(object, name);
         return element.toString();

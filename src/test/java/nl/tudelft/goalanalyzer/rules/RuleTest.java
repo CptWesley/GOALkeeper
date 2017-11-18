@@ -27,9 +27,9 @@ class RuleTest {
      */
     @Test
     void enabledTest() {
-        assertThat(rule.isEnabled()).isFalse();
-        rule.setEnabled(true);
         assertThat(rule.isEnabled()).isTrue();
+        rule.setEnabled(false);
+        assertThat(rule.isEnabled()).isFalse();
     }
 
     /**

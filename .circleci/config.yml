@@ -39,5 +39,5 @@ jobs:
         
       # run tests!
       - run: mvn test site
-      - bash <(curl -s https://codecov.io/bash) -t a696a4d4-1715-4f06-98b3-e8b58cf12890
+      - run: bash <(curl -s https://codecov.io/bash) -t a696a4d4-1715-4f06-98b3-e8b58cf12890
 

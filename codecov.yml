@@ -1,0 +1,21 @@
+comment:
+  layout: "header, diff, tree, changes, sunburst"
+  behavior: default
+  require_changes: false  # if true: only post the comment if coverage changes
+  require_base: no        # [yes :: must have a base report to post]
+  require_head: yes       # [yes :: must have a head report to post]
+  branches: null
+
+
+  flags:
+    # filter the folder(s) you wish to measure by that flag
+    ui:
+      # only include files in the backend folder
+      paths:
+        - src/main/ccjpw/ui
+    unittest:
+      paths:
+        - src/main/ccjpw
+    paramtest:
+      paths:
+        - src/main/ccjpw

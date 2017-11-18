@@ -30,11 +30,12 @@ public final class RuleSet {
      * Load the rule set.
      * @param path Path of the rule set file.
      * @throws MalformedRulesException Thrown when rules file is invalid.
+     * @throws IOException Thrown when there is an error while loading the file.
      */
     public static RuleSet load(String path) throws MalformedRulesException, IOException {
         RuleSetParser parser = new RuleSetParser();
-        new String(Files.readAllBytes(Paths.get(path)));
-        parser.parse(path);
+        String content = new String(Files.readAllBytes(Paths.get(path)));
+        parser.parse(content);
         int errorSeverity = parser.getErrorSeverity();
 
         return new RuleSet(null, errorSeverity);

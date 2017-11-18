@@ -19,6 +19,25 @@
           "min": 300
         }
       ]
+    },
+    {
+      "name": "ELOC",
+      "enabled": false,
+      "stages": [
+        {
+          "severity": 0,
+          "max": 150
+        },
+        {
+          "severity": 1,
+          "min": 150,
+          "max": 250
+        },
+        {
+          "severity": 2,
+          "min": 250
+        }
+      ]
     }
   ]
 }

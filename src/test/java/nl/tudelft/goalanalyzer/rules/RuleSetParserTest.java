@@ -121,8 +121,11 @@ class RuleSetParserTest {
     void getRulesTest() throws MalformedRulesException {
         Map<String, Rule> rules = parser.getRules();
         assertThat(rules.containsKey("LOC")).isTrue();
+        assertThat(rules.containsKey("ELOC")).isTrue();
         Rule loc = rules.get("LOC");
+        Rule eloc = rules.get("ELOC");
         assertThat(loc.isEnabled()).isTrue();
+        assertThat(eloc.isEnabled()).isFalse();
         assertThat(loc.getStages().size()).isEqualTo(3);
         Stage s0 = loc.getStages().get(0);
         Stage s1 = loc.getStages().get(1);

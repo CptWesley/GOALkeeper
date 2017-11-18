@@ -8,7 +8,9 @@ public class MalformedRulesException extends Exception {
     /**
      * Constructor for a messageless instance of the MalformedRulesException.
      */
-    public MalformedRulesException() { }
+    public MalformedRulesException() {
+        super();
+    }
 
     /**
      * Constructor for an instance with a message of the MalformedRulesException.

@@ -8,7 +8,9 @@ public class NotParsedException extends RuntimeException {
     /**
      * Constructor for a messageless instance of the NotParsedException.
      */
-    public NotParsedException() { }
+    public NotParsedException() {
+        super();
+    }
 
     /**
      * Constructor for an instance with a message of the NotParsedException.

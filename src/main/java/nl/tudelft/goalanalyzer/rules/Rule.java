@@ -12,12 +12,13 @@ import java.util.List;
 class Rule {
 
     private List<Stage> stages;
-    @Getter @Setter private boolean enabled; // NOPMD
+    @Getter private boolean enabled; // NOPMD
 
     /**
      * Constructor of a rule instance.
      */
     Rule() {
+        enabled = true;
         stages = new ArrayList<>();
     }
 
@@ -38,6 +39,16 @@ class Rule {
         if (!stages.contains(stage)) {
             stages.add(stage);
         }
+        return this;
+    }
+
+    /**
+     * Sets the status of this rule.
+     * @param status Status of this rule.
+     * @return This rule.
+     */
+    Rule setEnabled(boolean status) {
+        enabled = status;
         return this;
     }
 

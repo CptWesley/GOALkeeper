@@ -76,7 +76,7 @@ class RuleSetParser {
      * @throws MalformedRulesException Thrown when rule json is malformed.
      */
     private Rule parseRule(JsonObject object) throws MalformedRulesException {
-        Rule rule = new Rule();
+        Rule rule = new Rule().setEnabled(VerifiedJsonParser.getBoolean(object, "enabled"));
         JsonElement stagesElement = VerifiedJsonParser.getElement(object, "stages");
         try {
             for (JsonElement stageElement : stagesElement.getAsJsonArray()) {

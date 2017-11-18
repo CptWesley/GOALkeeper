@@ -122,6 +122,7 @@ class RuleSetParserTest {
         Map<String, Rule> rules = parser.getRules();
         assertThat(rules.containsKey("LOC")).isTrue();
         Rule loc = rules.get("LOC");
+        assertThat(loc.isEnabled()).isTrue();
         assertThat(loc.getStages().size()).isEqualTo(3);
         Stage s0 = loc.getStages().get(0);
         Stage s1 = loc.getStages().get(1);

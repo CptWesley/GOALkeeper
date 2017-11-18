@@ -115,7 +115,7 @@ class RuleSetParserTest {
 
     /**
      * Checks that rules are fetched properly. Smokey test.
-     * @throws MalformedRulesException
+     * @throws MalformedRulesException Should never be thrown.
      */
     @Test
     void getRulesTest() throws MalformedRulesException {

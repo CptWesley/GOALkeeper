@@ -1,7 +1,8 @@
 {
   "error-severity": 2,
-  "rules": {
-    "LOC": {
+  "rules": [
+    {
+      "name": "LOC",
       "enabled": true,
       "stages": [
         {
@@ -19,5 +20,5 @@
         }
       ]
     }
-  }
+  ]
 }

@@ -21,7 +21,7 @@ final class VerifiedJsonParser {
      * @return Integer value at the child.
      * @throws MalformedRulesException Thrown when the json is not formatted properly.
      */
-    static int getInt(JsonObject object, String name)
+    static int getInteger(JsonObject object, String name)
             throws MalformedRulesException {
         JsonElement element = getElement(object, name);
         try {
@@ -41,11 +41,7 @@ final class VerifiedJsonParser {
     static boolean getBoolean(JsonObject object, String name)
             throws MalformedRulesException {
         JsonElement element = getElement(object, name);
-        try {
-            return Boolean.parseBoolean(element.toString());
-        } catch (NumberFormatException e) {
-            throw new MalformedRulesException("Invalid '" + name + "' type.");
-        }
+        return Boolean.parseBoolean(element.toString());
     }
 
     /**

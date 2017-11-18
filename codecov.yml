@@ -8,14 +8,9 @@ comment:
 
 
   flags:
-    # filter the folder(s) you wish to measure by that flag
-    ui:
-      # only include files in the backend folder
-      paths:
-        - src/main/ccjpw/ui
     unittest:
       paths:
-        - src/main/ccjpw
+        - src/main/java
     paramtest:
       paths:
-        - src/main/ccjpw
+        - src/main/java

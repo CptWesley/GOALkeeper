@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+import java.util.Map;
 import java.util.Scanner;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -110,5 +111,28 @@ class RuleSetParserTest {
         assertThatThrownBy(() -> parser.getErrorSeverity())
                 .isInstanceOf(MalformedRulesException.class)
                 .hasMessage("Invalid 'error-severity' type.");
+    }
+
+    /**
+     * Checks that rules are fetched properly. Smokey test.
+     * @throws MalformedRulesException
+     */
+    @Test
+    void getRulesTest() throws MalformedRulesException {
+        Map<String, Rule> rules = parser.getRules();
+        assertThat(rules.containsKey("LOC")).isTrue();
+        Rule loc = rules.get("LOC");
+        assertThat(loc.getStages().size()).isEqualTo(3);
+        Stage s0 = loc.getStages().get(0);
+        Stage s1 = loc.getStages().get(1);
+        Stage s2 = loc.getStages().get(2);
+        assertThat(s0.getSeverity()).isEqualTo(0);
+        assertThat(s1.getSeverity()).isEqualTo(1);
+        assertThat(s0.getMin()).isEqualTo(Double.MIN_VALUE);
+        assertThat(s0.getMax()).isEqualTo(200);
+        assertThat(s1.getMin()).isEqualTo(200);
+        assertThat(s1.getMax()).isEqualTo(300);
+        assertThat(s2.getMin()).isEqualTo(300);
+        assertThat(s2.getMax()).isEqualTo(Double.MAX_VALUE);
     }
 }

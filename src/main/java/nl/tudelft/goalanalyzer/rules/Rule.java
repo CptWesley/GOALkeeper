@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Data class containing rule info.
  */
-class Rule {
+public class Rule {
 
     private List<Stage> stages;
     @Getter private boolean enabled; // NOPMD
@@ -16,7 +16,7 @@ class Rule {
     /**
      * Constructor of a rule instance.
      */
-    Rule() {
+    public Rule() {
         enabled = true;
         stages = new ArrayList<>();
     }
@@ -25,7 +25,7 @@ class Rule {
      * Returns a copy of the stages contained in this rule.
      * @return Stages contained in this rule.
      */
-    List<Stage> getStages() {
+    public List<Stage> getStages() {
         return new ArrayList<>(stages);
     }
 
@@ -34,7 +34,7 @@ class Rule {
      * @param stage New stage to add.
      * @return Current Rule.
      */
-    Rule addStage(Stage stage) {
+    public Rule addStage(Stage stage) {
         if (!stages.contains(stage)) {
             stages.add(stage);
         }
@@ -46,7 +46,7 @@ class Rule {
      * @param status Status of this rule.
      * @return This rule.
      */
-    Rule setEnabled(boolean status) {
+    public Rule setEnabled(boolean status) {
         enabled = status;
         return this;
     }
@@ -56,7 +56,7 @@ class Rule {
      * @param value Value to check for.
      * @return Severity level of the value.
      */
-    int severityOf(double value) {
+    public int severityOf(double value) {
         for (Stage stage : stages) {
             if (value >= stage.getMin() && value < stage.getMax()) {
                 return stage.getSeverity();

@@ -41,4 +41,22 @@ public final class RuleSet {
 
         return new RuleSet(rules, errorSeverity);
     }
+
+    /**
+     * Gets a rule with a certain name.
+     * @param name Name of the rule.
+     * @return Rule we searched for.
+     */
+    public Rule getRule(String name) {
+        return rules.get(name);
+    }
+
+    /**
+     * Checks if we have a rule with a certain name.
+     * @param name Name of the rule.
+     * @return True if we have it, false otherwise.
+     */
+    public boolean hasRule(String name) {
+        return getRule(name) != null;
+    }
 }

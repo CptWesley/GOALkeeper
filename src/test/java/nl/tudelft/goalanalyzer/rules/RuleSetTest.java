@@ -35,4 +35,20 @@ class RuleSetTest {
     void severityDefaultTest() {
         assertThat(set.getErrorSeverity()).isEqualTo(2);
     }
+
+    /**
+     * Checks if we have a rule.
+     */
+    @Test
+    void hasRuleTrueTest() {
+        assertThat(set.hasRule("LOC")).isTrue();
+    }
+
+    /**
+     * Checks if we have a rule.
+     */
+    @Test
+    void hasRuleFalseTest() {
+        assertThat(set.hasRule("LOC2")).isFalse();
+    }
 }

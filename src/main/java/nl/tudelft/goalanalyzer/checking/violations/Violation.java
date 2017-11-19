@@ -78,4 +78,27 @@ public class Violation {
         return this;
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(message).append(" of severity ")
+                .append(severity).append(" found");
+        if (!file.isEmpty()) {
+            sb.append(" in '").append(file).append('\'');
+        }
+        if (startingLine >= 0 && endingLine >= 0) {
+            if (startingLine == endingLine) {
+                sb.append(" at line ").append(startingLine);
+            } else {
+                sb.append(" at lines ").append(startingLine)
+                        .append('-').append(endingLine);
+            }
+        }
+        sb.append('.');
+        if (actualValue >= 0 && maximumValue >= 0) {
+            sb.append(" Value was: '").append(actualValue).append('\'')
+                    .append(" while maximum is '").append(maximumValue).append("'.");
+        }
+        return sb.toString();
+    }
 }

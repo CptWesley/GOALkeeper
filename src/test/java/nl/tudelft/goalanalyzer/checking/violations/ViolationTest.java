@@ -49,4 +49,28 @@ class ViolationTest {
         assertThat(violation.setFile("sgffsgdfgds")).isSameAs(violation);
         assertThat(violation.getFile()).isEqualTo("sgffsgdfgds");
     }
+
+    /**
+     * Checks in an extremely smokey test that the toString method is correct.
+     */
+    @Test
+    void toStringTest() {
+        assertThat(violation.toString())
+                .isEqualTo("blah of severity 3 found.");
+        assertThat(violation.setFile("hithere").toString())
+                .isEqualTo("blah of severity 3 found in 'hithere'.");
+        assertThat(violation.setFile("hithere").toString())
+                .isEqualTo("blah of severity 3 found in 'hithere'.");
+        assertThat(violation.setStartingLine(4).toString())
+                .isEqualTo("blah of severity 3 found in 'hithere'.");
+        assertThat(violation.setEndingLine(4).toString())
+                .isEqualTo("blah of severity 3 found in 'hithere' at line 4.");
+        assertThat(violation.setEndingLine(5).toString())
+                .isEqualTo("blah of severity 3 found in 'hithere' at lines 4-5.");
+        assertThat(violation.setActualValue(20).toString())
+                .isEqualTo("blah of severity 3 found in 'hithere' at lines 4-5.");
+        assertThat(violation.setMaximumValue(30).toString())
+                .isEqualTo("blah of severity 3 found in 'hithere' " +
+                        "at lines 4-5. Value was: '20.0' while maximum is '30.0'.");
+    }
 }

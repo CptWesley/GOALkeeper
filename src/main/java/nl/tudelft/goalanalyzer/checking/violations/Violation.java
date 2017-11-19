@@ -17,6 +17,7 @@ public class Violation {
     /**
      * Constructor for the violations class.
      * @param message Message of the violations.
+     * @param severity Severity of the violation.
      */
     public Violation(String message, int severity) {
         this.message = message;

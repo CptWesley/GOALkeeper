@@ -6,8 +6,9 @@ import nl.tudelft.goalanalyzer.rules.Rule;
 import nl.tudelft.goalanalyzer.rules.RuleSet;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -69,7 +70,9 @@ public final class LinesOfCodeChecker implements CheckerInterface {
      * @return Number of lines.
      */
     private int countLines(String fileName) throws IOException {
-        BufferedReader reader  = new BufferedReader(new FileReader(fileName));
+        BufferedReader reader = new BufferedReader(
+                new InputStreamReader(
+                        new FileInputStream(fileName), "UTF-8"));
         int lines = 0;
         while (reader.readLine() != null) {
             ++lines;

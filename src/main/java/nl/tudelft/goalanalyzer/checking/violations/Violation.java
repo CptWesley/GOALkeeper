@@ -6,6 +6,8 @@ import lombok.Getter;
  * Class for violations.
  */
 public class Violation {
+    private static final int BUILDER_CAPACITY = 30;
+
     @Getter private String message; //NOPMD
     @Getter private int severity;
     @Getter private String file; //NOPMD
@@ -81,8 +83,8 @@ public class Violation {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("'").append(message).append("' of severity ")
+        StringBuilder sb = new StringBuilder(BUILDER_CAPACITY);
+        sb.append('\'').append(message).append("' of severity ")
                 .append(severity).append(" found");
         if (!file.isEmpty()) {
             sb.append(" in '").append(file).append('\'');
@@ -97,8 +99,8 @@ public class Violation {
         }
         sb.append('.');
         if (actualValue >= 0 && maximumValue >= 0) {
-            sb.append(" Value was: '").append(actualValue).append('\'')
-                    .append(" while maximum is '").append(maximumValue).append("'.");
+            sb.append(" Value was: '").append(actualValue)
+                    .append("' while maximum is '").append(maximumValue).append("'.");
         }
         return sb.toString();
     }

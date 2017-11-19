@@ -1,0 +1,43 @@
+{
+  "error-severity": 2,
+  "rules": [
+    {
+      "name": "LOC",
+      "enabled": true,
+      "stages": [
+        {
+          "severity": 0,
+          "max": 200
+        },
+        {
+          "severity": 1,
+          "min": 200,
+          "max": 300
+        },
+        {
+          "severity": 2,
+          "min": 300
+        }
+      ]
+    },
+    {
+      "name": "ELOC",
+      "enabled": false,
+      "stages": [
+        {
+          "severity": 0,
+          "max": 150
+        },
+        {
+          "severity": 1,
+          "min": 150,
+          "max": 250
+        },
+        {
+          "severity": 2,
+          "min": 250
+        }
+      ]
+    }
+  ]
+}

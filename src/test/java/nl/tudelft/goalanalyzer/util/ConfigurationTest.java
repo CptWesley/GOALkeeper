@@ -51,10 +51,11 @@ class ConfigurationTest {
      */
     @Test
     void addParameterTest() {
-        assertThat(config.hasParameter("paname")).isFalse();
-        config.addParameter("paname", "true");
-        assertThat(config.hasParameter("paname")).isTrue();
-        assertThat(config.getParameter("paname").getAsBoolean()).isTrue();
+        String paramName = "paname";
+        assertThat(config.hasParameter(paramName)).isFalse();
+        config.addParameter(paramName, "true");
+        assertThat(config.hasParameter(paramName)).isTrue();
+        assertThat(config.getParameter(paramName).getAsBoolean()).isTrue();
     }
 
     /**

@@ -1,9 +1,12 @@
 package nl.tudelft.goalanalyzer.util;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Class holding all program launch parameters.
@@ -47,6 +50,26 @@ public class Configuration {
      */
     public static synchronized Configuration load(String[] args) {
         Configuration configuration = Configuration.getInstance();
+        Pattern pattern = Pattern.compile("(\\w+)(?:=(.+))?");
+
+        for (String arg : args) {
+            if (arg.charAt(0) == '-') {
+                Matcher matcher = pattern.matcher(arg);
+                while (matcher.find()) {
+                    String name = matcher.group(1);
+                    String value = matcher.group(2);
+                    if (value == null) {
+                        value = "true";
+                    }
+                    configuration.addParameter(name, value);
+                }
+            } else {
+                File file = new File(arg);
+                if (file.exists() && !file.isDirectory()) {
+                    configuration.addFile(file.getAbsolutePath());
+                }
+            }
+        }
         return configuration;
     }
 

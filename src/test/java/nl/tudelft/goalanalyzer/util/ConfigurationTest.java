@@ -77,4 +77,23 @@ class ConfigurationTest {
         config.addFile("awesome-file2.txt");
         assertThat(config.getFiles()).contains("awesome-file2.txt");
     }
+
+    /**
+     * Checks if we can parse arguments correctly.
+     */
+    @Test
+    void loadTest() {
+        String[] args = new String[] {
+                "-flag",
+                "-var=value",
+                "src/main/resources/rules.json",
+                "src/main/resources/",
+                "fghdghfd"
+        };
+        Configuration.load(args);
+        assertThat(config.hasParameter("flag"));
+        assertThat(config.getParameter("flag").getAsBoolean()).isTrue();
+        assertThat(config.getParameter("var").getAsString()).isEqualTo("value");
+        assertThat(config.getFiles()).hasSize(1);
+    }
 }

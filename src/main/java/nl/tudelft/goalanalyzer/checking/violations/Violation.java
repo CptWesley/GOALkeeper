@@ -81,7 +81,7 @@ public class Violation {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(message).append(" of severity ")
+        sb.append("'").append(message).append("' of severity ")
                 .append(severity).append(" found");
         if (!file.isEmpty()) {
             sb.append(" in '").append(file).append('\'');

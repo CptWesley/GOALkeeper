@@ -64,4 +64,19 @@ public class Rule {
         }
         return 0;
     }
+
+    /**
+     * Gets the maximum value before a certain severity.
+     * @param severity Severity to check for.
+     * @return The maximum value before we reach a certain severity.
+     */
+    public double maxValueBefore(int severity) {
+        double max = Double.MIN_VALUE;
+        for (Stage stage : stages) {
+            if (stage.getSeverity() < severity) {
+                max = stage.getMax();
+            }
+        }
+        return max;
+    }
 }

@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
 /**
  * Class holding all program launch parameters.
  */
-public class Configuration {
+public final class Configuration {
     private static Configuration configuration;
 
     private Map<String, LaunchVariable> parameters;

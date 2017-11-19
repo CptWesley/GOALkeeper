@@ -3,7 +3,7 @@ package nl.tudelft.goalanalyzer.util;
 /**
  * Class holding launch parameter variables.
  */
-public class LaunchVariable {
+public final class LaunchVariable {
 
     private String value;
 

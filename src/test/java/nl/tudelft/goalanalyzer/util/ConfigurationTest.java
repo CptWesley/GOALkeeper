@@ -45,4 +45,36 @@ class ConfigurationTest {
         Configuration.clear();
         assertThat(config).isNotSameAs(Configuration.getInstance());
     }
+
+    /**
+     * Checks that a parameter is added correctly.
+     */
+    @Test
+    void addParameterTest() {
+        assertThat(config.hasParameter("paname")).isFalse();
+        config.addParameter("paname", "true");
+        assertThat(config.hasParameter("paname")).isTrue();
+        assertThat(config.getParameter("paname").getAsBoolean()).isTrue();
+    }
+
+    /**
+     * Checks that files are handled properly.
+     */
+    @Test
+    void filesSizeTest() {
+        assertThat(config.getFiles()).isEmpty();
+        config.addFile("awesome-file.txt");
+        assertThat(config.getFiles()).hasSize(1);
+        config.addFile("awesome-file.txt");
+        assertThat(config.getFiles()).hasSize(1);
+    }
+
+    /**
+     * Checks that files are handled properly.
+     */
+    @Test
+    void filesAddTest() {
+        config.addFile("awesome-file2.txt");
+        assertThat(config.getFiles()).contains("awesome-file2.txt");
+    }
 }

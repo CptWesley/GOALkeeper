@@ -43,4 +43,30 @@ class LinesOfCodeCheckerTest {
         assertThat(violation.getMaximumValue()).isEqualTo(2);
         assertThat(violation.getActualValue()).isEqualTo(5);
     }
+
+    /**
+     * Checks that the lines of code violations is empty if no rules.
+     * @throws IOException Should not be thrown.
+     * @throws MalformedRulesException Should not be thrown.
+     */
+    @Test
+    void runTestEmpty() throws IOException, MalformedRulesException {
+        Collection<Violation> violations = checker.run(new String[]{
+                "src/test/resources/testfiles/toomanylines.txt"
+        }, RuleSet.load("src/test/resources/testfiles/checker-test-rules-empty.json"));
+        assertThat(violations).isEmpty();
+    }
+
+    /**
+     * Checks that the lines of code violations is empty if disabled.
+     * @throws IOException Should not be thrown.
+     * @throws MalformedRulesException Should not be thrown.
+     */
+    @Test
+    void runTestDisabled() throws IOException, MalformedRulesException {
+        Collection<Violation> violations = checker.run(new String[]{
+                "src/test/resources/testfiles/toomanylines.txt"
+        }, RuleSet.load("src/test/resources/testfiles/checker-test-rules-disabled.json"));
+        assertThat(violations).isEmpty();
+    }
 }

@@ -15,6 +15,7 @@ public class Violation {
     @Getter private int endingLine; //NOPMD
     @Getter private double actualValue; //NOPMD
     @Getter private double maximumValue; //NOPMD
+    @Getter private boolean error; //NOPMD
 
     /**
      * Constructor for the violations class.
@@ -29,6 +30,7 @@ public class Violation {
         endingLine = -1;
         actualValue = -1;
         maximumValue = -1;
+        error = false;
     }
 
     /**
@@ -81,9 +83,24 @@ public class Violation {
         return this;
     }
 
+    /**
+     * Sets the error value of this violation.
+     * @param status Error status of the violation.
+     * @return This violation.
+     */
+    public Violation setError(boolean status) {
+        error = status;
+        return this;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder(BUILDER_CAPACITY);
+        if (error) {
+            sb.append("Error ");
+        } else {
+            sb.append("Warning ");
+        }
         sb.append('\'').append(message).append("' of severity ")
                 .append(severity).append(" found");
         if (!file.isEmpty()) {

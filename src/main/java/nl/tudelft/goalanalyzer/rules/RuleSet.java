@@ -15,7 +15,7 @@ import java.util.Map;
 public final class RuleSet {
 
     private Map<String, Rule> rules;
-    @Getter private int errorSeverity;
+    @Getter private int errorSeverity; //NOPMD
 
     /**
      * Constructor for rule sets.
@@ -34,7 +34,7 @@ public final class RuleSet {
      */
     public static RuleSet load(String path) throws MalformedRulesException, IOException {
         RuleSetParser parser = new RuleSetParser();
-        String content = new String(Files.readAllBytes(Paths.get(path)));
+        String content = new String(Files.readAllBytes(Paths.get(path)), "UTF-8");
         parser.parse(content);
         int errorSeverity = parser.getErrorSeverity();
         Map<String, Rule> rules = parser.getRules();

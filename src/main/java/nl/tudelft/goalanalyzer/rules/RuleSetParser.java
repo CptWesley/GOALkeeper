@@ -16,7 +16,7 @@ import java.util.Map;
  */
 class RuleSetParser {
 
-    @Getter private boolean parsed;
+    @Getter private boolean parsed; //NOPMD
     private JsonObject object;
 
     /**
@@ -95,6 +95,7 @@ class RuleSetParser {
      * @return Stage created from json.
      * @throws MalformedRulesException Thrown when stage json is malformed.
      */
+    @SuppressWarnings("PMD.EmptyCatchBlock")
     private Stage parseStage(JsonObject object) {
         Stage stage = new Stage();
         try {

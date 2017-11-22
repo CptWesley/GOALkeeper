@@ -1,0 +1,10 @@
+{
+  "error-severity": 1,
+  "rules": [
+    {
+      "name": "LOC",
+      "enabled": false,
+      "stages": []
+    }
+  ]
+}

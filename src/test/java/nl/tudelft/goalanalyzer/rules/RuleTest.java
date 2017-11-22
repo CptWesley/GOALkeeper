@@ -61,4 +61,17 @@ class RuleTest {
         rule.addStage(s1).addStage(s2).addStage(s3);
         assertThat(rule.severityOf(5)).isEqualTo(2);
     }
+
+    /**
+     * Checks that we return the right maximum value before reaching a certain severity.
+     */
+    @Test
+    void maxValueBeforeTest() {
+        Stage s1 = new Stage().setSeverity(0).setMin(0).setMax(3);
+        Stage s2 = new Stage().setSeverity(1).setMin(3).setMax(5);
+        Stage s3 = new Stage().setSeverity(2).setMin(5);
+        rule.addStage(s1).addStage(s2).addStage(s3);
+        assertThat(rule.maxValueBefore(1)).isEqualTo(3);
+        assertThat(rule.maxValueBefore(5)).isEqualTo(Double.MAX_VALUE);
+    }
 }

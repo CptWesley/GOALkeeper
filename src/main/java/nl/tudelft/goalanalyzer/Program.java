@@ -47,29 +47,7 @@ public final class Program {
         CheckerRunner runner = new CheckerRunner();
         Collection<Violation> violations = runner.run(fileSystem, rules);
         Console.println("Found " + violations.size() + " violations.");
-        int errors = 0;
-        for (Violation violation : violations) {
-            if (violation.isError()) {
-                ++errors;
-                Console.println(violation.toString(), ConsoleColor.RED);
-            } else {
-                Console.println(violation.toString(), ConsoleColor.YELLOW);
-            }
-        }
-
-        if (errors > 0 && rules.failsOnError()) {
-            Console.println("Build failed with "
-                    + errors
-                    + " errors and "
-                    + (violations.size() - errors)
-                    + " warnings.", ConsoleColor.RED);
-            System.exit(ExitCode.ERROR_FOUND);
-        }
-        Console.println("Build succeeded with "
-                + errors
-                + " errors and "
-                + (violations.size() - errors)
-                + " warnings.", ConsoleColor.BLUE);
+        handleViolations(violations, rules.failsOnError());
     }
 
     /**
@@ -128,5 +106,38 @@ public final class Program {
             System.exit(ExitCode.NO_MAS);
         }
         return indexer.getFileSystem();
+    }
+
+    /**
+     * Handles violations.
+     * @param violations Collection of violations.
+     * @param failOnError True if we should fail the build when finding an error.
+     */
+    private static void handleViolations(Collection<Violation> violations,
+                                         boolean failOnError) {
+        int errors = 0;
+        for (Violation violation : violations) {
+            if (violation.isError()) {
+                ++errors;
+                Console.println(violation.toString(), ConsoleColor.RED);
+            } else {
+                Console.println(violation.toString(), ConsoleColor.YELLOW);
+            }
+        }
+
+        if (errors > 0 && failOnError) {
+            Console.println("Build failed with "
+                    + errors
+                    + " errors and "
+                    + (violations.size() - errors)
+                    + " warnings.", ConsoleColor.RED);
+            System.exit(ExitCode.ERROR_FOUND);
+        }
+        Console.println("Build succeeded with "
+                + errors
+                + " errors and "
+                + (violations.size() - errors)
+                + " warnings.", ConsoleColor.BLUE);
+        System.exit(0);
     }
 }

@@ -51,7 +51,7 @@ public final class Console {
      * @param color Color to print with.
      */
     public static void println(String text, ConsoleColor color) {
-        print(color.getAnsi() + text);
+        print(text);
         println();
     }
 }

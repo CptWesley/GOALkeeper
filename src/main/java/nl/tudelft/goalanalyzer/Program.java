@@ -138,6 +138,6 @@ public final class Program {
                 + " errors and "
                 + (violations.size() - errors)
                 + " warnings.", ConsoleColor.BLUE);
-        System.exit(0);
+        System.exit(ExitCode.SUCCESSFUL);
     }
 }

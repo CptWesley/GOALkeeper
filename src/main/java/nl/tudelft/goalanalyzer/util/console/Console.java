@@ -1,9 +1,18 @@
 package nl.tudelft.goalanalyzer.util.console;
 
+import lombok.Setter;
+
 /**
  * Class that handles console printing for different operating systems.
  */
 public final class Console {
+
+    @Setter private static boolean useColor;
+
+    static {
+        useColor = !System.getProperty("os.name").startsWith("Windows");
+    }
+
     /**
      * Prevents instantiation.
      */
@@ -23,10 +32,10 @@ public final class Console {
      * @param color Color to print with.
      */
     public static void print(String text, ConsoleColor color) {
-        if (System.getProperty("os.name").startsWith("Windows")) {
-            System.out.print(text);
-        } else {
+        if (useColor) {
             System.out.print(color.getAnsi() + text);
+        } else {
+            System.out.print(text);
         }
     }
 
@@ -53,5 +62,13 @@ public final class Console {
     public static void println(String text, ConsoleColor color) {
         print(text);
         println();
+    }
+
+    /**
+     * Checks if we are printing with color.
+     * @return True if printing with color.
+     */
+    public static boolean usesColor() {
+        return useColor;
     }
 }

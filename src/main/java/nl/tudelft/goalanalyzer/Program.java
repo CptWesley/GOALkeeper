@@ -1,8 +1,10 @@
 package nl.tudelft.goalanalyzer;
 
 import nl.tudelft.goalanalyzer.exceptions.MalformedRulesException;
+import nl.tudelft.goalanalyzer.exceptions.WrongFileTypeException;
 import nl.tudelft.goalanalyzer.rules.RuleSet;
 import nl.tudelft.goalanalyzer.util.Configuration;
+import nl.tudelft.goalanalyzer.util.MasIndexer;
 import nl.tudelft.goalanalyzer.util.console.Console;
 import nl.tudelft.goalanalyzer.util.console.ConsoleColor;
 
@@ -30,6 +32,7 @@ public final class Program {
         }
         Console.println("Performing goal-analyzer...");
         validateConfiguration();
+        String[] fileSystem = getFileSystem();
         RuleSet rules = getRuleSet();
     }
 
@@ -65,6 +68,20 @@ public final class Program {
                     + "'.", ConsoleColor.RED);
         }
         System.exit(ExitCode.NO_RULES);
+        return null;
+    }
+
+    private static String[] getFileSystem() {
+        String fileName = Configuration.getInstance().getParameter("mas").getAsString();
+        MasIndexer indexer;
+        try {
+            indexer = MasIndexer.create(fileName);
+        } catch (WrongFileTypeException e) {
+            Console.println("[ERROR] File '"
+                    + fileName
+                    + "' is not a '.mas2g' file.", ConsoleColor.RED);
+            System.exit(ExitCode.NO_MAS);
+        }
         return null;
     }
 }

@@ -89,7 +89,7 @@ public final class MasIndexer {
     private static List<String> getFileSystem(File directory) {
         List<String> files = new ArrayList<>();
         for (File file : directory.listFiles()) {
-            if (file.isFile()) {
+            if (file.isFile() && isSupportedFile(file.getName())) {
                 files.add(file.getName());
             } else if (file.isDirectory()) {
                 files.addAll(getFileSystem(file));

@@ -114,6 +114,41 @@ class RuleSetParserTest {
     }
 
     /**
+     * Checks that error severity getter is functioning correctly.
+     */
+    @Test
+    void getFailOnErrorTest() throws MalformedRulesException {
+        assertThat(parser.getFailOnError()).isEqualTo(true);
+    }
+
+    /**
+     * Checks that a MalformedRulesException is thrown when we execute the method
+     * before parsing.
+     */
+    @Test
+    void getFailOnErrorNotParsedTest() {
+        parser = Mockito.spy(new RuleSetParser());
+        assertThatThrownBy(() -> parser.getFailOnError())
+                .isInstanceOf(NotParsedException.class);
+        Mockito.when(parser.isParsed()).thenReturn(true);
+        assertThatThrownBy(() -> parser.getFailOnError())
+                .isInstanceOf(NotParsedException.class);
+    }
+
+    /**
+     * Checks that an MalformedRulesException is thrown when we execute the method
+     * while the setting is not defined.
+     */
+    @Test
+    void getFailOnErrorNotDefinedTest() throws MalformedRulesException {
+        parser = new RuleSetParser();
+        parser.parse("{}");
+        assertThatThrownBy(() -> parser.getFailOnError())
+                .isInstanceOf(MalformedRulesException.class)
+                .hasMessage("Missing 'fail-on-error' setting.");
+    }
+
+    /**
      * Checks that rules are fetched properly. Smokey test.
      * @throws MalformedRulesException Should never be thrown.
      */

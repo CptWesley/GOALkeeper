@@ -63,4 +63,12 @@ public final class RuleSet {
     public boolean hasRule(String name) {
         return getRule(name) != null;
     }
+
+    /**
+     * Checks if we should fail the build when receiving an error.
+     * @return True if we should fail a build when finding an error.
+     */
+    public boolean failsOnError() {
+        return failOnError;
+    }
 }

@@ -42,7 +42,7 @@ public final class LinesOfCodeChecker implements CheckerInterface {
                 boolean error = severity >= ruleSet.getErrorSeverity();
                 violations.add(new Violation(VIOLATION_NAME, severity)
                         .setActualValue(lines)
-                        .setMaximumValue(rule.maxValueBefore(ruleSet.getErrorSeverity()))
+                        .setMaximumValue(rule.maxValueBefore(1))
                         .setFile(fileName)
                         .setError(error));
             }

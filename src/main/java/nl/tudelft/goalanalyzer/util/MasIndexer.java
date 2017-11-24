@@ -50,7 +50,7 @@ public final class MasIndexer {
      */
     public static MasIndexer create(String masFile)
             throws WrongFileTypeException, FileNotFoundException {
-        if (!getExtension(masFile).toLowerCase().equals(EXTENSION)) {
+        if (!getExtension(masFile).equalsIgnoreCase(EXTENSION)) {
             throw new WrongFileTypeException("Expected type: " + EXTENSION);
         }
         if (!new File(masFile).exists()) {
@@ -66,7 +66,7 @@ public final class MasIndexer {
      */
     private static String getExtension(String fileName) {
         try {
-            return fileName.substring(fileName.lastIndexOf("."));
+            return fileName.substring(fileName.lastIndexOf('.'));
         } catch (IndexOutOfBoundsException e) {
             return "";
         }

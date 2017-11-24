@@ -4,6 +4,7 @@ import lombok.Getter;
 import nl.tudelft.goalanalyzer.exceptions.WrongFileTypeException;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,9 +47,12 @@ public final class MasIndexer {
      * @return Instance of a max indexer.
      * @throws WrongFileTypeException Thrown when masFile is of wrong type.
      */
-    public static MasIndexer create(String masFile) throws WrongFileTypeException {
+    public static MasIndexer create(String masFile) throws WrongFileTypeException, FileNotFoundException {
         if (!getExtension(masFile).toLowerCase().equals(EXTENSION)) {
             throw new WrongFileTypeException("Expected type: " + EXTENSION);
+        }
+        if (!new File(masFile).exists()) {
+            throw new FileNotFoundException();
         }
         return new MasIndexer(masFile);
     }
@@ -90,7 +94,7 @@ public final class MasIndexer {
         List<String> files = new ArrayList<>();
         for (File file : directory.listFiles()) {
             if (file.isFile() && isSupportedFile(file.getName())) {
-                files.add(file.getName());
+                files.add(file.getAbsolutePath());
             } else if (file.isDirectory()) {
                 files.addAll(getFileSystem(file));
             }

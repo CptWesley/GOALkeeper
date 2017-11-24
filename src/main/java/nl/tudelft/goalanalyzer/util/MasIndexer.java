@@ -46,8 +46,10 @@ public final class MasIndexer {
      * @param masFile Mas file path.
      * @return Instance of a max indexer.
      * @throws WrongFileTypeException Thrown when masFile is of wrong type.
+     * @throws FileNotFoundException Thrown when masFile doesn't exist.
      */
-    public static MasIndexer create(String masFile) throws WrongFileTypeException, FileNotFoundException {
+    public static MasIndexer create(String masFile)
+            throws WrongFileTypeException, FileNotFoundException {
         if (!getExtension(masFile).toLowerCase().equals(EXTENSION)) {
             throw new WrongFileTypeException("Expected type: " + EXTENSION);
         }

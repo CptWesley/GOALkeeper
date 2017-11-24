@@ -4,7 +4,8 @@ import lombok.Getter;
 import nl.tudelft.goalanalyzer.exceptions.WrongFileTypeException;
 
 import java.io.File;
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Class for indexing GOAL multi agent system projects.
@@ -36,10 +37,7 @@ public final class MasIndexer {
      */
     public String[] getFileSystem() {
         File dir = new File(masFile).getParentFile();
-        return Arrays.stream(dir.listFiles())
-                .filter(file ->
-                        isSupportedFile(file.getAbsolutePath()))
-                .map(File::getAbsolutePath).toArray(String[]::new);
+        return getFileSystem(dir).toArray(new String[0]);
     }
 
     /**
@@ -81,5 +79,22 @@ public final class MasIndexer {
             }
         }
         return false;
+    }
+
+    /**
+     * Gets all files in all sub directories.
+     * @param directory Directory to start in.
+     * @return Collection of all file names in sub directories.
+     */
+    private static List<String> getFileSystem(File directory) {
+        List<String> files = new ArrayList<>();
+        for (File file : directory.listFiles()) {
+            if (file.isFile()) {
+                files.add(file.getName());
+            } else if (file.isDirectory()) {
+                files.addAll(getFileSystem(file));
+            }
+        }
+        return files;
     }
 }

@@ -1,5 +1,7 @@
 package nl.tudelft.goalanalyzer;
 
+import nl.tudelft.goalanalyzer.checking.CheckerRunner;
+import nl.tudelft.goalanalyzer.checking.violations.Violation;
 import nl.tudelft.goalanalyzer.exceptions.MalformedRulesException;
 import nl.tudelft.goalanalyzer.exceptions.WrongFileTypeException;
 import nl.tudelft.goalanalyzer.rules.RuleSet;
@@ -10,6 +12,7 @@ import nl.tudelft.goalanalyzer.util.console.ConsoleColor;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Collection;
 
 /**
  * Main class of the program.
@@ -33,8 +36,40 @@ public final class Program {
         }
         Console.println("Performing goal-analyzer...");
         validateConfiguration();
+
+        Console.println("Acquiring files...");
         String[] fileSystem = getFileSystem();
+
+        Console.println("Acquiring rules...");
         RuleSet rules = getRuleSet();
+
+        Console.println("Analyzing...");
+        CheckerRunner runner = new CheckerRunner();
+        Collection<Violation> violations = runner.run(fileSystem, rules);
+        Console.println("Found " + violations.size() + " violations.");
+        int errors = 0;
+        for (Violation violation : violations) {
+            if (violation.isError()) {
+                ++errors;
+                Console.println(violation.toString(), ConsoleColor.RED);
+            } else {
+                Console.println(violation.toString(), ConsoleColor.YELLOW);
+            }
+        }
+
+        if (errors > 0 && rules.failsOnError()) {
+            Console.println("Build failed with "
+                    + errors
+                    + " errors and "
+                    + (violations.size() - errors)
+                    + " warnings.", ConsoleColor.RED);
+            System.exit(ExitCode.ERROR_FOUND);
+        }
+        Console.println("Build succeeded with "
+                + errors
+                + " errors and "
+                + (violations.size() - errors)
+                + " warnings.", ConsoleColor.BLUE);
     }
 
     /**

@@ -8,6 +8,7 @@ import nl.tudelft.goalanalyzer.util.MasIndexer;
 import nl.tudelft.goalanalyzer.util.console.Console;
 import nl.tudelft.goalanalyzer.util.console.ConsoleColor;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 /**
@@ -77,7 +78,7 @@ public final class Program {
      */
     private static String[] getFileSystem() {
         String fileName = Configuration.getInstance().getParameter("mas").getAsString();
-        MasIndexer indexer;
+        MasIndexer indexer = null;
         try {
             indexer = MasIndexer.create(fileName);
         } catch (WrongFileTypeException e) {
@@ -85,7 +86,12 @@ public final class Program {
                     + fileName
                     + "' is not a '.mas2g' file.", ConsoleColor.RED);
             System.exit(ExitCode.NO_MAS);
+        } catch (FileNotFoundException e) {
+            Console.println("[ERROR] File '"
+                    + fileName
+                    + "' does not exist.", ConsoleColor.RED);
+            System.exit(ExitCode.NO_MAS);
         }
-        return null;
+        return indexer.getFileSystem();
     }
 }

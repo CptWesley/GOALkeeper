@@ -71,6 +71,10 @@ public final class Program {
         return null;
     }
 
+    /**
+     * Gets a file system from a mas2g file.
+     * @return
+     */
     private static String[] getFileSystem() {
         String fileName = Configuration.getInstance().getParameter("mas").getAsString();
         MasIndexer indexer;

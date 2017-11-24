@@ -46,7 +46,6 @@ public final class Program {
         Console.println("Analyzing...");
         CheckerRunner runner = new CheckerRunner();
         Collection<Violation> violations = runner.run(fileSystem, rules);
-        Console.println("Found " + violations.size() + " violations.");
         handleViolations(violations, rules.failsOnError());
     }
 

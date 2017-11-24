@@ -1,8 +1,12 @@
 package nl.tudelft.goalanalyzer;
 
+import nl.tudelft.goalanalyzer.exceptions.MalformedRulesException;
+import nl.tudelft.goalanalyzer.rules.RuleSet;
 import nl.tudelft.goalanalyzer.util.Configuration;
 import nl.tudelft.goalanalyzer.util.console.Console;
 import nl.tudelft.goalanalyzer.util.console.ConsoleColor;
+
+import java.io.IOException;
 
 /**
  * Main class of the program.
@@ -26,6 +30,7 @@ public final class Program {
         }
         Console.println("Performing goal-analyzer...");
         validateConfiguration();
+        RuleSet rules = getRuleSet();
     }
 
     /**
@@ -40,5 +45,26 @@ public final class Program {
             Console.println("[ERROR] No '-mas=...' parameter found.", ConsoleColor.RED);
             System.exit(ExitCode.NO_MAS);
         }
+    }
+
+    /**
+     * Gets the ruleset given by the parameters.
+     * @return RuleSet of the parameters.
+     */
+    private static RuleSet getRuleSet() {
+        String fileName = Configuration.getInstance().getParameter("rules").getAsString();
+        try {
+            return RuleSet.load(fileName);
+        } catch (MalformedRulesException e) {
+            Console.println("[ERROR] Malformed JSON '"
+                    + fileName
+                    + "'ruleset found.", ConsoleColor.RED);
+        } catch (IOException e) {
+            Console.println("[ERROR] An error occured while trying to open file '"
+                    + fileName
+                    + "'.", ConsoleColor.RED);
+        }
+        System.exit(ExitCode.NO_RULES);
+        return null;
     }
 }

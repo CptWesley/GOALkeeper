@@ -38,12 +38,14 @@ public final class LinesOfCodeChecker implements CheckerInterface {
                 continue;
             }
             int severity = rule.severityOf(lines);
-            boolean error = severity >= ruleSet.getErrorSeverity();
-            violations.add(new Violation(VIOLATION_NAME, severity)
-                    .setActualValue(lines)
-                    .setMaximumValue(rule.maxValueBefore(ruleSet.getErrorSeverity()))
-                    .setFile(fileName)
-                    .setError(error));
+            if (severity > 0) {
+                boolean error = severity >= ruleSet.getErrorSeverity();
+                violations.add(new Violation(VIOLATION_NAME, severity)
+                        .setActualValue(lines)
+                        .setMaximumValue(rule.maxValueBefore(ruleSet.getErrorSeverity()))
+                        .setFile(fileName)
+                        .setError(error));
+            }
         }
         return violations;
     }

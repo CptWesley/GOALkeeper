@@ -6,6 +6,7 @@ import lombok.Getter;
  * Enumeration of console colors.
  */
 public enum ConsoleColor {
+    EMPTY(""),
     DEFAULT("\u001B[0m"),
     BLACK("\u001B[30m"),
     RED("\u001B[31m"),

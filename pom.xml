@@ -154,6 +154,7 @@
                             <excludes>
                                 <exclude>nl.tudelft.goalanalyzer.Program</exclude>
                                 <exclude>nl.tudelft.goalanalyzer.exceptions.*</exclude>
+                                <exclude>nl.tudelft.goalanalyzer.util.console.*</exclude>
                             </excludes>
                             <limits>
                                 <limit>

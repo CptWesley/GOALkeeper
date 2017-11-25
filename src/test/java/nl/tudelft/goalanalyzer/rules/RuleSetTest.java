@@ -51,4 +51,12 @@ class RuleSetTest {
     void hasRuleFalseTest() {
         assertThat(set.hasRule("LOC2")).isFalse();
     }
+
+    /**
+     * Checks if we correctly retrieve if we need to fail a build on error.
+     */
+    @Test
+    void failsOnErrorTest() {
+        assertThat(set.failsOnError()).isTrue();
+    }
 }

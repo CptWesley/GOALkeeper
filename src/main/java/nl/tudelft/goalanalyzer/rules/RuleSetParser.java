@@ -46,6 +46,18 @@ class RuleSetParser {
     }
 
     /**
+     * Gets the value if we should fail the build when we find an error.
+     * @return True if build should fail on error.
+     * @throws MalformedRulesException Thrown when format is incorrect.
+     */
+    boolean getFailOnError() throws MalformedRulesException {
+        if (!isParsed() || object == null) {
+            throw new NotParsedException();
+        }
+        return VerifiedJsonParser.getBoolean(object, "fail-on-error");
+    }
+
+    /**
      * Gets the rules from the rule set.
      * @return Rule to parse.
      * @throws MalformedRulesException Thrown when the rules are not properly formatted.

@@ -1,5 +1,6 @@
 {
   "error-severity": 2,
+  "fail-on-error": true,
   "rules": [
     {
       "name": "LOC",

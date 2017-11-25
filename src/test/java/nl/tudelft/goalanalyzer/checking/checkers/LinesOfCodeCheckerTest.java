@@ -15,6 +15,8 @@ import static org.assertj.core.api.Assertions.assertThat;
  * Test class for the LinesOfCodeChecker class.
  */
 class LinesOfCodeCheckerTest {
+    private static final String TOO_MANY_LINES_FILE = "src/test/resources/testfiles/toomanylines.txt";
+
     private LinesOfCodeChecker checker;
 
     /**
@@ -32,13 +34,12 @@ class LinesOfCodeCheckerTest {
      */
     @Test
     void runTest() throws IOException, MalformedRulesException {
-        Collection<Violation> violations = checker.run(new String[]{
-                "src/test/resources/testfiles/toomanylines.txt"
-        }, RuleSet.load("src/test/resources/testfiles/checker-test-rules.json"));
+        Collection<Violation> violations = checker.run(new String[]{ TOO_MANY_LINES_FILE },
+                RuleSet.load("src/test/resources/testfiles/checker-test-rules.json"));
         assertThat(violations.size()).isEqualTo(1);
         Violation violation = (Violation)violations.toArray()[0];
         assertThat(violation.getFile())
-                .isEqualTo("src/test/resources/testfiles/toomanylines.txt");
+                .isEqualTo(TOO_MANY_LINES_FILE);
         assertThat(violation.getSeverity()).isEqualTo(1);
         assertThat(violation.getMaximumValue()).isEqualTo(2);
         assertThat(violation.getActualValue()).isEqualTo(5);
@@ -51,9 +52,8 @@ class LinesOfCodeCheckerTest {
      */
     @Test
     void runTestEmpty() throws IOException, MalformedRulesException {
-        Collection<Violation> violations = checker.run(new String[]{
-                "src/test/resources/testfiles/toomanylines.txt"
-        }, RuleSet.load("src/test/resources/testfiles/checker-test-rules-empty.json"));
+        Collection<Violation> violations = checker.run(new String[]{ TOO_MANY_LINES_FILE },
+                RuleSet.load("src/test/resources/testfiles/checker-test-rules-empty.json"));
         assertThat(violations).isEmpty();
     }
 
@@ -64,9 +64,8 @@ class LinesOfCodeCheckerTest {
      */
     @Test
     void runTestDisabled() throws IOException, MalformedRulesException {
-        Collection<Violation> violations = checker.run(new String[]{
-                "src/test/resources/testfiles/toomanylines.txt"
-        }, RuleSet.load("src/test/resources/testfiles/checker-test-rules-disabled.json"));
+        Collection<Violation> violations = checker.run(new String[]{ TOO_MANY_LINES_FILE },
+                RuleSet.load("src/test/resources/testfiles/checker-test-rules-disabled.json"));
         assertThat(violations).isEmpty();
     }
 }

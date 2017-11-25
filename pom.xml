@@ -197,6 +197,12 @@
                 </executions>
                 <configuration>
                     <finalName>${project.artifactId}-${project.version}-with-dependencies</finalName>
+                    <artifactSet>
+                        <includes>
+                            <include>com.google.code.gson:gson</include>
+                            <include>org.reflections:reflections</include>
+                        </includes>
+                    </artifactSet>
                 </configuration>
 				<version>3.1.0</version>
             </plugin>

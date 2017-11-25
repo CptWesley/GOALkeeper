@@ -74,7 +74,7 @@ public final class Program {
         } catch (MalformedRulesException e) {
             Console.println("[ERROR] Malformed JSON '"
                     + fileName
-                    + "'ruleset found.", ConsoleColor.RED);
+                    + "' ruleset found.", ConsoleColor.RED);
         } catch (IOException e) {
             Console.println("[ERROR] An error occured while trying to open file '"
                     + fileName

@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.io.UnsupportedEncodingException;
 import java.security.Permission;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -20,7 +21,8 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
  * Test class for the Program class.
  */
 class ProgramTest {
-
+    private static final String UTF8 = "UTF-8";
+    private static final String EMPTY_RULES = "-rules";
     private final ByteArrayOutputStream out = new ByteArrayOutputStream();
     private static final String NEWLINE = System.getProperty("line.separator");
     private static SecurityManager originalSecurityManager;
@@ -46,9 +48,9 @@ class ProgramTest {
      * Prepares testing environment before each test.
      */
     @BeforeEach
-    void setup() {
+    void setup() throws UnsupportedEncodingException {
         Console.setUseColor(true);
-        System.setOut(new PrintStream(out));
+        System.setOut(new PrintStream(out, false, UTF8));
         Configuration.clear();
     }
 
@@ -75,11 +77,11 @@ class ProgramTest {
      * Checks that rules validation works.
      */
     @Test
-    void validateRulesTest() {
+    void validateRulesTest() throws UnsupportedEncodingException {
         assertThatThrownBy(() -> Program.main(new String[0]))
                 .isInstanceOf(SystemExitException.class)
                 .hasMessage(ExitCode.NO_RULES + "");
-        assertThat(out.toString()).contains(ConsoleColor.RED.getAnsi()
+        assertThat(out.toString(UTF8)).contains(ConsoleColor.RED.getAnsi()
                 + "[ERROR] No '-rules=...' parameter found."
                 + NEWLINE);
     }
@@ -88,11 +90,11 @@ class ProgramTest {
      * Checks that mas validation works.
      */
     @Test
-    void validateMasTest() {
-        assertThatThrownBy(() -> Program.main(new String[]{"-rules"}))
+    void validateMasTest() throws UnsupportedEncodingException {
+        assertThatThrownBy(() -> Program.main(new String[]{EMPTY_RULES}))
                 .isInstanceOf(SystemExitException.class)
                 .hasMessage(ExitCode.NO_MAS + "");
-        assertThat(out.toString()).contains(ConsoleColor.RED.getAnsi()
+        assertThat(out.toString(UTF8)).contains(ConsoleColor.RED.getAnsi()
                 + "[ERROR] No '-mas=...' parameter found."
                 + NEWLINE);
     }
@@ -101,11 +103,11 @@ class ProgramTest {
      * Checks that mas2g extension checking works.
      */
     @Test
-    void getFileSystemNotMas2gTest() {
-        assertThatThrownBy(() -> Program.main(new String[]{"-rules", "-mas"}))
+    void getFileSystemNotMas2gTest() throws UnsupportedEncodingException {
+        assertThatThrownBy(() -> Program.main(new String[]{EMPTY_RULES, "-mas"}))
                 .isInstanceOf(SystemExitException.class)
                 .hasMessage(ExitCode.NO_MAS + "");
-        assertThat(out.toString()).contains(ConsoleColor.RED.getAnsi()
+        assertThat(out.toString(UTF8)).contains(ConsoleColor.RED.getAnsi()
                 + "[ERROR] File 'true' is not a '.mas2g' file."
                 + NEWLINE);
     }
@@ -114,11 +116,11 @@ class ProgramTest {
      * Checks that mas2g existence checking works.
      */
     @Test
-    void getFileSystemMissingFileTest() {
-        assertThatThrownBy(() -> Program.main(new String[]{"-rules", "-mas=blablabla.mas2g"}))
+    void getFileSystemMissingFileTest() throws UnsupportedEncodingException {
+        assertThatThrownBy(() -> Program.main(new String[]{EMPTY_RULES, "-mas=blablabla.mas2g"}))
                 .isInstanceOf(SystemExitException.class)
                 .hasMessage(ExitCode.NO_MAS + "");
-        assertThat(out.toString()).contains(ConsoleColor.RED.getAnsi()
+        assertThat(out.toString(UTF8)).contains(ConsoleColor.RED.getAnsi()
                 + "[ERROR] File 'blablabla.mas2g' does not exist."
                 + NEWLINE);
     }
@@ -127,13 +129,13 @@ class ProgramTest {
      * Checks that rule set existence checking works.
      */
     @Test
-    void getRulesMissingTest() {
+    void getRulesMissingTest() throws UnsupportedEncodingException {
         assertThatThrownBy(() -> Program.main(new String[] {
-                "-rules",
+                EMPTY_RULES,
                 "-mas=src/test/resources/testfiles/empty-project-files/mas.mas2g"
         })).isInstanceOf(SystemExitException.class)
                 .hasMessage(ExitCode.NO_RULES + "");
-        assertThat(out.toString()).contains(ConsoleColor.RED.getAnsi()
+        assertThat(out.toString(UTF8)).contains(ConsoleColor.RED.getAnsi()
                 + "[ERROR] An error occured while trying to open file 'true'."
                 + NEWLINE);
     }
@@ -142,13 +144,13 @@ class ProgramTest {
      * Checks that rule set malformation checking works.
      */
     @Test
-    void getRulesMalformedTest() {
+    void getRulesMalformedTest() throws UnsupportedEncodingException {
         assertThatThrownBy(() -> Program.main(new String[] {
                 "-rules=src/test/resources/testfiles/empty-project-files/mas.mas2g",
                 "-mas=src/test/resources/testfiles/empty-project-files/mas.mas2g"
         })).isInstanceOf(SystemExitException.class)
                 .hasMessage(ExitCode.NO_RULES + "");
-        assertThat(out.toString()).contains(ConsoleColor.RED.getAnsi()
+        assertThat(out.toString(UTF8)).contains(ConsoleColor.RED.getAnsi()
                 + "[ERROR] Malformed JSON 'src/test/resources/testfiles/"
                 +  "empty-project-files/mas.mas2g' ruleset found."
                 + NEWLINE);
@@ -158,13 +160,13 @@ class ProgramTest {
      * Checks that rule set malformation checking works.
      */
     @Test
-    void successTest() {
+    void successTest() throws UnsupportedEncodingException {
         assertThatThrownBy(() -> Program.main(new String[] {
                 "-rules=src/main/resources/rules.json",
                 "-mas=src/test/resources/testfiles/empty-project-files/mas.mas2g"
         })).isInstanceOf(SystemExitException.class)
                 .hasMessage(ExitCode.SUCCESSFUL + "");
-        assertThat(out.toString()).contains(ConsoleColor.BLUE.getAnsi()
+        assertThat(out.toString(UTF8)).contains(ConsoleColor.BLUE.getAnsi()
                 + "Build succeeded with 0 errors and 0 warnings."
                 + NEWLINE);
     }

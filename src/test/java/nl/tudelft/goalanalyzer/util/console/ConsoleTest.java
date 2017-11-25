@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.io.UnsupportedEncodingException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -13,6 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * Test class for the Console class.
  */
 class ConsoleTest {
+    private static final String UTF8 = "UTF-8";
     private final ByteArrayOutputStream out = new ByteArrayOutputStream();
     private static final String NEWLINE = System.getProperty("line.separator");
 
@@ -20,9 +22,9 @@ class ConsoleTest {
      * Prepare test environment before each test.
      */
     @BeforeEach
-    void setup() {
+    void setup() throws UnsupportedEncodingException {
         Console.setUseColor(false);
-        System.setOut(new PrintStream(out));
+        System.setOut(new PrintStream(out, false, UTF8));
     }
 
     /**
@@ -47,55 +49,55 @@ class ConsoleTest {
      * Checks that printing is done correctly.
      */
     @Test
-    void printTest() {
+    void printTest() throws UnsupportedEncodingException {
         Console.print("abcd");
-        assertThat(out.toString()).isEqualTo("abcd");
+        assertThat(out.toString(UTF8)).isEqualTo("abcd");
     }
 
     /**
      * Checks that printing is done correctly.
      */
     @Test
-    void printColorDisabledTest() {
+    void printColorDisabledTest() throws UnsupportedEncodingException {
         Console.print("xyz", ConsoleColor.GREEN);
-        assertThat(out.toString()).isEqualTo("xyz");
+        assertThat(out.toString(UTF8)).isEqualTo("xyz");
     }
 
     /**
      * Checks that printing is done correctly.
      */
     @Test
-    void printColorEnabledTest() {
+    void printColorEnabledTest() throws UnsupportedEncodingException {
         Console.setUseColor(true);
         Console.print("hjk", ConsoleColor.PURPLE);
-        assertThat(out.toString()).isEqualTo("\u001B[35mhjk");
+        assertThat(out.toString(UTF8)).isEqualTo("\u001B[35mhjk");
     }
 
     /**
      * Checks that printing is done correctly.
      */
     @Test
-    void printlnTest() {
+    void printlnTest() throws UnsupportedEncodingException {
         Console.println("efgh");
-        assertThat(out.toString()).isEqualTo("efgh" + NEWLINE);
+        assertThat(out.toString(UTF8)).isEqualTo("efgh" + NEWLINE);
     }
 
     /**
      * Checks that printing is done correctly.
      */
     @Test
-    void printlnColorDisabledTest() {
+    void printlnColorDisabledTest() throws UnsupportedEncodingException {
         Console.println("poil", ConsoleColor.BLACK);
-        assertThat(out.toString()).isEqualTo("poil" + NEWLINE);
+        assertThat(out.toString(UTF8)).isEqualTo("poil" + NEWLINE);
     }
 
     /**
      * Checks that printing is done correctly.
      */
     @Test
-    void printlnColorEnabledTest() {
+    void printlnColorEnabledTest() throws UnsupportedEncodingException {
         Console.setUseColor(true);
         Console.println("das", ConsoleColor.CYAN);
-        assertThat(out.toString()).isEqualTo("\u001B[36mdas" + NEWLINE);
+        assertThat(out.toString(UTF8)).isEqualTo("\u001B[36mdas" + NEWLINE);
     }
 }

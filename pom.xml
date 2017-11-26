@@ -198,7 +198,17 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <finalName>${project.artifactId}-${project.version}-shaded</finalName>
+                    <finalName>${project.artifactId}-${project.version}-with-dependencies</finalName>
+                    <artifactSet>
+                        <excludes>
+                            <exclude>org.opentest4j:opentest4j</exclude>
+                            <exclude>org.junit.platform:junit-platform-commons</exclude>
+                            <exclude>org.junit.platform:junit-platform-engine</exclude>
+                            <exclude>org.junit.vintage:junit-vintage-engine</exclude>
+                            <exclude>org.projectlombok:lombok</exclude>
+                            <exclude>org.jetbrains:annotations</exclude>
+                        </excludes>
+                    </artifactSet>
                 </configuration>
 				<version>3.1.0</version>
             </plugin>

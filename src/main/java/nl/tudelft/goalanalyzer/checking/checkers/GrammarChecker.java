@@ -26,16 +26,16 @@ public class GrammarChecker implements CheckerInterface {
             validator.validate();
             validators.add(validator);
         }
-        return parseViolation(validators);
+        return parseViolation(validators, ruleSet);
     }
 
-    private ArrayList<Violation> parseViolation(List<Validator> validators) {
+    private ArrayList<Violation> parseViolation(List<Validator> validators, RuleSet ruleSet) {
         ArrayList<Violation> violations = new ArrayList<>();
         for (Validator validator: validators) {
             Set<Message> errors = validator.getErrors();
             errors.addAll(validator.getSyntaxErrors());
             for (Message err: errors) {
-                violations.add(new Violation("Syntax Error", Integer.MAX_VALUE).setError(true)
+                violations.add(new Violation("Syntax Error", ruleSet.getErrorSeverity()).setError(true)
                         .setFile(err.getSource().getSource())
                         .setStartingLine(err.getSource().getLineNumber())
                         .setEndingLine(err.getSource().getLineNumber())

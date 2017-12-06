@@ -25,6 +25,10 @@ public final class FileParser {
         return getFileByType(files, "act2g");
     }
 
+    public static List<File> getTestFiles(String[] files) {
+        return getFileByType(files, "test2g");
+    }
+
     private static List<File> getFileByType(String[] files, String type) {
         List<File> fileList = new ArrayList<>();
         for (String file: files) {

@@ -3,20 +3,18 @@ package nl.tudelft.goalanalyzer.checking.checkers;
 import languageTools.analyzer.FileRegistry;
 import languageTools.analyzer.module.ModuleValidator;
 import languageTools.errors.Message;
+import nl.tudelft.goalanalyzer.checking.Checker;
 import nl.tudelft.goalanalyzer.checking.violations.Violation;
 import nl.tudelft.goalanalyzer.rules.RuleSet;
 import nl.tudelft.goalanalyzer.util.FileParser;
 
-import javax.xml.validation.Validator;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
-/**
- * Created by Cedric Willekens (4530373) on 12/6/2017.
- */
+@Checker
 public class Mod2gGrammarChecker implements CheckerInterface{
     @Override
     public Collection<Violation> run(String[] files, RuleSet ruleSet) {

@@ -1,0 +1,30 @@
+use robot as knowledge.
+use robot as actionspec.
+exit=nogoals.
+order=linearrandom.
+
+
+	% If it wants to return a block to a room.
+	if a-goal(return(Block)), bel(at(Room), not(Room = 'DropZone')) then putDown + drop(return(Block)).
+	if a-goal(return(Block)), bel(not(in(Room))) then goTo(Room).
+
+	% Go to a block if the goal is that it wants to see that block.
+	if a-goal(goToBlock(Block)), bel(color(Block, Color)) then goToBlock(Block) + drop(goToBlock(Block)) + allother.send(carrying(Color)).
+	% if the goal is the pickup a block then pick the block up.
+	if a-goal(pickUp(Block)) then pickUp(Block) + drop(pickUp(Block)).
+
+	% Exercise 2.6a: insert code for action rules that makes the agent deliver a block when it
+	%   knows about a block that can be delivered.
+
+	% if it wants to drop a block then go to the dropzone.
+	if a-goal(drop(Block)) then goTo('DropZone') + drop(drop(Block)).
+	% If it wants to deliver a block it will drop it in the dropzone
+	if a-goal(deliver(Block)), bel(at('DropZone'), color(Block,Color), nextColorInSeq(Color)) then putDown + drop(deliver(Block)) + drop(goToBlock(Block)).
+
+	% Exercise 2.5a: insert code for action rules that allows an agent to systematically search for blocks.
+	% If it wants to go to a block in another room it will go to the room.
+	if a-goal(goToBlock(Block)), bel(block(Block,Col,Room), not(in(Room))), not(allother.sent(goingToRoom(Room))) then goTo(Room) + allother.send(goingToRoom(Room)).
+	% If it wants to go to a place then it will go to that place.
+	if a-goal( in(Place) ), not(allother.sent(goingToRoom(Place))) then goTo(Place) + drop(in(Place)) + allother.send(goingToRoom(Place)).
+
+}

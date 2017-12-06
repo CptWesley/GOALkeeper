@@ -1,12 +1,7 @@
-use bw4t as mas.
-use "robot.mod2g" as knowledge.
-use robot as module.
-timeout = 300.
-
 test main with
 	pre { true }
 	in {
-		% Test for percepts	
+		% Test for percepts
 		percept(at(Loc)) leadsto bel(at(Loc)).
 		percept(atBlock(Block)) leadsto bel(atBlock(Block)).
 		percept(not(atBlock(Block))) leadsto not(bel(atBlock(Block))).
@@ -15,48 +10,48 @@ test main with
 		percept(not(holding(Block))) leadsto not(bel(holding(Block))).
 		percept(color(Block,Color)) leadsto bel(color(Block,Color)).
 		percept(atBlock(Block)), bel(nextColorInSeq(Col), block(Block,Col,_)) leadsto goal(pickUp(Block)).
-		
+
 		percept(in(Room)) leadsto bel(in(Room)).
 		percept(not(in(Room))) leadsto not(bel(in(Room))).
-		
+
 		percept(in(Room)), not(bel(visited(Room))) leadsto bel(visited(Room)).
-		
+
 		percept(sequenceIndex(Index)) leadsto bel(sequenceIndex(Index)).
 		percept(not(sequenceIndex(Old))) leadsto not(bel(sequenceIndex(Old))).
-		
-		
+
+
 		percept(color(Block, Color), in(Room)), not(bel(block(Block,Color,Room))) leadsto bel(block(Block,Color,Room)).
 		percept(in(Place)), bel(nextColorInSeq(Col), block(Block,Col,Place)) leadsto goal(goToBlock(Block)).
 		bel(block(Block, Col, Room), nextColorInSeq(Col)) leadsto goal(in(Room)).
-		
+
 		percept(holding(Block)) leadsto goal(drop(Block)).
 		bel(finished), goal(in(Room)) leadsto not(goal(in(Room))).
 		percept(in('DropZone'), holding(Block)) leadsto goal(drop(Block)).
-		
+
 		%Tests for goals
 		goal(goToBlock(Block)) leadsto goToBlock(Block), not(goal(goToBlock(Block))).
 		goal(pickUp(Block)) leadsto pickUp(Block), not(goal(pickUp(Block))).
 		goal(drop(Block)) leadsto goTo('DropZone'), not(goal(drop(Block))).
-		goal(goToBlock(Block)) leadsto goTo(Room).	
-		goal(in(Place)) leadsto goTo(Place), not(goal(in(Place))).			
-		
+		goal(goToBlock(Block)) leadsto goTo(Room).
+		goal(in(Place)) leadsto goTo(Place), not(goal(in(Place))).
+
 		% Assignment 3.1: insert test conditions for the mandatory requirements.
 		bel(holding(Block), not(at('DropZone'))) leadsto not(done(putDown)).
 		bel(nextColorInSeq(Col1),block(Block,Col2,_), not(Col1 = Col2)) leadsto not(done(pickUp(Block))).
 		bel(holding(Block), nextColorInSeq(Col1),block(Block,Col2,_), not(Col1 = Col2)) leadsto not(bel(at('DropZone'))).
 		bel(at('DropZone'), holding(Block)) leadsto not(bel(at('DropZone'), holding(Block))).
-		
+
 		% Assignment 3.2: insert any additional conditions for further requirements.
-		
+
 		bel(not(at(Location)), not(state(traveling))) leadsto done(goTo(Location)).
 		bel(block(Block,Col,Room), at(Room),nextColorInSeq(Col)) leadsto done(goToBlock(Block)).
 		goal(goToBlock(Block)), bel(atBlock(Block), not(holding(Block))) leadsto done(pickUp(Block)).
-		bel(holding(Block), at('DropZone')) leadsto done(putDown), bel(not(holding(Block))).				 
+		bel(holding(Block), at('DropZone')) leadsto done(putDown), bel(not(holding(Block))).
 	}
 	post { true }
-	
 
-	
+
+
 robot {
-	do main. 
+	do main.
 }

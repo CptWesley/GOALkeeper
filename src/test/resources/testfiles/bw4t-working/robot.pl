@@ -18,7 +18,8 @@
 	pickUp/1,
 	seeing/1,
 	return/1,
-	getting/1.
+	getting/1,
+	putDown/0.
 	
 % A room is a place with exactly one neighbour, i.e., there is only one way to get to and from that place.
 room(PlaceID) :- zone(_,PlaceID,_,_,Neighbours), length(Neighbours,1).

@@ -35,7 +35,11 @@ public class GrammarChecker implements CheckerInterface {
             Set<Message> errors = validator.getErrors();
             errors.addAll(validator.getSyntaxErrors());
             for (Message err: errors) {
-                violations.add(new Violation(err.toString(), Integer.MAX_VALUE));
+                violations.add(new Violation("Syntax Error", Integer.MAX_VALUE).setError(true)
+                        .setFile(err.getSource().getSource())
+                        .setStartingLine(err.getSource().getLineNumber())
+                        .setEndingLine(err.getSource().getLineNumber())
+                        .setSuggestion(err.toShortString()));
             }
         }
         return violations;

@@ -25,4 +25,16 @@ public final class FileParser {
         return fileList;
     }
 
+    public static List<File> getModuleFiles(String[] files) {
+        List<File> fileList = new ArrayList<>();
+        for (String file: files) {
+            File temp = new File(file);
+            if (temp.isFile()
+                    && FilenameUtils.getExtension(file).toLowerCase().equals("mod2g")) {
+                fileList.add(temp);
+            }
+        }
+        return fileList;
+    }
+
 }

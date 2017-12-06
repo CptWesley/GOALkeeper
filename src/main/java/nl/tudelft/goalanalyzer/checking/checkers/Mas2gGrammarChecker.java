@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Set;
 
 @Checker
-public class GrammarChecker implements CheckerInterface {
+public class Mas2gGrammarChecker implements CheckerInterface {
     @Override
     public Collection<Violation> run(String[] files, RuleSet ruleSet) {
         List<File> fileList = FileParser.getMasFiles(files);

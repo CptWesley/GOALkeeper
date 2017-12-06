@@ -14,12 +14,12 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 /**
  * Created by Cedric Willekens (4530373) on 12/6/2017.
  */
-public class GrammarCheckerTest {
+public class Mas2GGrammarCheckerTest {
     private CheckerInterface checker;
 
     @BeforeEach
     void setup() {
-        this.checker = new GrammarChecker();
+        this.checker = new Mas2gGrammarChecker();
     }
 
     @Test

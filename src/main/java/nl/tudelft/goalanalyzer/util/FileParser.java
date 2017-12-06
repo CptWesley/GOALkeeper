@@ -14,27 +14,26 @@ public final class FileParser {
      * @return A list of Files which has been found which is a mas2g file.
      */
     public static List<File> getMasFiles(String[] files) {
-        List<File> fileList = new ArrayList<>();
-        for (String file: files) {
-            File temp = new File(file);
-            if (temp.isFile() &&
-                    FilenameUtils.getExtension(file).toLowerCase().equals("mas2g")) {
-                fileList.add(temp);
-            }
-        }
-        return fileList;
+        return getFileByType(files, "mas2g");
     }
 
     public static List<File> getModuleFiles(String[] files) {
+        return getFileByType(files, "mod2g");
+    }
+
+    public static List<File> getActionFiles(String[] files) {
+        return getFileByType(files, "act2g");
+    }
+
+    private static List<File> getFileByType(String[] files, String type) {
         List<File> fileList = new ArrayList<>();
         for (String file: files) {
             File temp = new File(file);
             if (temp.isFile()
-                    && FilenameUtils.getExtension(file).toLowerCase().equals("mod2g")) {
+                    && FilenameUtils.getExtension(file).toLowerCase().equals(type)) {
                 fileList.add(temp);
             }
         }
         return fileList;
     }
-
 }

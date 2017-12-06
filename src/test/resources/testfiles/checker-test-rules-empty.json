@@ -1,4 +1,5 @@
 {
   "error-severity": 1,
+  "fail-on-error": true,
   "rules": []
 }

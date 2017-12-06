@@ -16,13 +16,16 @@ public final class RuleSet {
 
     private Map<String, Rule> rules;
     @Getter private int errorSeverity; //NOPMD
+    private boolean failOnError;
 
     /**
      * Constructor for rule sets.
      */
-    private RuleSet(Map<String, Rule> rules, int errorSeverity) {
+    private RuleSet(Map<String, Rule> rules,
+                    int errorSeverity, boolean failOnError) {
         this.rules = rules;
         this.errorSeverity = errorSeverity;
+        this.failOnError = failOnError;
     }
 
     /**
@@ -37,9 +40,10 @@ public final class RuleSet {
         String content = new String(Files.readAllBytes(Paths.get(path)), "UTF-8");
         parser.parse(content);
         int errorSeverity = parser.getErrorSeverity();
+        boolean failOnError = parser.getFailOnError();
         Map<String, Rule> rules = parser.getRules();
 
-        return new RuleSet(rules, errorSeverity);
+        return new RuleSet(rules, errorSeverity, failOnError);
     }
 
     /**
@@ -58,5 +62,13 @@ public final class RuleSet {
      */
     public boolean hasRule(String name) {
         return getRule(name) != null;
+    }
+
+    /**
+     * Checks if we should fail the build when receiving an error.
+     * @return True if we should fail a build when finding an error.
+     */
+    public boolean failsOnError() {
+        return failOnError;
     }
 }

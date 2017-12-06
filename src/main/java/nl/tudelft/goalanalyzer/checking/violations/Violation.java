@@ -16,6 +16,7 @@ public class Violation {
     @Getter private double actualValue; //NOPMD
     @Getter private double maximumValue; //NOPMD
     @Getter private boolean error; //NOPMD
+    @Getter private String suggestion;
 
     /**
      * Constructor for the violations class.
@@ -31,6 +32,7 @@ public class Violation {
         actualValue = -1;
         maximumValue = -1;
         error = false;
+        suggestion = "";
     }
 
     /**
@@ -93,6 +95,11 @@ public class Violation {
         return this;
     }
 
+    public Violation setSuggestion(String suggestion) {
+        this.suggestion = suggestion;
+        return this;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder(BUILDER_CAPACITY);
@@ -118,6 +125,10 @@ public class Violation {
         if (actualValue >= 0 && maximumValue >= 0) {
             sb.append(" Value was: '").append(actualValue)
                     .append("' while maximum is '").append(maximumValue).append("'.");
+        }
+        sb.append(' ');
+        if (!this.suggestion.equals("")) {
+            sb.append(this.suggestion);
         }
         return sb.toString();
     }

@@ -23,8 +23,9 @@ public class GrammarChecker implements CheckerInterface {
         List<Validator> validators = new ArrayList<>();
         for (File file: fileList) {
             MASValidator validator = new MASValidator(file.getAbsolutePath(), new FileRegistry());
+            validator.validate();
+            validators.add(validator);
         }
-
         return parseViolation(validators);
     }
 

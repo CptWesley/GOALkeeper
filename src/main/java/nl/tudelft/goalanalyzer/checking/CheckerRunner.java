@@ -26,6 +26,7 @@ public final class CheckerRunner {
         Set<Class<?>> classes
                 = new Reflections("nl.tudelft.goalanalyzer.checking.checkers")
                 .getTypesAnnotatedWith(Checker.class);
+        System.out.println("Analyzing using " + classes.size() + " amount of tests");
         for (Class c : classes) {
             CheckerInterface checker;
             try {

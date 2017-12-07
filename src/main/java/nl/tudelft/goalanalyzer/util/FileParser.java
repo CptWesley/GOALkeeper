@@ -6,6 +6,9 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A class which can parse files and split them on several types.
+ */
 public final class FileParser {
 
     private FileParser() { }

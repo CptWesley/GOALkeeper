@@ -96,7 +96,7 @@ public class Violation {
     }
 
     /**
-     * Set the suggestion value for this violation
+     * Set the suggestion value for this violation.
      * @param suggestion The suggestion for the violation.
      * @return The current violation.
      */
@@ -105,6 +105,7 @@ public class Violation {
         return this;
     }
 
+    @SuppressWarnings("MethodLength")
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder(BUILDER_CAPACITY);
@@ -131,8 +132,8 @@ public class Violation {
             sb.append(" Value was: '").append(actualValue)
                     .append("' while maximum is '").append(maximumValue).append("'.");
         }
-        sb.append(' ');
         if (!this.suggestion.equals("")) {
+            sb.append(' ');
             sb.append(this.suggestion);
         }
         sb.append("\n");

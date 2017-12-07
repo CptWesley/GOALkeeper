@@ -32,6 +32,7 @@ class ViolationTest {
         assertThat(violation.getEndingLine()).isEqualTo(-1);
         assertThat(violation.getFile()).isEqualTo("");
         assertThat(violation.isError()).isFalse();
+        assertThat(violation.getSuggestion()).isEqualTo("");
     }
 
     /**
@@ -51,6 +52,8 @@ class ViolationTest {
         assertThat(violation.getFile()).isEqualTo("sgffsgdfgds");
         assertThat(violation.setError(true)).isSameAs(violation);
         assertThat(violation.isError()).isTrue();
+        assertThat(violation.setSuggestion("why")).isSameAs(violation);
+        assertThat(violation.getSuggestion()).isEqualTo("why");
     }
 
     /**
@@ -59,23 +62,27 @@ class ViolationTest {
     @Test
     void toStringTest() {
         assertThat(violation.toString())
-                .isEqualTo("Warning 'blah' of severity 3 found.");
+                .isEqualTo("Warning 'blah' of severity 3 found.\n");
         assertThat(violation.setError(true).toString())
-                .isEqualTo("Error 'blah' of severity 3 found.");
+                .isEqualTo("Error 'blah' of severity 3 found.\n");
         assertThat(violation.setFile("hithere").toString())
-                .isEqualTo("Error 'blah' of severity 3 found in 'hithere'.");
+                .isEqualTo("Error 'blah' of severity 3 found in 'hithere'.\n");
         assertThat(violation.setFile("hithere").toString())
-                .isEqualTo("Error 'blah' of severity 3 found in 'hithere'.");
+                .isEqualTo("Error 'blah' of severity 3 found in 'hithere'.\n");
         assertThat(violation.setStartingLine(4).toString())
-                .isEqualTo("Error 'blah' of severity 3 found in 'hithere'.");
+                .isEqualTo("Error 'blah' of severity 3 found in 'hithere'.\n");
         assertThat(violation.setEndingLine(4).toString())
-                .isEqualTo("Error 'blah' of severity 3 found in 'hithere' at line 4.");
+                .isEqualTo("Error 'blah' of severity 3 found in 'hithere' at line 4.\n");
         assertThat(violation.setEndingLine(5).toString())
-                .isEqualTo("Error 'blah' of severity 3 found in 'hithere' at lines 4-5.");
+                .isEqualTo("Error 'blah' of severity 3 found in 'hithere' at lines 4-5.\n");
         assertThat(violation.setActualValue(20).toString())
-                .isEqualTo("Error 'blah' of severity 3 found in 'hithere' at lines 4-5.");
+                .isEqualTo("Error 'blah' of severity 3 found in 'hithere' at lines 4-5.\n");
         assertThat(violation.setMaximumValue(30).toString())
                 .isEqualTo("Error 'blah' of severity 3 found in 'hithere' " +
-                        "at lines 4-5. Value was: '20.0' while maximum is '30.0'.");
+                        "at lines 4-5. Value was: '20.0' while maximum is '30.0'.\n");
+        assertThat(violation.setSuggestion("why").toString())
+                .isEqualTo("Error 'blah' of severity 3 found in 'hithere' " +
+                        "at lines 4-5. Value was: '20.0' while maximum is '30.0'. why\n");
+
     }
 }

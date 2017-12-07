@@ -1,6 +1,6 @@
 use bw4t as mas.
-use "robot.mod2g" as knowledge.
 use robot as module.
+use robot as knowledge.
 timeout = 300.
 
 test main with

@@ -95,6 +95,11 @@ public class Violation {
         return this;
     }
 
+    /**
+     * Set the suggestion value for this violation
+     * @param suggestion The suggestion for the violation.
+     * @return The current violation.
+     */
     public Violation setSuggestion(String suggestion) {
         this.suggestion = suggestion;
         return this;

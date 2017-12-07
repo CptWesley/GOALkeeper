@@ -15,8 +15,18 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * A class which does executes the grammar checker on mas2g files.
+ */
 @Checker
 public class Mas2gGrammarChecker implements CheckerInterface {
+
+    /**
+     * This checks the files which end in .mas2g to make sure they compile correctly.
+     * @param files Files to check.
+     * @param ruleSet RuleSet to run with.
+     * @return The errors created by the goal grammar parser.
+     */
     @Override
     public Collection<Violation> run(String[] files, RuleSet ruleSet) {
         List<File> fileList = FileParser.getMasFiles(files);
@@ -29,13 +39,20 @@ public class Mas2gGrammarChecker implements CheckerInterface {
         return parseViolation(validators, ruleSet);
     }
 
+    /**
+     * This converts the validators which contain the syntax errors from the mas2g files.
+     * @param validators The list of validators created for the files.
+     * @param ruleSet The rulesset.
+     * @return The errors which are stored in the validators but as Violation instance.
+     */
     private ArrayList<Violation> parseViolation(List<Validator> validators, RuleSet ruleSet) {
         ArrayList<Violation> violations = new ArrayList<>();
         for (Validator validator: validators) {
             Set<Message> errors = validator.getErrors();
             errors.addAll(validator.getSyntaxErrors());
             for (Message err: errors) {
-                violations.add(new Violation("Syntax Error", ruleSet.getErrorSeverity()).setError(true)
+                violations.add(new Violation("Syntax Error", ruleSet.getErrorSeverity())
+                        .setError(true)
                         .setFile(err.getSource().getSource())
                         .setStartingLine(err.getSource().getLineNumber())
                         .setEndingLine(err.getSource().getLineNumber())

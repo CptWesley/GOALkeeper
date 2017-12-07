@@ -41,18 +41,20 @@ public class Act2gGrammarChecker implements CheckerInterface {
     }
 
     /**
-     * This converts the validators which contain the syntax errors from the act2g files
+     * This converts the validators which contain the syntax errors from the act2g files.
      * @param validators The list of validators created for the files.
      * @param ruleSet The rulesset.
      * @return The errors which are stored in the validators but as Violation instance.
      */
-    private ArrayList<Violation> parseViolation(List<ActionSpecValidator> validators, RuleSet ruleSet) {
+    private ArrayList<Violation> parseViolation(List<ActionSpecValidator> validators,
+                                                RuleSet ruleSet) {
         ArrayList<Violation> violations = new ArrayList<>();
         for (Validator validator: validators) {
             Set<Message> errors = validator.getErrors();
             errors.addAll(validator.getSyntaxErrors());
             for (Message err: errors) {
-                violations.add(new Violation("Syntax Error", ruleSet.getErrorSeverity()).setError(true)
+                violations.add(new Violation("Syntax Error",
+                        ruleSet.getErrorSeverity()).setError(true)
                         .setFile(err.getSource().getSource())
                         .setStartingLine(err.getSource().getLineNumber())
                         .setEndingLine(err.getSource().getLineNumber())

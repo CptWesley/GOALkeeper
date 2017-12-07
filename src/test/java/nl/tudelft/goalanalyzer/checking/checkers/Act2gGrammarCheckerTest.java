@@ -28,7 +28,6 @@ public class Act2gGrammarCheckerTest {
                 "src/test/resources/testfiles/failed.act2g"
         }, RuleSet.load("src/test/resources/testfiles/checker-test-rules.json"));
         assertThat(violations.size()).isEqualTo(2);
-        System.out.println(violations.toString());
     }
 
     @Test

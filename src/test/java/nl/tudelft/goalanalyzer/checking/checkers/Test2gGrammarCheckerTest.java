@@ -27,7 +27,6 @@ public class Test2gGrammarCheckerTest {
         Collection<Violation> violations = checker.run(new String[]{
                 "src/test/resources/testfiles/failed.test2g"
         }, RuleSet.load("src/test/resources/testfiles/checker-test-rules.json"));
-        System.out.println(violations.toString());
         assertThat(violations.size()).isEqualTo(1);
     }
 
@@ -36,7 +35,6 @@ public class Test2gGrammarCheckerTest {
         Collection<Violation> violations = checker.run(new String[]{
                 "src/test/resources/testfiles/bw4t-working/robot.test2g"
         }, RuleSet.load("src/test/resources/testfiles/checker-test-rules.json"));
-        System.out.println(violations);
         assertThat(violations.size()).isEqualTo(0);
     }
 }

@@ -3,6 +3,7 @@ package nl.tudelft.goalanalyzer.checking;
 import nl.tudelft.goalanalyzer.checking.checkers.CheckerInterface;
 import nl.tudelft.goalanalyzer.checking.violations.Violation;
 import nl.tudelft.goalanalyzer.rules.RuleSet;
+import nl.tudelft.goalanalyzer.util.console.ProgressBar;
 import org.reflections.Reflections;
 
 import java.util.ArrayList;
@@ -27,7 +28,10 @@ public final class CheckerRunner {
                 = new Reflections("nl.tudelft.goalanalyzer.checking.checkers")
                 .getTypesAnnotatedWith(Checker.class);
         System.out.println("Analyzing using " + classes.size() + " amount of tests");
+        ProgressBar progressBar = new ProgressBar(classes.size());
+
         for (Class c : classes) {
+            progressBar.update();
             CheckerInterface checker;
             try {
                 checker = (CheckerInterface) c.newInstance();

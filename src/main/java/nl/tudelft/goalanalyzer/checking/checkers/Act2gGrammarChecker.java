@@ -20,6 +20,13 @@ import java.util.Set;
  */
 @Checker
 public class Act2gGrammarChecker implements CheckerInterface {
+
+    /**
+     * This checks the files which end in .act2g to make sure they compile correctly.
+     * @param files Files to check.
+     * @param ruleSet RuleSet to run with.
+     * @return The errors created by the goal grammar parser.
+     */
     @Override
     public Collection<Violation> run(String[] files, RuleSet ruleSet) {
         List<File> fileList = FileParser.getActionFiles(files);
@@ -33,6 +40,12 @@ public class Act2gGrammarChecker implements CheckerInterface {
         return parseViolation(validators, ruleSet);
     }
 
+    /**
+     * This converts the validators which contain the syntax errors from the act2g files
+     * @param validators The list of validators created for the files.
+     * @param ruleSet The rulesset.
+     * @return The errors which are stored in the validators but as Violation instance.
+     */
     private ArrayList<Violation> parseViolation(List<ActionSpecValidator> validators, RuleSet ruleSet) {
         ArrayList<Violation> violations = new ArrayList<>();
         for (Validator validator: validators) {

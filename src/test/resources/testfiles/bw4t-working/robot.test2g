@@ -1,4 +1,7 @@
 use bw4t as mas.
+use robot as actionspec.
+use robotEvents as module.
+use robotInit as module.
 use robot as module.
 use robot as knowledge.
 timeout = 300.
@@ -34,11 +37,11 @@ test main with
 		percept(in('DropZone'), holding(Block)) leadsto goal(drop(Block)).
 		
 		%Tests for goals
-		goal(goToBlock(Block)) leadsto goToBlock(Block), not(goal(goToBlock(Block))).
-		goal(pickUp(Block)) leadsto pickUp(Block), not(goal(pickUp(Block))).
-		goal(drop(Block)) leadsto goTo('DropZone'), not(goal(drop(Block))).
-		goal(goToBlock(Block)) leadsto goTo(Room).	
-		goal(in(Place)) leadsto goTo(Place), not(goal(in(Place))).			
+		%goal(goToBlock(Block)) leadsto goToBlock(Block), not(goal(goToBlock(Block))).
+		%goal(pickUp(Block)) leadsto pickUp(Block), not(goal(pickUp(Block))).
+		%goal(drop(Block)) leadsto goTo('DropZone'), not(goal(drop(Block))).
+		%goal(goToBlock(Block)) leadsto goTo(Room).
+		%goal(in(Place)) leadsto goTo(Place), not(goal(in(Place))).
 		
 		% Assignment 3.1: insert test conditions for the mandatory requirements.
 		bel(holding(Block), not(at('DropZone'))) leadsto not(done(putDown)).

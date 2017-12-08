@@ -3,6 +3,7 @@ package nl.tudelft.goalanalyzer.checking.checkers;
 import nl.tudelft.goalanalyzer.checking.violations.Violation;
 import nl.tudelft.goalanalyzer.exceptions.MalformedRulesException;
 import nl.tudelft.goalanalyzer.rules.RuleSet;
+import nl.tudelft.goalanalyzer.util.console.ProgressBar;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -25,6 +26,7 @@ class LinesOfCodeCheckerTest {
     @BeforeEach
     void setup() {
         checker = new LinesOfCodeChecker();
+        ProgressBar.getINSTANCE(1);
     }
 
     /**

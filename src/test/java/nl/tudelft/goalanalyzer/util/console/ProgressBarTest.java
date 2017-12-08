@@ -11,7 +11,7 @@ public class ProgressBarTest {
 
     @BeforeEach
     void init() {
-        this.progressBar = new ProgressBar(5);
+        this.progressBar = ProgressBar.getINSTANCE(3);
     }
 
     @Test

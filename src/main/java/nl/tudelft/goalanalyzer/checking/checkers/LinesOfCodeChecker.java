@@ -4,6 +4,7 @@ import nl.tudelft.goalanalyzer.checking.Checker;
 import nl.tudelft.goalanalyzer.checking.violations.Violation;
 import nl.tudelft.goalanalyzer.rules.Rule;
 import nl.tudelft.goalanalyzer.rules.RuleSet;
+import nl.tudelft.goalanalyzer.util.console.ProgressBar;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -46,6 +47,7 @@ public final class LinesOfCodeChecker implements CheckerInterface {
                         .setFile(fileName)
                         .setError(error));
             }
+            ProgressBar.getINSTANCE().update();
         }
         return violations;
     }

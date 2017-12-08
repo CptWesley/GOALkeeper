@@ -69,7 +69,7 @@ public final class ProgressBar {
 
         System.out.printf(format, percentage, progress, formatChar[taskDone % formatChar.length]);
 
-        if (percentage == 100) {
+        if (percentage == PERCENTAGEMULTIPLIER) {
             System.out.flush();
             //System.out.println();
             this.progress = new StringBuilder(STRINGCAPACITY);

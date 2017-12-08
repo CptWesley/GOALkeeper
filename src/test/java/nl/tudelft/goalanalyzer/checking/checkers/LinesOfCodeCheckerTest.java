@@ -4,6 +4,7 @@ import nl.tudelft.goalanalyzer.checking.violations.Violation;
 import nl.tudelft.goalanalyzer.exceptions.MalformedRulesException;
 import nl.tudelft.goalanalyzer.rules.RuleSet;
 import nl.tudelft.goalanalyzer.util.console.ProgressBar;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -27,6 +28,11 @@ class LinesOfCodeCheckerTest {
     void setup() {
         checker = new LinesOfCodeChecker();
         ProgressBar.getINSTANCE(1);
+    }
+
+    @AfterEach
+    void remove() {
+        ProgressBar.getINSTANCE(Integer.MAX_VALUE);
     }
 
     /**

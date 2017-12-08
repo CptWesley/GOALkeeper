@@ -59,7 +59,8 @@ public final class ProgressBar {
         char[] formatChar = {'|', '/', '-', '\\'};
         String format = "\r%3d%% %s %c";
 
-        int percentage = (++this.taskDone * PERCENTAGEMULTIPLIER) / taskCount;
+        this.taskDone++;
+        int percentage = (this.taskDone * PERCENTAGEMULTIPLIER) / taskCount;
         int extraChars = (percentage / 2) - this.progress.length();
 
         while (extraChars-- > 0) {
@@ -68,10 +69,11 @@ public final class ProgressBar {
 
         System.out.printf(format, percentage, progress, formatChar[taskDone % formatChar.length]);
 
-        if (taskDone == taskCount) {
+        if (percentage == 100) {
             System.out.flush();
-            System.out.println();
+            //System.out.println();
             this.progress = new StringBuilder(STRINGCAPACITY);
+            this.taskDone = 0;
         }
 
     }

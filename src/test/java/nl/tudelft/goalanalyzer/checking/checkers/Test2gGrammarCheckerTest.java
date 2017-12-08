@@ -27,7 +27,7 @@ public class Test2gGrammarCheckerTest {
         Collection<Violation> violations = checker.run(new String[]{
                 "src/test/resources/testfiles/failed.test2g"
         }, RuleSet.load("src/test/resources/testfiles/checker-test-rules.json"));
-        assertThat(violations.size()).isEqualTo(1);
+        assertThat(violations.size()).isEqualTo(5);
     }
 
     @Test

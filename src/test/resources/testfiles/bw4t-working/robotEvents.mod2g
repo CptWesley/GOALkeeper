@@ -5,99 +5,14 @@ module robotEvents {
 	forall bel( state(State)), percept(state(NewState))  
 		do delete( state(State) ) + insert( state(NewState) ).
 	
-	% Record when we are 	entering or leaving a room.
-	forall percept(in(Room)) do insert( in(Room) ).
-	forall percept(not(in(Room))) do delete( in(Room) ).
+	% Record when we are entering or leaving a room.
+	forall percept(in(Place)) do insert( in(Place) ).
+	forall percept(not(in(Place))) do delete( in(Place) ).
 
 	% Exercise 2.1b: insert rules for handling percepts other than "sendonce" percepts.
 	
-	%Insert the current location and delete the old locations
-	forall percept(at(Loc)), bel(at(Old)) do delete(at(Old)) + insert(at(Loc)).
-	
-	%Insert which block are in its reach.
-	forall percept(atBlock(Block)) do insert(atBlock(Block)).
-	forall percept(not(atBlock(Block))) do delete(atBlock(Block)).
-	
-	%Update the block the bot is holding
-	forall percept(holding(Block)) do insert(holding(Block)).
-	forall percept(not(holding(Block))) do delete(holding(Block)).
-	
-	%Set the color of all blocks
-	forall percept(color(Block,Color)), not(bel(color(Block, Color))) do insert(color(Block, Color)).
-	
-	%Update the room the bot is in.
-	forall percept(in(Room)), bel(in(Old)) do insert(in(Room)) + delete(in(Old)).
-	
-	%adds the belief that the agent has visited a room when he is in the room.
-	if percept(in(Room)), not(bel(visited(Room))) then insert(visited(Room)).
-	
-	%Updates the current sequenceIndex
-	forall percept(sequenceIndex(Index)), bel(sequenceIndex(Old)), bel(getting(Block)) do delete(sequenceIndex(Old)) + insert(sequenceIndex(Index)) + delete(getting(Block)).
-			
-	%adds believes that a certain block with a certain color is in a certain room when the agent enters the room.
-	forall percept(color(Block,Color)), percept(in(Room)), bel(not(block(Block,Color,Room))) do insert(block(Block,Color,Room)).
-	
-	%=======================%
-	%		Adopt Goals		%
-	%=======================%
-	
-	%If the bot is holding the correct block then set the goal to deliver the block.
-	if percept(holding(Block)), bel(block(Block,Color,_)), bel(nextColorInSeq(Color)) then adopt(deliver(Block)) + someother.send(carrying(Color)).
-	
-	%If the bot is at a block with the correct color then set the goal to pickUp the block.
-	if percept(atBlock(Block)), bel(nextColorInSeq(Col)), bel(block(Block,Col,_)) then adopt(pickUp(Block)).
-	
-	
-	%forall percept(not(block(Block, Col, Room))) do delete(block(Block, Col, Room)).
-	
 	% Exercise 2.5b: insert code for goal management that allows an agent to systematically search for blocks. (if needed)
-	% If the bot is in the same place as a block that is needed then go to the block.
-	forall percept(in(Place)), bel(nextColorInSeq(Col)) ,bel(block(Block, Col, Place)) do adopt(goToBlock(Block)) + someother.send(getting(Block)).
-
-	%forall bel(block(Block, Col, Room)), not(bel(nextColorInSeq(Col))) do drop(in(Room)).
-
+	
 	% Exercise 2.6b: insert code for goal management that makes the agent deliver a block when it 
 	%   knows about a block that can be delivered. (if needed)
-	% If it knows about a block in a other room with the correct color then adopt the goal to go to that room.
-	if bel(block(Block,Col,Room)), bel(nextColorInSeq(Color)) then adopt(in(Room)).	
-
-	% If the bot is holding a block it wants to drop it in the dropzoe
-	if percept(holding(Block)) then adopt(drop(Block)).
-	
-	%================================%
-	% 			Finished			 %
-	%================================%
-	
-	% If the agent is finished he doesn't need to go to a room anymore.
-	forall bel(finished), goal(in(Room)) do drop(in(Room)).
-	%forall bel(finished), goal(return(X)) do drop(return(X)).
-	forall bel(finished), goal(pickUp(X)) do drop(pickUp(X)).
-	forall bel(finished), goal(drop(X)) do drop(drop(X)).
-	forall bel(finished), goal(deliver(X)) do drop(deliver(X)).
-	forall bel(finished), bel(holding(Block)) do drop(deliver(Block)) + adopt(return(Block)).
-	
-	%================================%
-	% 			Drop Goals			 %
-	%================================%
-	% 4.1.2
-	% Drop a goal to go to a block if that block doesnt Exist anymore.
-	forall goal(goToBlock(Block)), percept(in(Room)), bel(not(block(Block,Color,Room))) do drop(goToBlock(Block), pickUp(Block)).
-	% 4.1.3
-	% If the block that is holding is no longer needed
-	forall bel(holding(Block), color(Block,Color), not(nextColorInSeq(Color))) do drop(deliver(Block))+ drop(drop(Block)) + adopt(return(Block)). 
-	% if another agent is carrying a block, don't go picking up the same color block.
-	%forall someother.sent(carrying(Color)), bel(block(Block, Color, Room)) do drop(goToBlock(Block)) + delete(block(Block, Color, Room)).
-	% if another is agent is carrying a block of a certain color, and 
-	forall someother.sent(getting(Block)), bel(block(Block, Color, _)), bel(block(Block2, Color,_)) do drop(goToBlock(Block2)).
-	if someother.sent(carrying(Color)), bel(block(Block, Color,_)), bel(holding(Block)) then adopt(return(Block)).
-	
-	%================================%
-	%		Sharing Believes		 %
-	%================================%
-	%inform the other agents about blocks which are present in certain rooms
-	forall percept(color(Block,Color)), percept(in(Room)) do someother.send(block(Block, Color,Room)).
-	forall someother.sent(block(Block, Color, Room)), not(bel(block(Block, Color, Room))) do insert(block(Block, Color, Room)).
-	
-	if someother.sent(getting(Block)) then insert(getting(Block)).
-	
 }

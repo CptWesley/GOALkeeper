@@ -1,7 +1,7 @@
-use "bw4t-client-3.8.7-jar-with-dependencies.jar" as environment with
-	clientip = "localhost", clientport="2000",
+use "bw4t-client-3.8.6.jar" as environment with 
+	clientip ="localhost", clientport="2000", 
 	serverip = "localhost", serverport = "8000",
-	agentcount = "3", humancount = "0", launchgui = "false", goal = "true".
+	agentcount = "1", humancount = "0", launchgui = "false", goal = "true".
 
 define robot as agent {
 	use robot as main module.

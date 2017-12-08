@@ -136,7 +136,6 @@ public class Violation {
             sb.append(' ');
             sb.append(this.suggestion);
         }
-        sb.append("\n");
         return sb.toString();
     }
 }

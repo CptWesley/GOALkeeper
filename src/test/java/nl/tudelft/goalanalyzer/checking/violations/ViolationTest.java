@@ -62,27 +62,27 @@ class ViolationTest {
     @Test
     void toStringTest() {
         assertThat(violation.toString())
-                .isEqualTo("Warning 'blah' of severity 3 found.\n");
+                .isEqualTo("Warning 'blah' of severity 3 found.");
         assertThat(violation.setError(true).toString())
-                .isEqualTo("Error 'blah' of severity 3 found.\n");
+                .isEqualTo("Error 'blah' of severity 3 found.");
         assertThat(violation.setFile("hithere").toString())
-                .isEqualTo("Error 'blah' of severity 3 found in 'hithere'.\n");
+                .isEqualTo("Error 'blah' of severity 3 found in 'hithere'.");
         assertThat(violation.setFile("hithere").toString())
-                .isEqualTo("Error 'blah' of severity 3 found in 'hithere'.\n");
+                .isEqualTo("Error 'blah' of severity 3 found in 'hithere'.");
         assertThat(violation.setStartingLine(4).toString())
-                .isEqualTo("Error 'blah' of severity 3 found in 'hithere'.\n");
+                .isEqualTo("Error 'blah' of severity 3 found in 'hithere'.");
         assertThat(violation.setEndingLine(4).toString())
-                .isEqualTo("Error 'blah' of severity 3 found in 'hithere' at line 4.\n");
+                .isEqualTo("Error 'blah' of severity 3 found in 'hithere' at line 4.");
         assertThat(violation.setEndingLine(5).toString())
-                .isEqualTo("Error 'blah' of severity 3 found in 'hithere' at lines 4-5.\n");
+                .isEqualTo("Error 'blah' of severity 3 found in 'hithere' at lines 4-5.");
         assertThat(violation.setActualValue(20).toString())
-                .isEqualTo("Error 'blah' of severity 3 found in 'hithere' at lines 4-5.\n");
+                .isEqualTo("Error 'blah' of severity 3 found in 'hithere' at lines 4-5.");
         assertThat(violation.setMaximumValue(30).toString())
                 .isEqualTo("Error 'blah' of severity 3 found in 'hithere' " +
-                        "at lines 4-5. Value was: '20.0' while maximum is '30.0'.\n");
+                        "at lines 4-5. Value was: '20.0' while maximum is '30.0'.");
         assertThat(violation.setSuggestion("why").toString())
                 .isEqualTo("Error 'blah' of severity 3 found in 'hithere' " +
-                        "at lines 4-5. Value was: '20.0' while maximum is '30.0'. why\n");
+                        "at lines 4-5. Value was: '20.0' while maximum is '30.0'. why");
 
     }
 }

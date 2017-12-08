@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * Created by Cedric Willekens (4530373) on 12/6/2017.
+ * A checker for act2g files to check the grammar.
  */
 @Checker
 public class Act2gGrammarChecker implements CheckerInterface {

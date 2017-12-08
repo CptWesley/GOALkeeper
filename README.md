@@ -21,5 +21,5 @@ More information can be found on the [wiki](https://github.com/CptWesley/goal-an
 
 ***
 
-created by: [Wesley Baartman](https://github.com/cptwesley) and [Cedric Willekens](https://github.com/ceddy4395)  
-under the supervision of: [Vincent Koeman](https://github.com/Venorcis)
+Created by: [Wesley Baartman](https://github.com/cptwesley) and [Cedric Willekens](https://github.com/ceddy4395)  
+Under the supervision of: [Vincent Koeman](https://github.com/Venorcis)

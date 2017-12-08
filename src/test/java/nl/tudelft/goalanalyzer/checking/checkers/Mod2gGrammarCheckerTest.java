@@ -12,7 +12,7 @@ import java.util.Collection;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 /**
- * Created by Cedric Willekens (4530373) on 12/6/2017.
+ * Checker for mod2g files to check if they compile.
  */
 public class Mod2gGrammarCheckerTest {
     private CheckerInterface checker;

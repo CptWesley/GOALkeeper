@@ -31,7 +31,6 @@ public final class CheckerRunner {
         ProgressBar progressBar = ProgressBar.getINSTANCE(classes.size() * files.length);
 
         for (Class c : classes) {
-            //progressBar.update();
             CheckerInterface checker;
             try {
                 checker = (CheckerInterface) c.newInstance();

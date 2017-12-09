@@ -1,0 +1,10 @@
+
+define robot as agent {
+	use robot as main module.
+	use robotInit as init module.
+	use robotEvents as event module.
+}
+
+launchpolicy{
+	when * launch robot.
+}

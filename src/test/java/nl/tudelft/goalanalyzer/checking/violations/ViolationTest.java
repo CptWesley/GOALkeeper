@@ -32,6 +32,7 @@ class ViolationTest {
         assertThat(violation.getEndingLine()).isEqualTo(-1);
         assertThat(violation.getFile()).isEqualTo("");
         assertThat(violation.isError()).isFalse();
+        assertThat(violation.getSuggestion()).isEqualTo("");
     }
 
     /**
@@ -51,6 +52,8 @@ class ViolationTest {
         assertThat(violation.getFile()).isEqualTo("sgffsgdfgds");
         assertThat(violation.setError(true)).isSameAs(violation);
         assertThat(violation.isError()).isTrue();
+        assertThat(violation.setSuggestion("why")).isSameAs(violation);
+        assertThat(violation.getSuggestion()).isEqualTo("why");
     }
 
     /**
@@ -77,5 +80,9 @@ class ViolationTest {
         assertThat(violation.setMaximumValue(30).toString())
                 .isEqualTo("Error 'blah' of severity 3 found in 'hithere' " +
                         "at lines 4-5. Value was: '20.0' while maximum is '30.0'.");
+        assertThat(violation.setSuggestion("why").toString())
+                .isEqualTo("Error 'blah' of severity 3 found in 'hithere' " +
+                        "at lines 4-5. Value was: '20.0' while maximum is '30.0'. why");
+
     }
 }

@@ -1,0 +1,14 @@
+use "bw4t-client-3.8.6.jar" as environment with 
+	clientip ="localhost", clientport="2000", 
+	serverip = "localhost", serverport = "8000",
+	agentcount = "1", humancount = "0", launchgui = "false", goal = "true".
+
+define robot as agent {
+	use robot as main module.
+	use robotInit as init module.
+	use robotEvents as event module.
+} 
+
+launchpolicy{
+	when * launch robot.
+}

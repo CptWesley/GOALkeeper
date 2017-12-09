@@ -1,0 +1,12 @@
+use robot as knowledge.
+use robot as actionspec.
+exit=nogoals.
+
+module main {
+	if a-goal( in(Place) ) then goTo(Place).
+	
+	% Exercise 2.5a: insert code for action rules that allows an agent to systematically search for blocks.
+	
+	% Exercise 2.6a: insert code for action rules that makes the agent deliver a block when it 
+	%   knows about a block that can be delivered.
+}

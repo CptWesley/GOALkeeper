@@ -163,7 +163,7 @@ class ProgramTest {
     void successTest() throws UnsupportedEncodingException {
         assertThatThrownBy(() -> Program.main(new String[] {
                 "-rules=src/main/resources/rules.json",
-                "-mas=src/test/resources/testfiles/empty-project-files/mas.mas2g"
+                "-mas=src/test/resources/testfiles/bw4t-working/bw4t.mas2g"
         })).isInstanceOf(SystemExitException.class)
                 .hasMessage(ExitCode.SUCCESSFUL + "");
         assertThat(out.toString(UTF8)).contains(ConsoleColor.BLUE.getAnsi()

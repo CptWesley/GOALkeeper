@@ -28,10 +28,11 @@ public final class CheckerRunner {
                 = new Reflections("nl.tudelft.goalanalyzer.checking.checkers")
                 .getTypesAnnotatedWith(Checker.class);
         System.out.println("Analyzing using " + classes.size() + " amount of tests");
-        ProgressBar progressBar = ProgressBar.getINSTANCE(classes.size() * files.length);
+        ProgressBar progressBar = ProgressBar.getINSTANCE(classes.size());
 
         for (Class c : classes) {
             CheckerInterface checker;
+            progressBar.update();
             try {
                 checker = (CheckerInterface) c.newInstance();
             } catch (Exception e) {

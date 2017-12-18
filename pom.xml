@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>nl.tudelft.goalanalyzer</groupId>
-    <artifactId>goal-analyzer</artifactId>
+    <artifactId>goalkeeper</artifactId>
     <version>0.1.0</version>
 
     <properties>
@@ -152,10 +152,10 @@
                         <rule implementation="org.jacoco.maven.RuleConfiguration">
                             <element>CLASS</element>
                             <excludes>
-                                <exclude>nl.tudelft.goalanalyzer.Program</exclude>
-                                <exclude>nl.tudelft.goalanalyzer.exceptions.*</exclude>
-                                <exclude>nl.tudelft.goalanalyzer.util.console.*</exclude>
-                                <exclude>nl.tudelft.goalanalyzer.ExitCode</exclude>
+                                <exclude>nl.tudelft.goalkeeper.Program</exclude>
+                                <exclude>nl.tudelft.goalkeeper.exceptions.*</exclude>
+                                <exclude>nl.tudelft.goalkeeper.util.console.*</exclude>
+                                <exclude>nl.tudelft.goalkeeper.ExitCode</exclude>
                             </excludes>
                             <limits>
                                 <limit>
@@ -216,14 +216,11 @@
     </build>
 
     <dependencies>
-
-        <!-- https://mvnrepository.com/artifact/org.bitbucket.goalhub.grammar/languageTools -->
         <dependency>
             <groupId>org.bitbucket.goalhub.grammar</groupId>
             <artifactId>languageTools</artifactId>
             <version>2.0.5</version>
         </dependency>
-
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>

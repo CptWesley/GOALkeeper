@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>nl.tudelft.goalanalyzer</groupId>
-    <artifactId>goal-analyzer</artifactId>
+    <artifactId>goalkeeper</artifactId>
     <version>0.1.0</version>
 
     <properties>
@@ -216,14 +216,11 @@
     </build>
 
     <dependencies>
-
-        <!-- https://mvnrepository.com/artifact/org.bitbucket.goalhub.grammar/languageTools -->
         <dependency>
             <groupId>org.bitbucket.goalhub.grammar</groupId>
             <artifactId>languageTools</artifactId>
             <version>2.0.5</version>
         </dependency>
-
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>

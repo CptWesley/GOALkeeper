@@ -152,10 +152,10 @@
                         <rule implementation="org.jacoco.maven.RuleConfiguration">
                             <element>CLASS</element>
                             <excludes>
-                                <exclude>nl.tudelft.goalanalyzer.Program</exclude>
-                                <exclude>nl.tudelft.goalanalyzer.exceptions.*</exclude>
-                                <exclude>nl.tudelft.goalanalyzer.util.console.*</exclude>
-                                <exclude>nl.tudelft.goalanalyzer.ExitCode</exclude>
+                                <exclude>nl.tudelft.goalkeeper.Program</exclude>
+                                <exclude>nl.tudelft.goalkeeper.exceptions.*</exclude>
+                                <exclude>nl.tudelft.goalkeeper.util.console.*</exclude>
+                                <exclude>nl.tudelft.goalkeeper.ExitCode</exclude>
                             </excludes>
                             <limits>
                                 <limit>

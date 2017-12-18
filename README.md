@@ -11,7 +11,7 @@ reduce potential bugs.
  
 ## Usage
 
-The jar can be used by running the command:   
+The jar can be used by running the command:  
 `java -jar {name of jar} -rules={relative-path-to-rules-file} -mas={relative-path-to-mas2g-file}`
 
 This jar can also be used on continuous integration servers as it will return an appropriate exit

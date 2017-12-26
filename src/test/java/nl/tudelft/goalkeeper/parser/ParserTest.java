@@ -32,6 +32,8 @@ class ParserTest {
         ParseResult result = parser.parse("src/test/resources/testfiles/failed.mas2g");
         assertThat(result.getViolations()).hasSize(4);
         assertThat(result.isSuccessful()).isFalse();
+        assertThat(result.getViolations()).filteredOn(o -> o.isError()).hasSize(3);
+        assertThat(result.getViolations()).filteredOn(o -> !o.isError()).hasSize(1);
     }
 
     /**

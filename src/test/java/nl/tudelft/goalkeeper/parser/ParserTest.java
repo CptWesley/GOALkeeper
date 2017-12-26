@@ -36,6 +36,9 @@ class ParserTest {
         assertThat(result.getViolations()).filteredOn(o -> !o.isError()).hasSize(1);
     }
 
+    /**
+     * Add checks for correct files.
+     */
     @Test
     void successTest() {
         ParseResult result = parser.parse("src/test/resources/testfiles/bw4t-working/bw4t.mas2g");

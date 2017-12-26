@@ -47,22 +47,4 @@ class ParserTest {
         assertThat(result.getViolations()).filteredOn(o -> o.isError()).hasSize(0);
         assertThat(result.getViolations()).filteredOn(o -> !o.isError()).hasSize(1);
     }
-
-    /**
-     * Checks that we can properly convert errors to violations.
-     */
-    @Test
-    void toViolationTest() {
-        Message error = Mockito.mock(Message.class);
-        SourceInfo si = Mockito.mock(SourceInfo.class);
-        Mockito.when(error.getSource()).thenReturn(si);
-        Mockito.when(error.toShortString()).thenReturn("bla");
-        Mockito.when(si.getLineNumber()).thenReturn(23);
-        Mockito.when(si.getSource()).thenReturn("foobar");
-        Violation violation = Parser.toViolation(error);
-        assertThat(violation.getEndingLine()).isEqualTo(23);
-        assertThat(violation.getStartingLine()).isEqualTo(23);
-        assertThat(violation.getFile()).isEqualTo("foobar");
-        assertThat(violation.getMessage()).isEqualTo("bla");
-    }
 }

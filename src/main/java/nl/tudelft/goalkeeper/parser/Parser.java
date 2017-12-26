@@ -3,14 +3,11 @@ package nl.tudelft.goalkeeper.parser;
 import languageTools.analyzer.FileRegistry;
 import languageTools.analyzer.mas.MASValidator;
 import languageTools.errors.Message;
-import nl.tudelft.goalkeeper.checking.violations.Violation;
 
 /**
  * Parses a MAS and returns the parsed data.
  */
 public final class Parser {
-
-    private static final int SYNTAX_SEVERITY = 1;
 
     /**
      * Parses the mas from given file path.
@@ -25,25 +22,17 @@ public final class Parser {
         validator.process();
 
         for (Message error : validator.getErrors()) {
-            result.addViolation(toViolation(error));
+            result.addViolation(MessageParser.parse(error));
             result.setSuccessful(false);
         }
         for (Message error : validator.getSyntaxErrors()) {
-            result.addViolation(toViolation(error));
+            result.addViolation(MessageParser.parse(error));
             result.setSuccessful(false);
         }
         for (Message error : validator.getWarnings()) {
-            result.addViolation(toViolation(error).setError(false));
+            result.addViolation(MessageParser.parse(error).setError(false));
         }
 
         return result;
-    }
-
-    protected static Violation toViolation(Message error) {
-        return new Violation(error.toShortString(), SYNTAX_SEVERITY)
-                .setFile(error.getSource().getSource())
-                .setStartingLine(error.getSource().getLineNumber())
-                .setEndingLine(error.getSource().getLineNumber())
-                .setError(true);
     }
 }

@@ -1,5 +1,7 @@
 package nl.tudelft.goalkeeper.parser;
 
+import lombok.Getter;
+import lombok.Setter;
 import nl.tudelft.goalkeeper.checking.violations.Violation;
 
 import java.util.Collections;
@@ -12,12 +14,14 @@ import java.util.List;
 public final class ParseResult {
 
     private List<Violation> violations;
+    @Getter @Setter private boolean successful;
 
     /**
      * Creates a new parse result class.
      */
     ParseResult() {
         violations = new LinkedList<>();
+        successful = false;
     }
 
     /**

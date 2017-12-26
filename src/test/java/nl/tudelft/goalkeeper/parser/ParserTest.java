@@ -1,11 +1,7 @@
 package nl.tudelft.goalkeeper.parser;
 
-import krTools.parser.SourceInfo;
-import languageTools.errors.Message;
-import nl.tudelft.goalkeeper.checking.violations.Violation;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

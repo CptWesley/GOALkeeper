@@ -36,6 +36,15 @@ class ParserTest {
         assertThat(result.getViolations()).filteredOn(o -> !o.isError()).hasSize(1);
     }
 
+    @Test
+    void successTest() {
+        ParseResult result = parser.parse("src/test/resources/testfiles/bw4t-working/bw4t.mas2g");
+        assertThat(result.getViolations()).hasSize(1);
+        assertThat(result.isSuccessful()).isTrue();
+        assertThat(result.getViolations()).filteredOn(o -> o.isError()).hasSize(0);
+        assertThat(result.getViolations()).filteredOn(o -> !o.isError()).hasSize(1);
+    }
+
     /**
      * Checks that we can properly convert errors to violations.
      */

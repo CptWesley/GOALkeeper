@@ -1,11 +1,26 @@
 package nl.tudelft.goalkeeper.parser.results.files;
 
 import lombok.Getter;
-import lombok.Setter;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 /**
  * Abstract class for file types.
  */
 public abstract class File {
-    @Getter @Setter private String[] content;
+
+    @Getter private String[] content;
+    @Getter private String source;
+
+    /**
+     * Creates a new File instance.
+     * @param fileName fileName of the file.
+     * @throws IOException Thrown when file could not be read.
+     */
+    protected File(String fileName) throws IOException {
+        this.source = fileName;
+        content = Files.lines(Paths.get(fileName)).toArray(String[]::new);
+    }
 }

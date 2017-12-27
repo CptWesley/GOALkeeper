@@ -19,7 +19,7 @@ public final class ParseResult {
     /**
      * Creates a new parse result class.
      */
-    ParseResult() {
+    public ParseResult() {
         violations = new LinkedList<>();
         successful = false;
     }
@@ -28,7 +28,7 @@ public final class ParseResult {
      * Adds a violation.
      * @param violation Violation to add.
      */
-    void addViolation(Violation violation) {
+    public void addViolation(Violation violation) {
         violations.add(violation);
     }
 

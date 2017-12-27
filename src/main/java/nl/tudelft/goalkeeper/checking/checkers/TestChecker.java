@@ -1,4 +1,4 @@
-package nl.tudelft.goalanalyzer.checking.checkers;
+package nl.tudelft.goalkeeper.checking.checkers;
 
 import nl.tudelft.goalanalyzer.checking.Checker;
 import nl.tudelft.goalanalyzer.checking.violations.Violation;

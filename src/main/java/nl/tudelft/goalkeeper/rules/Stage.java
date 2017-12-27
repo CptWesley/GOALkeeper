@@ -11,6 +11,7 @@ class Stage {
     @Getter private int severity; // NOPMD
     @Getter private double min; // NOPMD
     @Getter private double max; // NOPMD
+    @Getter private String jar;
 
     /**
      * Constructor for a class that represents a stage.
@@ -19,6 +20,7 @@ class Stage {
         severity = 0;
         min = Double.MIN_VALUE;
         max = Double.MAX_VALUE;
+        jar = "";
     }
 
     /**
@@ -48,6 +50,11 @@ class Stage {
      */
     Stage setMax(double value) {
         max = value;
+        return this;
+    }
+
+    Stage setJar(String jar) {
+        this.jar = jar;
         return this;
     }
 }

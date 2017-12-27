@@ -15,6 +15,15 @@
           "min": 2
         }
       ]
+    },
+    {
+      "name": "TEST",
+      "enabled": true,
+      "stages": [
+        {
+          "jar": "test"
+        }
+      ]
     }
   ]
 }

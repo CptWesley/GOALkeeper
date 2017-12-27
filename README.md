@@ -1,6 +1,6 @@
-# Goal Analyzer
+# GOALkeeper
 
-Goal Analyzer is a static tool which can be used on multi-agent systems written in the 
+GOALkeeper is a static tool which can be used on multi-agent systems written in the 
 [GOAL](https://goalapl.atlassian.net/wiki/spaces/GOAL/overview) agent-based programming language
 developed at the 
 [TU Delft Interactive Intelligence Group](https://www.tudelft.nl/ewi/over-de-faculteit/afdelingen/intelligent-systems/interactive-intelligence/).

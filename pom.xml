@@ -10,7 +10,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <checkstyle.version>8.2</checkstyle.version>
         <checkstyle.plugin.version>2.17</checkstyle.plugin.version>
@@ -18,15 +18,22 @@
         <findbugs.plugin.version>3.0.3</findbugs.plugin.version>
         <jacoco.plugin.version>0.7.9</jacoco.plugin.version>
         <surefire.plugin.version>2.19.1</surefire.plugin.version>
-		<lombok.plugin.version>1.16.18.1</lombok.plugin.version>
-		<lombok.version>1.16.18</lombok.version>
+        <lombok.plugin.version>1.16.18.1</lombok.plugin.version>
+        <lombok.version>1.16.18</lombok.version>
         <assertj.version>3.8.0</assertj.version>
         <junit.jupiter.version>5.0.0-M4</junit.jupiter.version>
         <junit.platform.version>1.0.0-M4</junit.platform.version>
         <junit.version>4.12</junit.version>
         <junit.vintage.version>${junit.version}.0-M4</junit.vintage.version>
-		<mockito.core.version>2.12.0</mockito.core.version>
+        <mockito.core.version>2.12.0</mockito.core.version>
     </properties>
+
+    <repositories>
+        <repository>
+            <id>goalhub-mvn-repo</id>
+            <url>https://raw.github.com/goalhub/mvn-repo/master</url>
+        </repository>
+    </repositories>
 
     <build>
         <plugins>
@@ -38,7 +45,7 @@
                         <manifestFile>src/main/resources/META-INF/MANIFEST.MF</manifestFile>
                     </archive>
                 </configuration>
-				<version>3.0.2</version>
+                <version>3.0.2</version>
             </plugin>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -46,7 +53,7 @@
                     <source>1.8</source>
                     <target>1.8</target>
                 </configuration>
-				<version>3.7.0</version>
+                <version>3.7.0</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -198,7 +205,8 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <finalName>${project.artifactId}-${project.version}-with-dependencies</finalName>
+                    <finalName>${project.artifactId}-${project.version}-with-dependencies
+                    </finalName>
                     <artifactSet>
                         <excludes>
                             <exclude>org.opentest4j:opentest4j</exclude>
@@ -210,7 +218,7 @@
                         </excludes>
                     </artifactSet>
                 </configuration>
-				<version>3.1.0</version>
+                <version>3.1.0</version>
             </plugin>
         </plugins>
     </build>
@@ -222,6 +230,12 @@
             <groupId>org.bitbucket.goalhub.grammar</groupId>
             <artifactId>languageTools</artifactId>
             <version>2.0.5</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.goalhub.runtime</groupId>
+            <artifactId>runtime</artifactId>
+            <version>2.0.2</version>
         </dependency>
 
         <dependency>

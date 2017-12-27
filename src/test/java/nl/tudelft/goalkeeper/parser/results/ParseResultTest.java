@@ -1,4 +1,4 @@
-package nl.tudelft.goalkeeper.parser;
+package nl.tudelft.goalkeeper.parser.results;
 
 import nl.tudelft.goalkeeper.checking.violations.Violation;
 import org.junit.jupiter.api.BeforeEach;

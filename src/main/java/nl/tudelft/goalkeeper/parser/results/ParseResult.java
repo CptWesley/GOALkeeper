@@ -1,4 +1,4 @@
-package nl.tudelft.goalkeeper.parser;
+package nl.tudelft.goalkeeper.parser.results;
 
 import lombok.Getter;
 import lombok.Setter;

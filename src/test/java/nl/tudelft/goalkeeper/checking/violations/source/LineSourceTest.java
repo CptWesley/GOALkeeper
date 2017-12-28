@@ -37,6 +37,9 @@ class LineSourceTest extends SourceTest {
         assertThat(source.getLine()).isEqualTo(LINENUMBER);
     }
 
+    /**
+     * Checks that we convert it to the correct string.
+     */
     @Test
     void toStringTest() {
         assertThat(source.toString()).isEqualTo("in '" + FILENAME + "' at line " + LINENUMBER);

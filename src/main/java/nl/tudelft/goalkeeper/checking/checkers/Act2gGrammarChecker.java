@@ -6,6 +6,7 @@ import languageTools.analyzer.actionspec.ActionSpecValidator;
 import languageTools.errors.Message;
 import nl.tudelft.goalkeeper.checking.Checker;
 import nl.tudelft.goalkeeper.checking.violations.Violation;
+import nl.tudelft.goalkeeper.checking.violations.source.LineSource;
 import nl.tudelft.goalkeeper.rules.RuleSet;
 import nl.tudelft.goalkeeper.util.FileParser;
 
@@ -55,9 +56,9 @@ public class Act2gGrammarChecker implements CheckerInterface {
             for (Message err: errors) {
                 violations.add(new Violation("Syntax Error",
                         ruleSet.getErrorSeverity()).setError(true)
-                        .setFile(err.getSource().getSource())
-                        .setStartingLine(err.getSource().getLineNumber())
-                        .setEndingLine(err.getSource().getLineNumber())
+                        .setSource(new LineSource(
+                                err.getSource().getSource(),
+                                err.getSource().getLineNumber()))
                         .setSuggestion(err.toShortString()));
             }
         }

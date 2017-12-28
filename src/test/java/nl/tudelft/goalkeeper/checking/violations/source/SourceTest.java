@@ -9,6 +9,11 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 abstract class SourceTest {
     static final String FILENAME = "bla123";
+
+    /**
+     * Gets an instance of Source.
+     * @return Source instance.
+     */
     abstract Source getSource();
 
     /**

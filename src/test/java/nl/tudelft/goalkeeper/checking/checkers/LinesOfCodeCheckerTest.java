@@ -38,7 +38,7 @@ class LinesOfCodeCheckerTest {
                 RuleSet.load("src/test/resources/testfiles/checker-test-rules.json"));
         assertThat(violations.size()).isEqualTo(1);
         Violation violation = (Violation)violations.toArray()[0];
-        assertThat(violation.getFile())
+        assertThat(violation.getSource().getFile())
                 .isEqualTo(TOO_MANY_LINES_FILE);
         assertThat(violation.getSeverity()).isEqualTo(1);
         assertThat(violation.getMaximumValue()).isEqualTo(2);

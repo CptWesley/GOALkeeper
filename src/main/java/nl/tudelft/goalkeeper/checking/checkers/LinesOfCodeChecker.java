@@ -2,6 +2,7 @@ package nl.tudelft.goalkeeper.checking.checkers;
 
 import nl.tudelft.goalkeeper.checking.Checker;
 import nl.tudelft.goalkeeper.checking.violations.Violation;
+import nl.tudelft.goalkeeper.checking.violations.source.FileSource;
 import nl.tudelft.goalkeeper.rules.Rule;
 import nl.tudelft.goalkeeper.rules.RuleSet;
 
@@ -43,7 +44,7 @@ public final class LinesOfCodeChecker implements CheckerInterface {
                 violations.add(new Violation(VIOLATION_NAME, severity)
                         .setActualValue(lines)
                         .setMaximumValue(rule.maxValueBefore(1))
-                        .setFile(fileName)
+                        .setSource(new FileSource(fileName))
                         .setError(error));
             }
         }

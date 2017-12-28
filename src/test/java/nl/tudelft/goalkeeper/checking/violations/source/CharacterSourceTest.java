@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Test class for the LineSource class.
+ * Test class for the CharacterSource class.
  */
 class CharacterSourceTest extends SourceTest {
 

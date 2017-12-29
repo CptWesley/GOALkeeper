@@ -3,6 +3,7 @@ package nl.tudelft.goalkeeper.parser;
 import languageTools.analyzer.FileRegistry;
 import languageTools.analyzer.mas.MASValidator;
 import languageTools.errors.Message;
+import nl.tudelft.goalkeeper.parser.results.ParseResult;
 
 /**
  * Parses a MAS and returns the parsed data.

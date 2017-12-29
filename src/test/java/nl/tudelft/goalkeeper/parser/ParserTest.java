@@ -1,5 +1,6 @@
 package nl.tudelft.goalkeeper.parser;
 
+import nl.tudelft.goalkeeper.parser.results.ParseResult;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

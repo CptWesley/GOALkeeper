@@ -1,7 +1,5 @@
-package nl.tudelft.goalkeeper.parser.results.files.module.rules;
+package nl.tudelft.goalkeeper.parser.results.files.module;
 
-import nl.tudelft.goalkeeper.parser.results.files.module.rules.Rule;
-import nl.tudelft.goalkeeper.parser.results.files.module.rules.RuleType;
 import nl.tudelft.goalkeeper.parser.results.parts.Literal;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

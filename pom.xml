@@ -156,7 +156,7 @@
                                 <exclude>nl.tudelft.goalkeeper.exceptions.*</exclude>
                                 <exclude>nl.tudelft.goalkeeper.util.console.*</exclude>
                                 <exclude>nl.tudelft.goalkeeper.ExitCode</exclude>
-                                <exclude>nl.tudelft.goalkeeper.parser.results.files.module.rules.RuleType</exclude>
+                                <exclude>nl.tudelft.goalkeeper.parser.results.files.module.RuleType</exclude>
                             </excludes>
                             <limits>
                                 <limit>

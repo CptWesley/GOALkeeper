@@ -1,7 +1,9 @@
 package nl.tudelft.goalkeeper.checking.violations;
 
+import nl.tudelft.goalkeeper.checking.violations.source.Source;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -10,6 +12,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 class ViolationTest {
     private Violation violation;
+    private Source source;
 
     /**
      * Sets up the testing environment before each test.
@@ -17,6 +20,7 @@ class ViolationTest {
     @BeforeEach
     void setup() {
         violation = new Violation("blah", 3);
+        source = Mockito.mock(Source.class);
     }
 
     /**
@@ -28,9 +32,7 @@ class ViolationTest {
         assertThat(violation.getSeverity()).isEqualTo(3);
         assertThat(violation.getActualValue()).isEqualTo(-1);
         assertThat(violation.getMaximumValue()).isEqualTo(-1);
-        assertThat(violation.getStartingLine()).isEqualTo(-1);
-        assertThat(violation.getEndingLine()).isEqualTo(-1);
-        assertThat(violation.getFile()).isEqualTo("");
+        assertThat(violation.getSource()).isNull();
         assertThat(violation.isError()).isFalse();
     }
 
@@ -43,12 +45,8 @@ class ViolationTest {
         assertThat(violation.getActualValue()).isEqualTo(5);
         assertThat(violation.setMaximumValue(7)).isSameAs(violation);
         assertThat(violation.getMaximumValue()).isEqualTo(7);
-        assertThat(violation.setStartingLine(12)).isSameAs(violation);
-        assertThat(violation.getStartingLine()).isEqualTo(12);
-        assertThat(violation.setEndingLine(33)).isSameAs(violation);
-        assertThat(violation.getEndingLine()).isEqualTo(33);
-        assertThat(violation.setFile("sgffsgdfgds")).isSameAs(violation);
-        assertThat(violation.getFile()).isEqualTo("sgffsgdfgds");
+        assertThat(violation.setSource(source)).isEqualTo(violation);
+        assertThat(violation.getSource()).isSameAs(source);
         assertThat(violation.setError(true)).isSameAs(violation);
         assertThat(violation.isError()).isTrue();
     }
@@ -58,19 +56,12 @@ class ViolationTest {
      */
     @Test
     void toStringTest() {
+        Mockito.when(source.toString()).thenReturn("in 'hithere' at lines 4-5");
         assertThat(violation.toString())
                 .isEqualTo("Warning 'blah' of severity 3 found.");
         assertThat(violation.setError(true).toString())
                 .isEqualTo("Error 'blah' of severity 3 found.");
-        assertThat(violation.setFile("hithere").toString())
-                .isEqualTo("Error 'blah' of severity 3 found in 'hithere'.");
-        assertThat(violation.setFile("hithere").toString())
-                .isEqualTo("Error 'blah' of severity 3 found in 'hithere'.");
-        assertThat(violation.setStartingLine(4).toString())
-                .isEqualTo("Error 'blah' of severity 3 found in 'hithere'.");
-        assertThat(violation.setEndingLine(4).toString())
-                .isEqualTo("Error 'blah' of severity 3 found in 'hithere' at line 4.");
-        assertThat(violation.setEndingLine(5).toString())
+        assertThat(violation.setSource(source).toString())
                 .isEqualTo("Error 'blah' of severity 3 found in 'hithere' at lines 4-5.");
         assertThat(violation.setActualValue(20).toString())
                 .isEqualTo("Error 'blah' of severity 3 found in 'hithere' at lines 4-5.");

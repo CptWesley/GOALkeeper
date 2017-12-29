@@ -1,6 +1,7 @@
 package nl.tudelft.goalkeeper.checking.violations;
 
 import lombok.Getter;
+import nl.tudelft.goalkeeper.checking.violations.source.Source;
 
 /**
  * Class for violations.
@@ -10,9 +11,7 @@ public class Violation {
 
     @Getter private String message; //NOPMD
     @Getter private int severity;
-    @Getter private String file; //NOPMD
-    @Getter private int startingLine; //NOPMD
-    @Getter private int endingLine; //NOPMD
+    @Getter private Source source; //NOPMD
     @Getter private double actualValue; //NOPMD
     @Getter private double maximumValue; //NOPMD
     @Getter private boolean error; //NOPMD
@@ -25,41 +24,19 @@ public class Violation {
     public Violation(String message, int severity) {
         this.message = message;
         this.severity = severity;
-        file = "";
-        startingLine = -1;
-        endingLine = -1;
+        source = null;
         actualValue = -1;
         maximumValue = -1;
         error = false;
     }
 
     /**
-     * Sets the file location of this violation.
-     * @param file File location of this violation.
+     * Sets the source of the violation.
+     * @param source Source of the violation.
      * @return This violation.
      */
-    public Violation setFile(String file) {
-        this.file = file;
-        return this;
-    }
-
-    /**
-     * Sets the starting line of this violation.
-     * @param line Line number where the violation starts.
-     * @return This violation.
-     */
-    public Violation setStartingLine(int line) {
-        startingLine = line;
-        return this;
-    }
-
-    /**
-     * Sets the ending line of this violation.
-     * @param line Line number where the violation end.
-     * @return This violation.
-     */
-    public Violation setEndingLine(int line) {
-        endingLine = line;
+    public Violation setSource(Source source) {
+        this.source = source;
         return this;
     }
 
@@ -104,16 +81,8 @@ public class Violation {
         }
         sb.append('\'').append(message).append("' of severity ")
                 .append(severity).append(" found");
-        if (!file.isEmpty()) {
-            sb.append(" in '").append(file).append('\'');
-        }
-        if (startingLine >= 0 && endingLine >= 0) {
-            if (startingLine == endingLine) {
-                sb.append(" at line ").append(startingLine);
-            } else {
-                sb.append(" at lines ").append(startingLine)
-                        .append('-').append(endingLine);
-            }
+        if (source != null) {
+            sb.append(' ').append(source);
         }
         sb.append('.');
         if (actualValue >= 0 && maximumValue >= 0) {

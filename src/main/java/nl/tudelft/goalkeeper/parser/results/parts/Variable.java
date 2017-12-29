@@ -3,7 +3,7 @@ package nl.tudelft.goalkeeper.parser.results.parts;
 /**
  * Implementation of Variable for free variables.
  */
-public class Variable extends Parameter {
+public final class Variable extends Parameter {
 
     private static final int HASH_MODIFIER = 21;
 

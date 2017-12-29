@@ -3,7 +3,7 @@ package nl.tudelft.goalkeeper.parser.results.parts;
 /**
  * Implementation of Variable for bound variables.
  */
-public class Constant extends Parameter {
+public final class Constant extends Parameter {
 
     private static final int HASH_MODIFIER = 9;
 

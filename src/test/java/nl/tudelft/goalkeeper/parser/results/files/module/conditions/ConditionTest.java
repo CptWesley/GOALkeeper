@@ -43,4 +43,12 @@ abstract class ConditionTest {
     void notEqualsNullTest() {
         assertThat(getCondition()).isNotEqualTo(null);
     }
+
+    /**
+     * Checks that an object is not equal to a different typed object.
+     */
+    @Test
+    void notEqualsDifferentTYpeTest() {
+        assertThat(getCondition()).isNotEqualTo("");
+    }
 }

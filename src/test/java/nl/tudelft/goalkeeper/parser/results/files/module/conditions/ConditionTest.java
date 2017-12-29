@@ -1,8 +1,6 @@
-package nl.tudelft.goalkeeper.parser.results.files.module;
+package nl.tudelft.goalkeeper.parser.results.files.module.conditions;
 
-import nl.tudelft.goalkeeper.parser.results.files.module.conditions.Condition;
 import nl.tudelft.goalkeeper.parser.results.parts.Expression;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -17,12 +15,6 @@ abstract class ConditionTest {
      * @return Instance of condition to test on.
      */
     abstract Condition getCondition();
-
-    /**
-     * Sets up the testing environment before each test.
-     */
-    @BeforeEach
-    abstract void setup();
 
     /**
      * Checks that expression addition works correctly.

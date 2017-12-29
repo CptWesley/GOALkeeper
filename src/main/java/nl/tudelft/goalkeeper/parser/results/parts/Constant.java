@@ -1,25 +1,14 @@
 package nl.tudelft.goalkeeper.parser.results.parts;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-
 /**
  * Implementation of Variable for bound variables.
  */
-@EqualsAndHashCode
-public class Constant implements Parameter {
-    @Getter private String identifier;
-
+public class Constant extends Parameter {
     /**
      * Creates a new bound variable instance.
      * @param identifier Identifier of the variable.
      */
     public Constant(String identifier) {
-        this.identifier = identifier;
-    }
-
-    @Override
-    public String toString() {
-        return identifier;
+        super(identifier);
     }
 }

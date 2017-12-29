@@ -1,13 +1,24 @@
 package nl.tudelft.goalkeeper.parser.results.parts;
 
+import lombok.Getter;
+
 /**
  * Interface for all variable types.
  */
-public interface Parameter {
+public abstract class Parameter implements Expression {
+    @Getter
+    private String identifier;
 
     /**
-     * Gets the identifier of this variable.
-     * @return Identifier of this variable.
+     * Creates a new free variable instance.
+     * @param identifier Identifier of the variable.
      */
-    String getIdentifier();
+    public Parameter(String identifier) {
+        this.identifier = identifier;
+    }
+
+    @Override
+    public String toString() {
+        return identifier;
+    }
 }

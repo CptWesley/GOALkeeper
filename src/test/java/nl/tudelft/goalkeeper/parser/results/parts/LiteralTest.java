@@ -11,7 +11,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 class LiteralTest {
     private static final String sig = "sig/2";
-    private Variable var1, var2, var3;
+    private Parameter var1, var2, var3;
     private Literal literal;
 
     /**
@@ -19,10 +19,10 @@ class LiteralTest {
      */
     @BeforeEach
     void setup() {
-        var1 = Mockito.mock(Variable.class);
-        var2 = Mockito.mock(FreeVariable.class);
-        var3 = Mockito.mock(BoundVariable.class);
-        Variable[] vars = new Variable[] { var1, var2, var3 };
+        var1 = Mockito.mock(Parameter.class);
+        var2 = Mockito.mock(Variable.class);
+        var3 = Mockito.mock(Constant.class);
+        Parameter[] vars = new Parameter[] { var1, var2, var3 };
         literal = new Literal(sig, vars);
     }
 
@@ -39,9 +39,9 @@ class LiteralTest {
      */
     @Test
     void getVariablesTest() {
-        assertThat(literal.getVariables()[0]).isEqualTo(var1);
-        assertThat(literal.getVariables()[1]).isEqualTo(var2);
-        assertThat(literal.getVariables()[2]).isEqualTo(var3);
+        assertThat(literal.getParameters()[0]).isEqualTo(var1);
+        assertThat(literal.getParameters()[1]).isEqualTo(var2);
+        assertThat(literal.getParameters()[2]).isEqualTo(var3);
     }
 
     /**
@@ -58,7 +58,7 @@ class LiteralTest {
      */
     @Test
     void equalSame() {
-        Variable[] vars = new Variable[] { var1, var2, var3 };
+        Parameter[] vars = new Parameter[] { var1, var2, var3 };
         Literal other = new Literal(sig, vars);
         assertThat(literal).isEqualTo(other);
         assertThat(literal.hashCode()).isEqualTo(other.hashCode());
@@ -69,7 +69,7 @@ class LiteralTest {
      */
     @Test
     void notEqualDifferentSig() {
-        Variable[] vars = new Variable[] { var1, var2, var3 };
+        Parameter[] vars = new Parameter[] { var1, var2, var3 };
         Literal other = new Literal("gsfdgdsf", vars);
         assertThat(literal).isNotEqualTo(other);
     }
@@ -79,7 +79,7 @@ class LiteralTest {
      */
     @Test
     void notEqualDifferentSize() {
-        Variable[] vars = new Variable[] { var1, var2 };
+        Parameter[] vars = new Parameter[] { var1, var2 };
         Literal other = new Literal(sig, vars);
         assertThat(literal).isNotEqualTo(other);
     }

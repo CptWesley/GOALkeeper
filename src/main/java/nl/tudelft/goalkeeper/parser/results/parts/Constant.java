@@ -7,14 +7,14 @@ import lombok.Getter;
  * Implementation of Variable for bound variables.
  */
 @EqualsAndHashCode
-public class BoundVariable implements Variable {
+public class Constant implements Parameter {
     @Getter private String identifier;
 
     /**
      * Creates a new bound variable instance.
      * @param identifier Identifier of the variable.
      */
-    public BoundVariable(String identifier) {
+    public Constant(String identifier) {
         this.identifier = identifier;
     }
 

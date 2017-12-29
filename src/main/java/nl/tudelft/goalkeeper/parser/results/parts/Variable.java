@@ -1,13 +1,25 @@
 package nl.tudelft.goalkeeper.parser.results.parts;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+
 /**
- * Interface for all variable types.
+ * Implementation of Variable for free variables.
  */
-public interface Variable {
+@EqualsAndHashCode
+public class Variable implements Parameter {
+    @Getter private String identifier;
 
     /**
-     * Gets the identifier of this variable.
-     * @return Identifier of this variable.
+     * Creates a new free variable instance.
+     * @param identifier Identifier of the variable.
      */
-    String getIdentifier();
+    public Variable(String identifier) {
+        this.identifier = identifier;
+    }
+
+    @Override
+    public String toString() {
+        return identifier;
+    }
 }

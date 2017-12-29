@@ -6,19 +6,19 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Test class of the BoundVariable class.
+ * Test class for the Variable class.
  */
-class BoundVariableTest {
+class VariableTest {
     private static final String n1 = "Name";
 
-    private BoundVariable var;
+    private Variable var;
 
     /**
      * Sets up the environment before each test.
      */
     @BeforeEach
     void setup() {
-        var = new BoundVariable(n1);
+        var = new Variable(n1);
     }
 
     /**
@@ -42,7 +42,7 @@ class BoundVariableTest {
      */
     @Test
     void hashCodeTest() {
-        BoundVariable other = new BoundVariable(n1);
+        Variable other = new Variable(n1);
         assertThat(var.hashCode()).isEqualTo(other.hashCode());
     }
 
@@ -59,7 +59,7 @@ class BoundVariableTest {
      */
     @Test
     void equalSameIdentifier() {
-        assertThat(var).isEqualTo(new BoundVariable(n1));
+        assertThat(var).isEqualTo(new Variable(n1));
     }
 
     /**
@@ -67,7 +67,7 @@ class BoundVariableTest {
      */
     @Test
     void notEqualDifferentIdentifier() {
-        assertThat(var).isNotEqualTo(new BoundVariable("WGD"));
+        assertThat(var).isNotEqualTo(new Variable("WGD"));
     }
 
     /**
@@ -75,7 +75,7 @@ class BoundVariableTest {
      */
     @Test
     void notEqualDifferentType() {
-        assertThat(var).isNotEqualTo(5);
+        assertThat(var).isNotEqualTo(new Constant(n1));
     }
 
     /**

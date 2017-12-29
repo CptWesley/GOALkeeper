@@ -1,6 +1,5 @@
 package nl.tudelft.goalkeeper.parser;
 
-import krTools.language.Expression;
 import krTools.language.Update;
 import krTools.language.Var;
 import languageTools.program.agent.Module;
@@ -11,9 +10,9 @@ import languageTools.program.agent.rules.ListallDoRule;
 import nl.tudelft.goalkeeper.parser.results.files.module.ModuleFile;
 import nl.tudelft.goalkeeper.parser.results.files.module.Rule;
 import nl.tudelft.goalkeeper.parser.results.files.module.RuleType;
-import nl.tudelft.goalkeeper.parser.results.parts.FreeVariable;
-import nl.tudelft.goalkeeper.parser.results.parts.Literal;
 import nl.tudelft.goalkeeper.parser.results.parts.Variable;
+import nl.tudelft.goalkeeper.parser.results.parts.Literal;
+import nl.tudelft.goalkeeper.parser.results.parts.Parameter;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -54,7 +53,7 @@ public final class ModuleParser {
      */
     private static Rule parseRule(languageTools.program.agent.rules.Rule r) {
         Rule rule = new Rule(getType(r));
-        Map<String, Variable> freeVariables = new HashMap<>();
+        Map<String, Parameter> freeVariables = new HashMap<>();
 
         for (languageTools.program.agent.msc.MentalLiteral l
                 : r.getCondition().getAllLiterals()) {
@@ -89,17 +88,17 @@ public final class ModuleParser {
      * @return Condition literal.
      */
     private static Literal parseCondition(
-            languageTools.program.agent.msc.MentalLiteral l, Map<String, Variable> freeVariables) {
+            languageTools.program.agent.msc.MentalLiteral l, Map<String, Parameter> freeVariables) {
         String signature = l.getFormula().getSignature();
-        List<Variable> vars = new ArrayList<>();
+        List<Parameter> vars = new ArrayList<>();
 
         for (Var v : l.getFreeVar()) {
-            Variable variable = parseVariable(v, freeVariables);
-            freeVariables.put(v.getSignature(), variable);
-            vars.add(variable);
+            Parameter parameter = parseVariable(v, freeVariables);
+            freeVariables.put(v.getSignature(), parameter);
+            vars.add(parameter);
         }
 
-        return new Literal(signature, vars.toArray(new Variable[vars.size()]));
+        return new Literal(signature, vars.toArray(new Parameter[vars.size()]));
     }
 
     /**
@@ -108,8 +107,8 @@ public final class ModuleParser {
      * @param freeVariables Map containing the free variables already matched.
      * @return Action literal.
      */
-    private static Literal parseAction(Action a, Map<String, Variable> freeVariables) {
-        List<Variable> vars = new ArrayList<>();
+    private static Literal parseAction(Action a, Map<String, Parameter> freeVariables) {
+        List<Parameter> vars = new ArrayList<>();
 
         System.out.println(a.getClass() + "::" + a.getSignature() + "::" + a.getClass() + "::" + a.getSourceInfo().getSource());
 
@@ -128,12 +127,12 @@ public final class ModuleParser {
 
         for (Object o : a.getFreeVar()) {
             Var v = (Var) o;
-            Variable variable = parseVariable(v, freeVariables);
-            freeVariables.put(v.getSignature(), variable);
-            vars.add(variable);
+            Parameter parameter = parseVariable(v, freeVariables);
+            freeVariables.put(v.getSignature(), parameter);
+            vars.add(parameter);
         }
 
-        return new Literal(a.getSignature(), vars.toArray(new Variable[vars.size()]));
+        return new Literal(a.getSignature(), vars.toArray(new Parameter[vars.size()]));
     }
 
     /**
@@ -142,11 +141,11 @@ public final class ModuleParser {
      * @param freeVariables Map containing the free variables already matched.
      * @return Parsed variable.
      */
-    private static Variable parseVariable(Var v, Map<String, Variable> freeVariables) {
+    private static Parameter parseVariable(Var v, Map<String, Parameter> freeVariables) {
         if (freeVariables.containsKey(v.getSignature())) {
             return freeVariables.get(v.getSignature());
         } else {
-            Variable freeVariable = new FreeVariable("Var" + freeVariables.size());
+            Parameter freeVariable = new Variable("Var" + freeVariables.size());
             freeVariables.put(v.getSignature(), freeVariable);
             return freeVariable;
         }

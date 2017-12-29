@@ -6,19 +6,19 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Test class for the FreeVariable class.
+ * Test class of the Constant class.
  */
-class FreeVariableTest {
+class ConstantTest {
     private static final String n1 = "Name";
 
-    private FreeVariable var;
+    private Constant var;
 
     /**
      * Sets up the environment before each test.
      */
     @BeforeEach
     void setup() {
-        var = new FreeVariable(n1);
+        var = new Constant(n1);
     }
 
     /**
@@ -42,7 +42,7 @@ class FreeVariableTest {
      */
     @Test
     void hashCodeTest() {
-        FreeVariable other = new FreeVariable(n1);
+        Constant other = new Constant(n1);
         assertThat(var.hashCode()).isEqualTo(other.hashCode());
     }
 
@@ -59,7 +59,7 @@ class FreeVariableTest {
      */
     @Test
     void equalSameIdentifier() {
-        assertThat(var).isEqualTo(new FreeVariable(n1));
+        assertThat(var).isEqualTo(new Constant(n1));
     }
 
     /**
@@ -67,7 +67,7 @@ class FreeVariableTest {
      */
     @Test
     void notEqualDifferentIdentifier() {
-        assertThat(var).isNotEqualTo(new FreeVariable("WGD"));
+        assertThat(var).isNotEqualTo(new Constant("WGD"));
     }
 
     /**
@@ -75,7 +75,7 @@ class FreeVariableTest {
      */
     @Test
     void notEqualDifferentType() {
-        assertThat(var).isNotEqualTo(new BoundVariable(n1));
+        assertThat(var).isNotEqualTo(5);
     }
 
     /**

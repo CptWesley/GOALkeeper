@@ -7,16 +7,16 @@ import lombok.Getter;
  */
 public class Literal {
     @Getter private String signature;
-    @Getter private Variable[] variables;
+    @Getter private Parameter[] parameters;
 
     /**
      * Creates a new literal instance.
      * @param signature Signature of the literal.
-     * @param variables Variables of the literal.
+     * @param parameters Variables of the literal.
      */
-    public Literal(String signature, Variable[] variables) {
+    public Literal(String signature, Parameter[] parameters) {
         this.signature = signature;
-        this.variables = variables;
+        this.parameters = parameters;
     }
 
     @Override
@@ -26,11 +26,11 @@ public class Literal {
             if (!this.signature.equals(that.signature)) {
                 return false;
             }
-            if (this.variables.length != that.variables.length) {
+            if (this.parameters.length != that.parameters.length) {
                 return false;
             }
-            for (int i = 0; i < variables.length; ++i) {
-                if (!this.variables[i].equals(that.variables[i])) {
+            for (int i = 0; i < parameters.length; ++i) {
+                if (!this.parameters[i].equals(that.parameters[i])) {
                     return false;
                 }
             }
@@ -42,8 +42,8 @@ public class Literal {
     @Override
     public int hashCode() {
         int res = signature.hashCode();
-        for (int i = 0; i < variables.length; ++i) {
-            res += variables[i].hashCode() ^ (i + 1);
+        for (int i = 0; i < parameters.length; ++i) {
+            res += parameters[i].hashCode() ^ (i + 1);
         }
         return res;
     }

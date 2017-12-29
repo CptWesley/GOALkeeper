@@ -68,4 +68,18 @@ class BeliefConditionTest extends ConditionTest {
         assertThat(condition).isEqualTo(other);
         assertThat(condition.hashCode()).isEqualTo(other.hashCode());
     }
+
+    /**
+     * Checks that toString is implemented correctly.
+     */
+    @Test
+    void toStringTest() {
+        assertThat(condition.toString()).isEqualTo("bel()");
+        Expression e1 = Mockito.mock(Expression.class);
+        Expression e2 = Mockito.mock(Expression.class);
+        Mockito.when(e1.toString()).thenReturn("raf1");
+        Mockito.when(e2.toString()).thenReturn("raf2");
+        assertThat(condition.addExpression(e1).toString()).isEqualTo("bel(raf1)");
+        assertThat(condition.addExpression(e2).toString()).isEqualTo("bel(raf1, raf2)");
+    }
 }

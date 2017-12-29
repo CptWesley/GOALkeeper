@@ -1,6 +1,7 @@
 package nl.tudelft.goalkeeper.parser.results.files.module;
 
 import nl.tudelft.goalkeeper.parser.results.files.File;
+import nl.tudelft.goalkeeper.parser.results.files.module.rules.Rule;
 
 import java.io.IOException;
 import java.util.ArrayList;

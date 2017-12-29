@@ -1,4 +1,4 @@
-package nl.tudelft.goalkeeper.parser.results.files.module;
+package nl.tudelft.goalkeeper.parser.results.files.module.rules;
 
 import lombok.Getter;
 import nl.tudelft.goalkeeper.parser.results.parts.Literal;

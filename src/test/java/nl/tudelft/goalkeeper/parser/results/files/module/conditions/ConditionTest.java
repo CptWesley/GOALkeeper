@@ -17,6 +17,12 @@ abstract class ConditionTest {
     abstract Condition getCondition();
 
     /**
+     * Gets an instance of condition to test on.
+     * @return Instance of condition to test on.
+     */
+    abstract Condition getNewCondition();
+
+    /**
      * Checks that expression addition works correctly.
      */
     @Test
@@ -48,7 +54,21 @@ abstract class ConditionTest {
      * Checks that an object is not equal to a different typed object.
      */
     @Test
-    void notEqualsDifferentTYpeTest() {
+    void notEqualsDifferentTypeTest() {
         assertThat(getCondition()).isNotEqualTo("");
+    }
+
+    /**
+     * Checks that an object is not equal to a different condition.
+     */
+    @Test
+    void notEqualsDifferentExpressionsTest() {
+        Condition other = getNewCondition();
+        Expression e1 = Mockito.mock(Expression.class);
+        Expression e2 = Mockito.mock(Expression.class);
+        other.addExpression(e1);
+        assertThat(getCondition()).isNotEqualTo(other);
+        getCondition().addExpression(e2);
+        assertThat(getCondition()).isNotEqualTo(other);
     }
 }

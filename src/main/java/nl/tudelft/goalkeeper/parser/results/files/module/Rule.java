@@ -63,4 +63,67 @@ public final class Rule {
         return this;
     }
 
+    /**
+     * Gets the hashcode of the condition collection.
+     * @return Hashcode of the conditions.
+     */
+    public int getConditionsHashCode() {
+        int result = 0;
+        for (int i = 0; i < conditions.size(); ++i) {
+            result += conditions.get(i).hashCode() * (i + 1);
+        }
+        return result;
+    }
+
+    /**
+     * Gets the hashcode of the action collection.
+     * @return Hashcode of the actions.
+     */
+    public int getActionsHashCode() {
+        int result = 0;
+        for (int i = 0; i < actions.size(); ++i) {
+            result += actions.get(i).hashCode() * (i + 1);
+        }
+        return result;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int hashCode() {
+        return (getConditionsHashCode() + getActionsHashCode()) * (type.ordinal() + 1);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof Rule) {
+            Rule that = (Rule) o;
+            if (!this.type.equals(that.type)) {
+                return false;
+            }
+            if (this.conditions.size() != that.conditions.size()) {
+                return false;
+            }
+            if (this.actions.size() != that.actions.size()) {
+                return false;
+            }
+            for (int i = 0; i < this.conditions.size(); ++i) {
+                if (!this.conditions.get(i).equals(that.conditions.get(i))) {
+                    return false;
+                }
+            }
+            for (int i = 0; i < this.actions.size(); ++i) {
+                if (!this.actions.get(i).equals(that.actions.get(i))) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+
 }

@@ -7,7 +7,7 @@ import nl.tudelft.goalkeeper.checking.violations.source.CharacterSource;
 /**
  * Class that parses messages to violations.
  */
-final class MessageParser {
+public final class MessageParser {
 
     private static final int SYNTAX_SEVERITY = 1;
 

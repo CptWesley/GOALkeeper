@@ -2,9 +2,9 @@ package nl.tudelft.goalkeeper.parser.queries;
 
 import jpl.Term;
 import nl.tudelft.goalkeeper.parser.results.parts.Constant;
-import nl.tudelft.goalkeeper.parser.results.parts.Expression;
 import nl.tudelft.goalkeeper.parser.results.parts.Query;
 import nl.tudelft.goalkeeper.parser.results.parts.Variable;
+import swiprolog.language.PrologQuery;
 
 /**
  * Class that parses expressions.
@@ -21,7 +21,7 @@ public final class QueryParser {
      * @param term Term to parse.
      * @return Parsed expression.
      */
-    public static Expression parse(Term term) {
+    public static Query parse(krTools.language.Query query) {
         if (term.isVariable()) {
             return new Variable(term.name());
         }
@@ -41,5 +41,11 @@ public final class QueryParser {
         }
 
         return result;
+    }
+
+    private static QueryParserInterface getParser(krTools.language.Query query) {
+        if (query instanceof PrologQuery) {
+            return new PrologQueryParser();
+        }
     }
 }

@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Class for holding queries and subqueries.
  */
-public final class Query implements Expression {
+public final class Function implements Expression {
 
     private static final int HASH_MODIFIER = 43;
 
@@ -20,7 +20,7 @@ public final class Query implements Expression {
      * Creates a query instance.
      * @param identifier Identifier of the query.
      */
-    public Query(String identifier) {
+    public Function(String identifier) {
         this.identifier = identifier;
         this.parts = new LinkedList<>();
     }
@@ -30,7 +30,7 @@ public final class Query implements Expression {
      * @param part Part of the query.
      * @return Current query.
      */
-    public Query addPart(Expression part) {
+    public Function addPart(Expression part) {
         parts.add(part);
         return this;
     }
@@ -48,8 +48,8 @@ public final class Query implements Expression {
      */
     @Override
     public boolean equals(Object o) {
-        if (o instanceof Query) {
-            Query that = (Query) o;
+        if (o instanceof Function) {
+            Function that = (Function) o;
             if (!this.identifier.equals(that.identifier)) {
                 return false;
             }

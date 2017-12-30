@@ -7,13 +7,13 @@ import org.mockito.Mockito;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Test class for the Query class.
+ * Test class for the Function class.
  */
-class QueryTest {
+class FunctionTest {
 
     private static final String identifier = "DGFDS";
 
-    private Query query;
+    private Function function;
     private Expression p1, p2;
 
     /**
@@ -21,7 +21,7 @@ class QueryTest {
      */
     @BeforeEach
     void setup() {
-        query = new Query(identifier);
+        function = new Function(identifier);
         p1 = Mockito.mock(Expression.class);
         p2 = Mockito.mock(Expression.class);
         Mockito.when(p1.toString()).thenReturn("bla1");
@@ -33,7 +33,7 @@ class QueryTest {
      */
     @Test
     void getIdentifierTest() {
-        assertThat(query.getIdentifier()).isEqualTo(identifier);
+        assertThat(function.getIdentifier()).isEqualTo(identifier);
     }
 
     /**
@@ -41,11 +41,11 @@ class QueryTest {
      */
     @Test
     void addPartsTest() {
-        assertThat(query.getParts()).isEmpty();
+        assertThat(function.getParts()).isEmpty();
         Expression part = Mockito.mock(Expression.class);
-        assertThat(query.addPart(part)).isSameAs(query);
-        assertThat(query.getParts()).hasSize(1);
-        assertThat(query.getParts()).containsExactly(part);
+        assertThat(function.addPart(part)).isSameAs(function);
+        assertThat(function.getParts()).hasSize(1);
+        assertThat(function.getParts()).containsExactly(part);
     }
 
     /**
@@ -53,9 +53,9 @@ class QueryTest {
      */
     @Test
     void toStringTest() {
-        assertThat(query.toString()).isEqualTo(identifier + "()");
-        assertThat(query.addPart(p1).toString()).isEqualTo(identifier + "(bla1)");
-        assertThat(query.addPart(p2).toString()).isEqualTo(identifier + "(bla1, bla2)");
+        assertThat(function.toString()).isEqualTo(identifier + "()");
+        assertThat(function.addPart(p1).toString()).isEqualTo(identifier + "(bla1)");
+        assertThat(function.addPart(p2).toString()).isEqualTo(identifier + "(bla1, bla2)");
     }
 
     /**
@@ -63,8 +63,8 @@ class QueryTest {
      */
     @Test
     void hashCodeTest() {
-        Query other = new Query(identifier);
-        assertThat(query.hashCode()).isEqualTo(other.hashCode());
+        Function other = new Function(identifier);
+        assertThat(function.hashCode()).isEqualTo(other.hashCode());
     }
 
     /**
@@ -72,7 +72,7 @@ class QueryTest {
      */
     @Test
     void equalSameObject() {
-        assertThat(query).isEqualTo(query);
+        assertThat(function).isEqualTo(function);
     }
 
     /**
@@ -80,7 +80,7 @@ class QueryTest {
      */
     @Test
     void equalSameIdentifier() {
-        assertThat(query).isEqualTo(new Query(identifier));
+        assertThat(function).isEqualTo(new Function(identifier));
     }
 
     /**
@@ -88,7 +88,7 @@ class QueryTest {
      */
     @Test
     void equalSameParts() {
-        assertThat(query.addPart(p1)).isEqualTo(new Query(identifier).addPart(p1));
+        assertThat(function.addPart(p1)).isEqualTo(new Function(identifier).addPart(p1));
     }
 
     /**
@@ -96,7 +96,7 @@ class QueryTest {
      */
     @Test
     void notEqualDifferentIdentifier() {
-        assertThat(query).isNotEqualTo(new Query("WGD"));
+        assertThat(function).isNotEqualTo(new Function("WGD"));
     }
 
     /**
@@ -104,8 +104,8 @@ class QueryTest {
      */
     @Test
     void notEqualDifferentParts() {
-        assertThat(query).isNotEqualTo(new Query(identifier).addPart(p2));
-        assertThat(query.addPart(p1)).isNotEqualTo(new Query(identifier).addPart(p2));
+        assertThat(function).isNotEqualTo(new Function(identifier).addPart(p2));
+        assertThat(function.addPart(p1)).isNotEqualTo(new Function(identifier).addPart(p2));
     }
 
     /**
@@ -113,7 +113,7 @@ class QueryTest {
      */
     @Test
     void notEqualDifferentType() {
-        assertThat(query).isNotEqualTo(new Constant(identifier));
+        assertThat(function).isNotEqualTo(new Constant(identifier));
     }
 
     /**
@@ -121,6 +121,6 @@ class QueryTest {
      */
     @Test
     void notEqualNull() {
-        assertThat(query).isNotEqualTo(null);
+        assertThat(function).isNotEqualTo(null);
     }
 }

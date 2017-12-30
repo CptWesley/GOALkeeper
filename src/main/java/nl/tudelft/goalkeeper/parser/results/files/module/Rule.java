@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Rule class.
  */
-public class Rule {
+public final class Rule {
 
     @Getter private RuleType type;
     private List<Condition> conditions;

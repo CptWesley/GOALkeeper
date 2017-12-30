@@ -1,7 +1,6 @@
-package nl.tudelft.goalkeeper.parser.results;
+package nl.tudelft.goalkeeper.parser.queries;
 
 import jpl.Term;
-import nl.tudelft.goalkeeper.parser.ExpressionParser;
 import nl.tudelft.goalkeeper.parser.results.parts.Constant;
 import nl.tudelft.goalkeeper.parser.results.parts.Expression;
 import nl.tudelft.goalkeeper.parser.results.parts.Variable;
@@ -12,9 +11,9 @@ import org.mockito.Mockito;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Test class for the ExpressionParser class.
+ * Test class for the QueryParser class.
  */
-class ExpressionParserTest {
+class QueryParserTest {
 
     private static final String NAME = "ADFAASasdfase";
     private static final int INT_VALUE = 34;
@@ -36,7 +35,7 @@ class ExpressionParserTest {
     @Test
     void variableTest() {
         Mockito.when(term.isVariable()).thenReturn(true);
-        Expression result = ExpressionParser.parse(term);
+        Expression result = QueryParser.parse(term);
         assertThat(result).isInstanceOf(Variable.class);
         assertThat(result.getIdentifier()).isEqualTo(NAME);
     }
@@ -47,7 +46,7 @@ class ExpressionParserTest {
     @Test
     void atomTest() {
         Mockito.when(term.isAtom()).thenReturn(true);
-        Expression result = ExpressionParser.parse(term);
+        Expression result = QueryParser.parse(term);
         assertThat(result).isInstanceOf(Constant.class);
         assertThat(result.getIdentifier()).isEqualTo(NAME);
     }
@@ -59,7 +58,7 @@ class ExpressionParserTest {
     void integerTest() {
         Mockito.when(term.isInteger()).thenReturn(true);
         Mockito.when(term.intValue()).thenReturn(INT_VALUE);
-        Expression result = ExpressionParser.parse(term);
+        Expression result = QueryParser.parse(term);
         assertThat(result).isInstanceOf(Constant.class);
         assertThat(result.getIdentifier()).isEqualTo(INT_VALUE + "");
     }
@@ -71,7 +70,7 @@ class ExpressionParserTest {
     void floatTest() {
         Mockito.when(term.isFloat()).thenReturn(true);
         Mockito.when(term.floatValue()).thenReturn(FLOAT_VALUE);
-        Expression result = ExpressionParser.parse(term);
+        Expression result = QueryParser.parse(term);
         assertThat(result).isInstanceOf(Constant.class);
         assertThat(result.getIdentifier()).isEqualTo(FLOAT_VALUE + "");
     }

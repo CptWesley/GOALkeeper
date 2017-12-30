@@ -1,4 +1,4 @@
-package nl.tudelft.goalkeeper.parser;
+package nl.tudelft.goalkeeper.parser.queries;
 
 import jpl.Term;
 import nl.tudelft.goalkeeper.parser.results.parts.Constant;
@@ -9,15 +9,15 @@ import nl.tudelft.goalkeeper.parser.results.parts.Variable;
 /**
  * Class that parses expressions.
  */
-public final class ExpressionParser {
+public final class QueryParser {
 
     /**
      * Prevents instantiation.
      */
-    private ExpressionParser() { }
+    private QueryParser() { }
 
     /**
-     * Parses a prolog term to an expression.
+     * Parses a prolog term to a query.
      * @param term Term to parse.
      * @return Parsed expression.
      */

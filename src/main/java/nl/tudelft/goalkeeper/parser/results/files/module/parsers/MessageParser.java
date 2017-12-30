@@ -1,4 +1,4 @@
-package nl.tudelft.goalkeeper.parser;
+package nl.tudelft.goalkeeper.parser.results.files.module.parsers;
 
 import languageTools.errors.Message;
 import nl.tudelft.goalkeeper.checking.violations.Violation;
@@ -21,7 +21,7 @@ final class MessageParser {
      * @param error Error message to parse.
      * @return Violation.
      */
-    static Violation parse(Message error) {
+    public static Violation parse(Message error) {
         return new Violation(error.toShortString(), SYNTAX_SEVERITY)
                 .setSource(new CharacterSource(
                         error.getSource().getSource(),

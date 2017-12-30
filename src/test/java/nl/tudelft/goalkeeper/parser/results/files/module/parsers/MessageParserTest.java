@@ -1,4 +1,4 @@
-package nl.tudelft.goalkeeper.parser;
+package nl.tudelft.goalkeeper.parser.results.files.module.parsers;
 
 import krTools.parser.SourceInfo;
 import languageTools.errors.Message;

@@ -126,4 +126,27 @@ public final class Rule {
         return false;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(type.getPrefix()).append(' ');
+        for (int i = 0; i < conditions.size(); ++i) {
+            sb.append(conditions.get(i));
+            if (i < conditions.size() - 1) {
+                sb.append(", ");
+            }
+        }
+        sb.append(' ').append(type.getSuffix()).append(' ');
+        for (int i = 0; i < actions.size(); ++i) {
+            sb.append(actions.get(i));
+            if (i < actions.size() - 1) {
+                sb.append(" + ");
+            }
+        }
+        return sb.toString();
+    }
+
 }

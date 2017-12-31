@@ -127,7 +127,7 @@ class ConsoleTest {
     @Test
     void printlnObjectTest() throws UnsupportedEncodingException {
         Console.println(0.5f);
-        assertThat(out.toString(UTF8)).isEqualTo("null" + NEWLINE);
+        assertThat(out.toString(UTF8)).isEqualTo("0.5" + NEWLINE);
     }
 
     /**
@@ -138,6 +138,6 @@ class ConsoleTest {
         Console.setUseColor(true);
         Console.println(-0.5, ConsoleColor.WHITE);
         assertThat(out.toString(UTF8)).isEqualTo(
-                ConsoleColor.WHITE.getAnsi() + "-1" + NEWLINE);
+                ConsoleColor.WHITE.getAnsi() + "-0.5" + NEWLINE);
     }
 }

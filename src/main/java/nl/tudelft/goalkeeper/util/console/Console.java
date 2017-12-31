@@ -27,6 +27,14 @@ public final class Console {
     }
 
     /**
+     * Prints the given object.
+     * @param object Object to print.
+     */
+    public static void print(Object object) {
+        print(String.valueOf(object));
+    }
+
+    /**
      * Prints the current string.
      * @param text String to print.
      * @param color Color to print with.
@@ -37,6 +45,15 @@ public final class Console {
         } else {
             System.out.print(text);
         }
+    }
+
+    /**
+     * Prints the given object.
+     * @param object Object to print.
+     * @param color Color to print in.
+     */
+    public static void print(Object object, ConsoleColor color) {
+        print(String.valueOf(object), color);
     }
 
     /**
@@ -55,6 +72,14 @@ public final class Console {
     }
 
     /**
+     * Prints the given object and appends a new line.
+     * @param object Object to print.
+     */
+    public static void println(Object object) {
+        println(String.valueOf(object));
+    }
+
+    /**
      * Prints text and appends a new line.
      * @param text Text to print.
      * @param color Color to print with.
@@ -62,6 +87,15 @@ public final class Console {
     public static void println(String text, ConsoleColor color) {
         print(text, color);
         println();
+    }
+
+    /**
+     * Prints the given object and appends a new line.
+     * @param object Object to print.
+     * @param color Color to print in.
+     */
+    public static void println(Object object, ConsoleColor color) {
+        println(String.valueOf(object), color);
     }
 
     /**

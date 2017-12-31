@@ -6,8 +6,11 @@ import languageTools.program.agent.msc.MentalLiteral;
 import languageTools.program.agent.selector.Selector;
 import nl.tudelft.goalkeeper.exceptions.UnknownKRLanguageException;
 import nl.tudelft.goalkeeper.parser.queries.ExpressionParser;
+import nl.tudelft.goalkeeper.parser.results.files.module.conditions.AGoalCondition;
 import nl.tudelft.goalkeeper.parser.results.files.module.conditions.BeliefCondition;
 import nl.tudelft.goalkeeper.parser.results.files.module.conditions.Condition;
+import nl.tudelft.goalkeeper.parser.results.files.module.conditions.GoalACondition;
+import nl.tudelft.goalkeeper.parser.results.files.module.conditions.GoalCondition;
 import nl.tudelft.goalkeeper.parser.results.files.module.conditions.PerceptCondition;
 import nl.tudelft.goalkeeper.parser.results.files.module.conditions.SentCondition;
 import nl.tudelft.goalkeeper.parser.results.parts.Constant;
@@ -59,6 +62,12 @@ public final class ConditionParser {
         switch (operator) {
             case "percept":
                 return new PerceptCondition();
+            case "goal":
+                return new GoalCondition();
+            case "a-goal":
+                return new AGoalCondition();
+            case "goal-a":
+                return new GoalACondition();
             case "sent:":
                 return new SentCondition(newSelector, MessageMood.INDICATIVE);
             case "sent!":

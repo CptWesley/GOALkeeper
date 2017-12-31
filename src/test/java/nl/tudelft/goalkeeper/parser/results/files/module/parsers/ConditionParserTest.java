@@ -5,8 +5,11 @@ import krTools.language.Var;
 import languageTools.program.agent.msc.MentalLiteral;
 import languageTools.program.agent.selector.Selector;
 import nl.tudelft.goalkeeper.exceptions.UnknownKRLanguageException;
+import nl.tudelft.goalkeeper.parser.results.files.module.conditions.AGoalCondition;
 import nl.tudelft.goalkeeper.parser.results.files.module.conditions.BeliefCondition;
 import nl.tudelft.goalkeeper.parser.results.files.module.conditions.Condition;
+import nl.tudelft.goalkeeper.parser.results.files.module.conditions.GoalACondition;
+import nl.tudelft.goalkeeper.parser.results.files.module.conditions.GoalCondition;
 import nl.tudelft.goalkeeper.parser.results.files.module.conditions.PerceptCondition;
 import nl.tudelft.goalkeeper.parser.results.files.module.conditions.SentCondition;
 import nl.tudelft.goalkeeper.parser.results.parts.Constant;
@@ -29,6 +32,9 @@ class ConditionParserTest {
 
     private static final String PERCEPT = "percept";
     private static final String BELIEF = "bel";
+    private static final String GOAL = "goal";
+    private static final String AGOAL = "a-goal";
+    private static final String GOALA = "goal-a";
     private static final String SENT_INDICATIVE = "sent:";
     private static final String SENT_IMPERATIVE = "sent!";
     private static final String SENT_INTERROGATIVE = "sent?";
@@ -75,6 +81,33 @@ class ConditionParserTest {
     void beliefTest() throws UnknownKRLanguageException {
         Mockito.when(literal.getOperator()).thenReturn(BELIEF);
         assertThat(ConditionParser.parse(literal)).isInstanceOf(BeliefCondition.class);
+    }
+
+    /**
+     * Tests that a goal condition is parsed correctly.
+     */
+    @Test
+    void goalTest() throws UnknownKRLanguageException {
+        Mockito.when(literal.getOperator()).thenReturn(GOAL);
+        assertThat(ConditionParser.parse(literal)).isInstanceOf(GoalCondition.class);
+    }
+
+    /**
+     * Tests that a a-goal condition is parsed correctly.
+     */
+    @Test
+    void aGoalTest() throws UnknownKRLanguageException {
+        Mockito.when(literal.getOperator()).thenReturn(AGOAL);
+        assertThat(ConditionParser.parse(literal)).isInstanceOf(AGoalCondition.class);
+    }
+
+    /**
+     * Tests that a goal-a condition is parsed correctly.
+     */
+    @Test
+    void goalATest() throws UnknownKRLanguageException {
+        Mockito.when(literal.getOperator()).thenReturn(GOALA);
+        assertThat(ConditionParser.parse(literal)).isInstanceOf(GoalACondition.class);
     }
 
     /**

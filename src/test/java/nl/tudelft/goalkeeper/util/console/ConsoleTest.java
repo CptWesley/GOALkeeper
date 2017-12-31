@@ -116,9 +116,9 @@ class ConsoleTest {
     @Test
     void printColorObjectTest() throws UnsupportedEncodingException {
         Console.setUseColor(true);
-        Console.print(null, ConsoleColor.RED);
+        Console.print(-1, ConsoleColor.RED);
         assertThat(out.toString(UTF8)).isEqualTo(
-                ConsoleColor.RED.getAnsi() + "null");
+                ConsoleColor.RED.getAnsi() + "-1");
     }
 
     /**
@@ -126,7 +126,7 @@ class ConsoleTest {
      */
     @Test
     void printlnObjectTest() throws UnsupportedEncodingException {
-        Console.println(null);
+        Console.println(0.5f);
         assertThat(out.toString(UTF8)).isEqualTo("null" + NEWLINE);
     }
 
@@ -136,8 +136,8 @@ class ConsoleTest {
     @Test
     void printlnColorObjectTest() throws UnsupportedEncodingException {
         Console.setUseColor(true);
-        Console.print(-1, ConsoleColor.WHITE);
+        Console.println(-0.5, ConsoleColor.WHITE);
         assertThat(out.toString(UTF8)).isEqualTo(
-                ConsoleColor.WHITE.getAnsi() + "-1");
+                ConsoleColor.WHITE.getAnsi() + "-1" + NEWLINE);
     }
 }

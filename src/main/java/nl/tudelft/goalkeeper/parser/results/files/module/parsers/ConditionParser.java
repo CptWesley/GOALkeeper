@@ -4,7 +4,8 @@ import krTools.language.Term;
 import krTools.language.Var;
 import languageTools.program.agent.msc.MentalLiteral;
 import languageTools.program.agent.selector.Selector;
-import nl.tudelft.goalkeeper.parser.ExpressionParser;
+import nl.tudelft.goalkeeper.exceptions.UnknownKRLanguageException;
+import nl.tudelft.goalkeeper.parser.queries.ExpressionParser;
 import nl.tudelft.goalkeeper.parser.results.files.module.conditions.BeliefCondition;
 import nl.tudelft.goalkeeper.parser.results.files.module.conditions.Condition;
 import nl.tudelft.goalkeeper.parser.results.files.module.conditions.PerceptCondition;
@@ -28,12 +29,14 @@ public final class ConditionParser {
 
     /**
      * Parses a query to a condition.
-     * @param query Query to parse.
+     * @param query Function to parse.
      * @return Condition of our own type.
+     * @throws UnknownKRLanguageException Thrown when we can'thandle the language.
      */
-    public static Condition parse(MentalLiteral query) {
+    public static Condition parse(MentalLiteral query)
+            throws UnknownKRLanguageException {
         Condition c = getInstance(query.getOperator(), query.getSelector());
-        Expression e = ExpressionParser.parse(((PrologQuery) query.getFormula()).getTerm());
+        Expression e = ExpressionParser.parse(query.getFormula());
         c.addExpression(e);
         return c;
     }

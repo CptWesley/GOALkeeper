@@ -1,9 +1,21 @@
 package nl.tudelft.goalkeeper.parser;
 
 import languageTools.analyzer.FileRegistry;
+import languageTools.analyzer.mas.Analysis;
 import languageTools.analyzer.mas.MASValidator;
 import languageTools.errors.Message;
 import nl.tudelft.goalkeeper.parser.results.ParseResult;
+import languageTools.program.agent.Module;
+import nl.tudelft.goalkeeper.parser.results.files.module.ModuleFile;
+import nl.tudelft.goalkeeper.parser.results.files.module.Rule;
+import nl.tudelft.goalkeeper.parser.results.files.module.conditions.Condition;
+import nl.tudelft.goalkeeper.parser.results.files.module.parsers.MessageParser;
+import nl.tudelft.goalkeeper.parser.results.files.module.parsers.ModuleParser;
+import nl.tudelft.goalkeeper.parser.results.parts.Literal;
+import nl.tudelft.goalkeeper.parser.results.parts.Parameter;
+import nl.tudelft.goalkeeper.util.console.Console;
+
+import java.io.IOException;
 
 /**
  * Parses a MAS and returns the parsed data.
@@ -20,7 +32,7 @@ public final class Parser {
         result.setSuccessful(true);
         MASValidator validator = new MASValidator(fileName, new FileRegistry());
         validator.validate();
-        validator.process();
+        Analysis analysis = validator.process();
 
         for (Message error : validator.getErrors()) {
             result.addViolation(MessageParser.parse(error));
@@ -34,6 +46,39 @@ public final class Parser {
             result.addViolation(MessageParser.parse(error).setError(false));
         }
 
+        if (result.isSuccessful()) {
+            for (Module m : analysis.getModuleDefinitions()) {
+                try {
+                    result.addModule(ModuleParser.parse(m));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            Console.setUseColor(true);
+            for (ModuleFile m : result.getModules()) {
+                //Console.println(m.getSource(), ConsoleColor.BLUE);
+                for (Rule r : m.getRules()) {
+                    //Console.println("Rule:", ConsoleColor.RED);
+                    //Console.println("Conditions:", ConsoleColor.RED);
+                    for (Condition c : r.getConditions()) {
+                        StringBuilder sb = new StringBuilder();
+                        //for (Parameter v : c.()) {
+                        //    sb.append(v).append(", ");
+                        //}
+                        //Console.println(c.getSignature() + "::" + sb.toString(), ConsoleColor.GREEN);
+                    }
+                    //Console.println("Actions:", ConsoleColor.RED);
+                    for (Literal c : r.getActions()) {
+                        StringBuilder sb = new StringBuilder();
+                        for (Parameter v : c.getParameters()) {
+                            sb.append(v).append(", ");
+                        }
+                        //Console.println(c.getSignature() + "::" + sb.toString(), ConsoleColor.GREEN);
+                    }
+                }
+            }
+        }
         return result;
     }
 }

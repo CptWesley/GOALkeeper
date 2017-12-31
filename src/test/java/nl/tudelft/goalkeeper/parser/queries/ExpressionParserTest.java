@@ -1,77 +1,38 @@
 package nl.tudelft.goalkeeper.parser.queries;
 
-import jpl.Term;
-import nl.tudelft.goalkeeper.parser.results.parts.Constant;
-import nl.tudelft.goalkeeper.parser.results.parts.Expression;
-import nl.tudelft.goalkeeper.parser.results.parts.Variable;
-import org.junit.jupiter.api.BeforeEach;
+import krTools.language.Query;
+import nl.tudelft.goalkeeper.exceptions.UnknownKRLanguageException;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import swiprolog.language.PrologQuery;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 /**
- * Test class for the QueryParser class.
+ * Test class for the ExpressionParser class.
  */
-class QueryParserTest {
-
-    private static final String NAME = "ADFAASasdfase";
-    private static final int INT_VALUE = 34;
-    private static final float FLOAT_VALUE = 0.5f;
-    private Term term;
+class ExpressionParserTest {
 
     /**
-     * Sets up the testing environment before each test.
+     * Checks that we can correctly get a prolog expression parser.
      */
-    @BeforeEach
-    void setup() {
-        term = Mockito.mock(Term.class);
-        Mockito.when(term.name()).thenReturn(NAME);
+    @Test
+    void getParserPrologTest() throws UnknownKRLanguageException {
+        assertThat(ExpressionParser
+                .getParser(Mockito.mock(PrologQuery.class)))
+                .isInstanceOf(PrologExpressionParser.class);
     }
 
     /**
-     * Checks that variables are created properly.
+     * Checks that we can correctly get a prolog expression parser.
      */
     @Test
-    void variableTest() {
-        Mockito.when(term.isVariable()).thenReturn(true);
-        Expression result = QueryParser.parse(term);
-        assertThat(result).isInstanceOf(Variable.class);
-        assertThat(result.getIdentifier()).isEqualTo(NAME);
-    }
-
-    /**
-     * Checks that atoms are parsed properly.
-     */
-    @Test
-    void atomTest() {
-        Mockito.when(term.isAtom()).thenReturn(true);
-        Expression result = QueryParser.parse(term);
-        assertThat(result).isInstanceOf(Constant.class);
-        assertThat(result.getIdentifier()).isEqualTo(NAME);
-    }
-
-    /**
-     * Checks that integers are parsed properly.
-     */
-    @Test
-    void integerTest() {
-        Mockito.when(term.isInteger()).thenReturn(true);
-        Mockito.when(term.intValue()).thenReturn(INT_VALUE);
-        Expression result = QueryParser.parse(term);
-        assertThat(result).isInstanceOf(Constant.class);
-        assertThat(result.getIdentifier()).isEqualTo(INT_VALUE + "");
-    }
-
-    /**
-     * Checks that floats are parsed properly.
-     */
-    @Test
-    void floatTest() {
-        Mockito.when(term.isFloat()).thenReturn(true);
-        Mockito.when(term.floatValue()).thenReturn(FLOAT_VALUE);
-        Expression result = QueryParser.parse(term);
-        assertThat(result).isInstanceOf(Constant.class);
-        assertThat(result.getIdentifier()).isEqualTo(FLOAT_VALUE + "");
+    void getParserUnknownTest() {
+        assertThatExceptionOfType(UnknownKRLanguageException.class)
+                .isThrownBy(() -> ExpressionParser.getParser(Mockito.mock(Query.class)))
+                .withMessageStartingWith("Found query of type '")
+                .withMessageContaining("krTools.language.Query")
+                .withMessageEndingWith("'.");
     }
 }

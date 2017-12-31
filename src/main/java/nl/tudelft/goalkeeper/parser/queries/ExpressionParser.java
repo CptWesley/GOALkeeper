@@ -1,51 +1,42 @@
 package nl.tudelft.goalkeeper.parser.queries;
 
-import jpl.Term;
-import nl.tudelft.goalkeeper.parser.results.parts.Constant;
-import nl.tudelft.goalkeeper.parser.results.parts.Query;
-import nl.tudelft.goalkeeper.parser.results.parts.Variable;
+import nl.tudelft.goalkeeper.exceptions.UnknownKRLanguageException;
+import nl.tudelft.goalkeeper.parser.results.parts.Expression;
 import swiprolog.language.PrologQuery;
 
 /**
  * Class that parses expressions.
  */
-public final class QueryParser {
+public final class ExpressionParser {
 
     /**
      * Prevents instantiation.
      */
-    private QueryParser() { }
+    private ExpressionParser() { }
 
     /**
-     * Parses a prolog term to a query.
-     * @param term Term to parse.
+     * Parses a GOAL query to a GOALkeeper expression.
+     * @param query Query to parse.
      * @return Parsed expression.
+     * @throws UnknownKRLanguageException Thrown when we can't handle the query.
      */
-    public static Query parse(krTools.language.Query query) {
-        if (term.isVariable()) {
-            return new Variable(term.name());
-        }
-        if (term.isAtom()) {
-            return new Constant(term.name());
-        }
-        if (term.isFloat()) {
-            return new Constant(term.floatValue() + "");
-        }
-        if (term.isInteger()) {
-            return new Constant(term.intValue() + "");
-        }
-        Query result = new Query(term.name());
-
-        for (Term part : term.args()) {
-            result.addPart(parse(part));
-        }
-
-        return result;
+    public static Expression parse(krTools.language.Query query)
+            throws UnknownKRLanguageException {
+        return getParser(query).parse(query);
     }
 
-    private static QueryParserInterface getParser(krTools.language.Query query) {
+    /**
+     * Gets the an instance of the correct parser type.
+     * @param query Query to get the type for.
+     * @return Instance of the correct parser.
+     * @throws UnknownKRLanguageException Thrown when we can't handle the query.
+     */
+    static ExpressionParserInterface getParser(krTools.language.Query query)
+            throws UnknownKRLanguageException {
         if (query instanceof PrologQuery) {
-            return new PrologQueryParser();
+            return new PrologExpressionParser();
         }
+        throw new UnknownKRLanguageException(
+                String.format("Found query of type '%s'.", query.getClass().getTypeName()));
     }
 }

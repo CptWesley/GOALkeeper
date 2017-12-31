@@ -5,6 +5,7 @@ import nl.tudelft.goalkeeper.parser.results.parts.Constant;
 import nl.tudelft.goalkeeper.parser.results.parts.Expression;
 import nl.tudelft.goalkeeper.parser.results.parts.Function;
 import nl.tudelft.goalkeeper.parser.results.parts.Variable;
+import swiprolog.language.JPLUtils;
 import swiprolog.language.PrologQuery;
 
 /**
@@ -28,18 +29,18 @@ public final class PrologExpressionParser implements ExpressionParserInterface {
      */
     private static Expression parseTerm(Term term) {
         if (term.isVariable()) {
-            return new Variable(term.name());
+            return new Variable(JPLUtils.getSignature(term));
         }
         if (term.isAtom()) {
-            return new Constant(term.name());
+            return new Constant(JPLUtils.getSignature(term));
         }
         if (term.isFloat()) {
-            return new Constant(term.floatValue() + "");
+            return new Constant(JPLUtils.getSignature(term));
         }
         if (term.isInteger()) {
-            return new Constant(term.intValue() + "");
+            return new Constant(JPLUtils.getSignature(term));
         }
-        Function result = new Function(term.name());
+        Function result = new Function(JPLUtils.getSignature(term));
         for (Term part : term.args()) {
             result.addPart(parseTerm(part));
         }

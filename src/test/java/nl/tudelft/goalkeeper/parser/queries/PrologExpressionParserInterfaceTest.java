@@ -18,6 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class PrologExpressionParserInterfaceTest {
 
     private static final String NAME = "fdfgdsfgds";
+    private static final String ZERO_ANARY = "/0";
     private static final int INT_VALUE = 33;
     private static final float FLOAT_VALUE = 0.5f;
 
@@ -37,6 +38,7 @@ class PrologExpressionParserInterfaceTest {
         Mockito.when(term.args()).thenReturn(new Term[0]);
         Mockito.when(term.name()).thenReturn(NAME);
         Mockito.when(term.intValue()).thenReturn(INT_VALUE);
+        Mockito.when(term.longValue()).thenReturn((long)INT_VALUE);
         Mockito.when(term.floatValue()).thenReturn(FLOAT_VALUE);
     }
 
@@ -45,7 +47,7 @@ class PrologExpressionParserInterfaceTest {
      */
     @Test
     void getNameTest() {
-        assertThat(parser.parse(query).getIdentifier()).isEqualTo(term.name());
+        assertThat(parser.parse(query).getIdentifier()).isEqualTo(term.name() + ZERO_ANARY);
     }
 
     /**
@@ -55,7 +57,7 @@ class PrologExpressionParserInterfaceTest {
     void integerTest() {
         Mockito.when(term.isInteger()).thenReturn(true);
         assertThat(parser.parse(query)).isInstanceOf(Constant.class);
-        assertThat(parser.parse(query).getIdentifier()).isEqualTo(INT_VALUE + "");
+        assertThat(parser.parse(query).getIdentifier()).isEqualTo(INT_VALUE + ZERO_ANARY);
     }
 
     /**
@@ -65,7 +67,7 @@ class PrologExpressionParserInterfaceTest {
     void floatTest() {
         Mockito.when(term.isFloat()).thenReturn(true);
         assertThat(parser.parse(query)).isInstanceOf(Constant.class);
-        assertThat(parser.parse(query).getIdentifier()).isEqualTo(FLOAT_VALUE + "");
+        assertThat(parser.parse(query).getIdentifier()).isEqualTo(FLOAT_VALUE + ZERO_ANARY);
     }
 
     /**
@@ -75,7 +77,7 @@ class PrologExpressionParserInterfaceTest {
     void atomTest() {
         Mockito.when(term.isAtom()).thenReturn(true);
         assertThat(parser.parse(query)).isInstanceOf(Constant.class);
-        assertThat(parser.parse(query).getIdentifier()).isEqualTo(NAME);
+        assertThat(parser.parse(query).getIdentifier()).isEqualTo(NAME + ZERO_ANARY);
     }
 
     /**
@@ -85,7 +87,7 @@ class PrologExpressionParserInterfaceTest {
     void variableTest() {
         Mockito.when(term.isVariable()).thenReturn(true);
         assertThat(parser.parse(query)).isInstanceOf(Variable.class);
-        assertThat(parser.parse(query).getIdentifier()).isEqualTo(NAME);
+        assertThat(parser.parse(query).getIdentifier()).isEqualTo(NAME + ZERO_ANARY);
     }
 
     /**
@@ -95,7 +97,7 @@ class PrologExpressionParserInterfaceTest {
     void compoundTest() {
         Mockito.when(term.isCompound()).thenReturn(true);
         assertThat(parser.parse(query)).isInstanceOf(Function.class);
-        assertThat(parser.parse(query).getIdentifier()).isEqualTo(NAME);
+        assertThat(parser.parse(query).getIdentifier()).isEqualTo(NAME + ZERO_ANARY);
     }
 
     /**
@@ -116,8 +118,8 @@ class PrologExpressionParserInterfaceTest {
         Function function = (Function) result;
         assertThat(function.getParts()).hasSize(2);
         assertThat(function.getParts().get(0)).isInstanceOf(Variable.class);
-        assertThat(function.getParts().get(0).getIdentifier()).isEqualTo("t1");
+        assertThat(function.getParts().get(0).getIdentifier()).isEqualTo("t1" + ZERO_ANARY);
         assertThat(function.getParts().get(1)).isInstanceOf(Constant.class);
-        assertThat(function.getParts().get(1).getIdentifier()).isEqualTo("t2");
+        assertThat(function.getParts().get(1).getIdentifier()).isEqualTo("t2" + ZERO_ANARY);
     }
 }

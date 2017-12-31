@@ -64,7 +64,7 @@ public final class ConditionParser {
                 return new SentCondition(newSelector, MessageMood.INDICATIVE);
             case "sent!":
                 return new SentCondition(newSelector, MessageMood.IMPERATIVE);
-            case "sent:?":
+            case "sent?":
                 return new SentCondition(newSelector, MessageMood.INTERROGATIVE);
             default:
                 return new BeliefCondition();

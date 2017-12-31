@@ -70,7 +70,7 @@ class ConsoleTest {
     void printColorEnabledTest() throws UnsupportedEncodingException {
         Console.setUseColor(true);
         Console.print("hjk", ConsoleColor.PURPLE);
-        assertThat(out.toString(UTF8)).isEqualTo("\u001B[35mhjk");
+        assertThat(out.toString(UTF8)).isEqualTo("\u001B[35mhjk\u001B[0m");
     }
 
     /**
@@ -98,6 +98,6 @@ class ConsoleTest {
     void printlnColorEnabledTest() throws UnsupportedEncodingException {
         Console.setUseColor(true);
         Console.println("das", ConsoleColor.CYAN);
-        assertThat(out.toString(UTF8)).isEqualTo("\u001B[36mdas" + NEWLINE);
+        assertThat(out.toString(UTF8)).isEqualTo("\u001B[36mdas\u001B[0m" + NEWLINE);
     }
 }

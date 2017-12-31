@@ -33,7 +33,7 @@ public final class Console {
      */
     public static void print(String text, ConsoleColor color) {
         if (useColor) {
-            System.out.print(color.getAnsi() + text);
+            System.out.print(color.getAnsi() + text + ConsoleColor.DEFAULT.getAnsi());
         } else {
             System.out.print(text);
         }

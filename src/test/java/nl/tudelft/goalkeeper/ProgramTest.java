@@ -83,6 +83,7 @@ class ProgramTest {
                 .hasMessage(ExitCode.NO_RULES + "");
         assertThat(out.toString(UTF8)).contains(ConsoleColor.RED.getAnsi()
                 + "[ERROR] No '-rules=...' parameter found."
+                + ConsoleColor.DEFAULT.getAnsi()
                 + NEWLINE);
     }
 
@@ -96,6 +97,7 @@ class ProgramTest {
                 .hasMessage(ExitCode.NO_MAS + "");
         assertThat(out.toString(UTF8)).contains(ConsoleColor.RED.getAnsi()
                 + "[ERROR] No '-mas=...' parameter found."
+                + ConsoleColor.DEFAULT.getAnsi()
                 + NEWLINE);
     }
 
@@ -109,6 +111,7 @@ class ProgramTest {
                 .hasMessage(ExitCode.NO_MAS + "");
         assertThat(out.toString(UTF8)).contains(ConsoleColor.RED.getAnsi()
                 + "[ERROR] File 'true' is not a '.mas2g' file."
+                + ConsoleColor.DEFAULT.getAnsi()
                 + NEWLINE);
     }
 
@@ -122,6 +125,7 @@ class ProgramTest {
                 .hasMessage(ExitCode.NO_MAS + "");
         assertThat(out.toString(UTF8)).contains(ConsoleColor.RED.getAnsi()
                 + "[ERROR] File 'blablabla.mas2g' does not exist."
+                + ConsoleColor.DEFAULT.getAnsi()
                 + NEWLINE);
     }
 
@@ -137,6 +141,7 @@ class ProgramTest {
                 .hasMessage(ExitCode.NO_RULES + "");
         assertThat(out.toString(UTF8)).contains(ConsoleColor.RED.getAnsi()
                 + "[ERROR] An error occured while trying to open file 'true'."
+                + ConsoleColor.DEFAULT.getAnsi()
                 + NEWLINE);
     }
 
@@ -153,6 +158,7 @@ class ProgramTest {
         assertThat(out.toString(UTF8)).contains(ConsoleColor.RED.getAnsi()
                 + "[ERROR] Malformed JSON 'src/test/resources/testfiles/"
                 +  "empty-project-files/mas.mas2g' ruleset found."
+                + ConsoleColor.DEFAULT.getAnsi()
                 + NEWLINE);
     }
 
@@ -168,6 +174,7 @@ class ProgramTest {
                 .hasMessage(ExitCode.SUCCESSFUL + "");
         assertThat(out.toString(UTF8)).contains(ConsoleColor.BLUE.getAnsi()
                 + "Build succeeded with 0 errors and 0 warnings."
+                + ConsoleColor.DEFAULT.getAnsi()
                 + NEWLINE);
     }
 }

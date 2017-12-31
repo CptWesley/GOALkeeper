@@ -57,12 +57,10 @@ public abstract class Condition {
         if (o != null && this.getClass().equals(o.getClass())) {
             Condition that = (Condition) o;
             if (this.expressions.size() != that.expressions.size()) {
-                System.out.print("Different size");
                 return false;
             }
             for (int i = 0; i < expressions.size(); ++i) {
                 if (!this.expressions.get(i).equals(that.expressions.get(i))) {
-                    System.out.print("Different part");
                     return false;
                 }
             }

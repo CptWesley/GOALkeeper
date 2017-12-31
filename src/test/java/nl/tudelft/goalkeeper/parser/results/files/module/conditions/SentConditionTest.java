@@ -56,7 +56,7 @@ class SentConditionTest extends ConditionTest {
      */
     @Test
     void typeNameTest() {
-        assertThat(condition.getTypeName()).isEqualTo("sent");
+        assertThat(condition.getTypeName()).isEqualTo("sent!");
     }
 
     /**
@@ -79,13 +79,13 @@ class SentConditionTest extends ConditionTest {
      */
     @Test
     void toStringTest() {
-        assertThat(condition.toString()).isEqualTo("(ABBA)!sent()");
+        assertThat(condition.toString()).isEqualTo("(ABBA).sent!()");
         Expression e1 = Mockito.mock(Expression.class);
         Expression e2 = Mockito.mock(Expression.class);
         Mockito.when(e1.toString()).thenReturn("raf1");
         Mockito.when(e2.toString()).thenReturn("raf2");
-        assertThat(condition.addExpression(e1).toString()).isEqualTo("(ABBA)!sent(raf1)");
-        assertThat(condition.addExpression(e2).toString()).isEqualTo("(ABBA)!sent(raf1, raf2)");
+        assertThat(condition.addExpression(e1).toString()).isEqualTo("(ABBA).sent!(raf1)");
+        assertThat(condition.addExpression(e2).toString()).isEqualTo("(ABBA).sent!(raf1, raf2)");
     }
 
     /**

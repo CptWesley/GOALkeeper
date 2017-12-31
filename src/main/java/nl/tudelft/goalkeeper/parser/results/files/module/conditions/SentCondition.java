@@ -38,7 +38,7 @@ public final class SentCondition extends Condition {
      */
     @Override
     protected String getTypeName() {
-        return TYPE_NAME;
+        return TYPE_NAME + mood.getSymbol();
     }
 
     /**
@@ -69,8 +69,7 @@ public final class SentCondition extends Condition {
         StringBuilder sb = new StringBuilder()
                 .append('(')
                 .append(selector)
-                .append(')')
-                .append(mood)
+                .append(").")
                 .append(super.toString());
         return sb.toString();
     }

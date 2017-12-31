@@ -15,7 +15,6 @@ import nl.tudelft.goalkeeper.parser.results.parts.Expression;
 import nl.tudelft.goalkeeper.parser.results.parts.MessageMood;
 import nl.tudelft.goalkeeper.parser.results.parts.Parameter;
 import nl.tudelft.goalkeeper.parser.results.parts.Variable;
-import swiprolog.language.PrologQuery;
 
 /**
  * Class which parses conditions.

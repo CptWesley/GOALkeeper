@@ -118,7 +118,7 @@ class ConsoleTest {
         Console.setUseColor(true);
         Console.print(-1, ConsoleColor.RED);
         assertThat(out.toString(UTF8)).isEqualTo(
-                ConsoleColor.RED.getAnsi() + "-1");
+                ConsoleColor.RED.getAnsi() + "-1\u001B[0m");
     }
 
     /**
@@ -138,6 +138,6 @@ class ConsoleTest {
         Console.setUseColor(true);
         Console.println(-0.5, ConsoleColor.WHITE);
         assertThat(out.toString(UTF8)).isEqualTo(
-                ConsoleColor.WHITE.getAnsi() + "-0.5" + NEWLINE);
+                ConsoleColor.WHITE.getAnsi() + "-0.5\u001B[0m" + NEWLINE);
     }
 }

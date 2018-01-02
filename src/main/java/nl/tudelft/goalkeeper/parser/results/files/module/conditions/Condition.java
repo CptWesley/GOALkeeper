@@ -24,6 +24,7 @@ public abstract class Condition {
 
     /**
      * Creates a new Condition instance.
+     * @param expression Expression of the condition.
      */
     protected Condition(Expression expression) {
         this.expression = expression;

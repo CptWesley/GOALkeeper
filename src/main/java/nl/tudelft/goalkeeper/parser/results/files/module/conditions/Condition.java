@@ -4,7 +4,7 @@ import lombok.Getter;
 import nl.tudelft.goalkeeper.parser.results.parts.Expression;
 
 /**
- * Interface for conditions.
+ * Abstract class for conditions.
  */
 public abstract class Condition {
 

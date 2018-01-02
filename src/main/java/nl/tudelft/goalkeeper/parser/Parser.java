@@ -54,30 +54,6 @@ public final class Parser {
                     e.printStackTrace();
                 }
             }
-
-            Console.setUseColor(true);
-            for (ModuleFile m : result.getModules()) {
-                //Console.println(m.getSource(), ConsoleColor.BLUE);
-                for (Rule r : m.getRules()) {
-                    //Console.println("Rule:", ConsoleColor.RED);
-                    //Console.println("Conditions:", ConsoleColor.RED);
-                    for (Condition c : r.getConditions()) {
-                        StringBuilder sb = new StringBuilder();
-                        //for (Parameter v : c.()) {
-                        //    sb.append(v).append(", ");
-                        //}
-                        //Console.println(c.getSignature() + "::" + sb.toString(), ConsoleColor.GREEN);
-                    }
-                    //Console.println("Actions:", ConsoleColor.RED);
-                    for (Literal c : r.getActions()) {
-                        StringBuilder sb = new StringBuilder();
-                        for (Parameter v : c.getParameters()) {
-                            sb.append(v).append(", ");
-                        }
-                        //Console.println(c.getSignature() + "::" + sb.toString(), ConsoleColor.GREEN);
-                    }
-                }
-            }
         }
         return result;
     }

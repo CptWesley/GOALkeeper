@@ -14,7 +14,7 @@ public final class Function implements Expression {
     private static final int HASH_MODIFIER = 43;
 
     @Getter private String identifier;
-    private List<Expression> parts;
+    private List<Expression> arguments;
 
     /**
      * Creates a query instance.
@@ -22,16 +22,16 @@ public final class Function implements Expression {
      */
     public Function(String identifier) {
         this.identifier = identifier;
-        this.parts = new LinkedList<>();
+        this.arguments = new LinkedList<>();
     }
 
     /**
      * Adds a part to the query.
-     * @param part Part of the query.
+     * @param argument Part of the query.
      * @return Current query.
      */
-    public Function addPart(Expression part) {
-        parts.add(part);
+    public Function addArgument(Expression argument) {
+        arguments.add(argument);
         return this;
     }
 
@@ -39,8 +39,8 @@ public final class Function implements Expression {
      * Gets the parts of the query.
      * @return List containing all parts of the query.
      */
-    public List<Expression> getParts() {
-        return Collections.unmodifiableList(parts);
+    public List<Expression> getArguments() {
+        return Collections.unmodifiableList(arguments);
     }
 
     /**
@@ -53,11 +53,11 @@ public final class Function implements Expression {
             if (!this.identifier.equals(that.identifier)) {
                 return false;
             }
-            if (that.parts.size() != this.parts.size()) {
+            if (that.arguments.size() != this.arguments.size()) {
                 return false;
             }
-            for (int i = 0; i < this.parts.size(); ++i) {
-                if (!that.parts.get(i).equals(this.parts.get(i))) {
+            for (int i = 0; i < this.arguments.size(); ++i) {
+                if (!that.arguments.get(i).equals(this.arguments.get(i))) {
                     return false;
                 }
             }
@@ -72,8 +72,8 @@ public final class Function implements Expression {
     @Override
     public int hashCode() {
         int result = getIdentifier().hashCode() ^ HASH_MODIFIER;
-        for (int i = 0; i < parts.size(); ++i) {
-            result += parts.get(i).hashCode() ^ (i + 1);
+        for (int i = 0; i < arguments.size(); ++i) {
+            result += arguments.get(i).hashCode() ^ (i + 1);
         }
         return result;
     }
@@ -85,9 +85,9 @@ public final class Function implements Expression {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(identifier).append('(');
-        for (int i = 0; i < parts.size(); ++i) {
-            sb.append(parts.get(i));
-            if (i < parts.size() - 1) {
+        for (int i = 0; i < arguments.size(); ++i) {
+            sb.append(arguments.get(i));
+            if (i < arguments.size() - 1) {
                 sb.append(", ");
             }
         }

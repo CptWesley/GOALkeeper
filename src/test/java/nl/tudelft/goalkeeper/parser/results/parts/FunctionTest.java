@@ -41,11 +41,11 @@ class FunctionTest {
      */
     @Test
     void addPartsTest() {
-        assertThat(function.getParts()).isEmpty();
+        assertThat(function.getArguments()).isEmpty();
         Expression part = Mockito.mock(Expression.class);
-        assertThat(function.addPart(part)).isSameAs(function);
-        assertThat(function.getParts()).hasSize(1);
-        assertThat(function.getParts()).containsExactly(part);
+        assertThat(function.addArgument(part)).isSameAs(function);
+        assertThat(function.getArguments()).hasSize(1);
+        assertThat(function.getArguments()).containsExactly(part);
     }
 
     /**
@@ -54,8 +54,8 @@ class FunctionTest {
     @Test
     void toStringTest() {
         assertThat(function.toString()).isEqualTo(identifier + "()");
-        assertThat(function.addPart(p1).toString()).isEqualTo(identifier + "(bla1)");
-        assertThat(function.addPart(p2).toString()).isEqualTo(identifier + "(bla1, bla2)");
+        assertThat(function.addArgument(p1).toString()).isEqualTo(identifier + "(bla1)");
+        assertThat(function.addArgument(p2).toString()).isEqualTo(identifier + "(bla1, bla2)");
     }
 
     /**
@@ -88,7 +88,7 @@ class FunctionTest {
      */
     @Test
     void equalSameParts() {
-        assertThat(function.addPart(p1)).isEqualTo(new Function(identifier).addPart(p1));
+        assertThat(function.addArgument(p1)).isEqualTo(new Function(identifier).addArgument(p1));
     }
 
     /**
@@ -104,8 +104,8 @@ class FunctionTest {
      */
     @Test
     void notEqualDifferentParts() {
-        assertThat(function).isNotEqualTo(new Function(identifier).addPart(p2));
-        assertThat(function.addPart(p1)).isNotEqualTo(new Function(identifier).addPart(p2));
+        assertThat(function).isNotEqualTo(new Function(identifier).addArgument(p2));
+        assertThat(function.addArgument(p1)).isNotEqualTo(new Function(identifier).addArgument(p2));
     }
 
     /**

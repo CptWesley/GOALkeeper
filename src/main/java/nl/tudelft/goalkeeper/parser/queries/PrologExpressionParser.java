@@ -42,7 +42,7 @@ public final class PrologExpressionParser implements ExpressionParserInterface {
         }
         Function result = new Function(JPLUtils.getSignature(term));
         for (Term part : term.args()) {
-            result.addPart(parseTerm(part));
+            result.addArgument(parseTerm(part));
         }
         return result;
     }

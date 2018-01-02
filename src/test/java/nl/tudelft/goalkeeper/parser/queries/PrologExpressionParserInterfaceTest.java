@@ -116,10 +116,10 @@ class PrologExpressionParserInterfaceTest {
         Expression result = parser.parse(query);
         assertThat(result).isInstanceOf(Function.class);
         Function function = (Function) result;
-        assertThat(function.getParts()).hasSize(2);
-        assertThat(function.getParts().get(0)).isInstanceOf(Variable.class);
-        assertThat(function.getParts().get(0).getIdentifier()).isEqualTo("t1" + ZERO_ANARY);
-        assertThat(function.getParts().get(1)).isInstanceOf(Constant.class);
-        assertThat(function.getParts().get(1).getIdentifier()).isEqualTo("t2" + ZERO_ANARY);
+        assertThat(function.getArguments()).hasSize(2);
+        assertThat(function.getArguments().get(0)).isInstanceOf(Variable.class);
+        assertThat(function.getArguments().get(0).getIdentifier()).isEqualTo("t1" + ZERO_ANARY);
+        assertThat(function.getArguments().get(1)).isInstanceOf(Constant.class);
+        assertThat(function.getArguments().get(1).getIdentifier()).isEqualTo("t2" + ZERO_ANARY);
     }
 }

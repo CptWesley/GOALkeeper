@@ -2,7 +2,6 @@ package nl.tudelft.goalkeeper.parser.results.files.module.conditions;
 
 import nl.tudelft.goalkeeper.parser.results.parts.Expression;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -10,6 +9,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * Abstract test class for Condition instances.
  */
 abstract class ConditionTest {
+
     /**
      * Gets an instance of condition to test on.
      * @return Instance of condition to test on.
@@ -23,15 +23,11 @@ abstract class ConditionTest {
     abstract Condition getNewCondition();
 
     /**
-     * Checks that expression addition works correctly.
+     * Checks that expression works correctly.
      */
     @Test
-    void addExpressionTest() {
-        assertThat(getCondition().getExpressions()).isEmpty();
-        Expression e = Mockito.mock(Expression.class);
-        assertThat(getCondition().addExpression(e)).isSameAs(getCondition());
-        assertThat(getCondition().getExpressions()).hasSize(1);
-        assertThat(getCondition().getExpressions()).containsExactly(e);
+    void getExpressionTest() {
+        assertThat(getCondition().getExpression()).isNotNull();
     }
 
     /**
@@ -63,12 +59,6 @@ abstract class ConditionTest {
      */
     @Test
     void notEqualsDifferentExpressionsTest() {
-        Condition other = getNewCondition();
-        Expression e1 = Mockito.mock(Expression.class);
-        Expression e2 = Mockito.mock(Expression.class);
-        other.addExpression(e1);
-        assertThat(getCondition()).isNotEqualTo(other);
-        getCondition().addExpression(e2);
-        assertThat(getCondition()).isNotEqualTo(other);
+        assertThat(getCondition()).isNotEqualTo(getNewCondition());
     }
 }

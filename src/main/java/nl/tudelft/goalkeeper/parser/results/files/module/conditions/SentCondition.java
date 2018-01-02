@@ -1,6 +1,7 @@
 package nl.tudelft.goalkeeper.parser.results.files.module.conditions;
 
 import lombok.Getter;
+import nl.tudelft.goalkeeper.parser.results.parts.Expression;
 import nl.tudelft.goalkeeper.parser.results.parts.MessageMood;
 import nl.tudelft.goalkeeper.parser.results.parts.Parameter;
 
@@ -19,8 +20,10 @@ public final class SentCondition extends Condition {
      * Creates a new sent condition condition.
      * @param selector Selector of the condition.
      * @param mood Mood of the message.
+     * @param expression Expression of the condition.
      */
-    public SentCondition(Parameter selector, MessageMood mood) {
+    public SentCondition(Expression expression, Parameter selector, MessageMood mood) {
+        super(expression);
         this.selector = selector;
         this.mood = mood;
     }

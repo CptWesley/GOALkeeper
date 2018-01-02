@@ -3,6 +3,7 @@ package nl.tudelft.goalkeeper.parser.results.files.module.conditions;
 import nl.tudelft.goalkeeper.parser.results.parts.Expression;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -13,6 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class AGoalConditionTest extends ConditionTest {
 
     private AGoalCondition condition;
+    private Expression expression;
 
     /**
      * {@inheritDoc}
@@ -27,7 +29,7 @@ class AGoalConditionTest extends ConditionTest {
      */
     @Override
     Condition getNewCondition() {
-        return new AGoalCondition();
+        return new AGoalCondition(Mockito.mock(Expression.class));
     }
 
     /**
@@ -35,7 +37,9 @@ class AGoalConditionTest extends ConditionTest {
      */
     @BeforeEach
     void setup() {
-        condition = new AGoalCondition();
+        expression = Mockito.mock(Expression.class);
+        Mockito.when(expression.toString()).thenReturn("raf1");
+        condition = new AGoalCondition(expression);
     }
 
     /**
@@ -59,12 +63,10 @@ class AGoalConditionTest extends ConditionTest {
      */
     @Test
     void equalsSameTest() {
-        AGoalCondition other = new AGoalCondition();
+        AGoalCondition other = new AGoalCondition(expression);
         assertThat(condition).isEqualTo(other);
         assertThat(condition.hashCode()).isEqualTo(other.hashCode());
         Expression e = Mockito.mock(Expression.class);
-        condition.addExpression(e);
-        other.addExpression(e);
         assertThat(condition).isEqualTo(other);
         assertThat(condition.hashCode()).isEqualTo(other.hashCode());
     }
@@ -74,12 +76,6 @@ class AGoalConditionTest extends ConditionTest {
      */
     @Test
     void toStringTest() {
-        assertThat(condition.toString()).isEqualTo("a-goal()");
-        Expression e1 = Mockito.mock(Expression.class);
-        Expression e2 = Mockito.mock(Expression.class);
-        Mockito.when(e1.toString()).thenReturn("raf1");
-        Mockito.when(e2.toString()).thenReturn("raf2");
-        assertThat(condition.addExpression(e1).toString()).isEqualTo("a-goal(raf1)");
-        assertThat(condition.addExpression(e2).toString()).isEqualTo("a-goal(raf1, raf2)");
+        assertThat(condition.toString()).isEqualTo("a-goal(raf1)");
     }
 }

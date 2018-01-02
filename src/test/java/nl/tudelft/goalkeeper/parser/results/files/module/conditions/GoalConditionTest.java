@@ -12,6 +12,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 class GoalConditionTest extends ConditionTest {
 
+    private Expression expression;
     private GoalCondition condition;
 
     /**
@@ -27,7 +28,7 @@ class GoalConditionTest extends ConditionTest {
      */
     @Override
     Condition getNewCondition() {
-        return new GoalCondition();
+        return new GoalCondition(Mockito.mock(Expression.class));
     }
 
     /**
@@ -35,7 +36,9 @@ class GoalConditionTest extends ConditionTest {
      */
     @BeforeEach
     void setup() {
-        condition = new GoalCondition();
+        expression = Mockito.mock(Expression.class);
+        Mockito.when(expression.toString()).thenReturn("raf1");
+        condition = new GoalCondition(expression);
     }
 
     /**
@@ -59,12 +62,10 @@ class GoalConditionTest extends ConditionTest {
      */
     @Test
     void equalsSameTest() {
-        GoalCondition other = new GoalCondition();
+        GoalCondition other = new GoalCondition(expression);
         assertThat(condition).isEqualTo(other);
         assertThat(condition.hashCode()).isEqualTo(other.hashCode());
         Expression e = Mockito.mock(Expression.class);
-        condition.addExpression(e);
-        other.addExpression(e);
         assertThat(condition).isEqualTo(other);
         assertThat(condition.hashCode()).isEqualTo(other.hashCode());
     }
@@ -74,12 +75,6 @@ class GoalConditionTest extends ConditionTest {
      */
     @Test
     void toStringTest() {
-        assertThat(condition.toString()).isEqualTo("goal()");
-        Expression e1 = Mockito.mock(Expression.class);
-        Expression e2 = Mockito.mock(Expression.class);
-        Mockito.when(e1.toString()).thenReturn("raf1");
-        Mockito.when(e2.toString()).thenReturn("raf2");
-        assertThat(condition.addExpression(e1).toString()).isEqualTo("goal(raf1)");
-        assertThat(condition.addExpression(e2).toString()).isEqualTo("goal(raf1, raf2)");
+        assertThat(condition.toString()).isEqualTo("goal(raf1)");
     }
 }

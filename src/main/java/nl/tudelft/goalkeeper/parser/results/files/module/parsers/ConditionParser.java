@@ -37,19 +37,18 @@ public final class ConditionParser {
      */
     public static Condition parse(MentalLiteral query)
             throws UnknownKRLanguageException {
-        Condition c = getInstance(query.getOperator(), query.getSelector());
         Expression e = ExpressionParser.parse(query.getFormula());
-        c.addExpression(e);
-        return c;
+        return getInstance(query.getOperator(), query.getSelector(), e);
     }
 
     /**
      * Creates a proper instance of a condition.
      * @param operator Operator of the query.
      * @param selector Selector of the query.
-     * @return
+     * @param expression Expression of the condition.
+     * @return New condition instance of correct type and with correct expression.
      */
-    private static Condition getInstance(String operator, Selector selector) {
+    private static Condition getInstance(String operator, Selector selector, Expression expression) {
         Parameter newSelector = null;
         if (selector.getParameters().size() > 0) {
             Term term = selector.getParameters().get(0);
@@ -61,21 +60,21 @@ public final class ConditionParser {
         }
         switch (operator) {
             case "percept":
-                return new PerceptCondition();
+                return new PerceptCondition(expression);
             case "goal":
-                return new GoalCondition();
+                return new GoalCondition(expression);
             case "a-goal":
-                return new AGoalCondition();
+                return new AGoalCondition(expression);
             case "goal-a":
-                return new GoalACondition();
+                return new GoalACondition(expression);
             case "sent:":
-                return new SentCondition(newSelector, MessageMood.INDICATIVE);
+                return new SentCondition(expression, newSelector, MessageMood.INDICATIVE);
             case "sent!":
-                return new SentCondition(newSelector, MessageMood.IMPERATIVE);
+                return new SentCondition(expression, newSelector, MessageMood.IMPERATIVE);
             case "sent?":
-                return new SentCondition(newSelector, MessageMood.INTERROGATIVE);
+                return new SentCondition(expression, newSelector, MessageMood.INTERROGATIVE);
             default:
-                return new BeliefCondition();
+                return new BeliefCondition(expression);
         }
     }
 }

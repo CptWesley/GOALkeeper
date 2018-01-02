@@ -16,6 +16,7 @@ class SentConditionTest extends ConditionTest {
 
     private SentCondition condition;
     private Parameter selector;
+    private Expression expression;
 
     /**
      * {@inheritDoc}
@@ -30,7 +31,7 @@ class SentConditionTest extends ConditionTest {
      */
     @Override
     Condition getNewCondition() {
-        return new SentCondition(selector, MessageMood.IMPERATIVE);
+        return new SentCondition(Mockito.mock(Expression.class), selector, MessageMood.IMPERATIVE);
     }
 
     /**
@@ -41,6 +42,8 @@ class SentConditionTest extends ConditionTest {
         selector = Mockito.mock(Parameter.class);
         Mockito.when(selector.toString()).thenReturn("ABBA");
         condition = (SentCondition) getNewCondition();
+        expression = condition.getExpression();
+        Mockito.when(expression.toString()).thenReturn("raf1");
     }
 
     /**
@@ -64,12 +67,10 @@ class SentConditionTest extends ConditionTest {
      */
     @Test
     void equalsSameTest() {
-        SentCondition other = new SentCondition(selector, MessageMood.IMPERATIVE);
+        SentCondition other = new SentCondition(expression, selector, MessageMood.IMPERATIVE);
         assertThat(condition).isEqualTo(other);
         assertThat(condition.hashCode()).isEqualTo(other.hashCode());
         Expression e = Mockito.mock(Expression.class);
-        condition.addExpression(e);
-        other.addExpression(e);
         assertThat(condition).isEqualTo(other);
         assertThat(condition.hashCode()).isEqualTo(other.hashCode());
     }
@@ -79,13 +80,7 @@ class SentConditionTest extends ConditionTest {
      */
     @Test
     void toStringTest() {
-        assertThat(condition.toString()).isEqualTo("(ABBA).sent!()");
-        Expression e1 = Mockito.mock(Expression.class);
-        Expression e2 = Mockito.mock(Expression.class);
-        Mockito.when(e1.toString()).thenReturn("raf1");
-        Mockito.when(e2.toString()).thenReturn("raf2");
-        assertThat(condition.addExpression(e1).toString()).isEqualTo("(ABBA).sent!(raf1)");
-        assertThat(condition.addExpression(e2).toString()).isEqualTo("(ABBA).sent!(raf1, raf2)");
+        assertThat(condition.toString()).isEqualTo("(ABBA).sent!(raf1)");
     }
 
     /**

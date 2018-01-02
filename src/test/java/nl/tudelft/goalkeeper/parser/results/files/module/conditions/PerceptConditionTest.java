@@ -13,6 +13,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class PerceptConditionTest extends ConditionTest {
 
     private PerceptCondition condition;
+    private Expression expression;
 
     /**
      * {@inheritDoc}
@@ -27,7 +28,7 @@ class PerceptConditionTest extends ConditionTest {
      */
     @Override
     Condition getNewCondition() {
-        return new PerceptCondition();
+        return new PerceptCondition(Mockito.mock(Expression.class));
     }
 
     /**
@@ -35,7 +36,9 @@ class PerceptConditionTest extends ConditionTest {
      */
     @BeforeEach
     void setup() {
-        condition = new PerceptCondition();
+        expression = Mockito.mock(Expression.class);
+        Mockito.when(expression.toString()).thenReturn("raf1");
+        condition = new PerceptCondition(expression);
     }
 
     /**
@@ -59,12 +62,10 @@ class PerceptConditionTest extends ConditionTest {
      */
     @Test
     void equalsSameTest() {
-        PerceptCondition other = new PerceptCondition();
+        PerceptCondition other = new PerceptCondition(expression);
         assertThat(condition).isEqualTo(other);
         assertThat(condition.hashCode()).isEqualTo(other.hashCode());
         Expression e = Mockito.mock(Expression.class);
-        condition.addExpression(e);
-        other.addExpression(e);
         assertThat(condition).isEqualTo(other);
         assertThat(condition.hashCode()).isEqualTo(other.hashCode());
     }
@@ -74,12 +75,6 @@ class PerceptConditionTest extends ConditionTest {
      */
     @Test
     void toStringTest() {
-        assertThat(condition.toString()).isEqualTo("percept()");
-        Expression e1 = Mockito.mock(Expression.class);
-        Expression e2 = Mockito.mock(Expression.class);
-        Mockito.when(e1.toString()).thenReturn("raf1");
-        Mockito.when(e2.toString()).thenReturn("raf2");
-        assertThat(condition.addExpression(e1).toString()).isEqualTo("percept(raf1)");
-        assertThat(condition.addExpression(e2).toString()).isEqualTo("percept(raf1, raf2)");
+        assertThat(condition.toString()).isEqualTo("percept(raf1)");
     }
 }

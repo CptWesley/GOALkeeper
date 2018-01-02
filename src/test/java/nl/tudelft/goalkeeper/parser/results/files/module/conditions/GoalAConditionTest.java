@@ -13,6 +13,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class GoalAConditionTest extends ConditionTest {
 
     private GoalACondition condition;
+    private Expression expression;
 
     /**
      * {@inheritDoc}
@@ -27,7 +28,7 @@ class GoalAConditionTest extends ConditionTest {
      */
     @Override
     Condition getNewCondition() {
-        return new GoalACondition();
+        return new GoalACondition(Mockito.mock(Expression.class));
     }
 
     /**
@@ -35,7 +36,9 @@ class GoalAConditionTest extends ConditionTest {
      */
     @BeforeEach
     void setup() {
-        condition = new GoalACondition();
+        expression = Mockito.mock(Expression.class);
+        Mockito.when(expression.toString()).thenReturn("raf1");
+        condition = new GoalACondition(expression);
     }
 
     /**
@@ -59,12 +62,10 @@ class GoalAConditionTest extends ConditionTest {
      */
     @Test
     void equalsSameTest() {
-        GoalACondition other = new GoalACondition();
+        GoalACondition other = new GoalACondition(expression);
         assertThat(condition).isEqualTo(other);
         assertThat(condition.hashCode()).isEqualTo(other.hashCode());
         Expression e = Mockito.mock(Expression.class);
-        condition.addExpression(e);
-        other.addExpression(e);
         assertThat(condition).isEqualTo(other);
         assertThat(condition.hashCode()).isEqualTo(other.hashCode());
     }
@@ -74,12 +75,6 @@ class GoalAConditionTest extends ConditionTest {
      */
     @Test
     void toStringTest() {
-        assertThat(condition.toString()).isEqualTo("goal-a()");
-        Expression e1 = Mockito.mock(Expression.class);
-        Expression e2 = Mockito.mock(Expression.class);
-        Mockito.when(e1.toString()).thenReturn("raf1");
-        Mockito.when(e2.toString()).thenReturn("raf2");
-        assertThat(condition.addExpression(e1).toString()).isEqualTo("goal-a(raf1)");
-        assertThat(condition.addExpression(e2).toString()).isEqualTo("goal-a(raf1, raf2)");
+        assertThat(condition.toString()).isEqualTo("goal-a(raf1)");
     }
 }

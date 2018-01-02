@@ -20,4 +20,12 @@ public enum UpdateType {
     UpdateType(String identifier) {
         this.identifier = identifier;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String toString() {
+        return getIdentifier();
+    }
 }

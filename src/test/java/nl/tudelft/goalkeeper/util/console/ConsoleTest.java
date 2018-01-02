@@ -70,7 +70,7 @@ class ConsoleTest {
     void printColorEnabledTest() throws UnsupportedEncodingException {
         Console.setUseColor(true);
         Console.print("hjk", ConsoleColor.PURPLE);
-        assertThat(out.toString(UTF8)).isEqualTo("\u001B[35mhjk");
+        assertThat(out.toString(UTF8)).isEqualTo("\u001B[35mhjk\u001B[0m");
     }
 
     /**
@@ -98,6 +98,46 @@ class ConsoleTest {
     void printlnColorEnabledTest() throws UnsupportedEncodingException {
         Console.setUseColor(true);
         Console.println("das", ConsoleColor.CYAN);
-        assertThat(out.toString(UTF8)).isEqualTo("\u001B[36mdas" + NEWLINE);
+        assertThat(out.toString(UTF8)).isEqualTo("\u001B[36mdas\u001B[0m" + NEWLINE);
+    }
+
+    /**
+     * Checks that printing an object works.
+     */
+    @Test
+    void printObjectTest() throws UnsupportedEncodingException {
+        Console.print(1);
+        assertThat(out.toString(UTF8)).isEqualTo("1");
+    }
+
+    /**
+     * Checks that printing an object works with colors.
+     */
+    @Test
+    void printColorObjectTest() throws UnsupportedEncodingException {
+        Console.setUseColor(true);
+        Console.print(-1, ConsoleColor.RED);
+        assertThat(out.toString(UTF8)).isEqualTo(
+                ConsoleColor.RED.getAnsi() + "-1\u001B[0m");
+    }
+
+    /**
+     * Checks that printing an object and appending a newline works.
+     */
+    @Test
+    void printlnObjectTest() throws UnsupportedEncodingException {
+        Console.println(0.5f);
+        assertThat(out.toString(UTF8)).isEqualTo("0.5" + NEWLINE);
+    }
+
+    /**
+     * Checks that printing an object and appending a newline works with colors.
+     */
+    @Test
+    void printlnColorObjectTest() throws UnsupportedEncodingException {
+        Console.setUseColor(true);
+        Console.println(-0.5, ConsoleColor.WHITE);
+        assertThat(out.toString(UTF8)).isEqualTo(
+                ConsoleColor.WHITE.getAnsi() + "-0.5\u001B[0m" + NEWLINE);
     }
 }

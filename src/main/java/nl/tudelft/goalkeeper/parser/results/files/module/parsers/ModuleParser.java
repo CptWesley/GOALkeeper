@@ -1,7 +1,9 @@
 package nl.tudelft.goalkeeper.parser.results.files.module.parsers;
 
-import languageTools.program.agent.Module;
+import nl.tudelft.goalkeeper.parser.results.files.module.Module;
 import nl.tudelft.goalkeeper.parser.results.files.module.ModuleFile;
+import nl.tudelft.goalkeeper.parser.results.files.module.SubModule;
+
 import java.io.IOException;
 
 /**
@@ -15,19 +17,37 @@ public final class ModuleParser {
     private ModuleParser() { }
 
     /**
-     * Parses a GOAL module to a GOALkeeper module.
+     * Parses a GOAL module to a GOALkeeper module file.
      * @param m Module to parse.
-     * @return GOALkeeper module.
+     * @return GOALkeeper module file.
      * @throws IOException Thrown when there is a problem reading the file.
      */
-    public static ModuleFile parse(Module m) throws IOException {
+    public static ModuleFile parseToFile(languageTools.program.agent.Module m) throws IOException {
         ModuleFile module = new ModuleFile(m.getSourceFile().toString());
+        addRules(module, m);
+        return module;
+    }
 
-        for (languageTools.program.agent.rules.Rule r : m.getRules()) {
-            module.addRule(RuleParser.parse(r));
+    /**
+     * Parses a GOAL module to a GOALkeeper submodule.
+     * @param m Module to parse.
+     * @return GOALkeeper submodule.
+     */
+    public static SubModule parseToSubModule(languageTools.program.agent.Module m) {
+        SubModule module = new SubModule();
+        addRules(module, m);
+        return module;
+    }
+
+    /**
+     * Parses and adds rules to the corresponding module.
+     * @param target Target module.
+     * @param source Source module type.
+     */
+    private static void addRules(Module target, languageTools.program.agent.Module source) {
+        for (languageTools.program.agent.rules.Rule r : source.getRules()) {
+            target.addRule(RuleParser.parse(r));
             System.out.println(RuleParser.parse(r));
         }
-
-        return module;
     }
 }

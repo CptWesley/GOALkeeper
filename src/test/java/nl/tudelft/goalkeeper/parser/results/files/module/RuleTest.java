@@ -1,5 +1,6 @@
 package nl.tudelft.goalkeeper.parser.results.files.module;
 
+import nl.tudelft.goalkeeper.parser.results.files.module.actions.Action;
 import nl.tudelft.goalkeeper.parser.results.files.module.conditions.Condition;
 import nl.tudelft.goalkeeper.parser.results.parts.Literal;
 import org.junit.jupiter.api.BeforeEach;
@@ -36,7 +37,7 @@ class RuleTest {
      */
     @Test
     void getActionsTest() {
-        Literal a = Mockito.mock(Literal.class);
+        Action a = Mockito.mock(Action.class);
         assertThat(rule.getActions()).isEmpty();
         assertThat(rule.addAction(a)).isEqualTo(rule);
         assertThat(rule.getActions()).hasSize(1);

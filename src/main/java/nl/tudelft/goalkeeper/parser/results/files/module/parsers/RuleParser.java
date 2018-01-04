@@ -1,18 +1,17 @@
 package nl.tudelft.goalkeeper.parser.results.files.module.parsers;
 
-import languageTools.program.agent.actions.Action;
+import krTools.language.Term;
+import languageTools.program.agent.actions.SendAction;
+import languageTools.program.agent.actions.UserSpecCallAction;
 import languageTools.program.agent.rules.ForallDoRule;
 import languageTools.program.agent.rules.ListallDoRule;
 import nl.tudelft.goalkeeper.exceptions.UnknownKRLanguageException;
 import nl.tudelft.goalkeeper.parser.results.files.module.Rule;
 import nl.tudelft.goalkeeper.parser.results.files.module.RuleType;
+import nl.tudelft.goalkeeper.parser.results.files.module.actions.Action;
 import nl.tudelft.goalkeeper.parser.results.files.module.conditions.Condition;
-import nl.tudelft.goalkeeper.parser.results.parts.Parameter;
 import nl.tudelft.goalkeeper.util.console.Console;
 import nl.tudelft.goalkeeper.util.console.ConsoleColor;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Class which parses a rule.
@@ -40,13 +39,32 @@ public final class RuleParser {
                 e.printStackTrace();
             }
         }
-        for (Action a : r.getAction().getActions()) {
+        for (languageTools.program.agent.actions.Action<?> a : r.getAction().getActions()) {
             Console.setUseColor(true);
             Console.println(a.toString(), ConsoleColor.RED);
+            Console.println(a.getParameters().size(), ConsoleColor.BLACK);
             Console.println(a.getClass().toString(), ConsoleColor.BLUE);
             Console.println(a.getSignature(), ConsoleColor.YELLOW);
+
+            if (a instanceof UserSpecCallAction) {
+                UserSpecCallAction spec = (UserSpecCallAction) a;
+                Console.println(spec.getSpecification().getSourceInfo().getSource(), ConsoleColor.GREEN);
+            }
+            if (a instanceof SendAction) {
+                SendAction spec = (SendAction) a;
+                for (Term t : spec.getSelector().getParameters()) {
+                    Console.println((t), ConsoleColor.GREEN);
+                }
+            }
             for (Object p : a.getParameters()) {
                 Console.println(p.toString(), ConsoleColor.PURPLE);
+            }
+
+            try {
+                Action action = ActionParser.parse(a);
+                rule.addAction(action);
+            } catch (UnknownKRLanguageException e) {
+                e.printStackTrace();
             }
         }
 

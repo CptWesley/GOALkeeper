@@ -1,8 +1,8 @@
 package nl.tudelft.goalkeeper.parser.results.files.module;
 
 import lombok.Getter;
+import nl.tudelft.goalkeeper.parser.results.files.module.actions.Action;
 import nl.tudelft.goalkeeper.parser.results.files.module.conditions.Condition;
-import nl.tudelft.goalkeeper.parser.results.parts.Literal;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -15,7 +15,7 @@ public final class Rule {
 
     @Getter private RuleType type;
     private List<Condition> conditions;
-    private List<Literal> actions;
+    private List<Action> actions;
 
     /**
      * Creates a rule instance.
@@ -39,7 +39,7 @@ public final class Rule {
      * Gets the action of this rule.
      * @return Action of this rule.
      */
-    public List<Literal> getActions() {
+    public List<Action> getActions() {
         return Collections.unmodifiableList(actions);
     }
 
@@ -58,7 +58,7 @@ public final class Rule {
      * @param action Action to be added.
      * @return Current object.
      */
-    public Rule addAction(Literal action) {
+    public Rule addAction(Action action) {
         actions.add(action);
         return this;
     }

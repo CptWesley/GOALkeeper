@@ -42,6 +42,62 @@ class InternalActionTypeTest {
     }
 
     /**
+     * Checks that the canceltimer/1 identifier is returned correctly.
+     */
+    @Test
+    void cancelTimerTest() {
+        assertThat(InternalActionType.CANCEL_TIMER.getIdentifier()).isEqualTo("canceltimer/1");
+    }
+
+    /**
+     * Checks that the starttimer/1 identifier is returned correctly.
+     */
+    @Test
+    void startTimerTest() {
+        assertThat(InternalActionType.START_TIMER.getIdentifier()).isEqualTo("starttimer/3");
+    }
+
+    /**
+     * Checks that the log/1 identifier is returned correctly.
+     */
+    @Test
+    void logTest() {
+        assertThat(InternalActionType.LOG.getIdentifier()).isEqualTo("log/1");
+    }
+
+    /**
+     * Checks that the print/1 identifier is returned correctly.
+     */
+    @Test
+    void printTest() {
+        assertThat(InternalActionType.PRINT.getIdentifier()).isEqualTo("print/1");
+    }
+
+    /**
+     * Checks that the sleep/1 identifier is returned correctly.
+     */
+    @Test
+    void sleepTest() {
+        assertThat(InternalActionType.SLEEP.getIdentifier()).isEqualTo("sleep/1");
+    }
+
+    /**
+     * Checks that the subscribe/1 identifier is returned correctly.
+     */
+    @Test
+    void subscribeTest() {
+        assertThat(InternalActionType.SUBSCRIBE.getIdentifier()).isEqualTo("subscribe/1");
+    }
+
+    /**
+     * Checks that the unsubscribe/1 identifier is returned correctly.
+     */
+    @Test
+    void unsubscribeTest() {
+        assertThat(InternalActionType.UNSUBSCRIBE.getIdentifier()).isEqualTo("unsubscribe/1");
+    }
+
+    /**
      * Checks that the toString works correctly.
      */
     @Test

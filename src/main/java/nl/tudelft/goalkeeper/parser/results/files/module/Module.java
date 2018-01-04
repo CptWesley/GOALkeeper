@@ -1,4 +1,4 @@
-package nl.tudelft.goalkeeper.parser.results.files.module.parsers;
+package nl.tudelft.goalkeeper.parser.results.files.module;
 
 import nl.tudelft.goalkeeper.parser.results.files.module.Rule;
 

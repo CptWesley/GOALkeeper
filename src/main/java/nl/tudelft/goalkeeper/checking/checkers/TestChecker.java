@@ -70,6 +70,7 @@ public class TestChecker implements CheckerInterface {
                     boolean error = severity >= ruleSet.getErrorSeverity();
                     violations.add(new Violation(VIOLATION_NAME, severity)
                     .setActualValue(tuple.getSecond())
+                    .setMinimumValue(rule.maxValueBefore(1))
                     .setSource(new FileSource(tuple.getFirst().getAbsolutePath()))
                     .setError(error));
                 }

@@ -13,6 +13,7 @@ public class Violation {
     @Getter private int severity;
     @Getter private Source source; //NOPMD
     @Getter private double actualValue; //NOPMD
+    @Getter private double minimumValue; //NOPMD
     @Getter private double maximumValue; //NOPMD
     @Getter private boolean error; //NOPMD
     @Getter private String suggestion;
@@ -59,6 +60,11 @@ public class Violation {
      */
     public Violation setMaximumValue(double value) {
         maximumValue = value;
+        return this;
+    }
+
+    public Violation setMinimumValue(double value) {
+        minimumValue = value;
         return this;
     }
 

@@ -104,4 +104,20 @@ class InternalActionTypeTest {
     void toStringTest() {
         assertThat(InternalActionType.INSERT.toString()).isEqualTo("insert/1");
     }
+
+    /**
+     * Checks that the get function returns the correct types.
+     */
+    @Test
+    void getNonNullTest() {
+        assertThat(InternalActionType.get("insert/1")).isSameAs(InternalActionType.INSERT);
+    }
+
+    /**
+     * Checks that the get function returns null when the type is unknown.
+     */
+    @Test
+    void getNullTest() {
+        assertThat(InternalActionType.get("sfdg")).isNull();
+    }
 }

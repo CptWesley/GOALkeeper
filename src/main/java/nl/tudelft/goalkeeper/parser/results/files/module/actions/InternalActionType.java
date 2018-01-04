@@ -2,6 +2,9 @@ package nl.tudelft.goalkeeper.parser.results.files.module.actions;
 
 import lombok.Getter;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Enumeration of update types.
  */
@@ -20,12 +23,29 @@ public enum InternalActionType {
 
     @Getter private String identifier;
 
+    private static Map<String, InternalActionType> lookupMap;
+    static {
+        lookupMap = new HashMap<>();
+        for (InternalActionType type : values()) {
+            lookupMap.put(type.identifier, type);
+        }
+    }
+
     /**
      * Defines what kind of update action we perform.
      * @param identifier Identifier of the action.
      */
     InternalActionType(String identifier) {
         this.identifier = identifier;
+    }
+
+    /**
+     * Gets the internal action type corresponding to an identifier.
+     * @param identifier Identifier to use.
+     * @return Type of the identifier.
+     */
+    public static InternalActionType get(String identifier) {
+        return lookupMap.get(identifier);
     }
 
     /**

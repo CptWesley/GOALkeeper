@@ -32,6 +32,7 @@ class ViolationTest {
         assertThat(violation.getSeverity()).isEqualTo(3);
         assertThat(violation.getActualValue()).isEqualTo(-1);
         assertThat(violation.getMaximumValue()).isEqualTo(-1);
+        assertThat(violation.getMinimumValue()).isEqualTo(-1);
         assertThat(violation.getSource()).isNull();
         assertThat(violation.isError()).isFalse();
         assertThat(violation.getSuggestion()).isEqualTo("");
@@ -52,6 +53,8 @@ class ViolationTest {
         assertThat(violation.isError()).isTrue();
         assertThat(violation.setSuggestion("why")).isSameAs(violation);
         assertThat(violation.getSuggestion()).isEqualTo("why");
+        assertThat(violation.setMinimumValue(10)).isSameAs(violation);
+        assertThat(violation.getMinimumValue()).isEqualTo(10);
     }
 
     /**
@@ -74,6 +77,10 @@ class ViolationTest {
         assertThat(violation.setSuggestion("why").toString())
                 .isEqualTo("Error 'blah' of severity 3 found in 'hithere' " +
                         "at lines 4-5. Value was: '20.0' while maximum is '30.0'. why");
+        assertThat(violation.setMinimumValue(10).toString())
+                .isEqualTo("Error 'blah' of severity 3 found in 'hithere' at lines 4-5. Value was:" +
+                        " '20.0' while maximum is '30.0'. Value was: '20.0' while " +
+                        "minimum is '10.0'. why");
 
     }
 }

@@ -8,15 +8,15 @@ import org.mockito.Mockito;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Test class for the UpdateAction class.
+ * Test class for the InternalAction class.
  */
-class UpdateActionTest {
+class InternalActionTest {
 
     private static final String STR1 = "sofpmo";
     private static final String STR2 = "adsf";
 
-    private UpdateType type;
-    private UpdateAction action;
+    private InternalActionType type;
+    private InternalAction action;
     private Expression expression;
 
     /**
@@ -25,8 +25,8 @@ class UpdateActionTest {
     @BeforeEach
     void setup() {
         expression = Mockito.mock(Expression.class);
-        type = Mockito.mock(UpdateType.class);
-        action = new UpdateAction(type, expression);
+        type = Mockito.mock(InternalActionType.class);
+        action = new InternalAction(type, expression);
     }
 
     /**
@@ -75,7 +75,7 @@ class UpdateActionTest {
      */
     @Test
     void equalsSame() {
-        UpdateAction other = new UpdateAction(type, expression);
+        InternalAction other = new InternalAction(type, expression);
         assertThat(action).isEqualTo(other);
         assertThat(action.hashCode()).isEqualTo(other.hashCode());
     }
@@ -101,7 +101,7 @@ class UpdateActionTest {
      */
     @Test
     void notEqualsDifferentType() {
-        UpdateAction other = new UpdateAction(Mockito.mock(UpdateType.class), expression);
+        InternalAction other = new InternalAction(Mockito.mock(InternalActionType.class), expression);
         assertThat(action).isNotEqualTo(other);
     }
 
@@ -110,7 +110,7 @@ class UpdateActionTest {
      */
     @Test
     void notEqualsDifferentExpression() {
-        UpdateAction other = new UpdateAction(type, Mockito.mock(Expression.class));
+        InternalAction other = new InternalAction(type, Mockito.mock(Expression.class));
         assertThat(action).isNotEqualTo(other);
     }
 }

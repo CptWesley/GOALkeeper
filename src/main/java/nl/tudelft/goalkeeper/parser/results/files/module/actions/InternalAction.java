@@ -8,9 +8,9 @@ import nl.tudelft.goalkeeper.parser.results.parts.Expression;
  * Contains data for update actions like insert, delete, adopt, drop.
  */
 @EqualsAndHashCode
-public final class UpdateAction implements Action {
+public final class InternalAction implements Action {
 
-    @Getter private UpdateType type;
+    @Getter private InternalActionType type;
     @Getter private Expression expression;
 
     /**
@@ -18,7 +18,7 @@ public final class UpdateAction implements Action {
      * @param type Update type of the object (e.g. insert, delete, adopt, drop).
      * @param expression Expression which to update.
      */
-    public UpdateAction(UpdateType type, Expression expression) {
+    public InternalAction(InternalActionType type, Expression expression) {
         this.type = type;
         this.expression = expression;
     }

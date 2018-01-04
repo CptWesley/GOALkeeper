@@ -5,7 +5,7 @@ import lombok.Getter;
 /**
  * Enumeration of update types.
  */
-public enum UpdateType {
+public enum InternalActionType {
     INSERT("insert/1"),
     DELETE("delete/1"),
     ADOPT("adopt/1"),
@@ -17,7 +17,7 @@ public enum UpdateType {
      * Defines what kind of update action we perform.
      * @param identifier Identifier of the action.
      */
-    UpdateType(String identifier) {
+    InternalActionType(String identifier) {
         this.identifier = identifier;
     }
 

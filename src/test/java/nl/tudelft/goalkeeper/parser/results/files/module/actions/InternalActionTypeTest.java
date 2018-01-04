@@ -5,16 +5,16 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Test class for the UpdateType enum.
+ * Test class for the InternalActionType enum.
  */
-class UpdateTypeTest {
+class InternalActionTypeTest {
 
     /**
      * Checks that the insert/1 identifier is returned correctly.
      */
     @Test
     void insertTest() {
-        assertThat(UpdateType.INSERT.getIdentifier()).isEqualTo("insert/1");
+        assertThat(InternalActionType.INSERT.getIdentifier()).isEqualTo("insert/1");
     }
 
     /**
@@ -22,7 +22,7 @@ class UpdateTypeTest {
      */
     @Test
     void deleteTest() {
-        assertThat(UpdateType.DELETE.getIdentifier()).isEqualTo("delete/1");
+        assertThat(InternalActionType.DELETE.getIdentifier()).isEqualTo("delete/1");
     }
 
     /**
@@ -30,7 +30,7 @@ class UpdateTypeTest {
      */
     @Test
     void adoptTest() {
-        assertThat(UpdateType.ADOPT.getIdentifier()).isEqualTo("adopt/1");
+        assertThat(InternalActionType.ADOPT.getIdentifier()).isEqualTo("adopt/1");
     }
 
     /**
@@ -38,7 +38,7 @@ class UpdateTypeTest {
      */
     @Test
     void dropTest() {
-        assertThat(UpdateType.DROP.getIdentifier()).isEqualTo("drop/1");
+        assertThat(InternalActionType.DROP.getIdentifier()).isEqualTo("drop/1");
     }
 
     /**
@@ -46,6 +46,6 @@ class UpdateTypeTest {
      */
     @Test
     void toStringTest() {
-        assertThat(UpdateType.INSERT.toString()).isEqualTo("insert/1");
+        assertThat(InternalActionType.INSERT.toString()).isEqualTo("insert/1");
     }
 }

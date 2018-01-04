@@ -9,8 +9,8 @@ public interface ExpressionParserInterface {
 
     /**
      * Parses original query to GOALkeeper expression type.
-     * @param query Original GOAL query.
+     * @param expression Original GOAL expression.
      * @return GOALkeeper expression version of the GOAL query.
      */
-    Expression parse(krTools.language.Query query);
+    Expression parse(krTools.language.Expression expression);
 }

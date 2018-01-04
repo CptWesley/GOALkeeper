@@ -16,27 +16,27 @@ public final class ExpressionParser {
 
     /**
      * Parses a GOAL query to a GOALkeeper expression.
-     * @param query Query to parse.
+     * @param expression Expression to parse.
      * @return Parsed expression.
      * @throws UnknownKRLanguageException Thrown when we can't handle the query.
      */
-    public static Expression parse(krTools.language.Query query)
+    public static Expression parse(krTools.language.Expression expression)
             throws UnknownKRLanguageException {
-        return getParser(query).parse(query);
+        return getParser(expression).parse(expression);
     }
 
     /**
      * Gets the an instance of the correct parser type.
-     * @param query Query to get the type for.
+     * @param expression Expression to get the type for.
      * @return Instance of the correct parser.
      * @throws UnknownKRLanguageException Thrown when we can't handle the query.
      */
-    static ExpressionParserInterface getParser(krTools.language.Query query)
+    static ExpressionParserInterface getParser(krTools.language.Expression expression)
             throws UnknownKRLanguageException {
-        if (query instanceof PrologQuery) {
+        if (expression instanceof PrologQuery) {
             return new PrologExpressionParser();
         }
         throw new UnknownKRLanguageException(
-                String.format("Found query of type '%s'.", query.getClass().getTypeName()));
+                String.format("Found query of type '%s'.", expression.getClass().getTypeName()));
     }
 }

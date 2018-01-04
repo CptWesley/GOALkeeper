@@ -6,6 +6,7 @@ import nl.tudelft.goalkeeper.parser.results.parts.Expression;
 import nl.tudelft.goalkeeper.parser.results.parts.Function;
 import nl.tudelft.goalkeeper.parser.results.parts.Variable;
 import swiprolog.language.JPLUtils;
+import swiprolog.language.PrologExpression;
 import swiprolog.language.PrologQuery;
 
 /**
@@ -17,8 +18,8 @@ public final class PrologExpressionParser implements ExpressionParserInterface {
      * {@inheritDoc}
      */
     @Override
-    public Expression parse(krTools.language.Query query) {
-        Term term = ((PrologQuery) query).getTerm();
+    public Expression parse(krTools.language.Expression expression) {
+        Term term = ((PrologExpression) expression).getTerm();
         return parseTerm(term);
     }
 

@@ -11,9 +11,17 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * Test class for the ModuleFile class.
  */
-class ModuleFileTest {
+class ModuleFileTest extends ModuleTest {
 
     private ModuleFile file;
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    Module getModule() {
+        return file;
+    }
 
     /**
      * Sets up the testing environment before each test.
@@ -21,16 +29,5 @@ class ModuleFileTest {
     @BeforeEach
     void setup() throws IOException {
         file = new ModuleFile("src/test/resources/testfiles/emptyfile.txt");
-    }
-
-    /**
-     * Checks that rule adding works properly.
-     */
-    @Test
-    void getRulesTest() {
-        Rule rule = Mockito.mock(Rule.class);
-        assertThat(file.getRules()).isEmpty();
-        assertThat(file.getRules()).hasSize(1);
-        assertThat(file.getRules().get(0)).isSameAs(rule);
     }
 }

@@ -1,7 +1,5 @@
 package nl.tudelft.goalkeeper.parser.results.files.module;
 
-import nl.tudelft.goalkeeper.parser.results.files.module.Rule;
-
 import java.util.List;
 
 /**

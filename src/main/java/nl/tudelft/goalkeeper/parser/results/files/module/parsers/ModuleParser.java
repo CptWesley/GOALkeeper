@@ -25,6 +25,7 @@ public final class ModuleParser {
 
         for (languageTools.program.agent.rules.Rule r : m.getRules()) {
             module.addRule(RuleParser.parse(r));
+            System.out.println(RuleParser.parse(r));
         }
 
         return module;

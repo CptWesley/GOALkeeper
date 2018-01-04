@@ -1,6 +1,7 @@
 package nl.tudelft.goalkeeper.parser.results.files.module;
 
 import nl.tudelft.goalkeeper.parser.results.files.File;
+import nl.tudelft.goalkeeper.parser.results.files.module.parsers.Module;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,7 +11,7 @@ import java.util.List;
 /**
  * Class which holds data on a module file.
  */
-public class ModuleFile extends File {
+public class ModuleFile extends File implements Module {
 
     private List<Rule> rules;
 
@@ -25,21 +26,19 @@ public class ModuleFile extends File {
     }
 
     /**
-     * Get a list of all rules in the module.
-     * @return List of all rules in the module.
+     * {@inheritDoc}
      */
+    @Override
     public List<Rule> getRules() {
         return Collections.unmodifiableList(rules);
     }
 
     /**
-     * Adds a rule to the module.
-     * @param rule Rule to be added.
-     * @return Current object.
+     * {@inheritDoc}
      */
-    public ModuleFile addRule(Rule rule) {
+    @Override
+    public void addRule(Rule rule) {
         rules.add(rule);
-        return this;
     }
 
 }

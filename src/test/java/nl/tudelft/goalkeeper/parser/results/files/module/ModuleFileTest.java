@@ -30,7 +30,6 @@ class ModuleFileTest {
     void getRulesTest() {
         Rule rule = Mockito.mock(Rule.class);
         assertThat(file.getRules()).isEmpty();
-        assertThat(file.addRule(rule)).isSameAs(file);
         assertThat(file.getRules()).hasSize(1);
         assertThat(file.getRules().get(0)).isSameAs(rule);
     }

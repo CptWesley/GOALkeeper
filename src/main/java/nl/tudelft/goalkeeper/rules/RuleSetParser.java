@@ -119,9 +119,6 @@ class RuleSetParser {
         try {
             stage.setMax(VerifiedJsonParser.getInteger(object, "max"));
         } catch (MalformedRulesException ignored) { /* Keep default values. */ }
-        try {
-            stage.setJar(VerifiedJsonParser.getString(object, "jar"));
-        } catch (MalformedRulesException ignored) { /* Keep defualt values */ }
         return stage;
     }
 }

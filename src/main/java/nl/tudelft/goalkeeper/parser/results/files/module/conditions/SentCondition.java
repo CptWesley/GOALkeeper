@@ -3,7 +3,6 @@ package nl.tudelft.goalkeeper.parser.results.files.module.conditions;
 import lombok.Getter;
 import nl.tudelft.goalkeeper.parser.results.parts.Expression;
 import nl.tudelft.goalkeeper.parser.results.parts.MessageMood;
-import nl.tudelft.goalkeeper.parser.results.parts.Parameter;
 
 /**
  * Class for all sent conditions.
@@ -14,17 +13,17 @@ public final class SentCondition extends Condition {
     private static final String TYPE_NAME = "sent";
 
     @Getter private MessageMood mood;
-    @Getter private Parameter selector;
+    @Getter private Expression sender;
 
     /**
      * Creates a new sent condition condition.
-     * @param selector Selector of the condition.
+     * @param sender Sender of the message.
      * @param mood Mood of the message.
      * @param expression Expression of the condition.
      */
-    public SentCondition(Expression expression, Parameter selector, MessageMood mood) {
+    public SentCondition(Expression expression, Expression sender, MessageMood mood) {
         super(expression);
-        this.selector = selector;
+        this.sender = sender;
         this.mood = mood;
     }
 
@@ -51,7 +50,7 @@ public final class SentCondition extends Condition {
     public boolean equals(Object o) {
         if (super.equals(o)) {
             SentCondition that = (SentCondition) o;
-            return mood.equals(that.mood) && selector.equals(that.selector);
+            return mood.equals(that.mood) && sender.equals(that.sender);
         }
         return false;
     }
@@ -61,7 +60,7 @@ public final class SentCondition extends Condition {
      */
     @Override
     public int hashCode() {
-        return super.hashCode() ^ (mood.hashCode() * selector.hashCode());
+        return super.hashCode() ^ (mood.hashCode() * sender.hashCode());
     }
 
     /**
@@ -71,7 +70,7 @@ public final class SentCondition extends Condition {
     public String toString() {
         StringBuilder sb = new StringBuilder()
                 .append('(')
-                .append(selector)
+                .append(sender)
                 .append(").")
                 .append(super.toString());
         return sb.toString();

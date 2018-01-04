@@ -95,7 +95,7 @@ class SentConditionTest extends ConditionTest {
      * Checks that we can retrieve the sender correctly.
      */
     @Test
-    void getSelectorTest() {
-        assertThat(condition.getSelector()).isEqualTo(selector);
+    void getSenderTest() {
+        assertThat(condition.getSender()).isEqualTo(selector);
     }
 }

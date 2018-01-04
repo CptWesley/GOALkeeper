@@ -120,7 +120,7 @@ class ConditionParserTest {
         assertThat(c).isInstanceOf(SentCondition.class);
         SentCondition sc = (SentCondition) c;
         assertThat(sc.getMood()).isEqualTo(MessageMood.INDICATIVE);
-        assertThat(sc.getSelector()).isEqualTo(new Variable(SIGNATURE));
+        assertThat(sc.getSender()).isEqualTo(new Variable(SIGNATURE));
     }
 
     /**
@@ -133,7 +133,7 @@ class ConditionParserTest {
         assertThat(c).isInstanceOf(SentCondition.class);
         SentCondition sc = (SentCondition) c;
         assertThat(sc.getMood()).isEqualTo(MessageMood.IMPERATIVE);
-        assertThat(sc.getSelector()).isEqualTo(new Variable(SIGNATURE));
+        assertThat(sc.getSender()).isEqualTo(new Variable(SIGNATURE));
     }
 
     /**
@@ -146,7 +146,7 @@ class ConditionParserTest {
         assertThat(c).isInstanceOf(SentCondition.class);
         SentCondition sc = (SentCondition) c;
         assertThat(sc.getMood()).isEqualTo(MessageMood.INTERROGATIVE);
-        assertThat(sc.getSelector()).isEqualTo(new Variable(SIGNATURE));
+        assertThat(sc.getSender()).isEqualTo(new Variable(SIGNATURE));
     }
 
     /**
@@ -159,7 +159,7 @@ class ConditionParserTest {
         Mockito.when(term.getSignature()).thenReturn(SIGNATURE);
         Mockito.when(literal.getOperator()).thenReturn(SENT_INTERROGATIVE);
         SentCondition sc = (SentCondition) ConditionParser.parse(literal);
-        assertThat(sc.getSelector()).isEqualTo(new Constant(SIGNATURE));
+        assertThat(sc.getSender()).isEqualTo(new Constant(SIGNATURE));
     }
 
     /**
@@ -170,6 +170,6 @@ class ConditionParserTest {
         Mockito.when(selector.getParameters()).thenReturn(new ArrayList<>());
         Mockito.when(literal.getOperator()).thenReturn(SENT_INTERROGATIVE);
         SentCondition sc = (SentCondition) ConditionParser.parse(literal);
-        assertThat(sc.getSelector()).isEqualTo(null);
+        assertThat(sc.getSender()).isEqualTo(null);
     }
 }

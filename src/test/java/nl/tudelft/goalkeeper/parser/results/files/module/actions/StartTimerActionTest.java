@@ -68,4 +68,66 @@ class StartTimerActionTest {
         Mockito.when(duration.toString()).thenReturn("c");
         assertThat(action.toString()).isEqualTo("starttimer/3(a, b, c)");
     }
+
+    /**
+     * Checks that an object is equal to itself.
+     */
+    @Test
+    void equalsSelf() {
+        assertThat(action).isEqualTo(action);
+        assertThat(action.hashCode()).isEqualTo(action.hashCode());
+    }
+
+    /**
+     * Checks that an object is equal to the same object.
+     */
+    @Test
+    void equalsSame() {
+        StartTimerAction other = new StartTimerAction(name, interval, duration);
+        assertThat(action).isEqualTo(other);
+        assertThat(action.hashCode()).isEqualTo(other.hashCode());
+    }
+
+    /**
+     * Checks that an object is not equal to null.
+     */
+    @Test
+    void notEqualsNull() {
+        assertThat(action).isNotEqualTo(null);
+    }
+
+    /**
+     * Checks that an object is not equal to an object of a different type.
+     */
+    @Test
+    void notEqualsDifferentType() {
+        assertThat(action).isNotEqualTo("");
+    }
+
+    /**
+     * Checks that an object is not equal to an object with a different expression.
+     */
+    @Test
+    void notEqualsDifferentExpression() {
+        StartTimerAction other = new StartTimerAction(Mockito.mock(Expression.class), interval, duration);
+        assertThat(action).isNotEqualTo(other);
+    }
+
+    /**
+     * Checks that an object is not equal to an object with a different interval.
+     */
+    @Test
+    void notEqualsDifferentInterval() {
+        StartTimerAction other = new StartTimerAction(name, Mockito.mock(Expression.class), duration);
+        assertThat(action).isNotEqualTo(other);
+    }
+
+    /**
+     * Checks that an object is not equal to an object with a different duration.
+     */
+    @Test
+    void notEqualsDifferentDuration() {
+        StartTimerAction other = new StartTimerAction(name, interval, Mockito.mock(Expression.class));
+        assertThat(action).isNotEqualTo(other);
+    }
 }

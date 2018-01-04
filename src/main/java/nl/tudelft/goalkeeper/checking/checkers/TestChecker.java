@@ -50,13 +50,12 @@ public class TestChecker implements CheckerInterface {
         List<File> testFiles = FileParser.getTestFiles(files);
         for (File file: testFiles) {
             try {
-                TestValidator test = new TestValidator(file.getCanonicalPath(), new FileRegistry());
-                TestProgram program = test.getProgram();
+                TestProgram program = setup(file.getAbsolutePath());
                 TestRun run = new TestRun(program, false);
                 // The environment must not start to run the test program.
-                run.run(false);
+                run.run(true);
                 // Add the
-                results.add(new Tuple2<File, Double>(file, 0.0));
+                results.add(new Tuple2<File, Double>(file, 50.0));
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (GOALRunFailedException e) {
@@ -66,6 +65,7 @@ public class TestChecker implements CheckerInterface {
             // Calculate the severity of the errors and parse the violations.
             results.forEach((tuple) -> {
                 int severity  = rule.severityOf(tuple.getSecond());
+                System.out.println(severity);
                 if (severity > 0) {
                     boolean error = severity >= ruleSet.getErrorSeverity();
                     violations.add(new Violation(VIOLATION_NAME, severity)
@@ -79,4 +79,18 @@ public class TestChecker implements CheckerInterface {
         }
         return violations;
     }
+
+    private TestProgram setup(String path) throws IOException {
+        TestValidator testValidator = new TestValidator(path, new FileRegistry());
+        testValidator.validate();
+        TestProgram program = testValidator.getProgram();
+        if (program != null && program.isValid()) {
+            return program;
+        } else {
+            System.out.println(testValidator.getSyntaxErrors());
+            System.out.println(testValidator.getErrors());
+            throw new IOException();
+        }
+    }
+
 }

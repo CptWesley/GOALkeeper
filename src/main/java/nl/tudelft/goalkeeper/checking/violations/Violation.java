@@ -29,6 +29,7 @@ public class Violation {
         source = null;
         actualValue = -1;
         maximumValue = -1;
+        minimumValue = -1;
         error = false;
         suggestion = "";
     }
@@ -107,6 +108,12 @@ public class Violation {
             sb.append(" Value was: '").append(actualValue)
                     .append("' while maximum is '").append(maximumValue).append("'.");
         }
+
+        if (actualValue >= 0 && minimumValue >= 0) {
+            sb.append(" Value was: '").append(actualValue)
+                    .append("' while minimum is '").append(minimumValue).append("'.");
+        }
+
         if (!this.suggestion.equals("")) {
             sb.append(' ');
             sb.append(this.suggestion);

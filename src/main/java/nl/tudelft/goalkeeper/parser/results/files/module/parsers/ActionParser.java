@@ -1,6 +1,5 @@
 package nl.tudelft.goalkeeper.parser.results.files.module.parsers;
 
-import krTools.language.Query;
 import krTools.language.Term;
 import languageTools.program.agent.actions.ExitModuleAction;
 import languageTools.program.agent.actions.ModuleCallAction;
@@ -11,6 +10,7 @@ import nl.tudelft.goalkeeper.parser.results.files.module.actions.Action;
 import nl.tudelft.goalkeeper.parser.results.files.module.actions.ExitAction;
 import nl.tudelft.goalkeeper.parser.results.files.module.actions.InternalAction;
 import nl.tudelft.goalkeeper.parser.results.files.module.actions.InternalActionType;
+import nl.tudelft.goalkeeper.parser.results.files.module.actions.ModuleAction;
 import nl.tudelft.goalkeeper.parser.results.files.module.actions.SendAction;
 import nl.tudelft.goalkeeper.parser.results.files.module.actions.StartTimerAction;
 import nl.tudelft.goalkeeper.parser.results.files.module.actions.SubModuleAction;
@@ -57,6 +57,7 @@ public final class ActionParser {
                     .substring(0, SUB_MODULE_PREFIX.length()).equals(SUB_MODULE_PREFIX)) {
                 return parseSubModuleAction(mca);
             }
+            return parseModuleAction(mca);
         }
         if (InternalActionType.get(a.getSignature()) == null) {
             return new ExitAction();
@@ -113,7 +114,28 @@ public final class ActionParser {
         return new StartTimerAction(getExpression(a), interval, duration);
     }
 
+    /**
+     * Parses a ModuleCallAction calling a submodule to a GOALkeeper SubModuleAction.
+     * @param a ModuleCallAction to parse.
+     * @return GOALkeeper SubModuleAction version of a.
+     */
     private static SubModuleAction parseSubModuleAction(ModuleCallAction a) {
         return new SubModuleAction(ModuleParser.parseToSubModule(a.getTarget()));
+    }
+
+    /**
+     * Parses a ModuleCallAction calling a submodule to a GOALkeeper ModuleAction.
+     * @param a ModuleCallAction to parse.
+     * @return GOALkeeper ModuleAction version of a.
+     * @throws UnknownKRLanguageException Thrown when KR language could not be determined.
+     */
+    private static ModuleAction parseModuleAction(ModuleCallAction a)
+            throws UnknownKRLanguageException {
+        List<Expression> arguments = new LinkedList<>();
+        for (Term t : a.getParameters()) {
+            arguments.add(ExpressionParser.parse(t));
+        }
+        String source = a.getSourceInfo().getSource();
+        return new ModuleAction(source, arguments);
     }
 }

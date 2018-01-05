@@ -6,14 +6,8 @@ import languageTools.analyzer.mas.MASValidator;
 import languageTools.errors.Message;
 import nl.tudelft.goalkeeper.parser.results.ParseResult;
 import languageTools.program.agent.Module;
-import nl.tudelft.goalkeeper.parser.results.files.module.ModuleFile;
-import nl.tudelft.goalkeeper.parser.results.files.module.Rule;
-import nl.tudelft.goalkeeper.parser.results.files.module.conditions.Condition;
 import nl.tudelft.goalkeeper.parser.results.files.module.parsers.MessageParser;
 import nl.tudelft.goalkeeper.parser.results.files.module.parsers.ModuleParser;
-import nl.tudelft.goalkeeper.parser.results.parts.Literal;
-import nl.tudelft.goalkeeper.parser.results.parts.Parameter;
-import nl.tudelft.goalkeeper.util.console.Console;
 
 import java.io.IOException;
 
@@ -49,7 +43,7 @@ public final class Parser {
         if (result.isSuccessful()) {
             for (Module m : analysis.getModuleDefinitions()) {
                 try {
-                    result.addModule(ModuleParser.parse(m));
+                    result.addModule(ModuleParser.parseToFile(m));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

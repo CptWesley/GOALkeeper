@@ -133,6 +133,9 @@ public final class Rule {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(type.getPrefix()).append(' ');
+        if (conditions.size() == 0) {
+            sb.append("true");
+        }
         for (int i = 0; i < conditions.size(); ++i) {
             sb.append(conditions.get(i));
             if (i < conditions.size() - 1) {
@@ -146,6 +149,7 @@ public final class Rule {
                 sb.append(" + ");
             }
         }
+        sb.append('.');
         return sb.toString();
     }
 

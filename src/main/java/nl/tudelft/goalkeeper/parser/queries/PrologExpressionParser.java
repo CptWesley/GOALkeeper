@@ -7,7 +7,6 @@ import nl.tudelft.goalkeeper.parser.results.parts.Function;
 import nl.tudelft.goalkeeper.parser.results.parts.Variable;
 import swiprolog.language.JPLUtils;
 import swiprolog.language.PrologExpression;
-import swiprolog.language.PrologQuery;
 
 /**
  * Class which parses Prolog queries to GOALkeeper queries.

@@ -3,7 +3,6 @@ package nl.tudelft.goalkeeper.parser.queries;
 import nl.tudelft.goalkeeper.exceptions.UnknownKRLanguageException;
 import nl.tudelft.goalkeeper.parser.results.parts.Expression;
 import swiprolog.language.PrologExpression;
-import swiprolog.language.PrologQuery;
 
 /**
  * Class that parses expressions.

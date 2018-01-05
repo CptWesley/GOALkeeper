@@ -44,7 +44,7 @@ public final class Rule {
     }
 
     /**
-     * Adds a condition to the set of conditions
+     * Adds a condition to the set of conditions.
      * @param condition Condition to be added.
      * @return Current object.
      */
@@ -54,7 +54,7 @@ public final class Rule {
     }
 
     /**
-     * Adds a action to the set of actions
+     * Adds a action to the set of actions.
      * @param action Action to be added.
      * @return Current object.
      */

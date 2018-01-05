@@ -48,7 +48,8 @@ public final class ConditionParser {
      * @param expression Expression of the condition.
      * @return New condition instance of correct type and with correct expression.
      */
-    private static Condition getInstance(String operator, Selector selector, Expression expression) {
+    private static Condition getInstance(String operator,
+            Selector selector, Expression expression) {
         Parameter newSelector = null;
         if (selector.getParameters().size() > 0) {
             Term term = selector.getParameters().get(0);

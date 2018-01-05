@@ -3,6 +3,7 @@ package nl.tudelft.goalkeeper.parser.results.files.module.parsers;
 import krTools.language.Query;
 import krTools.language.Term;
 import languageTools.program.agent.actions.ExitModuleAction;
+import languageTools.program.agent.actions.ModuleCallAction;
 import languageTools.program.agent.msg.SentenceMood;
 import nl.tudelft.goalkeeper.exceptions.UnknownKRLanguageException;
 import nl.tudelft.goalkeeper.parser.queries.ExpressionParser;
@@ -12,6 +13,7 @@ import nl.tudelft.goalkeeper.parser.results.files.module.actions.InternalAction;
 import nl.tudelft.goalkeeper.parser.results.files.module.actions.InternalActionType;
 import nl.tudelft.goalkeeper.parser.results.files.module.actions.SendAction;
 import nl.tudelft.goalkeeper.parser.results.files.module.actions.StartTimerAction;
+import nl.tudelft.goalkeeper.parser.results.files.module.actions.SubModuleAction;
 import nl.tudelft.goalkeeper.parser.results.parts.Expression;
 import nl.tudelft.goalkeeper.parser.results.parts.MessageMood;
 
@@ -22,6 +24,8 @@ import java.util.List;
  * Class which parses actions.
  */
 public final class ActionParser {
+
+    private static final String SUB_MODULE_PREFIX = "null/";
 
     /**
      * Prevents instantiation.
@@ -45,6 +49,17 @@ public final class ActionParser {
         }
         if (a instanceof languageTools.program.agent.actions.StartTimerAction) {
             return parseStartTimerAction((languageTools.program.agent.actions.StartTimerAction) a);
+        }
+        if (a instanceof ModuleCallAction) {
+            ModuleCallAction mca = (ModuleCallAction) a;
+            if (mca.getSignature().length() >= SUB_MODULE_PREFIX.length()
+                    && mca.getSignature()
+                    .substring(0, SUB_MODULE_PREFIX.length()).equals(SUB_MODULE_PREFIX)) {
+                return parseSubModuleAction(mca);
+            }
+        }
+        if (InternalActionType.get(a.getSignature()) == null) {
+            return new ExitAction();
         }
         return new InternalAction(InternalActionType.get(a.getSignature()), getExpression(a));
     }
@@ -96,5 +111,9 @@ public final class ActionParser {
         Expression interval = ExpressionParser.parse(a.getParameters().get(1));
         Expression duration = ExpressionParser.parse(a.getParameters().get(2));
         return new StartTimerAction(getExpression(a), interval, duration);
+    }
+
+    private static SubModuleAction parseSubModuleAction(ModuleCallAction a) {
+        return new SubModuleAction(ModuleParser.parseToSubModule(a.getTarget()));
     }
 }

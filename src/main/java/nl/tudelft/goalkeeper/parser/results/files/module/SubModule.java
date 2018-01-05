@@ -33,4 +33,16 @@ public final class SubModule implements Module {
     public void addRule(Rule rule) {
         rules.add(rule);
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (Rule rule : rules) {
+            sb.append(System.getProperty("line.separator")).append(rule);
+        }
+        return sb.toString();
+    }
 }

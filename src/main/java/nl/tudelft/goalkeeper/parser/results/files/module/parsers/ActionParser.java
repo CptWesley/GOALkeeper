@@ -58,7 +58,7 @@ public final class ActionParser {
     private static Expression getExpression(languageTools.program.agent.actions.Action a)
             throws UnknownKRLanguageException {
         if (a.getParameters().size() > 0) {
-            return ExpressionParser.parse((Query) a.getParameters().get(0));
+            return ExpressionParser.parse((krTools.language.Expression) a.getParameters().get(0));
         }
         return null;
     }

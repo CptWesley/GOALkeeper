@@ -2,6 +2,7 @@ package nl.tudelft.goalkeeper.parser.queries;
 
 import nl.tudelft.goalkeeper.exceptions.UnknownKRLanguageException;
 import nl.tudelft.goalkeeper.parser.results.parts.Expression;
+import swiprolog.language.PrologExpression;
 import swiprolog.language.PrologQuery;
 
 /**
@@ -33,7 +34,7 @@ public final class ExpressionParser {
      */
     static ExpressionParserInterface getParser(krTools.language.Expression expression)
             throws UnknownKRLanguageException {
-        if (expression instanceof PrologQuery) {
+        if (expression instanceof PrologExpression) {
             return new PrologExpressionParser();
         }
         throw new UnknownKRLanguageException(

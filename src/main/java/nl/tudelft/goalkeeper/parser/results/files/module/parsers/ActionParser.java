@@ -63,6 +63,9 @@ public final class ActionParser {
         if (a instanceof UserSpecCallAction) {
             return parseExternalAction((UserSpecCallAction) a);
         }
+        if (a.getSignature().equals("starttimer/1")) { //TODO: Remove me when GOAL fixes this.
+            return new InternalAction(InternalActionType.CANCEL_TIMER, getExpression(a));
+        }
         return new InternalAction(InternalActionType.get(a.getSignature()), getExpression(a));
     }
 

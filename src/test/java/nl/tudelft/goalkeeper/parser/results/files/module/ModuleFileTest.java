@@ -30,4 +30,14 @@ class ModuleFileTest extends ModuleTest {
     void setup() throws IOException {
         file = new ModuleFile("src/test/resources/testfiles/emptyfile.txt");
     }
+
+    /**
+     * Checks that we can set and retrieve a name correctly.
+     */
+    @Test
+    void setNameTest() {
+        assertThat(file.getName()).isNull();
+        file.setName("BLA");
+        assertThat(file.getName()).isEqualTo("BLA");
+    }
 }

@@ -78,4 +78,14 @@ class ModuleParserTest {
         SubModule mf = ModuleParser.parseToSubModule(module);
         assertThat(mf.getRules()).hasSize(1);
     }
+
+    /**
+     * Checks if we can set and retrieve the name correctly.
+     */
+    @Test
+    void getNameTest() throws IOException {
+        Mockito.when(module.getName()).thenReturn("WAF");
+        ModuleFile mf = ModuleParser.parseToFile(module);
+        assertThat(mf.getName()).isEqualTo("WAF");
+    }
 }

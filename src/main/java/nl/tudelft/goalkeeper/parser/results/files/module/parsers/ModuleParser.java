@@ -25,6 +25,7 @@ public final class ModuleParser {
     public static ModuleFile parseToFile(languageTools.program.agent.Module m) throws IOException {
         ModuleFile module = new ModuleFile(m.getSourceFile().toString());
         addRules(module, m);
+        module.setName(m.getName());
         return module;
     }
 

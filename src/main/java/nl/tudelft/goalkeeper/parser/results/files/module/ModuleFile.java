@@ -1,5 +1,7 @@
 package nl.tudelft.goalkeeper.parser.results.files.module;
 
+import lombok.Getter;
+import lombok.Setter;
 import nl.tudelft.goalkeeper.parser.results.files.File;
 
 import java.io.IOException;
@@ -13,6 +15,7 @@ import java.util.List;
 public class ModuleFile extends File implements Module {
 
     private List<Rule> rules;
+    @Getter @Setter private String name;
 
     /**
      * Creates a new ModuleFile instance.

@@ -3,11 +3,13 @@ package nl.tudelft.goalkeeper.parser.results.files.module.parsers;
 import krTools.language.Term;
 import languageTools.program.agent.actions.ExitModuleAction;
 import languageTools.program.agent.actions.ModuleCallAction;
+import languageTools.program.agent.actions.UserSpecCallAction;
 import languageTools.program.agent.msg.SentenceMood;
 import nl.tudelft.goalkeeper.exceptions.UnknownKRLanguageException;
 import nl.tudelft.goalkeeper.parser.queries.ExpressionParser;
 import nl.tudelft.goalkeeper.parser.results.files.module.actions.Action;
 import nl.tudelft.goalkeeper.parser.results.files.module.actions.ExitAction;
+import nl.tudelft.goalkeeper.parser.results.files.module.actions.ExternalAction;
 import nl.tudelft.goalkeeper.parser.results.files.module.actions.InternalAction;
 import nl.tudelft.goalkeeper.parser.results.files.module.actions.InternalActionType;
 import nl.tudelft.goalkeeper.parser.results.files.module.actions.ModuleAction;
@@ -40,7 +42,6 @@ public final class ActionParser {
      */
     public static Action parse(languageTools.program.agent.actions.Action a)
             throws UnknownKRLanguageException {
-
         if (a instanceof languageTools.program.agent.actions.SendAction) {
             return parseSendAction((languageTools.program.agent.actions.SendAction) a);
         }
@@ -59,8 +60,8 @@ public final class ActionParser {
             }
             return parseModuleAction(mca);
         }
-        if (InternalActionType.get(a.getSignature()) == null) {
-            return new ExitAction();
+        if (a instanceof UserSpecCallAction) {
+            return parseExternalAction((UserSpecCallAction) a);
         }
         return new InternalAction(InternalActionType.get(a.getSignature()), getExpression(a));
     }
@@ -137,5 +138,21 @@ public final class ActionParser {
         }
         String source = a.getSourceInfo().getSource();
         return new ModuleAction(source, arguments);
+    }
+
+    /**
+     * Parses a UserSpecCallAction calling a submodule to a GOALkeeper ExternalAction.
+     * @param a UserSpecCallAction to parse.
+     * @return GOALkeeper ExternalAction version of a.
+     * @throws UnknownKRLanguageException Thrown when KR language could not be determined.
+     */
+    private static ExternalAction parseExternalAction(UserSpecCallAction a)
+            throws UnknownKRLanguageException {
+        List<Expression> arguments = new LinkedList<>();
+        for (Term t : a.getParameters()) {
+            arguments.add(ExpressionParser.parse(t));
+        }
+        String source = a.getSourceInfo().getSource();
+        return new ExternalAction(source, arguments);
     }
 }

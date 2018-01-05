@@ -48,7 +48,6 @@ public final class ModuleParser {
     private static void addRules(Module target, languageTools.program.agent.Module source) {
         for (languageTools.program.agent.rules.Rule r : source.getRules()) {
             target.addRule(RuleParser.parse(r));
-            System.out.println(RuleParser.parse(r));
         }
     }
 }

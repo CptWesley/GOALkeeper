@@ -2,7 +2,6 @@ package nl.tudelft.goalkeeper.parser.results.files.module;
 
 import nl.tudelft.goalkeeper.parser.results.files.module.actions.Action;
 import nl.tudelft.goalkeeper.parser.results.files.module.conditions.Condition;
-import nl.tudelft.goalkeeper.parser.results.parts.Literal;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;

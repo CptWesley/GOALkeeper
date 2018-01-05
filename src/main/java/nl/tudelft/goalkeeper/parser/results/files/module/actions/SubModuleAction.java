@@ -1,11 +1,13 @@
 package nl.tudelft.goalkeeper.parser.results.files.module.actions;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import nl.tudelft.goalkeeper.parser.results.files.module.SubModule;
 
 /**
  * Class which represents submodule calls.
  */
+@EqualsAndHashCode
 public final class SubModuleAction implements Action {
 
     @Getter private SubModule module;

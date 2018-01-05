@@ -3,7 +3,6 @@ package nl.tudelft.goalkeeper.parser.results.files.module.conditions;
 import nl.tudelft.goalkeeper.parser.results.parts.Expression;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -64,9 +63,6 @@ class AGoalConditionTest extends ConditionTest {
     @Test
     void equalsSameTest() {
         AGoalCondition other = new AGoalCondition(expression);
-        assertThat(condition).isEqualTo(other);
-        assertThat(condition.hashCode()).isEqualTo(other.hashCode());
-        Expression e = Mockito.mock(Expression.class);
         assertThat(condition).isEqualTo(other);
         assertThat(condition.hashCode()).isEqualTo(other.hashCode());
     }

@@ -11,7 +11,7 @@ import nl.tudelft.goalkeeper.parser.results.parts.Expression;
 public class InternalAction implements Action {
 
     @Getter private InternalActionType type;
-    @Getter private Expression expression;
+    @Getter private Expression expression; //NOPMD PMD can't handle Lombok.
 
     /**
      * Creates an object instance representing an update action.

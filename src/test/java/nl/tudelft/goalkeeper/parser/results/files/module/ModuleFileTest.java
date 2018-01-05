@@ -2,7 +2,6 @@ package nl.tudelft.goalkeeper.parser.results.files.module;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 import java.io.IOException;
 

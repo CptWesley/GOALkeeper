@@ -16,7 +16,7 @@ import java.util.List;
 @EqualsAndHashCode
 public final class ExternalAction implements Action {
 
-    @Getter @Setter private String target;
+    @Getter @Setter private String target; //NOPMD PMD can't handle Lombok.
     private List<Expression> arguments;
 
     /**

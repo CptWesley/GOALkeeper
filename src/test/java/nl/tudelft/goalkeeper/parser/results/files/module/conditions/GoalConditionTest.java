@@ -65,9 +65,6 @@ class GoalConditionTest extends ConditionTest {
         GoalCondition other = new GoalCondition(expression);
         assertThat(condition).isEqualTo(other);
         assertThat(condition.hashCode()).isEqualTo(other.hashCode());
-        Expression e = Mockito.mock(Expression.class);
-        assertThat(condition).isEqualTo(other);
-        assertThat(condition.hashCode()).isEqualTo(other.hashCode());
     }
 
     /**

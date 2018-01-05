@@ -11,8 +11,8 @@ import java.nio.file.Paths;
  */
 public abstract class File {
 
-    @Getter private String[] content;
-    @Getter private String source;
+    @Getter private String[] content; //NOPMD PMD can't handle Lombok.
+    @Getter private String source; //NOPMD PMD can't handle Lombok.
 
     /**
      * Creates a new File instance.

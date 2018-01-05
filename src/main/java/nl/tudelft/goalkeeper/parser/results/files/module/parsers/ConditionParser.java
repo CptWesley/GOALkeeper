@@ -48,6 +48,7 @@ public final class ConditionParser {
      * @param expression Expression of the condition.
      * @return New condition instance of correct type and with correct expression.
      */
+    @SuppressWarnings("PMD")
     private static Condition getInstance(String operator,
             Selector selector, Expression expression) {
         Parameter newSelector = null;

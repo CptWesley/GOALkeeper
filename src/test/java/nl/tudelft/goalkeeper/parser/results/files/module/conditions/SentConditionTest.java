@@ -70,9 +70,6 @@ class SentConditionTest extends ConditionTest {
         SentCondition other = new SentCondition(expression, selector, MessageMood.IMPERATIVE);
         assertThat(condition).isEqualTo(other);
         assertThat(condition.hashCode()).isEqualTo(other.hashCode());
-        Expression e = Mockito.mock(Expression.class);
-        assertThat(condition).isEqualTo(other);
-        assertThat(condition.hashCode()).isEqualTo(other.hashCode());
     }
 
     /**

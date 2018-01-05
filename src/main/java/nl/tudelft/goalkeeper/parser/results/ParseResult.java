@@ -15,7 +15,7 @@ import java.util.List;
 public final class ParseResult {
 
     private List<Violation> violations;
-    @Getter @Setter private boolean successful;
+    @Getter @Setter private boolean successful; //NOPMD PMD can't handle Lombok.
 
     private List<ModuleFile> modules;
 

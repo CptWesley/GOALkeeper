@@ -15,7 +15,7 @@ import java.util.List;
 public class ModuleFile extends File implements Module {
 
     private List<Rule> rules;
-    @Getter @Setter private String name;
+    @Getter @Setter private String name; //NOPMD PMD can't handle Lombok.
 
     /**
      * Creates a new ModuleFile instance.

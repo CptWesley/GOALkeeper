@@ -18,7 +18,7 @@ import java.util.List;
 public final class ModuleAction implements Action {
 
     private List<Expression> arguments;
-    @Getter private String target;
+    @Getter private String target; //NOPMD PMD can't handle Lombok.
     @Getter @Setter private ModuleFile module;
 
     /**

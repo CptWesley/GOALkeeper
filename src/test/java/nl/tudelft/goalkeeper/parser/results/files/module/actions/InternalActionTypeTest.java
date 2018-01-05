@@ -7,6 +7,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * Test class for the InternalActionType enum.
  */
+@SuppressWarnings("PMD.TooManyMethods")
 class InternalActionTypeTest {
 
     /**

@@ -1,6 +1,5 @@
 package nl.tudelft.goalkeeper.parser.results.files.module.conditions;
 
-import nl.tudelft.goalkeeper.parser.results.parts.Expression;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;

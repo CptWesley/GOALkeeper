@@ -1,0 +1,12 @@
+use blocksworld.
+use blocksworld as knowledge.
+use clear.
+use build.
+
+stackbuilder {
+	do clear.
+		
+	do build(['b3','b2','b1']) until bel(tower(['b3','b2','b1'])).
+		
+	do build(['b9','b8','b7','b6','b5']) until bel(tower(['b9','b8','b7','b6','b5']), tower(['b4'])).
+}

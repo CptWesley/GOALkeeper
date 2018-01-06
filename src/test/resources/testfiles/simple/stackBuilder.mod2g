@@ -1,0 +1,11 @@
+use blocksworld as knowledge.
+use tower as goals.
+use build.
+use clear.
+order = linearall.
+exit = nogoals.
+
+module stackBuilder {
+	if bel(not(clear)) then clear + insert(clear).
+	forall goal(tower(T)) do build(T).
+}

@@ -1,0 +1,10 @@
+use "../blocksworld-1.1.0-blocksworld.jar" as environment with start=[7, 73, 72, 68, 38, 0, 91, 64, 56, 44, 1, 0, 90, 26, 45, 52, 63, 2,  87, 18, 66, 27, 39, 46, 92, 62, 79, 37, 24, 59, 21, 47, 0, 0, 40, 41,  75, 60, 76, 48, 89, 94, 50, 0, 14, 78, 31, 12, 96, 67, 0, 69, 0, 10,  86, 30, 8, 0, 0, 0, 4, 88, 93, 35, 0, 95, 33, 65, 49, 22, 0, 0, 0,  23, 9, 71, 97, 0, 0, 0, 58, 85, 42, 0, 70, 0, 100, 19, 34, 17, 6, 5,  51, 99, 53, 80, 20, 16, 84, 0], gui="true".
+
+define stackbuilder as agent {
+	use stackBuilder as main module.
+	use stackEvents as event module.
+}
+
+launchpolicy{
+	when * launch stackbuilder.
+}

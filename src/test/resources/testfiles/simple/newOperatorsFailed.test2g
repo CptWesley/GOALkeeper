@@ -1,0 +1,17 @@
+use blocksworld.
+use blocksworld as knowledge.
+use stackBuilder.
+use move.
+timeout=10.
+
+test stackBuilder with
+	in { done(move(X,Y)) leadsto bel(on(X,Y)).
+		 always not(done(move(A,A))).
+		 never done(move(X,X)).
+		 eventually done(move(_,_)).
+		 always done(move(A,A)).
+		}
+
+stackbuilder {
+	do stackBuilder.
+}

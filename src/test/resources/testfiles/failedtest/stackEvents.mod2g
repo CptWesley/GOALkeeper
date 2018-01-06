@@ -1,6 +1,0 @@
-use blocksworld as knowledge.
-
-module stackEvents {
-	forall percept(on(X, Y)), not(bel(on(X, Y))) do insert(on(X, Y)).
-	forall bel(on(X, Y)), not(percept(on(X, Y))) do delete(on(X, Y)).
-}

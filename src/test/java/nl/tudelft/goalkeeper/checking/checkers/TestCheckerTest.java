@@ -13,7 +13,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class TestCheckerTest {
     private static final String TEST2G_FILE =
-            "src/test/resources/testfiles/failedtest/newOperators.test2g";
+            "src/test/resources/testfiles/simple/newOperators.test2g";
 
     private TestChecker checker;
 

@@ -166,4 +166,30 @@ class RuleTest {
         other.addAction(a1).addAction(a2);
         assertThat(rule.getActionsHashCode()).isEqualTo(other.getActionsHashCode());
     }
+
+    /**
+     * Checks that the toString method returns the correct value.
+     */
+    @Test
+    void emptyToStringTest() {
+        assertThat(rule.toString()).isEqualTo("if true then .");
+    }
+
+    /**
+     * Checks that the toString method returns the correct value.
+     */
+    @Test
+    void toStringTest() {
+        Action a1 = Mockito.mock(Action.class);
+        Action a2 = Mockito.mock(Action.class);
+        Condition c1 = Mockito.mock(Condition.class);
+        Condition c2 = Mockito.mock(Condition.class);
+        Mockito.when(a1.toString()).thenReturn("a");
+        Mockito.when(a2.toString()).thenReturn("b");
+        Mockito.when(c1.toString()).thenReturn("c");
+        Mockito.when(c2.toString()).thenReturn("d");
+        rule.addAction(a1).addAction(a2);
+        rule.addCondition(c1).addCondition(c2);
+        assertThat(rule.toString()).isEqualTo("if c, d then a + b.");
+    }
 }

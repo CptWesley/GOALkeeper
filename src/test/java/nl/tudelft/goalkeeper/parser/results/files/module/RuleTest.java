@@ -11,6 +11,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * Test class for the Rule class.
  */
+@SuppressWarnings("PMD.TooManyMethods")
 class RuleTest {
 
     private Rule rule;

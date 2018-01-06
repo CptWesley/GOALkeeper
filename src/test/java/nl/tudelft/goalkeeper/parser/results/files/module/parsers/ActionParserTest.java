@@ -26,8 +26,6 @@ import swiprolog.language.PrologTerm;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -36,7 +34,6 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 class ActionParserTest {
     private languageTools.program.agent.actions.Action input;
-    private List parameters;
     private PrologTerm expression;
 
     /**
@@ -48,7 +45,6 @@ class ActionParserTest {
         Mockito.when(expression.getTerm()).thenReturn(term);
         Mockito.when(term.isVariable()).thenReturn(true);
         input = Mockito.mock(type);
-        parameters = new LinkedList();
         Mockito.when(input.getParameters()).thenReturn(Collections.singletonList(expression));
     }
 

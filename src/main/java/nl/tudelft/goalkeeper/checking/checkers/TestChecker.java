@@ -65,12 +65,15 @@ public class TestChecker implements CheckerInterface {
             // Calculate the severity of the errors and parse the violations.
             results.forEach((tuple) -> {
                 int severity  = rule.severityOf(tuple.getSecond());
-                System.out.println(severity);
                 if (severity > 0) {
+
+//                    rule.getStages().forEach((stage -> {
+//
+//                    }));
                     boolean error = severity >= ruleSet.getErrorSeverity();
                     violations.add(new Violation(VIOLATION_NAME, severity)
                     .setActualValue(tuple.getSecond())
-                    .setMinimumValue(rule.maxValueBefore(1))
+                    //.setMinimumValue(rule.getStages().get())
                     .setSource(new FileSource(tuple.getFirst().getAbsolutePath()))
                     .setError(error));
                 }

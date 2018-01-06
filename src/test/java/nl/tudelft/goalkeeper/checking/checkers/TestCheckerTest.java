@@ -27,6 +27,11 @@ class TestCheckerTest {
         Collection<Violation> violations = checker.run(new String[] {TEST2G_FILE},
                 RuleSet.load("src/test/resources/testfiles/checker-test-rules.json"));
         assertThat(violations.size()).isEqualTo(1);
+        violations.forEach((violation -> {
+            assertThat(violation.getMinimumValue()).isEqualTo(70.0);
+            assertThat(violation.getActualValue()).isEqualTo(50);
+            assertThat(violation.getSeverity()).isEqualTo(2);
+        }));
     }
 
 }

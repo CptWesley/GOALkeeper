@@ -54,4 +54,116 @@ class RuleTest {
         assertThat(rule.getConditions()).hasSize(1);
         assertThat(rule.getConditions().get(0)).isSameAs(c);
     }
+
+    /**
+     * Checks that an object is equal to itself.
+     */
+    @Test
+    void equalsSelf() {
+        assertThat(rule).isEqualTo(rule);
+        assertThat(rule.hashCode()).isEqualTo(rule.hashCode());
+    }
+
+    /**
+     * Checks that an object is equal to the same object.
+     */
+    @Test
+    void equalsSame() {
+        Rule other = new Rule(RuleType.IF);
+        assertThat(rule).isEqualTo(other);
+        assertThat(rule.hashCode()).isEqualTo(other.hashCode());
+    }
+
+    /**
+     * Checks that an object is not equal to null.
+     */
+    @Test
+    void notEqualsNull() {
+        assertThat(rule).isNotEqualTo(null);
+    }
+
+    /**
+     * Checks that an object is not equal to an object of a different type.
+     */
+    @Test
+    void notEqualsDifferentType() {
+        assertThat(rule).isNotEqualTo("");
+    }
+
+    /**
+     * Checks that an object is not equal to an object with a different rule type.
+     */
+    @Test
+    void notEqualsDifferentRuleType() {
+        Rule other = new Rule(RuleType.FORALL);
+        assertThat(rule).isNotEqualTo(other);
+    }
+
+    /**
+     * Checks that an object is not equal to an object with a different amount of conditions.
+     */
+    @Test
+    void notEqualsDifferentConditionsSize() {
+        Rule other = new Rule(RuleType.IF);
+        rule.addCondition(Mockito.mock(Condition.class));
+        assertThat(rule).isNotEqualTo(other);
+    }
+
+    /**
+     * Checks that an object is not equal to an object with a different conditions.
+     */
+    @Test
+    void notEqualsDifferentConditions() {
+        Rule other = new Rule(RuleType.IF);
+        rule.addCondition(Mockito.mock(Condition.class));
+        other.addCondition(Mockito.mock(Condition.class));
+        assertThat(rule).isNotEqualTo(other);
+    }
+
+    /**
+     * Checks that an object is not equal to an object with a different amount of actions.
+     */
+    @Test
+    void notEqualsDifferentActionsSize() {
+        Rule other = new Rule(RuleType.IF);
+        rule.addAction(Mockito.mock(Action.class));
+        assertThat(rule).isNotEqualTo(other);
+    }
+
+    /**
+     * Checks that an object is not equal to an object with a different actions.
+     */
+    @Test
+    void notEqualsDifferentActions() {
+        Rule other = new Rule(RuleType.IF);
+        rule.addAction(Mockito.mock(Action.class));
+        other.addAction(Mockito.mock(Action.class));
+        assertThat(rule).isNotEqualTo(other);
+    }
+
+    /**
+     * Checks that rules with the same conditions return the same conditions hashcode.
+     */
+    @Test
+    void sameConditionsHashCodeTest() {
+        Condition c1 = Mockito.mock(Condition.class);
+        Condition c2 = Mockito.mock(Condition.class);
+        Rule other = new Rule(RuleType.LISTALL);
+        rule.addCondition(c1).addCondition(c2);
+        other.addCondition(c1).addCondition(c2);
+        assertThat(rule.getConditionsHashCode()).isEqualTo(other.getConditionsHashCode());
+    }
+
+    /**
+     * Checks that rules with the same conditions return the same actions hashcode.
+     */
+    @Test
+    void sameActionsHashCodeTest() {
+        Action a1 = Mockito.mock(Action.class);
+        Action a2 = Mockito.mock(Action.class);
+        Rule other = new Rule(RuleType.LISTALL);
+        rule.addAction(a1).addAction(a2);
+        other.addAction(a1).addAction(a2);
+        assertThat(rule.getActionsHashCode()).isEqualTo(other.getActionsHashCode());
+    }
 }

@@ -139,7 +139,7 @@ public final class ActionParser {
         for (Term t : a.getParameters()) {
             arguments.add(ExpressionParser.parse(t));
         }
-        String source = a.getSourceInfo().getSource();
+        String source = a.getTarget().getSourceInfo().getSource();
         return new ModuleAction(source, arguments);
     }
 
@@ -155,7 +155,7 @@ public final class ActionParser {
         for (Term t : a.getParameters()) {
             arguments.add(ExpressionParser.parse(t));
         }
-        String source = a.getSourceInfo().getSource();
+        String source = a.getSpecification().getSourceInfo().getSource();
         return new ExternalAction(source, arguments);
     }
 }

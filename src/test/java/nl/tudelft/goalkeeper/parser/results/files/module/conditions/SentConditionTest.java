@@ -73,6 +73,24 @@ class SentConditionTest extends ConditionTest {
     }
 
     /**
+     * Checks that objects with different moods are not considered equal.
+     */
+    @Test
+    void notEqualsDifferentMoodTest() {
+        SentCondition other = new SentCondition(expression, selector, MessageMood.INDICATIVE);
+        assertThat(condition).isNotEqualTo(other);
+    }
+
+    /**
+     * Checks that objects with different senders are not considered equal.
+     */
+    @Test
+    void notEqualsDifferentSenderTest() {
+        SentCondition other = new SentCondition(expression, Mockito.mock(Expression.class), MessageMood.IMPERATIVE);
+        assertThat(condition).isNotEqualTo(other);
+    }
+
+    /**
      * Checks that toString is implemented correctly.
      */
     @Test

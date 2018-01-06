@@ -59,11 +59,16 @@ public final class FileParser {
         List<File> fileList = new ArrayList<>();
         for (String file: files) {
             File temp = new File(file);
-            if (temp.isFile()
-                    && FilenameUtils.getExtension(file).toLowerCase().equals(type)) {
+            if (isOfType(file, type)) {
                 fileList.add(temp);
             }
         }
         return fileList;
+    }
+
+    public static boolean isOfType(String file, String type) {
+        File temp = new File(file);
+        return temp.isFile()
+                && FilenameUtils.getExtension(file).toLowerCase().equals(type);
     }
 }

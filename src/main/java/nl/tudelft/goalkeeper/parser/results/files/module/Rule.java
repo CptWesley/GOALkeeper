@@ -6,6 +6,7 @@ import nl.tudelft.goalkeeper.parser.results.files.module.conditions.Condition;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -111,10 +112,8 @@ public final class Rule {
             if (this.actions.size() != that.actions.size()) {
                 return false;
             }
-            for (int i = 0; i < this.conditions.size(); ++i) {
-                if (!this.conditions.get(i).equals(that.conditions.get(i))) {
-                    return false;
-                }
+            if (!equalConditions(that.conditions)) {
+                return false;
             }
             for (int i = 0; i < this.actions.size(); ++i) {
                 if (!this.actions.get(i).equals(that.actions.get(i))) {
@@ -124,6 +123,30 @@ public final class Rule {
             return true;
         }
         return false;
+    }
+
+    private boolean equalConditions(final List<Condition> that) {
+        if (this.conditions.size() != that.size()) {
+            return false;
+        }
+
+        List<Condition> temp = this.conditions;
+        temp.sort(new Comparator<Condition>() {
+            @Override
+            public int compare(Condition o1, Condition o2) {
+                return o1.hashCode() - o2.hashCode();
+            }
+        });
+
+        List<Condition> temp2 = that;
+        temp2.sort(new Comparator<Condition>() {
+            @Override
+            public int compare(Condition o1, Condition o2) {
+                return o1.hashCode() - o2.hashCode();
+            }
+        });
+
+        return temp.equals(temp2);
     }
 
     /**

@@ -3,7 +3,7 @@ package nl.tudelft.goalkeeper.parser.results.parts;
 import lombok.Getter;
 
 /**
- * Interface for all variable types.
+ * Abstract class for all variable types.
  */
 public abstract class Parameter implements Expression {
     @Getter

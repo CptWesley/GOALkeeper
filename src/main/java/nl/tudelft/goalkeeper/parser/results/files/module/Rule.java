@@ -1,8 +1,11 @@
 package nl.tudelft.goalkeeper.parser.results.files.module;
 
 import lombok.Getter;
+import lombok.Setter;
+import nl.tudelft.goalkeeper.checking.violations.source.Source;
 import nl.tudelft.goalkeeper.parser.results.files.module.actions.Action;
 import nl.tudelft.goalkeeper.parser.results.files.module.conditions.Condition;
+import nl.tudelft.goalkeeper.parser.results.parts.Sourceable;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -12,11 +15,12 @@ import java.util.List;
 /**
  * Rule class.
  */
-public final class Rule {
+public final class Rule implements Sourceable {
 
     @Getter private RuleType type;
     private List<Condition> conditions;
     private List<Action> actions;
+    @Getter @Setter private Source source;
 
     /**
      * Creates a rule instance.

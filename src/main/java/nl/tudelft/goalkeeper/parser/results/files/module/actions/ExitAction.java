@@ -6,7 +6,7 @@ import lombok.EqualsAndHashCode;
  * Class for module exit actions.
  */
 @EqualsAndHashCode
-public final class ExitAction implements Action {
+public final class ExitAction extends Action {
     private static final String IDENTIFIER = "exit-module/0";
 
     /**

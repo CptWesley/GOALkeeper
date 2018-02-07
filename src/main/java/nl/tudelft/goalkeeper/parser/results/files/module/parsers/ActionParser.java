@@ -1,10 +1,12 @@
 package nl.tudelft.goalkeeper.parser.results.files.module.parsers;
 
 import krTools.language.Term;
+import krTools.parser.SourceInfo;
 import languageTools.program.agent.actions.ExitModuleAction;
 import languageTools.program.agent.actions.ModuleCallAction;
 import languageTools.program.agent.actions.UserSpecCallAction;
 import languageTools.program.agent.msg.SentenceMood;
+import nl.tudelft.goalkeeper.checking.violations.source.SourceParser;
 import nl.tudelft.goalkeeper.exceptions.UnknownKRLanguageException;
 import nl.tudelft.goalkeeper.parser.queries.ExpressionParser;
 import nl.tudelft.goalkeeper.parser.results.files.module.actions.Action;
@@ -41,6 +43,22 @@ public final class ActionParser {
      * @throws UnknownKRLanguageException Thrown when KR language could not be determined.
      */
     public static Action parse(languageTools.program.agent.actions.Action a)
+            throws UnknownKRLanguageException {
+        Action action = getInstance(a);
+        SourceInfo sourceInfo = a.getSourceInfo();
+        if (sourceInfo != null) {
+            action.setSource(SourceParser.parse(sourceInfo));
+        }
+        return action;
+    }
+
+    /**
+     * Parses an action to the a correct GOALkeeper instance.
+     * @param a Action to parse.
+     * @return GOALkeeper action.
+     * @throws UnknownKRLanguageException Thrown when KR language could not be determined.
+     */
+    private static Action getInstance(languageTools.program.agent.actions.Action a)
             throws UnknownKRLanguageException {
         if (a instanceof languageTools.program.agent.actions.SendAction) {
             return parseSendAction((languageTools.program.agent.actions.SendAction) a);

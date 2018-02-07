@@ -10,6 +10,7 @@ import languageTools.program.agent.actions.NonMentalAction;
 import languageTools.program.agent.actions.UserSpecCallAction;
 import languageTools.program.agent.msg.SentenceMood;
 import languageTools.program.agent.selector.Selector;
+import nl.tudelft.goalkeeper.checking.violations.source.CharacterSource;
 import nl.tudelft.goalkeeper.exceptions.UnknownKRLanguageException;
 import nl.tudelft.goalkeeper.parser.results.files.module.actions.ExitAction;
 import nl.tudelft.goalkeeper.parser.results.files.module.actions.ExternalAction;
@@ -33,6 +34,10 @@ import static org.assertj.core.api.Assertions.assertThat;
  * Test class for the ActionParser class.
  */
 class ActionParserTest {
+    private static final String FILE_NAME = "fgadsfgd";
+    private static final int LINE_NUMBER = 33;
+    private static final int CHARACTER_POSITION = 12;
+
     private languageTools.program.agent.actions.Action input;
     private PrologTerm expression;
 
@@ -154,5 +159,22 @@ class ActionParserTest {
         Mockito.when(input.getSignature()).thenReturn("starttimer/1");
         assertThat(ActionParser.parse(input)).isInstanceOf(InternalAction.class);
         assertThat(ActionParser.parse(input).getIdentifier()).isEqualTo("canceltimer/1");
+    }
+
+    /**
+     * Checks if the source info is parsed correctly.
+     */
+    @Test
+    void sourceInfoTest() throws UnknownKRLanguageException {
+        setup(ExitModuleAction.class);
+        SourceInfo si = Mockito.mock(SourceInfo.class);
+        Mockito.when(si.getSource()).thenReturn(FILE_NAME);
+        Mockito.when(si.getLineNumber()).thenReturn(LINE_NUMBER);
+        Mockito.when(si.getCharacterPosition()).thenReturn(CHARACTER_POSITION);
+        Mockito.when(input.getSourceInfo()).thenReturn(si);
+        CharacterSource output = (CharacterSource) ActionParser.parse(input).getSource();
+        assertThat(output.getFile()).isEqualTo(FILE_NAME);
+        assertThat(output.getLine()).isEqualTo(LINE_NUMBER);
+        assertThat(output.getPosition()).isEqualTo(CHARACTER_POSITION);
     }
 }

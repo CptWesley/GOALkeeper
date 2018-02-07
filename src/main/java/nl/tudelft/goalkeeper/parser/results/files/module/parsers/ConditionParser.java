@@ -2,8 +2,10 @@ package nl.tudelft.goalkeeper.parser.results.files.module.parsers;
 
 import krTools.language.Term;
 import krTools.language.Var;
+import krTools.parser.SourceInfo;
 import languageTools.program.agent.msc.MentalLiteral;
 import languageTools.program.agent.selector.Selector;
+import nl.tudelft.goalkeeper.checking.violations.source.SourceParser;
 import nl.tudelft.goalkeeper.exceptions.UnknownKRLanguageException;
 import nl.tudelft.goalkeeper.parser.queries.ExpressionParser;
 import nl.tudelft.goalkeeper.parser.results.files.module.conditions.AGoalCondition;
@@ -38,7 +40,12 @@ public final class ConditionParser {
     public static Condition parse(MentalLiteral query)
             throws UnknownKRLanguageException {
         Expression e = ExpressionParser.parse(query.getFormula());
-        return getInstance(query.getOperator(), query.getSelector(), e);
+        Condition condition = getInstance(query.getOperator(), query.getSelector(), e);
+        SourceInfo sourceInfo = query.getSourceInfo();
+        if (sourceInfo != null) {
+            condition.setSource(SourceParser.parse(sourceInfo));
+        }
+        return condition;
     }
 
     /**

@@ -1,8 +1,6 @@
 package nl.tudelft.goalkeeper.parser.results.parts;
 
 import lombok.Getter;
-import lombok.Setter;
-import nl.tudelft.goalkeeper.checking.violations.source.Source;
 
 import java.util.Collections;
 import java.util.LinkedList;

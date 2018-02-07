@@ -26,6 +26,7 @@ public final class RuleParser {
      * @param r Rule to parse.
      * @return GOALkeeper rule version of the rule.
      */
+    @SuppressWarnings("MethodLength")
     public static Rule parse(languageTools.program.agent.rules.Rule r) {
         Rule rule = new Rule(getType(r));
         String fileName = "";

@@ -2,10 +2,7 @@ package nl.tudelft.goalkeeper.parser.results.files.module.actions;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.Setter;
-import nl.tudelft.goalkeeper.checking.violations.source.Source;
 import nl.tudelft.goalkeeper.parser.results.parts.Expression;
-import nl.tudelft.goalkeeper.parser.results.parts.Sourceable;
 
 /**
  * Contains data for update actions like insert, delete, adopt, drop.

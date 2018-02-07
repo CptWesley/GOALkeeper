@@ -2,8 +2,10 @@ package nl.tudelft.goalkeeper.parser.results.files.module.parsers;
 
 import krTools.language.Term;
 import krTools.language.Var;
+import krTools.parser.SourceInfo;
 import languageTools.program.agent.msc.MentalLiteral;
 import languageTools.program.agent.selector.Selector;
+import nl.tudelft.goalkeeper.checking.violations.source.CharacterSource;
 import nl.tudelft.goalkeeper.exceptions.UnknownKRLanguageException;
 import nl.tudelft.goalkeeper.parser.results.files.module.conditions.AGoalCondition;
 import nl.tudelft.goalkeeper.parser.results.files.module.conditions.BeliefCondition;
@@ -39,6 +41,10 @@ class ConditionParserTest {
     private static final String SENT_IMPERATIVE = "sent!";
     private static final String SENT_INTERROGATIVE = "sent?";
     private static final String SIGNATURE = "Sig";
+
+    private static final String FILE_NAME = "fgdsfgdfdsaw35";
+    private static final int LINE_NUMBER = 102;
+    private static final int CHARACTER_POSITION = 75;
 
     private MentalLiteral literal;
     private Selector selector;
@@ -171,5 +177,22 @@ class ConditionParserTest {
         Mockito.when(literal.getOperator()).thenReturn(SENT_INTERROGATIVE);
         SentCondition sc = (SentCondition) ConditionParser.parse(literal);
         assertThat(sc.getSender()).isEqualTo(null);
+    }
+
+    /**
+     * Checks that the source is parsed properly.
+     */
+    @Test
+    void sourceTest() throws UnknownKRLanguageException {
+        Mockito.when(literal.getOperator()).thenReturn(GOAL);
+        SourceInfo si = Mockito.mock(SourceInfo.class);
+        Mockito.when(si.getSource()).thenReturn(FILE_NAME);
+        Mockito.when(si.getLineNumber()).thenReturn(LINE_NUMBER);
+        Mockito.when(si.getCharacterPosition()).thenReturn(CHARACTER_POSITION);
+        Mockito.when(literal.getSourceInfo()).thenReturn(si);
+        CharacterSource source = (CharacterSource) ConditionParser.parse(literal).getSource();
+        assertThat(source.getFile()).isEqualTo(FILE_NAME);
+        assertThat(source.getLine()).isEqualTo(LINE_NUMBER);
+        assertThat(source.getPosition()).isEqualTo(CHARACTER_POSITION);
     }
 }

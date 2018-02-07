@@ -2,6 +2,9 @@ package nl.tudelft.goalkeeper.parser.results.files.module.parsers;
 
 import languageTools.program.agent.rules.ForallDoRule;
 import languageTools.program.agent.rules.ListallDoRule;
+import nl.tudelft.goalkeeper.checking.violations.source.BlockSource;
+import nl.tudelft.goalkeeper.checking.violations.source.CharacterSource;
+import nl.tudelft.goalkeeper.checking.violations.source.LineSource;
 import nl.tudelft.goalkeeper.exceptions.UnknownKRLanguageException;
 import nl.tudelft.goalkeeper.parser.results.files.module.Rule;
 import nl.tudelft.goalkeeper.parser.results.files.module.RuleType;
@@ -23,13 +26,23 @@ public final class RuleParser {
      * @param r Rule to parse.
      * @return GOALkeeper rule version of the rule.
      */
+    @SuppressWarnings("MethodLength")
     public static Rule parse(languageTools.program.agent.rules.Rule r) {
         Rule rule = new Rule(getType(r));
+        String fileName = "";
+        int startingLine = Integer.MAX_VALUE;
+        int endingLine = Integer.MIN_VALUE;
         for (languageTools.program.agent.msc.MentalLiteral l
                 : r.getCondition().getAllLiterals()) {
             try {
                 Condition c = ConditionParser.parse(l);
                 rule.addCondition(c);
+                if (c.getSource() != null && c.getSource() instanceof CharacterSource) {
+                    CharacterSource source = (CharacterSource) c.getSource();
+                    fileName = source.getFile();
+                    startingLine = Math.min(startingLine, source.getLine());
+                    endingLine = Math.max(endingLine, source.getLine());
+                }
             } catch (UnknownKRLanguageException e) {
                 e.printStackTrace();
             }
@@ -38,11 +51,22 @@ public final class RuleParser {
             try {
                 Action action = ActionParser.parse(a);
                 rule.addAction(action);
+                if (action.getSource() != null && action.getSource() instanceof CharacterSource) {
+                    CharacterSource source = (CharacterSource) action.getSource();
+                    fileName = source.getFile();
+                    startingLine = Math.min(startingLine, source.getLine());
+                    endingLine = Math.max(endingLine, source.getLine());
+                }
             } catch (UnknownKRLanguageException e) {
                 e.printStackTrace();
             }
         }
 
+        if (startingLine == endingLine) {
+            rule.setSource(new LineSource(fileName, startingLine));
+        } else {
+            rule.setSource(new BlockSource(fileName, startingLine, endingLine));
+        }
         return rule;
     }
 

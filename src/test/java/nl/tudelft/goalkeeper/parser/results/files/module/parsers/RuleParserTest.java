@@ -1,6 +1,7 @@
 package nl.tudelft.goalkeeper.parser.results.files.module.parsers;
 
 import jpl.Term;
+import krTools.parser.SourceInfo;
 import languageTools.program.agent.actions.Action;
 import languageTools.program.agent.actions.ActionCombo;
 import languageTools.program.agent.msc.MentalLiteral;
@@ -8,6 +9,9 @@ import languageTools.program.agent.msc.MentalStateCondition;
 import languageTools.program.agent.rules.ListallDoRule;
 import languageTools.program.agent.rules.Rule;
 import languageTools.program.agent.selector.Selector;
+import nl.tudelft.goalkeeper.checking.violations.source.BlockSource;
+import nl.tudelft.goalkeeper.checking.violations.source.LineSource;
+import nl.tudelft.goalkeeper.checking.violations.source.Source;
 import nl.tudelft.goalkeeper.parser.results.files.module.RuleType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -24,6 +28,10 @@ import static org.assertj.core.api.Assertions.assertThat;
  * Test class for the RuleParser class.
  */
 class RuleParserTest {
+
+    private static final String FILE_NAME = "fgdssfgd";
+    private static int STARTING_LINE = 45;
+    private static int ENDING_LINE = 47;
 
     private Rule rule;
     private List<MentalLiteral> conditions;
@@ -94,5 +102,45 @@ class RuleParserTest {
         assertThat(RuleParser.parse(rule).getActions()).hasSize(1);
         actions.add(action);
         assertThat(RuleParser.parse(rule).getActions()).hasSize(2);
+    }
+
+    /**
+     * Checks that we can retrieve the source correctly.
+     */
+    @Test
+    @SuppressWarnings("PMD")
+    void sourceTest() {
+        Action action = Mockito.mock(Action.class);
+        PrologQuery var = Mockito.mock(PrologQuery.class);
+        Mockito.when(action.getParameters()).thenReturn(Collections.singletonList(var));
+        Term term = Mockito.mock(Term.class);
+        Mockito.when(var.getTerm()).thenReturn(term);
+        Mockito.when(term.isVariable()).thenReturn(true);
+        Selector selector = Mockito.mock(Selector.class);
+        Mockito.when(selector.getParameters()).thenReturn(new ArrayList<>());
+        Mockito.when(action.getSignature()).thenReturn("exit-module/0");
+        SourceInfo asi = Mockito.mock(SourceInfo.class);
+        Mockito.when(asi.getSource()).thenReturn(FILE_NAME);
+        Mockito.when(asi.getLineNumber()).thenReturn(ENDING_LINE);
+        Mockito.when(action.getSourceInfo()).thenReturn(asi);
+        actions.add(action);
+        Source source = RuleParser.parse(rule).getSource();
+        assertThat(source.getFile()).isEqualTo(FILE_NAME);
+        assertThat(source).isInstanceOf(LineSource.class);
+        assertThat(((LineSource) source).getLine()).isEqualTo(ENDING_LINE);
+        MentalLiteral lit = Mockito.mock(MentalLiteral.class);
+        Mockito.when(lit.getFormula()).thenReturn(var);
+        Mockito.when(lit.getOperator()).thenReturn("percept");
+        Mockito.when(lit.getSelector()).thenReturn(selector);
+        SourceInfo csi = Mockito.mock(SourceInfo.class);
+        Mockito.when(csi.getSource()).thenReturn(FILE_NAME);
+        Mockito.when(csi.getLineNumber()).thenReturn(STARTING_LINE);
+        Mockito.when(lit.getSourceInfo()).thenReturn(csi);
+        conditions.add(lit);
+        source = RuleParser.parse(rule).getSource();
+        assertThat(source.getFile()).isEqualTo(FILE_NAME);
+        assertThat(source).isInstanceOf(BlockSource.class);
+        assertThat(((BlockSource) source).getStartingLine()).isEqualTo(STARTING_LINE);
+        assertThat(((BlockSource) source).getEndingLine()).isEqualTo(ENDING_LINE);
     }
 }

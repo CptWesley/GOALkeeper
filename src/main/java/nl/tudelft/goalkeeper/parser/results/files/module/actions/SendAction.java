@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Class representing send/1 actions.
  */
-public final class SendAction implements Action {
+public final class SendAction extends Action {
     private static final String IDENTIFIER = "send/1";
     private List<Expression> recipients;
 

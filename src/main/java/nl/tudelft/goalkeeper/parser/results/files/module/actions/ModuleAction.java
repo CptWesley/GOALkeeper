@@ -15,7 +15,7 @@ import java.util.List;
  * Class representing module calls.
  */
 @EqualsAndHashCode
-public final class ModuleAction implements Action {
+public final class ModuleAction extends Action {
 
     private List<Expression> arguments;
     @Getter private String target; //NOPMD PMD can't handle Lombok.

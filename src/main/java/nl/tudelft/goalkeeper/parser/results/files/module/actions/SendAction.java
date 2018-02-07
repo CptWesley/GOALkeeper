@@ -15,13 +15,12 @@ import java.util.List;
 /**
  * Class representing send/1 actions.
  */
-public final class SendAction implements Action, Sourceable {
+public final class SendAction extends Action {
     private static final String IDENTIFIER = "send/1";
     private List<Expression> recipients;
 
     @Getter private MessageMood mood;
     @Getter private Expression expression;
-    @Getter @Setter private Source source;
 
     /**
      * Creates a new send action instance.

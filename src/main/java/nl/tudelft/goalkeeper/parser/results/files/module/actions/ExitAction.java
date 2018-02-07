@@ -10,9 +10,8 @@ import nl.tudelft.goalkeeper.parser.results.parts.Sourceable;
  * Class for module exit actions.
  */
 @EqualsAndHashCode
-public final class ExitAction implements Action, Sourceable {
+public final class ExitAction extends Action {
     private static final String IDENTIFIER = "exit-module/0";
-    @Getter @Setter private Source source;
 
     /**
      * {@inheritDoc}

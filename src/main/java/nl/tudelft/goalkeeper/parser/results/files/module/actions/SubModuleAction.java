@@ -11,10 +11,9 @@ import nl.tudelft.goalkeeper.parser.results.parts.Sourceable;
  * Class which represents submodule calls.
  */
 @EqualsAndHashCode
-public final class SubModuleAction implements Action, Sourceable {
+public final class SubModuleAction extends Action {
 
     @Getter private SubModule module;
-    @Getter @Setter private Source source;
 
     /**
      * Creates a new sub module call instance.

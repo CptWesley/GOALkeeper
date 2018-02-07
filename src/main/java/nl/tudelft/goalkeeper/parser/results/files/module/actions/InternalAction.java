@@ -11,11 +11,10 @@ import nl.tudelft.goalkeeper.parser.results.parts.Sourceable;
  * Contains data for update actions like insert, delete, adopt, drop.
  */
 @EqualsAndHashCode
-public class InternalAction implements Action, Sourceable {
+public class InternalAction extends Action {
 
     @Getter private InternalActionType type;
     @Getter private Expression expression; //NOPMD PMD can't handle Lombok.
-    @Getter @Setter private Source source;
 
     /**
      * Creates an object instance representing an update action.

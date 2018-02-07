@@ -11,13 +11,12 @@ import java.util.List;
 /**
  * Class for holding queries and subqueries.
  */
-public final class Function implements Expression, Sourceable {
+public final class Function extends Expression {
 
     private static final int HASH_MODIFIER = 43;
 
     @Getter private String identifier;
     private List<Expression> arguments;
-    @Getter @Setter private Source source;
 
     /**
      * Creates a query instance.

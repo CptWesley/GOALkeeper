@@ -17,12 +17,11 @@ import java.util.List;
  * Class representing module calls.
  */
 @EqualsAndHashCode
-public final class ModuleAction implements Action, Sourceable {
+public final class ModuleAction extends Action {
 
     private List<Expression> arguments;
     @Getter private String target; //NOPMD PMD can't handle Lombok.
     @Getter @Setter private ModuleFile module;
-    @Getter @Setter private Source source;
 
     /**
      * Creates a new module call action instance.

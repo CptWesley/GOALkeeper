@@ -1,0 +1,14 @@
+langauge: java
+jdk:
+  - oraclejdk8
+
+install: true
+sudo: required
+
+cache:
+  directories:
+  - .autoconf
+  - $HOME/.m2
+
+script:
+  - mvn clean test site

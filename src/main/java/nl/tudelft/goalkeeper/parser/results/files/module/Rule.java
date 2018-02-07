@@ -125,6 +125,7 @@ public final class Rule {
         return false;
     }
 
+    //TODO: Some conditions can not be inverted if they access the same variables.
     private boolean equalConditions(final List<Condition> that) {
         if (this.conditions.size() != that.size()) {
             return false;

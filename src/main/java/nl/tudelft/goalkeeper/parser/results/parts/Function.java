@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Class for holding queries and subqueries.
  */
-public final class Function implements Expression {
+public final class Function extends Expression {
 
     private static final int HASH_MODIFIER = 43;
 

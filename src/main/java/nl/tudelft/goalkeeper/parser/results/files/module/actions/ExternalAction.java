@@ -14,7 +14,7 @@ import java.util.List;
  * Class representing environment actions.
  */
 @EqualsAndHashCode
-public final class ExternalAction implements Action {
+public final class ExternalAction extends Action {
 
     @Getter @Setter private String target; //NOPMD PMD can't handle Lombok.
     private List<Expression> arguments;

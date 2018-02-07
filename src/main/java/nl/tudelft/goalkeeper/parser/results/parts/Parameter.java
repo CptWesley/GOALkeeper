@@ -5,9 +5,8 @@ import lombok.Getter;
 /**
  * Abstract class for all variable types.
  */
-public abstract class Parameter implements Expression {
-    @Getter
-    private String identifier;
+public abstract class Parameter extends Expression {
+    @Getter private String identifier;
 
     /**
      * Creates a new free variable instance.

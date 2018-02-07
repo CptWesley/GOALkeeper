@@ -8,7 +8,7 @@ import nl.tudelft.goalkeeper.parser.results.parts.Expression;
  * Contains data for update actions like insert, delete, adopt, drop.
  */
 @EqualsAndHashCode
-public class InternalAction implements Action {
+public class InternalAction extends Action {
 
     @Getter private InternalActionType type;
     @Getter private Expression expression; //NOPMD PMD can't handle Lombok.

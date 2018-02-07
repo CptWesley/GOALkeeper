@@ -3,8 +3,10 @@ package nl.tudelft.goalkeeper.parser.results.files.module.actions;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import nl.tudelft.goalkeeper.checking.violations.source.Source;
 import nl.tudelft.goalkeeper.parser.results.files.module.ModuleFile;
 import nl.tudelft.goalkeeper.parser.results.parts.Expression;
+import nl.tudelft.goalkeeper.parser.results.parts.Sourceable;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -15,11 +17,12 @@ import java.util.List;
  * Class representing module calls.
  */
 @EqualsAndHashCode
-public final class ModuleAction implements Action {
+public final class ModuleAction implements Action, Sourceable {
 
     private List<Expression> arguments;
     @Getter private String target; //NOPMD PMD can't handle Lombok.
     @Getter @Setter private ModuleFile module;
+    @Getter @Setter private Source source;
 
     /**
      * Creates a new module call action instance.

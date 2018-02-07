@@ -1,8 +1,11 @@
 package nl.tudelft.goalkeeper.parser.results.files.module.actions;
 
 import lombok.Getter;
+import lombok.Setter;
+import nl.tudelft.goalkeeper.checking.violations.source.Source;
 import nl.tudelft.goalkeeper.parser.results.parts.Expression;
 import nl.tudelft.goalkeeper.parser.results.parts.MessageMood;
+import nl.tudelft.goalkeeper.parser.results.parts.Sourceable;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -12,12 +15,13 @@ import java.util.List;
 /**
  * Class representing send/1 actions.
  */
-public final class SendAction implements Action {
+public final class SendAction implements Action, Sourceable {
     private static final String IDENTIFIER = "send/1";
     private List<Expression> recipients;
 
     @Getter private MessageMood mood;
     @Getter private Expression expression;
+    @Getter @Setter private Source source;
 
     /**
      * Creates a new send action instance.

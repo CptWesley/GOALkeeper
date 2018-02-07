@@ -1,6 +1,8 @@
 package nl.tudelft.goalkeeper.parser.results.parts;
 
 import lombok.Getter;
+import lombok.Setter;
+import nl.tudelft.goalkeeper.checking.violations.source.Source;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -9,12 +11,13 @@ import java.util.List;
 /**
  * Class for holding queries and subqueries.
  */
-public final class Function implements Expression {
+public final class Function implements Expression, Sourceable {
 
     private static final int HASH_MODIFIER = 43;
 
     @Getter private String identifier;
     private List<Expression> arguments;
+    @Getter @Setter private Source source;
 
     /**
      * Creates a query instance.

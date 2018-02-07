@@ -1,14 +1,18 @@
 package nl.tudelft.goalkeeper.parser.results.files.module.conditions;
 
 import lombok.Getter;
+import lombok.Setter;
+import nl.tudelft.goalkeeper.checking.violations.source.Source;
 import nl.tudelft.goalkeeper.parser.results.parts.Expression;
+import nl.tudelft.goalkeeper.parser.results.parts.Sourceable;
 
 /**
  * Abstract class for conditions.
  */
-public abstract class Condition {
+public abstract class Condition implements Sourceable {
 
     @Getter private Expression expression;
+    @Getter @Setter private Source source;
 
     /**
      * Gets the hash code modifier.

@@ -1,6 +1,8 @@
 package nl.tudelft.goalkeeper.parser.results.files;
 
 import lombok.Getter;
+import nl.tudelft.goalkeeper.checking.violations.source.Source;
+import nl.tudelft.goalkeeper.parser.results.parts.Sourceable;
 
 import java.io.IOException;
 import java.nio.file.Files;

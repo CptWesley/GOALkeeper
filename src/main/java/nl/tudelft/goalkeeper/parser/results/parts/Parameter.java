@@ -1,13 +1,15 @@
 package nl.tudelft.goalkeeper.parser.results.parts;
 
 import lombok.Getter;
+import lombok.Setter;
+import nl.tudelft.goalkeeper.checking.violations.source.Source;
 
 /**
  * Abstract class for all variable types.
  */
-public abstract class Parameter implements Expression {
-    @Getter
-    private String identifier;
+public abstract class Parameter implements Expression, Sourceable {
+    @Getter private String identifier;
+    @Getter @Setter private Source source;
 
     /**
      * Creates a new free variable instance.

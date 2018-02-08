@@ -3,6 +3,8 @@ package nl.tudelft.goalkeeper.parser.results.files.module;
 import lombok.Getter;
 import lombok.Setter;
 import nl.tudelft.goalkeeper.parser.results.files.File;
+import nl.tudelft.goalkeeper.parser.results.parts.KRLanguage;
+import nl.tudelft.goalkeeper.parser.results.parts.Linguistic;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -12,10 +14,11 @@ import java.util.List;
 /**
  * Class which holds data on a module file.
  */
-public class ModuleFile extends File implements Module {
+public class ModuleFile extends File implements Module, Linguistic {
 
     private List<Rule> rules;
     @Getter @Setter private String name; //NOPMD PMD can't handle Lombok.
+    @Getter @Setter private KRLanguage kRLanguage = KRLanguage.UNKNOWN;
 
     /**
      * Creates a new ModuleFile instance.

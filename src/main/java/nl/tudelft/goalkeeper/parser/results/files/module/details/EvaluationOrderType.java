@@ -7,6 +7,7 @@ import lombok.Getter;
  * Order types.
  */
 public enum EvaluationOrderType {
+    UNKNOWN("UNKNOWN"),
     LINEAR("linear"),
     RANDOM("random"),
     LINEARALL("linearall"),
@@ -38,6 +39,9 @@ public enum EvaluationOrderType {
      * @return GOALkeeper EvaluationOrderType equivalent of the order.
      */
     public static EvaluationOrderType get(Module.RuleEvaluationOrder order) {
+        if (order == null) {
+            return UNKNOWN;
+        }
         switch (order) {
             case RANDOM:
                 return RANDOM;

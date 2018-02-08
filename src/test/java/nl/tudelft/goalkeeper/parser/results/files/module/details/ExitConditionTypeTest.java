@@ -34,6 +34,7 @@ class ExitConditionTypeTest {
      */
     @Test
     void getTest() {
+        assertThat(ExitConditionType.get(null)).isEqualTo(ExitConditionType.UNKNOWN);
         assertThat(ExitConditionType.get(Module.ExitCondition.ALWAYS)).isEqualTo(ExitConditionType.ALWAYS);
         assertThat(ExitConditionType.get(Module.ExitCondition.NEVER)).isEqualTo(ExitConditionType.NEVER);
         assertThat(ExitConditionType.get(Module.ExitCondition.NOGOALS)).isEqualTo(ExitConditionType.NOGOALS);

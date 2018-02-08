@@ -37,6 +37,7 @@ class EvaluationOrderTypeTest {
      */
     @Test
     void getTest() {
+        assertThat(EvaluationOrderType.get(null)).isEqualTo(EvaluationOrderType.UNKNOWN);
         assertThat(EvaluationOrderType.get(Module.RuleEvaluationOrder.LINEAR))
                 .isEqualTo(EvaluationOrderType.LINEAR);
         assertThat(EvaluationOrderType.get(Module.RuleEvaluationOrder.LINEARALL))

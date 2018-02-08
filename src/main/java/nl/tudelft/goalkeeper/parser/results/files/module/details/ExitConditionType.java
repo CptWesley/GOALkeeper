@@ -7,6 +7,7 @@ import lombok.Getter;
  * Exit condition types.
  */
 public enum ExitConditionType {
+    UNKNOWN("UNKNOWN"),
     NOGOALS("nogoals"),
     ALWAYS("always"),
     NEVER("never"),
@@ -36,6 +37,9 @@ public enum ExitConditionType {
      * @return GOALkeeper ExitConditionType equivalent of the condition.
      */
     public static ExitConditionType get(Module.ExitCondition condition) {
+        if (condition == null) {
+            return UNKNOWN;
+        }
         switch (condition) {
             case NEVER:
                 return NEVER;

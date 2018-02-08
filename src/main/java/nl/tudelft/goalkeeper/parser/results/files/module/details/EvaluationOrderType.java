@@ -6,7 +6,7 @@ import lombok.Getter;
 /**
  * Order types.
  */
-public enum OrderType {
+public enum EvaluationOrderType {
     LINEAR("linear"),
     RANDOM("random"),
     LINEARALL("linearall"),
@@ -20,7 +20,7 @@ public enum OrderType {
      * Creates an instance of the order types.
      * @param name Name of the condition.
      */
-    OrderType(String name) {
+    EvaluationOrderType(String name) {
         this.name = name;
     }
 
@@ -33,11 +33,11 @@ public enum OrderType {
     }
 
     /**
-     * Gets the proper OrderType based on GOAL RuleEvaluationOrder.
+     * Gets the proper EvaluationOrderType based on GOAL RuleEvaluationOrder.
      * @param order RuleEvaluationOrder to convert.
-     * @return GOALkeeper OrderType equivalent of the order.
+     * @return GOALkeeper EvaluationOrderType equivalent of the order.
      */
-    public static OrderType get(Module.RuleEvaluationOrder order) {
+    public static EvaluationOrderType get(Module.RuleEvaluationOrder order) {
         switch (order) {
             case RANDOM:
                 return RANDOM;

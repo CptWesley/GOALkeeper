@@ -45,6 +45,7 @@ public final class ConditionParser {
         if (sourceInfo != null) {
             condition.setSource(SourceParser.parse(sourceInfo));
         }
+        condition.setKRLanguage(e.getKRLanguage());
         return condition;
     }
 

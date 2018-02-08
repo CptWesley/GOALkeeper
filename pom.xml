@@ -159,7 +159,7 @@
                                 <exclude>nl.tudelft.goalkeeper.parser.results.files.module.RuleType</exclude>
                                 <exclude>nl.tudelft.goalkeeper.parser.results.parts.MessageMood</exclude>
                                 <exclude>nl.tudelft.goalkeeper.parser.results.files.module.actions.InternalActionType</exclude>
-                                <exclude>nl.tudelft.goalkeeper.parser.queries.KRLanguage</exclude>
+                                <exclude>nl.tudelft.goalkeeper.parser.results.parts.KRLanguage</exclude>
                             </excludes>
                             <limits>
                                 <limit>

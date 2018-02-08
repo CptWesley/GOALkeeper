@@ -1,4 +1,4 @@
-package nl.tudelft.goalkeeper.parser.queries;
+package nl.tudelft.goalkeeper.parser.results.parts;
 
 /**
  * Contains KRLanguage data.

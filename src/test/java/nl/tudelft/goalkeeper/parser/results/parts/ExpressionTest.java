@@ -1,7 +1,6 @@
 package nl.tudelft.goalkeeper.parser.results.parts;
 
 import nl.tudelft.goalkeeper.checking.violations.source.Source;
-import nl.tudelft.goalkeeper.parser.queries.KRLanguage;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 

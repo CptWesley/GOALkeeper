@@ -7,6 +7,7 @@ import nl.tudelft.goalkeeper.parser.results.files.module.SubModule;
 import nl.tudelft.goalkeeper.parser.results.parts.KRLanguage;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Class that parses module files.
@@ -25,11 +26,21 @@ public final class ModuleParser {
      * @throws IOException Thrown when there is a problem reading the file.
      */
     public static ModuleFile parseToFile(languageTools.program.agent.Module m) throws IOException {
-        //m.getRuleEvaluationOrder()
         ModuleFile module = new ModuleFile(m.getSourceFile().toString());
         addRules(module, m);
         module.setName(m.getName());
+        module.setKRLanguage(getKRLanguage(module.getRules()));
         return module;
+    }
+
+    private static KRLanguage getKRLanguage(List<Rule> rules) {
+        KRLanguage language = KRLanguage.UNKNOWN;
+        for (Rule rule : rules) {
+            if (rule.getKRLanguage() != KRLanguage.UNKNOWN) {
+                language = rule.getKRLanguage();
+            }
+        }
+        return language;
     }
 
     /**
@@ -49,16 +60,8 @@ public final class ModuleParser {
      * @param source Source module type.
      */
     private static void addRules(Module target, languageTools.program.agent.Module source) {
-        KRLanguage language = KRLanguage.UNKNOWN;
         for (languageTools.program.agent.rules.Rule r : source.getRules()) {
-            Rule rule = RuleParser.parse(r);
-            target.addRule(rule);
-            if (rule.getKRLanguage() != KRLanguage.UNKNOWN) {
-                language = rule.getKRLanguage();
-            }
-        }
-        if (target instanceof ModuleFile) {
-            ((ModuleFile) target).setKRLanguage(language);
+            target.addRule(RuleParser.parse(r));
         }
     }
 }

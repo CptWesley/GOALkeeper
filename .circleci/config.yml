@@ -7,7 +7,7 @@ jobs:
   build:
     docker:
       # specify the version you desire here
-      - image: maven:3.5.2-jdk-8-alpine
+      - image: t1mo/oraclejdk8-maven:latest
       
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images

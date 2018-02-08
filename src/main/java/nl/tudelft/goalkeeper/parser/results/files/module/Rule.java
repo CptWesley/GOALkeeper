@@ -5,6 +5,8 @@ import lombok.Setter;
 import nl.tudelft.goalkeeper.checking.violations.source.Source;
 import nl.tudelft.goalkeeper.parser.results.files.module.actions.Action;
 import nl.tudelft.goalkeeper.parser.results.files.module.conditions.Condition;
+import nl.tudelft.goalkeeper.parser.results.parts.KRLanguage;
+import nl.tudelft.goalkeeper.parser.results.parts.Linguistic;
 import nl.tudelft.goalkeeper.parser.results.parts.Sourceable;
 
 import java.util.ArrayList;
@@ -14,12 +16,13 @@ import java.util.List;
 /**
  * Rule class.
  */
-public final class Rule implements Sourceable {
+public final class Rule implements Sourceable, Linguistic {
 
     @Getter private RuleType type;
     private List<Condition> conditions;
     private List<Action> actions;
     @Getter @Setter private Source source;
+    @Getter @Setter private KRLanguage kRLanguage = KRLanguage.UNKNOWN;
 
     /**
      * Creates a rule instance.

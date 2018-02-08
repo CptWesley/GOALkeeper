@@ -13,6 +13,7 @@ import nl.tudelft.goalkeeper.checking.violations.source.BlockSource;
 import nl.tudelft.goalkeeper.checking.violations.source.LineSource;
 import nl.tudelft.goalkeeper.checking.violations.source.Source;
 import nl.tudelft.goalkeeper.parser.results.files.module.RuleType;
+import nl.tudelft.goalkeeper.parser.results.parts.KRLanguage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -81,6 +82,7 @@ class RuleParserTest {
         assertThat(RuleParser.parse(rule).getConditions()).hasSize(1);
         conditions.add(lit);
         assertThat(RuleParser.parse(rule).getConditions()).hasSize(2);
+        assertThat(RuleParser.parse(rule).getKRLanguage()).isEqualTo(KRLanguage.PROLOG);
     }
 
     /**

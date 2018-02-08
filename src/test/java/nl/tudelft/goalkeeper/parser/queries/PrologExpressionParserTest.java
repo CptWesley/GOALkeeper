@@ -14,9 +14,9 @@ import swiprolog.language.PrologQuery;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Test class for the PrologExpressionParserInterface class.
+ * Test class for the PrologExpressionParser class.
  */
-class PrologExpressionParserInterfaceTest {
+class PrologExpressionParserTest {
 
     private static final String NAME = "fdfgdsfgds";
     private static final String ZERO_ANARY = "/0";

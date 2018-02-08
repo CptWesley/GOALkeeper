@@ -1,5 +1,6 @@
 package nl.tudelft.goalkeeper.parser.results.files.module.details;
 
+import languageTools.program.agent.Module;
 import lombok.Getter;
 
 /**
@@ -27,5 +28,23 @@ public enum ExitConditionType {
     @Override
     public String toString() {
         return this.name;
+    }
+
+    /**
+     * Gets the proper ExitConditionType based on GOAL ExitCondition.
+     * @param condition ExitCondition to convert.
+     * @return GOALkeeper ExitConditionType equivalent of the condition.
+     */
+    public static ExitConditionType get(Module.ExitCondition condition) {
+        switch (condition) {
+            case NEVER:
+                return NEVER;
+            case NOGOALS:
+                return NOGOALS;
+            case NOACTION:
+                return NOACTION;
+            default:
+                return ALWAYS;
+        }
     }
 }

@@ -1,9 +1,14 @@
 package nl.tudelft.goalkeeper.parser.results.files.module.parsers;
 
+import nl.tudelft.goalkeeper.checking.violations.source.LineSource;
 import nl.tudelft.goalkeeper.parser.results.files.module.Module;
 import nl.tudelft.goalkeeper.parser.results.files.module.ModuleFile;
 import nl.tudelft.goalkeeper.parser.results.files.module.Rule;
 import nl.tudelft.goalkeeper.parser.results.files.module.SubModule;
+import nl.tudelft.goalkeeper.parser.results.files.module.details.EvaluationOrder;
+import nl.tudelft.goalkeeper.parser.results.files.module.details.EvaluationOrderType;
+import nl.tudelft.goalkeeper.parser.results.files.module.details.ExitCondition;
+import nl.tudelft.goalkeeper.parser.results.files.module.details.ExitConditionType;
 import nl.tudelft.goalkeeper.parser.results.parts.KRLanguage;
 
 import java.io.IOException;
@@ -30,6 +35,7 @@ public final class ModuleParser {
         addRules(module, m);
         module.setName(m.getName());
         module.setKRLanguage(getKRLanguage(module.getRules()));
+        setDetails(module, m);
         return module;
     }
 
@@ -45,6 +51,35 @@ public final class ModuleParser {
             }
         }
         return KRLanguage.UNKNOWN;
+    }
+
+    /**
+     * Sets the details of a module file.
+     * @param mf ModuleFile to set the details for.
+     * @param m Module to get the details from.
+     */
+    private static void setDetails(ModuleFile mf, languageTools.program.agent.Module m) {
+        ExitCondition exitCondition
+                = new ExitCondition(ExitConditionType.get(m.getExitCondition()));
+        mf.setExitCondition(exitCondition);
+        EvaluationOrder evaluationOrder
+                = new EvaluationOrder(EvaluationOrderType.get(m.getRuleEvaluationOrder()));
+        mf.setEvaluationOrder(evaluationOrder);
+        String exitPattern
+                = String.format(".*(^|\\.)\\s*exit\\s*=\\s*%s\\s*\\..*",
+                exitCondition.getType().getName());
+        String orderPattern
+                = String.format(".*(^|\\.)\\s*order\\s*=\\s*%s\\s*\\..*",
+                evaluationOrder.getType().getName());
+        for (int i = 0; i < mf.getContent().length; ++i) {
+            String line = mf.getContent()[i];
+            if (!exitCondition.hasSource() && line.matches(exitPattern)) {
+                exitCondition.setSource(new LineSource(mf.getSource(), i + 1));
+            }
+            if (!evaluationOrder.hasSource() && line.matches(orderPattern)) {
+                evaluationOrder.setSource(new LineSource(mf.getSource(), i + 1));
+            }
+        }
     }
 
     /**

@@ -35,4 +35,12 @@ class ExitConditionTest extends ModuleDetailTest {
     void getTypeTest() {
         assertThat(condition.getType()).isEqualTo(ExitConditionType.ALWAYS);
     }
+
+    /**
+     * Checks that the .toString() method is implemented correctly.
+     */
+    @Test
+    void toStringTest() {
+        assertThat(condition.toString()).isEqualTo("exit=always.");
+    }
 }

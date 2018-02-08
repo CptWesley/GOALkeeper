@@ -16,4 +16,12 @@ public final class EvaluationOrder extends ModuleDetail {
     public EvaluationOrder(EvaluationOrderType type) {
         this.type = type;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String toString() {
+        return String.format("order=%s.", type.getName());
+    }
 }

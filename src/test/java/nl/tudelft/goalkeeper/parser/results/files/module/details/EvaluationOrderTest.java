@@ -35,4 +35,12 @@ class EvaluationOrderTest extends ModuleDetailTest {
     void getTypeTest() {
         assertThat(condition.getType()).isEqualTo(EvaluationOrderType.LINEAR);
     }
+
+    /**
+     * Checks that the .toString() method is implemented correctly.
+     */
+    @Test
+    void toStringTest() {
+        assertThat(condition.toString()).isEqualTo("order=linear.");
+    }
 }

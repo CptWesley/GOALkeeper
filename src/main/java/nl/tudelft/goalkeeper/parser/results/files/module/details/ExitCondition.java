@@ -16,4 +16,12 @@ public final class ExitCondition extends ModuleDetail {
     public ExitCondition(ExitConditionType type) {
         this.type = type;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String toString() {
+        return String.format("exit=%s.", type.getName());
+    }
 }

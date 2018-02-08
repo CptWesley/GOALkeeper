@@ -7,7 +7,7 @@ import nl.tudelft.goalkeeper.checking.violations.source.Source;
 /**
  * Abstract class for expressions.
  */
-public abstract class Expression implements Sourceable {
+public abstract class Expression implements Sourceable, Linguistic {
 
     /**
      * Gets the identifier of this variable.

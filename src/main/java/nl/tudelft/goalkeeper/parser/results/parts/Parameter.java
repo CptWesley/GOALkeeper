@@ -13,6 +13,7 @@ public abstract class Parameter extends Expression {
      * @param identifier Identifier of the variable.
      */
     public Parameter(String identifier) {
+        super();
         this.identifier = identifier;
     }
 

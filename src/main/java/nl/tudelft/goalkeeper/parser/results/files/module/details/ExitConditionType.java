@@ -8,7 +8,8 @@ import lombok.Getter;
 public enum ExitConditionType {
     NOGOALS("nogoals"),
     ALWAYS("always"),
-    NEVER("never");
+    NEVER("never"),
+    NOACTION("noaction");
 
     @Getter private String name;
 

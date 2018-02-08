@@ -33,14 +33,18 @@ public final class ModuleParser {
         return module;
     }
 
+    /**
+     * Finds the KRLanguage of a set of rules.
+     * @param rules List of rules to find the KRLanguage of.
+     * @return The KRLanguage of the rules list.
+     */
     private static KRLanguage getKRLanguage(List<Rule> rules) {
-        KRLanguage language = KRLanguage.UNKNOWN;
         for (Rule rule : rules) {
             if (rule.getKRLanguage() != KRLanguage.UNKNOWN) {
-                language = rule.getKRLanguage();
+                return rule.getKRLanguage();
             }
         }
-        return language;
+        return KRLanguage.UNKNOWN;
     }
 
     /**

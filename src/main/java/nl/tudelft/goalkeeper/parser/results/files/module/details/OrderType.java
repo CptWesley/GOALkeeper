@@ -1,5 +1,6 @@
 package nl.tudelft.goalkeeper.parser.results.files.module.details;
 
+import languageTools.program.agent.Module;
 import lombok.Getter;
 
 /**
@@ -29,5 +30,27 @@ public enum OrderType {
     @Override
     public String toString() {
         return this.name;
+    }
+
+    /**
+     * Gets the proper OrderType based on GOAL RuleEvaluationOrder.
+     * @param order RuleEvaluationOrder to convert.
+     * @return GOALkeeper OrderType equivalent of the order.
+     */
+    public static OrderType get(Module.RuleEvaluationOrder order) {
+        switch (order) {
+            case RANDOM:
+                return RANDOM;
+            case LINEARALL:
+                return LINEARALL;
+            case LINEARRANDOM:
+                return LINEARRANDOM;
+            case LINEARALLRANDOM:
+                return LINEARALLRANDOM;
+            case RANDOMALL:
+                return RANDOMALL;
+            default:
+                return LINEAR;
+        }
     }
 }

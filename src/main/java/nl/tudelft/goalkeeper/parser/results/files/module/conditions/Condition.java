@@ -6,6 +6,8 @@ import nl.tudelft.goalkeeper.checking.violations.source.Source;
 import nl.tudelft.goalkeeper.parser.results.parts.Expression;
 import nl.tudelft.goalkeeper.parser.results.parts.Sourceable;
 
+import java.util.List;
+
 /**
  * Abstract class for conditions.
  */
@@ -60,5 +62,18 @@ public abstract class Condition implements Sourceable {
     @Override
     public String toString() {
         return String.format("%s(%s)", getTypeName(), expression);
+    }
+
+
+    public static boolean equalConditions(final List<Condition> o1, final List<Condition> o2) {
+        if (o1.size() != o2.size()) {
+            return false;
+        }
+
+        o1.sort(new ConditionComparator());
+
+        o2.sort(new ConditionComparator());
+
+        return o1.equals(o2);
     }
 }

@@ -9,7 +9,6 @@ import nl.tudelft.goalkeeper.parser.results.parts.Sourceable;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -116,7 +115,7 @@ public final class Rule implements Sourceable {
             if (this.actions.size() != that.actions.size()) {
                 return false;
             }
-            if (!equalConditions(that.conditions)) {
+            if (Condition.equalConditions(this.conditions, that.conditions)) {
                 return false;
             }
             for (int i = 0; i < this.actions.size(); ++i) {
@@ -127,31 +126,6 @@ public final class Rule implements Sourceable {
             return true;
         }
         return false;
-    }
-
-    //TODO: Some conditions can not be inverted if they access the same variables.
-    private boolean equalConditions(final List<Condition> that) {
-        if (this.conditions.size() != that.size()) {
-            return false;
-        }
-
-        List<Condition> temp = this.conditions;
-        temp.sort(new Comparator<Condition>() {
-            @Override
-            public int compare(Condition o1, Condition o2) {
-                return o1.hashCode() - o2.hashCode();
-            }
-        });
-
-        List<Condition> temp2 = that;
-        temp2.sort(new Comparator<Condition>() {
-            @Override
-            public int compare(Condition o1, Condition o2) {
-                return o1.hashCode() - o2.hashCode();
-            }
-        });
-
-        return temp.equals(temp2);
     }
 
     /**

@@ -4,6 +4,7 @@ import jpl.Term;
 import nl.tudelft.goalkeeper.parser.results.parts.Constant;
 import nl.tudelft.goalkeeper.parser.results.parts.Expression;
 import nl.tudelft.goalkeeper.parser.results.parts.Function;
+import nl.tudelft.goalkeeper.parser.results.parts.KRLanguage;
 import nl.tudelft.goalkeeper.parser.results.parts.Variable;
 import swiprolog.language.JPLUtils;
 import swiprolog.language.PrologExpression;
@@ -19,7 +20,9 @@ public final class PrologExpressionParser implements ExpressionParserInterface {
     @Override
     public Expression parse(krTools.language.Expression expression) {
         Term term = ((PrologExpression) expression).getTerm();
-        return parseTerm(term);
+        Expression result = parseTerm(term);
+        result.setKRLanguage(KRLanguage.PROLOG);
+        return result;
     }
 
     /**

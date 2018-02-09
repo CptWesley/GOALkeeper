@@ -4,6 +4,7 @@ import jpl.Term;
 import nl.tudelft.goalkeeper.parser.results.parts.Constant;
 import nl.tudelft.goalkeeper.parser.results.parts.Expression;
 import nl.tudelft.goalkeeper.parser.results.parts.Function;
+import nl.tudelft.goalkeeper.parser.results.parts.KRLanguage;
 import nl.tudelft.goalkeeper.parser.results.parts.Variable;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,9 +14,9 @@ import swiprolog.language.PrologQuery;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Test class for the PrologExpressionParserInterface class.
+ * Test class for the PrologExpressionParser class.
  */
-class PrologExpressionParserInterfaceTest {
+class PrologExpressionParserTest {
 
     private static final String NAME = "fdfgdsfgds";
     private static final String ZERO_ANARY = "/0";
@@ -40,6 +41,14 @@ class PrologExpressionParserInterfaceTest {
         Mockito.when(term.intValue()).thenReturn(INT_VALUE);
         Mockito.when(term.longValue()).thenReturn((long)INT_VALUE);
         Mockito.when(term.floatValue()).thenReturn(FLOAT_VALUE);
+    }
+
+    /**
+     * Checks that the KRLanguage is Prolog.
+     */
+    @Test
+    void getLanguageTest() {
+        assertThat(parser.parse(query).getKRLanguage()).isEqualTo(KRLanguage.PROLOG);
     }
 
     /**

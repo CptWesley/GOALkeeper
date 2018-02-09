@@ -21,6 +21,7 @@ public final class Function extends Expression {
      * @param identifier Identifier of the query.
      */
     public Function(String identifier) {
+        super();
         this.identifier = identifier;
         this.arguments = new LinkedList<>();
     }

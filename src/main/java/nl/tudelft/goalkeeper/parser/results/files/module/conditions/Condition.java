@@ -4,15 +4,18 @@ import lombok.Getter;
 import lombok.Setter;
 import nl.tudelft.goalkeeper.checking.violations.source.Source;
 import nl.tudelft.goalkeeper.parser.results.parts.Expression;
+import nl.tudelft.goalkeeper.parser.results.parts.KRLanguage;
+import nl.tudelft.goalkeeper.parser.results.parts.Linguistic;
 import nl.tudelft.goalkeeper.parser.results.parts.Sourceable;
 
 /**
  * Abstract class for conditions.
  */
-public abstract class Condition implements Sourceable {
+public abstract class Condition implements Sourceable, Linguistic {
 
     @Getter private Expression expression;
     @Getter @Setter private Source source;
+    @Getter @Setter private KRLanguage kRLanguage = KRLanguage.UNKNOWN;
 
     /**
      * Gets the hash code modifier.

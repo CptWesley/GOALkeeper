@@ -6,6 +6,7 @@ import languageTools.program.agent.msc.MentalStateCondition;
 import languageTools.program.agent.rules.Rule;
 import nl.tudelft.goalkeeper.parser.results.files.module.ModuleFile;
 import nl.tudelft.goalkeeper.parser.results.files.module.SubModule;
+import nl.tudelft.goalkeeper.parser.results.parts.KRLanguage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -43,6 +44,7 @@ class ModuleParserTest {
     void emptyTest() throws IOException {
         ModuleFile mf = ModuleParser.parseToFile(module);
         assertThat(mf.getRules()).isEmpty();
+        assertThat(mf.getKRLanguage()).isEqualTo(KRLanguage.UNKNOWN);
     }
 
     /**

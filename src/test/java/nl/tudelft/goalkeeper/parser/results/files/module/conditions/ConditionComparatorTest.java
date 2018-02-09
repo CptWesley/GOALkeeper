@@ -1,6 +1,7 @@
 package nl.tudelft.goalkeeper.parser.results.files.module.conditions;
 
 import nl.tudelft.goalkeeper.parser.results.parts.Constant;
+import nl.tudelft.goalkeeper.parser.results.parts.Variable;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -37,6 +38,16 @@ class ConditionComparatorTest {
         Condition o1 = new GoalCondition(new Constant("test1"));
         Condition o2 = new AGoalCondition(new Constant("test"));
         int comp = comparator.compare(o1, o2);
+        assertThat(comp).isGreaterThan(0);
+    }
+
+    @Test
+    void sameVariable() {
+        Variable var = new Variable("test");
+        Condition o1 = new AGoalCondition(var);
+        Condition o2 = new GoalCondition(var);
+        int comp = comparator.compare(o1, o2);
+
         assertThat(comp).isGreaterThan(0);
     }
 }

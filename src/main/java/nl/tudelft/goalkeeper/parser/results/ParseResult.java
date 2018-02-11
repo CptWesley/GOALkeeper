@@ -1,6 +1,5 @@
 package nl.tudelft.goalkeeper.parser.results;
 
-import languageTools.program.actionspec.ActionSpecProgram;
 import lombok.Getter;
 import lombok.Setter;
 import nl.tudelft.goalkeeper.checking.violations.Violation;

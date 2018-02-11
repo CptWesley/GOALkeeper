@@ -28,6 +28,19 @@
 		<mockito.core.version>2.12.0</mockito.core.version>
     </properties>
 
+    <repositories>
+        <repository>
+            <id>snapshots-repo</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
     <build>
         <plugins>
             <plugin>
@@ -223,7 +236,7 @@
         <dependency>
             <groupId>org.bitbucket.goalhub.grammar</groupId>
             <artifactId>languageTools</artifactId>
-            <version>2.0.5</version>
+            <version>2.0.7-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>

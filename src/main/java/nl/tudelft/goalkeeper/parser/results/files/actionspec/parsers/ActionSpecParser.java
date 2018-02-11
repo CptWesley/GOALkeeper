@@ -3,6 +3,8 @@ package nl.tudelft.goalkeeper.parser.results.files.actionspec.parsers;
 import languageTools.program.actionspec.ActionSpecProgram;
 import languageTools.program.actionspec.UserSpecAction;
 import nl.tudelft.goalkeeper.parser.results.files.actionspec.ActionSpecFile;
+import nl.tudelft.goalkeeper.parser.results.files.actionspec.ActionSpecification;
+import nl.tudelft.goalkeeper.parser.results.parts.KRLanguage;
 
 import java.io.IOException;
 
@@ -24,9 +26,15 @@ public final class ActionSpecParser {
      */
     public static ActionSpecFile parse(ActionSpecProgram asp) throws IOException {
         ActionSpecFile result = new ActionSpecFile(asp.getSourceFile().toString());
+        KRLanguage language = KRLanguage.UNKNOWN;
         for (UserSpecAction action : asp.getActionSpecifications()) {
-            result.addActionSpecification(ActionSpecificationParser.parse(action));
+            ActionSpecification actionSpec = ActionSpecificationParser.parse(action);
+            result.addActionSpecification(actionSpec);
+            if (actionSpec.getKRLanguage() != KRLanguage.UNKNOWN) {
+                language = actionSpec.getKRLanguage();
+            }
         }
+        result.setKRLanguage(language);
         return result;
     }
 }

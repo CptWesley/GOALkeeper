@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * Class which holds data on a module file.
  */
-public class ModuleFile extends File implements Module, Linguistic {
+public final class ModuleFile extends File implements Module, Linguistic {
 
     private List<Rule> rules;
     @Getter @Setter private String name; //NOPMD PMD can't handle Lombok.

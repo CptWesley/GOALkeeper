@@ -4,8 +4,10 @@ import languageTools.analyzer.FileRegistry;
 import languageTools.analyzer.mas.Analysis;
 import languageTools.analyzer.mas.MASValidator;
 import languageTools.errors.Message;
+import languageTools.program.actionspec.ActionSpecProgram;
 import nl.tudelft.goalkeeper.parser.results.ParseResult;
 import languageTools.program.agent.Module;
+import nl.tudelft.goalkeeper.parser.results.files.actionspec.parsers.ActionSpecParser;
 import nl.tudelft.goalkeeper.parser.results.files.module.parsers.MessageParser;
 import nl.tudelft.goalkeeper.parser.results.files.module.parsers.ModuleParser;
 
@@ -41,14 +43,30 @@ public final class Parser {
         }
 
         if (result.isSuccessful()) {
-            for (Module m : analysis.getModuleDefinitions()) {
-                try {
-                    result.addModule(ModuleParser.parseToFile(m));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
+            convert(result, analysis);
         }
         return result;
+    }
+
+    /**
+     * Converts the results of the analysis to GOALkeeper formats.
+     * @param result ParseResult to add the conversions to.
+     * @param analysis Analysis to convert.
+     */
+    private static void convert(ParseResult result, Analysis analysis) {
+        for (Module m : analysis.getModuleDefinitions()) {
+            try {
+                result.addModule(ModuleParser.parseToFile(m));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        for (ActionSpecProgram actionSpec : analysis.getActionSpecDefinitions()) {
+            try {
+                result.addActionSpec(ActionSpecParser.parse(actionSpec));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

@@ -1,6 +1,10 @@
 package nl.tudelft.goalkeeper.parser.results.files.actionspec;
 
+import lombok.Getter;
+import lombok.Setter;
 import nl.tudelft.goalkeeper.parser.results.files.File;
+import nl.tudelft.goalkeeper.parser.results.parts.KRLanguage;
+import nl.tudelft.goalkeeper.parser.results.parts.Linguistic;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,9 +14,10 @@ import java.util.List;
 /**
  * Class representing action spec files.
  */
-public final class ActionSpecFile extends File {
+public final class ActionSpecFile extends File implements Linguistic {
 
     private List<ActionSpecification> specifications;
+    @Getter @Setter private KRLanguage kRLanguage = KRLanguage.UNKNOWN;
 
     /**
      * Instantiates a new instance of the ActionSpecFile class.

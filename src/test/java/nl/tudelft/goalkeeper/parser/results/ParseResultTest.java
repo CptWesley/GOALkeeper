@@ -1,6 +1,7 @@
 package nl.tudelft.goalkeeper.parser.results;
 
 import nl.tudelft.goalkeeper.checking.violations.Violation;
+import nl.tudelft.goalkeeper.parser.results.files.actionspec.ActionSpecFile;
 import nl.tudelft.goalkeeper.parser.results.files.module.ModuleFile;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -53,5 +54,16 @@ class ParseResultTest {
         ModuleFile module = Mockito.mock(ModuleFile.class);
         assertThat(result.addModule(module)).isSameAs(result);
         assertThat(result.getModules()).containsExactly(module);
+    }
+
+    /**
+     * Checks that actionspecs are added successfully.
+     */
+    @Test
+    void actionSpecAdditionTest() {
+        assertThat(result.getActionSpecs()).isEmpty();
+        ActionSpecFile file = Mockito.mock(ActionSpecFile.class);
+        assertThat(result.addActionSpec(file)).isSameAs(result);
+        assertThat(result.getActionSpecs()).containsExactly(file);
     }
 }

@@ -1,8 +1,10 @@
 package nl.tudelft.goalkeeper.parser.results;
 
+import languageTools.program.actionspec.ActionSpecProgram;
 import lombok.Getter;
 import lombok.Setter;
 import nl.tudelft.goalkeeper.checking.violations.Violation;
+import nl.tudelft.goalkeeper.parser.results.files.actionspec.ActionSpecFile;
 import nl.tudelft.goalkeeper.parser.results.files.module.ModuleFile;
 
 import java.util.Collections;
@@ -18,6 +20,7 @@ public final class ParseResult {
     @Getter @Setter private boolean successful; //NOPMD PMD can't handle Lombok.
 
     private List<ModuleFile> modules;
+    private List<ActionSpecFile> actionSpecs;
 
     /**
      * Creates a new parse result class.
@@ -26,6 +29,7 @@ public final class ParseResult {
         violations = new LinkedList<>();
         successful = false;
         modules = new LinkedList<>();
+        actionSpecs = new LinkedList<>();
     }
 
     /**
@@ -62,5 +66,23 @@ public final class ParseResult {
      */
     public List<ModuleFile> getModules() {
         return Collections.unmodifiableList(modules);
+    }
+
+    /**
+     * Adds an actionspec.
+     * @param actionSpec Actionspec to add.
+     * @return Current object.
+     */
+    public ParseResult addActionSpec(ActionSpecFile actionSpec) {
+        actionSpecs.add(actionSpec);
+        return this;
+    }
+
+    /**
+     * Gets all actionspecs.
+     * @return List of all actionspecs.
+     */
+    public List<ActionSpecFile> getActionSpecs() {
+        return Collections.unmodifiableList(actionSpecs);
     }
 }

@@ -1,7 +1,10 @@
 package nl.tudelft.goalkeeper.parser.results.files.actionspec;
 
 import lombok.Getter;
+import lombok.Setter;
 import nl.tudelft.goalkeeper.parser.results.parts.Expression;
+import nl.tudelft.goalkeeper.parser.results.parts.KRLanguage;
+import nl.tudelft.goalkeeper.parser.results.parts.Linguistic;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -11,11 +14,12 @@ import java.util.List;
 /**
  * Class which holds data on action specifications.
  */
-public final class ActionSpecification {
+public final class ActionSpecification implements Linguistic {
 
     @Getter private String name; //NOPMD
     @Getter private Expression pre, post; //NOPMD
     private List<Expression> parameters;
+    @Getter @Setter private KRLanguage kRLanguage;
 
     /**
      * Creates a new instance of the ActionSpecification class.
@@ -31,6 +35,26 @@ public final class ActionSpecification {
         this.post = post;
         this.parameters = new ArrayList<>();
         this.parameters.addAll(parameters);
+        this.kRLanguage = findLanguage();
+    }
+
+    /**
+     * Finds the KRLanguage of the action specification.
+     * @return the KRLanguage of the action specification.
+     */
+    private KRLanguage findLanguage() {
+        if (pre.getKRLanguage() != KRLanguage.UNKNOWN) {
+            return pre.getKRLanguage();
+        }
+        if (post.getKRLanguage() != KRLanguage.UNKNOWN) {
+            return post.getKRLanguage();
+        }
+        for (Expression parameter : parameters) {
+            if (parameter.getKRLanguage() != KRLanguage.UNKNOWN) {
+                return parameter.getKRLanguage();
+            }
+        }
+        return KRLanguage.UNKNOWN;
     }
 
     /**

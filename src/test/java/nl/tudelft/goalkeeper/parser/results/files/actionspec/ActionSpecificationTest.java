@@ -1,6 +1,7 @@
 package nl.tudelft.goalkeeper.parser.results.files.actionspec;
 
 import nl.tudelft.goalkeeper.parser.results.parts.Expression;
+import nl.tudelft.goalkeeper.parser.results.parts.KRLanguage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -29,6 +30,13 @@ class ActionSpecificationTest {
         post = Mockito.mock(Expression.class);
         param1 = Mockito.mock(Expression.class);
         param2 = Mockito.mock(Expression.class);
+        resetInstance();
+    }
+
+    /**
+     * Resets the instance.
+     */
+    private void resetInstance() {
         as = new ActionSpecification(NAME, pre, post, Arrays.asList(param1, param2));
     }
 
@@ -76,5 +84,57 @@ class ActionSpecificationTest {
         assertThat(as.toString()).isEqualTo("define " + NAME + "(CCC, DDD) with pre {AAA} post {BBB}");
         as = new ActionSpecification(NAME, pre, post, new ArrayList<>());
         assertThat(as.toString()).isEqualTo("define " + NAME + " with pre {AAA} post {BBB}");
+    }
+
+    /**
+     * Checks that an action with no kr language has unknown language.
+     */
+    @Test
+    void noLanguageTest() {
+        Mockito.when(pre.getKRLanguage()).thenReturn(KRLanguage.UNKNOWN);
+        Mockito.when(post.getKRLanguage()).thenReturn(KRLanguage.UNKNOWN);
+        Mockito.when(param1.getKRLanguage()).thenReturn(KRLanguage.UNKNOWN);
+        Mockito.when(param2.getKRLanguage()).thenReturn(KRLanguage.UNKNOWN);
+        resetInstance();
+        assertThat(as.getKRLanguage()).isEqualTo(KRLanguage.UNKNOWN);
+    }
+
+    /**
+     * Checks that the language is correctly set when the pre condition has a KRLanguage.
+     */
+    @Test
+    void preLanguageTest() {
+        Mockito.when(pre.getKRLanguage()).thenReturn(KRLanguage.PROLOG);
+        Mockito.when(post.getKRLanguage()).thenReturn(KRLanguage.UNKNOWN);
+        Mockito.when(param1.getKRLanguage()).thenReturn(KRLanguage.UNKNOWN);
+        Mockito.when(param2.getKRLanguage()).thenReturn(KRLanguage.UNKNOWN);
+        resetInstance();
+        assertThat(as.getKRLanguage()).isEqualTo(KRLanguage.PROLOG);
+    }
+
+    /**
+     * Checks that the language is correctly set when the post condition has a KRLanguage.
+     */
+    @Test
+    void postLanguageTest() {
+        Mockito.when(pre.getKRLanguage()).thenReturn(KRLanguage.UNKNOWN);
+        Mockito.when(post.getKRLanguage()).thenReturn(KRLanguage.PROLOG);
+        Mockito.when(param1.getKRLanguage()).thenReturn(KRLanguage.UNKNOWN);
+        Mockito.when(param2.getKRLanguage()).thenReturn(KRLanguage.UNKNOWN);
+        resetInstance();
+        assertThat(as.getKRLanguage()).isEqualTo(KRLanguage.PROLOG);
+    }
+
+    /**
+     * Checks that the language is correctly set when a parameter has a KRLanguage.
+     */
+    @Test
+    void paramLanguageTest() {
+        Mockito.when(pre.getKRLanguage()).thenReturn(KRLanguage.UNKNOWN);
+        Mockito.when(post.getKRLanguage()).thenReturn(KRLanguage.UNKNOWN);
+        Mockito.when(param1.getKRLanguage()).thenReturn(KRLanguage.UNKNOWN);
+        Mockito.when(param2.getKRLanguage()).thenReturn(KRLanguage.OWL);
+        resetInstance();
+        assertThat(as.getKRLanguage()).isEqualTo(KRLanguage.OWL);
     }
 }

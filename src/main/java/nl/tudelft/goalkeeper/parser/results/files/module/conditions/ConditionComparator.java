@@ -4,6 +4,9 @@ import nl.tudelft.goalkeeper.parser.results.parts.Variable;
 
 import java.util.Comparator;
 
+/**
+ *  A class whic is used to compare two conditions in order to be able to sort them.
+ */
 public class ConditionComparator implements Comparator<Condition> {
 
 

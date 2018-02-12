@@ -92,17 +92,4 @@ public abstract class Condition implements Sourceable {
     public String toString() {
         return String.format("%s(%s)", getTypeName(), expression);
     }
-
-
-    public static boolean equalConditions(final List<Condition> o1, final List<Condition> o2) {
-        if (o1.size() != o2.size()) {
-            return false;
-        }
-
-        o1.sort(new ConditionComparator());
-
-        o2.sort(new ConditionComparator());
-
-        return o1.equals(o2);
-    }
 }

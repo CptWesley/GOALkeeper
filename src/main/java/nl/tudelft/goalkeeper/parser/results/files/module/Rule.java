@@ -115,9 +115,9 @@ public final class Rule implements Sourceable {
             if (this.actions.size() != that.actions.size()) {
                 return false;
             }
-            if (Condition.equalConditions(this.conditions, that.conditions)) {
-                return false;
-            }
+//            if (Condition.equalConditions(this.conditions, that.conditions)) {
+//                return false;
+//            }
             for (int i = 0; i < this.actions.size(); ++i) {
                 if (!this.actions.get(i).equals(that.actions.get(i))) {
                     return false;

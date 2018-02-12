@@ -9,6 +9,7 @@ import nl.tudelft.goalkeeper.parser.results.parts.Parameter;
 import nl.tudelft.goalkeeper.parser.results.parts.Sourceable;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -32,7 +33,7 @@ public abstract class Condition implements Sourceable {
     protected abstract String getTypeName();
 
     public List<Parameter> getExpressionVariable() {
-        return getExpressionParameterRecusion();
+        return getExpressionParameterRecusion(Collections.singletonList(expression));
     }
 
     private static List<Parameter> getExpressionParameterRecusion(List<Expression> expression) {

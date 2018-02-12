@@ -4,8 +4,11 @@ import lombok.Getter;
 import lombok.Setter;
 import nl.tudelft.goalkeeper.checking.violations.source.Source;
 import nl.tudelft.goalkeeper.parser.results.parts.Expression;
+import nl.tudelft.goalkeeper.parser.results.parts.Function;
+import nl.tudelft.goalkeeper.parser.results.parts.Parameter;
 import nl.tudelft.goalkeeper.parser.results.parts.Sourceable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,6 +30,31 @@ public abstract class Condition implements Sourceable {
      * @return The type string of the condition type.
      */
     protected abstract String getTypeName();
+
+    public List<Parameter> getExpressionVariable() {
+        return getExpressionParameterRecusion();
+    }
+
+    private static List<Parameter> getExpressionParameterRecusion(List<Expression> expression) {
+        if (expression == null || expression.size() == 0) {
+            return null;
+        }
+
+        List<Parameter> retList = new ArrayList<>();
+
+        expression.forEach(exp -> {
+            if (exp instanceof Parameter) {
+                retList.add((Parameter) exp);
+            } else if (exp instanceof Function) {
+               List<Parameter> temp =
+                       getExpressionParameterRecusion(((Function)exp).getArguments());
+               if (!temp.contains(null)) {
+                   retList.addAll(temp);
+               }
+            }
+        });
+        return retList;
+    }
 
     /**
      * Creates a new Condition instance.

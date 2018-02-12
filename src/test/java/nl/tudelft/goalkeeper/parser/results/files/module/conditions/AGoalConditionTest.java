@@ -1,9 +1,14 @@
 package nl.tudelft.goalkeeper.parser.results.files.module.conditions;
 
+import nl.tudelft.goalkeeper.parser.results.parts.Constant;
 import nl.tudelft.goalkeeper.parser.results.parts.Expression;
+import nl.tudelft.goalkeeper.parser.results.parts.Function;
+import nl.tudelft.goalkeeper.parser.results.parts.Parameter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -74,4 +79,49 @@ class AGoalConditionTest extends ConditionTest {
     void toStringTest() {
         assertThat(condition.toString()).isEqualTo("a-goal(raf1)");
     }
+
+    @Test
+    void getExpressionVariableTest() {
+
+        expression = Mockito.mock(Parameter.class);
+        condition = new AGoalCondition(expression);
+
+        assertThat(condition.getExpressionVariable()).contains((Parameter) expression);
+        assertThat(condition.getExpressionVariable()).hasSize(1);
+    }
+
+    @Test
+    void getExpressionVariableEmpty() {
+        expression = new Function("test");
+        condition = new AGoalCondition(expression);
+        List conditionExpressionVariable = condition.getExpressionVariable();
+        assertThat(condition.getExpressionVariable()).hasSize(0);
+    }
+
+    @Test
+    void getExpressionVariableFromFunction() {
+        expression = new Function("test");
+        Constant constant = new Constant("2");
+        ((Function)expression).addArgument(constant);
+        condition = new AGoalCondition(expression);
+
+        assertThat(condition.getExpressionVariable()).contains(constant);
+        assertThat(condition.getExpressionVariable()).hasSize(1);
+    }
+
+    @Test
+    void getExpressionVariableFromFunction2() {
+        expression = new Function("test");
+        Constant constant = new Constant("2");
+        Constant constant1 = new Constant("2");
+        ((Function)expression).addArgument(constant);
+        ((Function) expression).addArgument(constant1);
+        condition = new AGoalCondition(expression);
+
+        assertThat(condition.getExpressionVariable()).contains(constant);
+        assertThat(condition.getExpressionVariable()).contains(constant1);
+        assertThat(condition.getExpressionVariable()).hasSize(2);
+    }
+
 }
+

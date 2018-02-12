@@ -49,7 +49,7 @@ public abstract class Condition implements Sourceable {
             } else if (exp instanceof Function) {
                List<Parameter> temp =
                        getExpressionParameterRecusion(((Function)exp).getArguments());
-               if (!temp.contains(null)) {
+               if (temp != null && !temp.contains(null)) {
                    retList.addAll(temp);
                }
             }

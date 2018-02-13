@@ -1,7 +1,9 @@
 package nl.tudelft.goalkeeper.parser.results.files.module;
 
 import nl.tudelft.goalkeeper.parser.results.files.module.actions.Action;
+import nl.tudelft.goalkeeper.parser.results.files.module.conditions.AGoalCondition;
 import nl.tudelft.goalkeeper.parser.results.files.module.conditions.Condition;
+import nl.tudelft.goalkeeper.parser.results.parts.Variable;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -174,6 +176,22 @@ class RuleTest {
     @Test
     void emptyToStringTest() {
         assertThat(rule.toString()).isEqualTo("if true then .");
+    }
+
+    @Test
+    void equivalentTest() {
+        Rule rule1 = new Rule(RuleType.IF);
+        rule.addCondition(new AGoalCondition(new Variable("test")));
+        rule1.addCondition(new AGoalCondition(new Variable("test")));
+        assertThat(rule1.equivalent(rule)).isTrue();
+    }
+
+    @Test
+    void notEquivalentTest() {
+        Rule rule1 = new Rule(RuleType.IF);
+        rule.addCondition(new AGoalCondition(new Variable("test")));
+        rule1.addCondition(new AGoalCondition(new Variable("test2")));
+        assertThat(rule1.equivalent(rule)).isFalse();
     }
 
     /**

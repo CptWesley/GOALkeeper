@@ -5,6 +5,7 @@ import lombok.Setter;
 import nl.tudelft.goalkeeper.checking.violations.source.Source;
 import nl.tudelft.goalkeeper.parser.results.files.module.actions.Action;
 import nl.tudelft.goalkeeper.parser.results.files.module.conditions.Condition;
+import nl.tudelft.goalkeeper.parser.results.files.module.conditions.ConditionComparator;
 import nl.tudelft.goalkeeper.parser.results.parts.Sourceable;
 
 import java.util.ArrayList;
@@ -89,6 +90,17 @@ public final class Rule implements Sourceable {
             result += actions.get(i).hashCode() * (i + 1);
         }
         return result;
+    }
+
+    public boolean equivalent(Rule rule) {
+        if (this.type.equals(rule.type)) {
+            List<Condition> r1;
+            List<Condition> r2;
+            (r1 = this.conditions).sort(new ConditionComparator());
+            (r2 = rule.conditions).sort(new ConditionComparator());
+            return r1.equals(r2);
+        }
+        return false;
     }
 
     /**

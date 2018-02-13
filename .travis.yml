@@ -1,7 +1,11 @@
 langauge: java
 jdk:
   - oraclejdk8
-
+- os: linux
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
 install: true
 sudo: required
 dist: trusty

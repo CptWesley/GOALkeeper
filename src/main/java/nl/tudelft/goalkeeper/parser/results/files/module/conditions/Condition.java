@@ -17,21 +17,30 @@ import java.util.List;
  */
 public abstract class Condition implements Sourceable {
 
-    @Getter private Expression expression;
-    @Getter @Setter private Source source;
+    @Getter
+    private Expression expression;
+    @Getter
+    @Setter
+    private Source source;
 
     /**
      * Gets the hash code modifier.
+     *
      * @return Hashcode modifier.
      */
     protected abstract int getHashModifier();
 
     /**
      * Gets the type string of the condition type.
+     *
      * @return The type string of the condition type.
      */
     protected abstract String getTypeName();
 
+    /**
+     * Gets the variable from a condition which are used in the condition.
+     * @return A list of parameters. If there are no parameters, the list will start with NULL
+     */
     public List<Parameter> getExpressionVariable() {
         return getExpressionParameterRecusion(Collections.singletonList(expression));
     }
@@ -47,11 +56,11 @@ public abstract class Condition implements Sourceable {
             if (exp instanceof Parameter) {
                 retList.add((Parameter) exp);
             } else if (exp instanceof Function) {
-               List<Parameter> temp =
-                       getExpressionParameterRecusion(((Function)exp).getArguments());
-               if (temp != null && !temp.contains(null)) {
-                   retList.addAll(temp);
-               }
+                List<Parameter> temp =
+                        getExpressionParameterRecusion(((Function) exp).getArguments());
+                if (temp != null && !temp.contains(null)) {
+                    retList.addAll(temp);
+                }
             }
         });
         return retList;
@@ -59,6 +68,7 @@ public abstract class Condition implements Sourceable {
 
     /**
      * Creates a new Condition instance.
+     *
      * @param expression Expression of the condition.
      */
     protected Condition(Expression expression) {

@@ -6,8 +6,9 @@ import nl.tudelft.goalkeeper.checking.violations.source.Source;
 import nl.tudelft.goalkeeper.parser.results.parts.Expression;
 import nl.tudelft.goalkeeper.parser.results.parts.Function;
 import nl.tudelft.goalkeeper.parser.results.parts.Parameter;
+import nl.tudelft.goalkeeper.parser.results.parts.KRLanguage;
+import nl.tudelft.goalkeeper.parser.results.parts.Linguistic;
 import nl.tudelft.goalkeeper.parser.results.parts.Sourceable;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -15,13 +16,12 @@ import java.util.List;
 /**
  * Abstract class for conditions.
  */
-public abstract class Condition implements Sourceable {
+public abstract class Condition implements Sourceable, Linguistic {
 
-    @Getter
-    private Expression expression;
-    @Getter
-    @Setter
-    private Source source;
+    @Getter private Expression expression;
+    @Getter @Setter private Source source;
+    @Getter @Setter private KRLanguage kRLanguage = KRLanguage.UNKNOWN;
+
 
     /**
      * Gets the hash code modifier.

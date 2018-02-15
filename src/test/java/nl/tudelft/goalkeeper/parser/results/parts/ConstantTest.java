@@ -8,10 +8,18 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * Test class of the Constant class.
  */
-class ConstantTest {
+class ConstantTest extends ExpressionTest {
     private static final String n1 = "Name";
 
     private Constant var;
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    Expression getInstance() {
+        return var;
+    }
 
     /**
      * Sets up the environment before each test.

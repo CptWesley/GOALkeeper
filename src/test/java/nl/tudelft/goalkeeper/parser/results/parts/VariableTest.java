@@ -8,10 +8,18 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * Test class for the Variable class.
  */
-class VariableTest {
+class VariableTest extends ExpressionTest {
     private static final String n1 = "Name";
 
     private Variable var;
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    Expression getInstance() {
+        return var;
+    }
 
     /**
      * Sets up the environment before each test.

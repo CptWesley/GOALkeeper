@@ -7,13 +7,14 @@ import nl.tudelft.goalkeeper.checking.violations.source.Source;
 /**
  * Abstract class for expressions.
  */
-public abstract class Expression implements Sourceable {
+public abstract class Expression implements Sourceable, Linguistic {
+
     /**
      * Gets the identifier of this variable.
      * @return Identifier of this variable.
      */
     public abstract String getIdentifier();
 
-    @Getter @Setter private Source source;
-
+    @Getter @Setter private Source source = null;
+    @Getter @Setter private KRLanguage kRLanguage = KRLanguage.UNKNOWN;
 }

@@ -10,6 +10,7 @@ import nl.tudelft.goalkeeper.parser.results.files.module.Rule;
 import nl.tudelft.goalkeeper.parser.results.files.module.RuleType;
 import nl.tudelft.goalkeeper.parser.results.files.module.actions.Action;
 import nl.tudelft.goalkeeper.parser.results.files.module.conditions.Condition;
+import nl.tudelft.goalkeeper.parser.results.parts.KRLanguage;
 
 /**
  * Class which parses a rule.
@@ -32,6 +33,7 @@ public final class RuleParser {
         String fileName = "";
         int startingLine = Integer.MAX_VALUE;
         int endingLine = Integer.MIN_VALUE;
+        KRLanguage language = KRLanguage.UNKNOWN;
         for (languageTools.program.agent.msc.MentalLiteral l
                 : r.getCondition().getAllLiterals()) {
             try {
@@ -42,6 +44,9 @@ public final class RuleParser {
                     fileName = source.getFile();
                     startingLine = Math.min(startingLine, source.getLine());
                     endingLine = Math.max(endingLine, source.getLine());
+                }
+                if (c.getKRLanguage() != KRLanguage.UNKNOWN) {
+                    language = c.getKRLanguage();
                 }
             } catch (UnknownKRLanguageException e) {
                 e.printStackTrace();
@@ -61,12 +66,12 @@ public final class RuleParser {
                 e.printStackTrace();
             }
         }
-
         if (startingLine == endingLine) {
             rule.setSource(new LineSource(fileName, startingLine));
         } else {
             rule.setSource(new BlockSource(fileName, startingLine, endingLine));
         }
+        rule.setKRLanguage(language);
         return rule;
     }
 

@@ -9,12 +9,20 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * Test class for the Function class.
  */
-class FunctionTest {
+class FunctionTest extends ExpressionTest {
 
     private static final String identifier = "DGFDS";
 
     private Function function;
     private Expression p1, p2;
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    Expression getInstance() {
+        return function;
+    }
 
     /**
      * Sets up the testing environment before each test.

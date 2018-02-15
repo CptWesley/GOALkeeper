@@ -16,7 +16,7 @@
         <checkstyle.plugin.version>2.17</checkstyle.plugin.version>
         <pmd.plugin.version>3.6</pmd.plugin.version>
         <findbugs.plugin.version>3.0.3</findbugs.plugin.version>
-        <jacoco.plugin.version>0.7.9</jacoco.plugin.version>
+        <jacoco.plugin.version>0.8.0</jacoco.plugin.version>
         <surefire.plugin.version>2.19.1</surefire.plugin.version>
         <lombok.plugin.version>1.16.18.1</lombok.plugin.version>
         <lombok.version>1.16.18</lombok.version>
@@ -170,6 +170,10 @@
                                 <exclude>nl.tudelft.goalkeeper.exceptions.*</exclude>
                                 <exclude>nl.tudelft.goalkeeper.util.console.*</exclude>
                                 <exclude>nl.tudelft.goalkeeper.ExitCode</exclude>
+                                <exclude>nl.tudelft.goalkeeper.parser.results.files.module.RuleType</exclude>
+                                <exclude>nl.tudelft.goalkeeper.parser.results.parts.MessageMood</exclude>
+                                <exclude>nl.tudelft.goalkeeper.parser.results.files.module.actions.InternalActionType</exclude>
+                                <exclude>nl.tudelft.goalkeeper.parser.results.parts.KRLanguage</exclude>
                             </excludes>
                             <limits>
                                 <limit>

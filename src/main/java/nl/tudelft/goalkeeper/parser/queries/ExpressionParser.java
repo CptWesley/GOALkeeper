@@ -1,0 +1,49 @@
+package nl.tudelft.goalkeeper.parser.queries;
+
+import krTools.parser.SourceInfo;
+import nl.tudelft.goalkeeper.checking.violations.source.SourceParser;
+import nl.tudelft.goalkeeper.exceptions.UnknownKRLanguageException;
+import nl.tudelft.goalkeeper.parser.results.parts.Expression;
+import swiprolog.language.PrologExpression;
+
+/**
+ * Class that parses expressions.
+ */
+public final class ExpressionParser {
+
+    /**
+     * Prevents instantiation.
+     */
+    private ExpressionParser() { }
+
+    /**
+     * Parses a GOAL query to a GOALkeeper expression.
+     * @param expression Expression to parse.
+     * @return Parsed expression.
+     * @throws UnknownKRLanguageException Thrown when we can't handle the query.
+     */
+    public static Expression parse(krTools.language.Expression expression)
+            throws UnknownKRLanguageException {
+        Expression result = getParser(expression).parse(expression);
+        SourceInfo sourceInfo = expression.getSourceInfo();
+        if (sourceInfo != null) {
+            result.setSource(SourceParser.parse(sourceInfo));
+        }
+        return result;
+    }
+
+    /**
+     * Gets the an instance of the correct parser type.
+     * @param expression Expression to get the type for.
+     * @return Instance of the correct parser.
+     * @throws UnknownKRLanguageException Thrown when we can't handle the query.
+     */
+    static ExpressionParserInterface getParser(krTools.language.Expression expression)
+            throws UnknownKRLanguageException {
+        if (expression instanceof PrologExpression) {
+            return new PrologExpressionParser();
+        }
+        throw new UnknownKRLanguageException(
+                String.format("Found query of type '%s'.", expression.getClass().getTypeName()));
+    }
+}

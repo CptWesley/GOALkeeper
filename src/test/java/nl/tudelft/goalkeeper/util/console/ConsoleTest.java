@@ -13,6 +13,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * Test class for the Console class.
  */
+@SuppressWarnings("PMD.TooManyMethods")
 class ConsoleTest {
     private static final String UTF8 = "UTF-8";
     private final ByteArrayOutputStream out = new ByteArrayOutputStream();

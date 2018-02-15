@@ -12,7 +12,7 @@ import nl.tudelft.goalkeeper.checking.violations.Violation;
 import nl.tudelft.goalkeeper.checking.violations.source.FileSource;
 import nl.tudelft.goalkeeper.rules.Rule;
 import nl.tudelft.goalkeeper.rules.RuleSet;
-import nl.tudelft.goalkeeper.util.FileParser;
+import org.apache.commons.io.FilenameUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -28,6 +28,7 @@ public class TestChecker implements CheckerInterface {
 
     /**
      * Method to check if a rule is enabled.
+     *
      * @param ruleSet The set of rules.
      * @return True if the check is enabled, else false.
      */
@@ -53,46 +54,45 @@ public class TestChecker implements CheckerInterface {
         ArrayList<Tuple2<String, Double>> results = new ArrayList<>();
 
         Rule rule = ruleSet.getRule(RULE_NAME);
-        List<File> testFiles = FileParser.getTestFiles(files);
-        for (String file: files) {
-            if (FileParser.isOfType(file, "test2g")) {
-                System.out.println("Running file: " + file);
-                TestRun test = null;
-                try {
-                    test = runTest(file);
-                } catch (Exception e) {
-                    System.out.println("We were unable to run the test file: " + file);
-                    e.printStackTrace();
-                }
-                assert test != null;
-                test.cleanup();
-                // Add the result of the test run to the results list.
-                results.add(new Tuple2<>(file, 0.0));
-
-                // Calculate the severity of the errors and parse the violations.
-                results.forEach((tuple) -> {
-                    int severity = rule.severityOf(tuple.getSecond());
-                    if (severity > 0) {
-                        boolean error = severity >= ruleSet.getErrorSeverity();
-                        violations.add(new Violation(VIOLATION_NAME, severity)
-                                .setActualValue(tuple.getSecond())
-                                //.setMinimumValue(rule.getStages().get())
-                                .setSource(new FileSource(tuple.getFirst()))
-                                .setError(error));
-                    }
-                });
+        List<File> testFiles = getTestFiles(files);
+        for (File testFile : testFiles) {
+            System.out.println("Running file: " + testFile.getAbsolutePath());
+            TestRun test = null;
+            try {
+                test = runTest(testFile.getAbsolutePath());
+            } catch (Exception e) {
+                System.out.println("We were unable to run the test file: "
+                        + testFile.getAbsolutePath());
+                e.printStackTrace();
             }
+            assert test != null;
+            test.cleanup();
+            // Add the result of the test run to the results list.
+            results.add(new Tuple2<>(testFile.getName(), 0.0));
 
+            // Calculate the severity of the errors and parse the violations.
+            results.forEach((tuple) -> {
+                int severity = rule.severityOf(tuple.getSecond());
+                if (severity > 0) {
+                    boolean error = severity >= ruleSet.getErrorSeverity();
+                    violations.add(new Violation(VIOLATION_NAME, severity)
+                            .setActualValue(tuple.getSecond())
+                            .setSource(new FileSource(tuple.getFirst()))
+                            .setError(error));
+                }
+            });
         }
+
         return violations;
     }
 
     /**
      * Method to run the test2g file.
+     *
      * @param testFileName The test2g file to be run.
      * @return Returns the TestRun it ran containing all the information about the tests. //TODO Make sure that all the information about the tests is actually in there...
      * @throws GOALRunFailedException This exception is thrown when the program is unable to read
-     * the file and thus also run it.
+     *                                the file and thus also run it.
      */
     private TestRun runTest(String testFileName) throws GOALRunFailedException {
         TestProgram testProgram;
@@ -112,10 +112,11 @@ public class TestChecker implements CheckerInterface {
 
     /**
      * Method to setup the TestProgram so that it can be run.
+     *
      * @param path The path to the test2g file which is to be run
      * @return An instance of TestProgram containing the test2g file to be run.
      * @throws Exception If the test2g file is not able to be read or does not exist
-     * an IOException will be thrown.
+     *                   an IOException will be thrown.
      */
     private TestProgram setup(String path) throws IOException {
         TestValidator visitor = new TestValidator(path, new FileRegistry());
@@ -130,6 +131,15 @@ public class TestChecker implements CheckerInterface {
         }
     }
 
-
+    private List<File> getTestFiles(String[] files) {
+        List<File> fileList = new ArrayList<>();
+        for (String file : files) {
+            File temp = new File(file);
+            if (temp.isFile() && FilenameUtils.getExtension(file).toLowerCase().equals("test2g")) {
+                fileList.add(temp);
+            }
+        }
+        return fileList;
+    }
 
 }

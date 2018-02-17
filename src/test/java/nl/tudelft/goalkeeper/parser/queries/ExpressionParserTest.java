@@ -57,7 +57,7 @@ class ExpressionParserTest {
         Term term = Mockito.mock(Term.class);
         Mockito.when(term.isVariable()).thenReturn(true);
         Mockito.when(query.getTerm()).thenReturn(term);
-        CharacterSource source = (CharacterSource) ExpressionParser.parse(query).getSource();
+        CharacterSource source = (CharacterSource) new ExpressionParser().parse(query).getSource();
         assertThat(source.getFile()).isEqualTo(FILE_NAME);
         assertThat(source.getLine()).isEqualTo(LINE_NUMBER);
         assertThat(source.getPosition()).isEqualTo(CHARACTER_POSITION);

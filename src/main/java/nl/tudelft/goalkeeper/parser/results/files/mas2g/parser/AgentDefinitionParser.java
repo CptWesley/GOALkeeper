@@ -16,7 +16,7 @@ import java.util.List;
 public class AgentDefinitionParser {
     private AgentDefinitionParser() {}
 
-    public AgentDefinition parse(languageTools.program.mas.AgentDefinition agent) {
+    public static AgentDefinition parse(languageTools.program.mas.AgentDefinition agent) {
         List<UseClause> useClauses
                 = new ArrayList<>();
         for (languageTools.program.mas.UseClause clause: agent.getUseClauses()) {

@@ -10,7 +10,7 @@ public class LaunchInstructionParser {
 
     private LaunchInstructionParser() {}
 
-    public LaunchInstruction parse(languageTools.program.mas.LaunchInstruction instruction) {
+    public static LaunchInstruction parse(languageTools.program.mas.LaunchInstruction instruction) {
         AgentDefinition definition = AgentDefinitionParser.parse(instruction.getAgentDf());
         return new LaunchInstruction(instruction.getAgentName()
                 , definition);

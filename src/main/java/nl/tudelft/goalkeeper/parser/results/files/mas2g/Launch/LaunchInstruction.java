@@ -1,6 +1,6 @@
 package nl.tudelft.goalkeeper.parser.results.files.mas2g.Launch;
 
-import nl.tudelft.goalkeeper.parser.results.files.mas2g.AgentDefinitions;
+import nl.tudelft.goalkeeper.parser.results.files.mas2g.AgentDefinition.AgentDefinition;
 
 /**
  * Created by Cedric Willekens (4530373) on 2/17/2018.
@@ -9,11 +9,11 @@ public class LaunchInstruction {
 
     private String agentName;
 
-    private AgentDefinitions agentDefinitions;
+    private AgentDefinition agentDefinition;
 
-    public LaunchInstruction(String agentName, AgentDefinitions agentDefinitions) {
+    public LaunchInstruction(String agentName, AgentDefinition agentDefinition) {
         this.agentName = agentName;
-        this.agentDefinitions = agentDefinitions;
+        this.agentDefinition = agentDefinition;
     }
 
 

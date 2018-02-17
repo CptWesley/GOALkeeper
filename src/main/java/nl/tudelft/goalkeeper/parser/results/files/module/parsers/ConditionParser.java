@@ -5,6 +5,8 @@ import krTools.language.Var;
 import krTools.parser.SourceInfo;
 import languageTools.program.agent.msc.MentalLiteral;
 import languageTools.program.agent.selector.Selector;
+import lombok.Getter;
+import lombok.Setter;
 import nl.tudelft.goalkeeper.checking.violations.source.SourceParser;
 import nl.tudelft.goalkeeper.exceptions.UnknownKRLanguageException;
 import nl.tudelft.goalkeeper.parser.queries.ExpressionParser;
@@ -26,10 +28,15 @@ import nl.tudelft.goalkeeper.parser.results.parts.Variable;
  */
 public final class ConditionParser {
 
+    @Getter @Setter private ExpressionParser expressionParser;
+    @Getter @Setter private SourceParser sourceParser;
+
     /**
-     * Prevents instantiation.
+     * Creates a new ConditionParser instance.
      */
-    private ConditionParser() { }
+    public ConditionParser() {
+        expressionParser = new ExpressionParser();
+    }
 
     /**
      * Parses a query to a condition.
@@ -37,13 +44,13 @@ public final class ConditionParser {
      * @return Condition of our own type.
      * @throws UnknownKRLanguageException Thrown when we can'thandle the language.
      */
-    public static Condition parse(MentalLiteral query)
+    public Condition parse(MentalLiteral query)
             throws UnknownKRLanguageException {
-        Expression e = ExpressionParser.parse(query.getFormula());
+        Expression e = expressionParser.parse(query.getFormula());
         Condition condition = getInstance(query.getOperator(), query.getSelector(), e);
         SourceInfo sourceInfo = query.getSourceInfo();
         if (sourceInfo != null) {
-            condition.setSource(SourceParser.parse(sourceInfo));
+            condition.setSource(sourceParser.parse(sourceInfo));
         }
         condition.setKRLanguage(e.getKRLanguage());
         return condition;

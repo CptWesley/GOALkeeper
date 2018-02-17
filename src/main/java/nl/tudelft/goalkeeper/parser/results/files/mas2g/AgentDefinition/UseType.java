@@ -7,7 +7,8 @@ public enum UseType {
 
     MAIN("main-module"),
     INIT("init-module"),
-    EVENT("event-module");
+    EVENT("event-module"),
+    UNKNOWN("unknown");
 
 
     private String type;

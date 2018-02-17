@@ -1,13 +1,19 @@
 package nl.tudelft.goalkeeper.parser.results.files.mas2g.AgentDefinition;
 
+import lombok.Getter;
+import lombok.Setter;
+import nl.tudelft.goalkeeper.parser.results.files.File;
+
 /**
  * Created by Cedric Willekens (4530373) on 2/17/2018.
  */
 public class UseClause {
 
-    private String reference;
+    @Getter private String reference;
 
-    private UseType type;
+    @Getter private UseType type;
+
+    @Getter @Setter private File file;
 
     public UseClause(String reference, UseType type) {
         this.reference = reference;

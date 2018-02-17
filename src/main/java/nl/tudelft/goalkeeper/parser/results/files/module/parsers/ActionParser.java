@@ -34,6 +34,7 @@ public final class ActionParser {
     private static final String SUB_MODULE_PREFIX = "null/";
 
     @Getter @Setter private ExpressionParser expressionParser;
+    @Getter @Setter private ModuleParser subModuleParser;
     @Getter @Setter private SourceParser sourceParser;
 
     /**
@@ -41,6 +42,7 @@ public final class ActionParser {
      */
     public ActionParser() {
         expressionParser = new ExpressionParser();
+        subModuleParser = new ModuleParser();
         sourceParser = new SourceParser();
     }
 
@@ -149,8 +151,8 @@ public final class ActionParser {
      * @param a ModuleCallAction to parse.
      * @return GOALkeeper SubModuleAction version of a.
      */
-    private static SubModuleAction parseSubModuleAction(ModuleCallAction a) {
-        return new SubModuleAction(ModuleParser.parseToSubModule(a.getTarget()));
+    private SubModuleAction parseSubModuleAction(ModuleCallAction a) {
+        return new SubModuleAction(subModuleParser.parseToSubModule(a.getTarget()));
     }
 
     /**

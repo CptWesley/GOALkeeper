@@ -36,6 +36,7 @@ public final class ConditionParser {
      */
     public ConditionParser() {
         expressionParser = new ExpressionParser();
+        sourceParser = new SourceParser();
     }
 
     /**

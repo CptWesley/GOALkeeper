@@ -27,11 +27,14 @@ class ModuleParserTest {
 
     private Module module;
 
+    private ModuleParser parser;
+
     /**
      * Sets up the testing environment before each test.
      */
     @BeforeEach
     void setup() {
+        parser = new ModuleParser();
         module = Mockito.mock(Module.class);
         File file = new File(SOURCE);
         Mockito.when(module.getSourceFile()).thenReturn(file);
@@ -42,7 +45,7 @@ class ModuleParserTest {
      */
     @Test
     void emptyTest() throws IOException {
-        ModuleFile mf = ModuleParser.parseToFile(module);
+        ModuleFile mf = parser.parseToFile(module);
         assertThat(mf.getRules()).isEmpty();
         assertThat(mf.getKRLanguage()).isEqualTo(KRLanguage.UNKNOWN);
     }
@@ -60,7 +63,7 @@ class ModuleParserTest {
         Mockito.when(rule.getAction()).thenReturn(ac);
         Mockito.when(msc.getAllLiterals()).thenReturn(new ArrayList<>());
         Mockito.when(ac.getActions()).thenReturn(new ArrayList<>());
-        ModuleFile mf = ModuleParser.parseToFile(module);
+        ModuleFile mf = parser.parseToFile(module);
         assertThat(mf.getRules()).hasSize(1);
     }
 
@@ -77,7 +80,7 @@ class ModuleParserTest {
         Mockito.when(rule.getAction()).thenReturn(ac);
         Mockito.when(msc.getAllLiterals()).thenReturn(new ArrayList<>());
         Mockito.when(ac.getActions()).thenReturn(new ArrayList<>());
-        SubModule mf = ModuleParser.parseToSubModule(module);
+        SubModule mf = parser.parseToSubModule(module);
         assertThat(mf.getRules()).hasSize(1);
     }
 
@@ -87,7 +90,7 @@ class ModuleParserTest {
     @Test
     void getNameTest() throws IOException {
         Mockito.when(module.getName()).thenReturn("WAF");
-        ModuleFile mf = ModuleParser.parseToFile(module);
+        ModuleFile mf = parser.parseToFile(module);
         assertThat(mf.getName()).isEqualTo("WAF");
     }
 }

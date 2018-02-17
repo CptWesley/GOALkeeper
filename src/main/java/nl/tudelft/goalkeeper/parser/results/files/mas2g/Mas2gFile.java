@@ -1,12 +1,14 @@
 package nl.tudelft.goalkeeper.parser.results.files.mas2g;
 
 import lombok.Getter;
+import lombok.Setter;
 import nl.tudelft.goalkeeper.parser.results.files.File;
 import nl.tudelft.goalkeeper.parser.results.files.mas2g.Launch.LaunchPolicy;
 import nl.tudelft.goalkeeper.parser.results.files.mas2g.Launch.LaunchRule;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -14,11 +16,11 @@ import java.util.List;
  */
 public class Mas2gFile extends File{
 
-    @Getter private File environment = null;
+    @Getter @Setter private java.io.File environment = null;
 
-    @Getter List<LaunchRule> launchRules;
+    private List<LaunchRule> launchRules;
 
-    @Getter LaunchPolicy launchPolicy;
+    @Getter private LaunchPolicy launchPolicy;
 
     /**
      * Creates a new File instance.
@@ -26,8 +28,16 @@ public class Mas2gFile extends File{
      * @param fileName fileName of the file.
      * @throws IOException Thrown when file could not be read.
      */
-    protected Mas2gFile(String fileName) throws IOException {
+    public Mas2gFile(String fileName) throws IOException {
         super(fileName);
         launchRules = new ArrayList<>();
+    }
+
+    public void addLaunchRules(List<LaunchRule> rules) {
+        launchRules.addAll(rules);
+    }
+
+    public List<LaunchRule> getLaunchRules() {
+        return Collections.unmodifiableList(launchRules);
     }
 }

@@ -13,7 +13,7 @@ import java.io.IOException;
 public class UseClauseParser {
     private UseClauseParser() {}
 
-    public UseClause parse(languageTools.program.mas.UseClause useClause) throws IOException {
+    public static UseClause parse(languageTools.program.mas.UseClause useClause) throws IOException {
         languageTools.program.mas.UseClause.UseCase useCase = useClause.getUseCase();
         File file = new ModuleFile(useClause.getResolvedReference().getName());
 

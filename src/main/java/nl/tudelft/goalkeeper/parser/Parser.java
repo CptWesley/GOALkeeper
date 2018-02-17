@@ -43,11 +43,11 @@ public final class Parser {
         Analysis analysis = validator.process();
 
         for (Message error : validator.getErrors()) {
-            result.addViolation(messageParser.parse(error));
+            result.addViolation(messageParser.parse(error).setError(true));
             result.setSuccessful(false);
         }
         for (Message error : validator.getSyntaxErrors()) {
-            result.addViolation(messageParser.parse(error));
+            result.addViolation(messageParser.parse(error).setError(true));
             result.setSuccessful(false);
         }
         for (Message error : validator.getWarnings()) {

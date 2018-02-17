@@ -18,8 +18,7 @@ import java.util.List;
  */
 public final class Rule implements Sourceable, Linguistic {
 
-    @Getter
-    private RuleType type;
+    @Getter private RuleType type;
     private List<Condition> conditions;
     private List<Action> actions;
     @Getter @Setter private Source source;

@@ -20,24 +20,25 @@ public final class Parser {
 
     @Getter @Setter private MessageParser messageParser;
     @Getter @Setter private ModuleParser moduleParser;
+    @Getter @Setter private MASValidator validator;
 
     /**
      * Creates a new Parser instance.
+     * @param fileName File path of a .mas2g file.
      */
-    public Parser() {
+    public Parser(String fileName) {
         messageParser = new MessageParser();
         moduleParser = new ModuleParser();
+        validator = new MASValidator(fileName, new FileRegistry());
     }
 
     /**
      * Parses the mas from given file path.
-     * @param fileName File path of a .mas2g file.
      * @return Results of parsing.
      */
-    public ParseResult parse(String fileName) {
+    public ParseResult parse() {
         ParseResult result = new ParseResult();
         result.setSuccessful(true);
-        MASValidator validator = new MASValidator(fileName, new FileRegistry());
         validator.validate();
         Analysis analysis = validator.process();
 

@@ -11,22 +11,12 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 class ParserTest {
 
-    private Parser parser;
-
-    /**
-     * Sets up test environment before each test.
-     */
-    @BeforeEach
-    void setup() {
-        parser = new Parser();
-    }
-
     /**
      * Checks that we can correctly parse failing mas files.
      */
     @Test
     void failureTest() {
-        ParseResult result = parser.parse("src/test/resources/testfiles/failed.mas2g");
+        ParseResult result = new Parser("src/test/resources/testfiles/failed.mas2g").parse();
         assertThat(result.getViolations()).hasSize(4);
         assertThat(result.isSuccessful()).isFalse();
         assertThat(result.getViolations()).filteredOn(o -> o.isError()).hasSize(3);
@@ -38,7 +28,7 @@ class ParserTest {
      */
     @Test
     void successTest() {
-        ParseResult result = parser.parse("src/test/resources/testfiles/bw4t-working/bw4t.mas2g");
+        ParseResult result = new Parser("src/test/resources/testfiles/bw4t-working/bw4t.mas2g").parse();
         assertThat(result.getViolations()).hasSize(1);
         assertThat(result.isSuccessful()).isTrue();
         assertThat(result.getViolations()).filteredOn(o -> o.isError()).hasSize(0);

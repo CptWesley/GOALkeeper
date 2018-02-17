@@ -4,6 +4,8 @@ import languageTools.analyzer.FileRegistry;
 import languageTools.analyzer.mas.Analysis;
 import languageTools.analyzer.mas.MASValidator;
 import languageTools.errors.Message;
+import lombok.Getter;
+import lombok.Setter;
 import nl.tudelft.goalkeeper.parser.results.ParseResult;
 import languageTools.program.agent.Module;
 import nl.tudelft.goalkeeper.parser.results.files.module.parsers.MessageParser;
@@ -15,6 +17,17 @@ import java.io.IOException;
  * Parses a MAS and returns the parsed data.
  */
 public final class Parser {
+
+    @Getter @Setter private MessageParser messageParser;
+    @Getter @Setter private ModuleParser moduleParser;
+
+    /**
+     * Creates a new Parser instance.
+     */
+    public Parser() {
+        messageParser = new MessageParser();
+        moduleParser = new ModuleParser();
+    }
 
     /**
      * Parses the mas from given file path.
@@ -29,21 +42,21 @@ public final class Parser {
         Analysis analysis = validator.process();
 
         for (Message error : validator.getErrors()) {
-            result.addViolation(MessageParser.parse(error));
+            result.addViolation(messageParser.parse(error));
             result.setSuccessful(false);
         }
         for (Message error : validator.getSyntaxErrors()) {
-            result.addViolation(MessageParser.parse(error));
+            result.addViolation(messageParser.parse(error));
             result.setSuccessful(false);
         }
         for (Message error : validator.getWarnings()) {
-            result.addViolation(MessageParser.parse(error).setError(false));
+            result.addViolation(messageParser.parse(error).setError(false));
         }
 
         if (result.isSuccessful()) {
             for (Module m : analysis.getModuleDefinitions()) {
                 try {
-                    result.addModule(ModuleParser.parseToFile(m));
+                    result.addModule(moduleParser.parseToFile(m));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

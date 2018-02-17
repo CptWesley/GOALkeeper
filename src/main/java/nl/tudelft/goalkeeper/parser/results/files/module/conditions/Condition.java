@@ -42,10 +42,15 @@ public abstract class Condition implements Sourceable, Linguistic {
      * @return A list of parameters. If there are no parameters, the list will start with NULL
      */
     public List<Parameter> getExpressionVariable() {
-        return getExpressionParameterRecusion(Collections.singletonList(expression));
+        return getExpressionParameterRecursion(Collections.singletonList(expression));
     }
 
-    private static List<Parameter> getExpressionParameterRecusion(List<Expression> expression) {
+    /**
+     * A recursive method to retrieve the list of parameters which are used by a Condition
+     * @param expression A list of expressions to extract the parameters from.
+     * @return A list of parameters which are in the expression.
+     */
+    private static List<Parameter> getExpressionParameterRecursion(List<Expression> expression) {
         if (expression == null || expression.size() == 0) {
             return null;
         }
@@ -57,7 +62,7 @@ public abstract class Condition implements Sourceable, Linguistic {
                 retList.add((Parameter) exp);
             } else if (exp instanceof Function) {
                 List<Parameter> temp =
-                        getExpressionParameterRecusion(((Function) exp).getArguments());
+                        getExpressionParameterRecursion(((Function) exp).getArguments());
                 if (temp != null && !temp.contains(null)) {
                     retList.addAll(temp);
                 }

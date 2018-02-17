@@ -109,7 +109,7 @@ public final class Rule implements Sourceable, Linguistic {
      * @param rule The rule to check against.
      * @return True if they are equivalent else false.
      */
-    public boolean equivalent(Rule rule) {
+    public boolean equivalentTo(Rule rule) {
         if (this.type.equals(rule.type)) {
             List<Condition> r1;
             List<Condition> r2;

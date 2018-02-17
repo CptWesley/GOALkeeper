@@ -46,7 +46,7 @@ public abstract class Condition implements Sourceable, Linguistic {
     }
 
     /**
-     * A recursive method to retrieve the list of parameters which are used by a Condition
+     * A recursive method to retrieve the list of parameters which are used by a Condition.
      * @param expression A list of expressions to extract the parameters from.
      * @return A list of parameters which are in the expression.
      */

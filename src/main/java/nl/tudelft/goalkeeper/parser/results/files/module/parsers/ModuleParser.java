@@ -1,5 +1,7 @@
 package nl.tudelft.goalkeeper.parser.results.files.module.parsers;
 
+import lombok.Getter;
+import lombok.Setter;
 import nl.tudelft.goalkeeper.checking.violations.source.LineSource;
 import nl.tudelft.goalkeeper.parser.results.files.module.Module;
 import nl.tudelft.goalkeeper.parser.results.files.module.ModuleFile;
@@ -19,10 +21,14 @@ import java.util.List;
  */
 public final class ModuleParser {
 
+    @Getter @Setter private RuleParser ruleParser;
+
     /**
-     * Prevents instantiation.
+     * Creates a ModuleParser instance.
      */
-    private ModuleParser() { }
+    public ModuleParser() {
+        ruleParser = new RuleParser();
+    }
 
     /**
      * Parses a GOAL module to a GOALkeeper module file.
@@ -30,7 +36,7 @@ public final class ModuleParser {
      * @return GOALkeeper module file.
      * @throws IOException Thrown when there is a problem reading the file.
      */
-    public static ModuleFile parseToFile(languageTools.program.agent.Module m) throws IOException {
+    public ModuleFile parseToFile(languageTools.program.agent.Module m) throws IOException {
         ModuleFile module = new ModuleFile(m.getSourceFile().toString());
         addRules(module, m);
         module.setName(m.getName());
@@ -87,7 +93,7 @@ public final class ModuleParser {
      * @param m Module to parse.
      * @return GOALkeeper submodule.
      */
-    public static SubModule parseToSubModule(languageTools.program.agent.Module m) {
+    public SubModule parseToSubModule(languageTools.program.agent.Module m) {
         SubModule module = new SubModule();
         addRules(module, m);
         return module;
@@ -98,9 +104,9 @@ public final class ModuleParser {
      * @param target Target module.
      * @param source Source module type.
      */
-    private static void addRules(Module target, languageTools.program.agent.Module source) {
+    private void addRules(Module target, languageTools.program.agent.Module source) {
         for (languageTools.program.agent.rules.Rule r : source.getRules()) {
-            target.addRule(RuleParser.parse(r));
+            target.addRule(ruleParser.parse(r));
         }
     }
 }

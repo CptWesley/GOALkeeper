@@ -1,6 +1,8 @@
 package nl.tudelft.goalkeeper.parser.queries;
 
 import krTools.parser.SourceInfo;
+import lombok.Getter;
+import lombok.Setter;
 import nl.tudelft.goalkeeper.checking.violations.source.SourceParser;
 import nl.tudelft.goalkeeper.exceptions.UnknownKRLanguageException;
 import nl.tudelft.goalkeeper.parser.results.parts.Expression;
@@ -11,10 +13,14 @@ import swiprolog.language.PrologExpression;
  */
 public final class ExpressionParser {
 
+    @Getter @Setter private SourceParser sourceParser;
+
     /**
-     * Prevents instantiation.
+     * Creates a new ExpressionParser instance.
      */
-    private ExpressionParser() { }
+    public ExpressionParser() {
+        sourceParser = new SourceParser();
+    }
 
     /**
      * Parses a GOAL query to a GOALkeeper expression.
@@ -22,12 +28,12 @@ public final class ExpressionParser {
      * @return Parsed expression.
      * @throws UnknownKRLanguageException Thrown when we can't handle the query.
      */
-    public static Expression parse(krTools.language.Expression expression)
+    public Expression parse(krTools.language.Expression expression)
             throws UnknownKRLanguageException {
         Expression result = getParser(expression).parse(expression);
         SourceInfo sourceInfo = expression.getSourceInfo();
         if (sourceInfo != null) {
-            result.setSource(SourceParser.parse(sourceInfo));
+            result.setSource(sourceParser.parse(sourceInfo));
         }
         return result;
     }

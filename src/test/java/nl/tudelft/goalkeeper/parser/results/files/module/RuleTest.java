@@ -183,7 +183,7 @@ class RuleTest {
         Rule rule1 = new Rule(RuleType.IF);
         rule.addCondition(new AGoalCondition(new Variable("test")));
         rule1.addCondition(new AGoalCondition(new Variable("test")));
-        assertThat(rule1.equivalent(rule)).isTrue();
+        assertThat(rule1.equivalentTo(rule)).isTrue();
     }
 
     @Test
@@ -191,7 +191,7 @@ class RuleTest {
         Rule rule1 = new Rule(RuleType.IF);
         rule.addCondition(new AGoalCondition(new Variable("test")));
         rule1.addCondition(new AGoalCondition(new Variable("test2")));
-        assertThat(rule1.equivalent(rule)).isFalse();
+        assertThat(rule1.equivalentTo(rule)).isFalse();
     }
 
     /**

@@ -4,6 +4,7 @@ jdk:
 
 install: true
 sudo: required
+dist: trusty
 
 cache:
   directories:

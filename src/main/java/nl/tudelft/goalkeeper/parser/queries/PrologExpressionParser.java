@@ -1,6 +1,6 @@
 package nl.tudelft.goalkeeper.parser.queries;
 
-import jpl.Term;
+import org.jpl7.Term;
 import nl.tudelft.goalkeeper.parser.results.parts.Constant;
 import nl.tudelft.goalkeeper.parser.results.parts.Expression;
 import nl.tudelft.goalkeeper.parser.results.parts.Function;

@@ -31,12 +31,13 @@ public final class ActionSpecificationParser {
         Expression post = null;
         List<Expression> parameters = new LinkedList<>();
         try {
-            pre = ExpressionParser.parse(action.getFullPreCondition()
+            ExpressionParser expressionparser = new ExpressionParser();
+            pre = expressionparser.parse(action.getFullPreCondition()
                     .getPreCondition());
-            post = ExpressionParser.parse(action.getPositivePostcondition()
+            post = expressionparser.parse(action.getPositivePostcondition()
                     .getPostCondition().toQuery());
             for (Term t : action.getParameters()) {
-                parameters.add(ExpressionParser.parse(t));
+                parameters.add(expressionparser.parse(t));
             }
         } catch (UnknownKRLanguageException e) {
             e.printStackTrace();

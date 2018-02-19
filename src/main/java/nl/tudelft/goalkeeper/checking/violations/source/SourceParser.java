@@ -8,16 +8,11 @@ import krTools.parser.SourceInfo;
 public final class SourceParser {
 
     /**
-     * Prevents instantiation.
-     */
-    private SourceParser() { }
-
-    /**
      * Parses a GOAL SourceInfo object to a GOALkeeper Source object.
      * @param sourceInfo SourceInfo object to parse.
      * @return Source object result.
      */
-    public static Source parse(SourceInfo sourceInfo) {
+    public Source parse(SourceInfo sourceInfo) {
         String file = sourceInfo.getSource();
         int line = sourceInfo.getLineNumber();
         int position = sourceInfo.getCharacterPosition();

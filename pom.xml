@@ -174,6 +174,7 @@
                                 <exclude>nl.tudelft.goalkeeper.parser.results.parts.MessageMood</exclude>
                                 <exclude>nl.tudelft.goalkeeper.parser.results.files.module.actions.InternalActionType</exclude>
                                 <exclude>nl.tudelft.goalkeeper.parser.results.parts.KRLanguage</exclude>
+                                <exclude>nl.tudelft.goalkeeper.parser.results.files.module.parsers.ModuleParser</exclude>
                             </excludes>
                             <limits>
                                 <limit>

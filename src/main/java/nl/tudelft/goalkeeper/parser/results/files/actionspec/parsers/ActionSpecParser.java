@@ -14,7 +14,7 @@ import java.io.IOException;
 public final class ActionSpecParser {
 
     /**
-     * Makes initiation possible
+     * Makes initiation possible.
      */
     public ActionSpecParser() { }
 
@@ -24,7 +24,7 @@ public final class ActionSpecParser {
      * @return An ActionSpecFile version of the ActionSpecProgram.
      * @throws IOException Thrown when there is a problem reading the file.
      */
-    public static ActionSpecFile parse(ActionSpecProgram asp) throws IOException {
+    public ActionSpecFile parse(ActionSpecProgram asp) throws IOException {
         ActionSpecFile result = new ActionSpecFile(asp.getSourceFile().toString());
         KRLanguage language = KRLanguage.UNKNOWN;
         for (UserSpecAction action : asp.getActionSpecifications()) {

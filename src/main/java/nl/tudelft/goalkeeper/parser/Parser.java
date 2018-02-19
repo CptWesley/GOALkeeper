@@ -79,7 +79,8 @@ public final class Parser {
         }
         for (ActionSpecProgram actionSpec : analysis.getActionSpecDefinitions()) {
             try {
-                result.addActionSpec(ActionSpecParser.parse(actionSpec));
+                ActionSpecParser parser = new ActionSpecParser();
+                result.addActionSpec(parser.parse(actionSpec));
             } catch (IOException e) {
                 e.printStackTrace();
             }

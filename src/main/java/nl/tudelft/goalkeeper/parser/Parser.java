@@ -22,7 +22,7 @@ public final class Parser {
 
     @Getter @Setter private MessageParser messageParser;
     @Getter @Setter private ModuleParser moduleParser;
-    @Getter @Setter ActionSpecParser actionSpecParser;
+    @Getter @Setter private ActionSpecParser actionSpecParser;
     @Getter @Setter private MASValidator validator;
 
     /**

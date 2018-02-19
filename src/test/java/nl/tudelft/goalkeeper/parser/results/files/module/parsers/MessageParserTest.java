@@ -26,7 +26,7 @@ class MessageParserTest {
         Mockito.when(si.getLineNumber()).thenReturn(23);
         Mockito.when(si.getStartIndex()).thenReturn(12);
         Mockito.when(si.getSource()).thenReturn("foobar");
-        Violation violation = MessageParser.parse(error);
+        Violation violation = new MessageParser().parse(error);
         assertThat(((CharacterSource) violation.getSource()).getLine()).isEqualTo(23);
         assertThat(((CharacterSource) violation.getSource()).getPosition()).isEqualTo(12);
         assertThat(violation.getSource().getFile()).isEqualTo("foobar");

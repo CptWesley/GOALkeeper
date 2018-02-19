@@ -28,12 +28,14 @@ class ActionSpecificationParserTest {
 
     private UserSpecAction action;
     private PrologQuery prologQuery;
+    ExpressionParser parser;
 
     /**
      * Sets up the testing environment before each test.
      */
     @BeforeEach
     void setup() {
+        parser = new ExpressionParser();
         prologQuery = Mockito.mock(PrologQuery.class);
         Term term = Mockito.mock(Term.class);
         Mockito.when(term.isVariable()).thenReturn(true);
@@ -65,7 +67,7 @@ class ActionSpecificationParserTest {
     @Test
     void getPreTest() throws UnknownKRLanguageException {
         assertThat(ActionSpecificationParser.parse(action).getPre())
-                .isEqualTo(ExpressionParser.parse(prologQuery));
+                .isEqualTo(parser.parse(prologQuery));
     }
 
     /**
@@ -74,7 +76,7 @@ class ActionSpecificationParserTest {
     @Test
     void getPostTest() throws UnknownKRLanguageException {
         assertThat(ActionSpecificationParser.parse(action).getPost())
-                .isEqualTo(ExpressionParser.parse(prologQuery));
+                .isEqualTo(parser.parse(prologQuery));
     }
 
     /**
@@ -98,7 +100,7 @@ class ActionSpecificationParserTest {
         ActionSpecification result = ActionSpecificationParser.parse(action);
         assertThat(result.getParameters()).hasSize(2);
         assertThat(result.getParameters())
-                .containsExactly(ExpressionParser.parse(prologTerm),
-                        ExpressionParser.parse(prologTerm));
+                .containsExactly(parser.parse(prologTerm),
+                        parser.parse(prologTerm));
     }
 }

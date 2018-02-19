@@ -14,9 +14,9 @@ import java.io.IOException;
 public final class ActionSpecParser {
 
     /**
-     * Prevents instantiation.
+     * Makes initiation possible
      */
-    private ActionSpecParser() { }
+    public ActionSpecParser() { }
 
     /**
      * Converts a GOAL ActionSpecProgram into a GOALkeeper ActionSpecFile.

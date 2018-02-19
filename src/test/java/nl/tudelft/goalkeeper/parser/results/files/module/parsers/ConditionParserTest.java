@@ -50,7 +50,7 @@ class ConditionParserTest {
     private Selector selector;
     private PrologQuery query;
     private Term term;
-    private jpl.Term pTerm;
+    private org.jpl7.Term pTerm;
 
     private ConditionParser parser;
 
@@ -64,7 +64,7 @@ class ConditionParserTest {
         selector = Mockito.mock(Selector.class);
         query = Mockito.mock(PrologQuery.class);
         term = Mockito.mock(Var.class);
-        pTerm = Mockito.mock(jpl.Term.class);
+        pTerm = Mockito.mock(org.jpl7.Term.class);
 
         Mockito.when(pTerm.isVariable()).thenReturn(true);
         Mockito.when(literal.getSelector()).thenReturn(selector);

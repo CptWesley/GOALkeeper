@@ -22,6 +22,7 @@ public final class Parser {
 
     @Getter @Setter private MessageParser messageParser;
     @Getter @Setter private ModuleParser moduleParser;
+    @Getter @Setter ActionSpecParser actionSpecParser;
     @Getter @Setter private MASValidator validator;
 
     /**
@@ -29,6 +30,7 @@ public final class Parser {
      * @param fileName File path of a .mas2g file.
      */
     public Parser(String fileName) {
+        actionSpecParser = new ActionSpecParser();
         messageParser = new MessageParser();
         moduleParser = new ModuleParser();
         validator = new MASValidator(fileName, new FileRegistry());
@@ -68,19 +70,19 @@ public final class Parser {
      * @param result ParseResult to add the conversions to.
      * @param analysis Analysis to convert.
      */
-    private static void convert(ParseResult result, Analysis analysis) {
+    private void convert(ParseResult result, Analysis analysis) {
         for (Module m : analysis.getModuleDefinitions()) {
             try {
                 ModuleParser parser = new ModuleParser();
-                result.addModule(parser.parseToFile(m));
+                result.addModule(moduleParser.parseToFile(m));
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
         for (ActionSpecProgram actionSpec : analysis.getActionSpecDefinitions()) {
             try {
-                ActionSpecParser parser = new ActionSpecParser();
-                result.addActionSpec(parser.parse(actionSpec));
+
+                result.addActionSpec(actionSpecParser.parse(actionSpec));
             } catch (IOException e) {
                 e.printStackTrace();
             }

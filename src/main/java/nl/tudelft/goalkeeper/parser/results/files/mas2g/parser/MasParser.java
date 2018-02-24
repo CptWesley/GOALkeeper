@@ -13,9 +13,9 @@ import java.util.List;
  * Created by Cedric Willekens (4530373) on 2/17/2018.
  */
 public final class MasParser {
-    private MasParser() { }
+    public MasParser() { }
 
-    public static Mas2gFile parse(MASProgram mas) throws IOException {
+    public Mas2gFile parse(MASProgram mas) throws IOException {
         Mas2gFile result = new Mas2gFile(mas.getSourceFile().toString());
         List<LaunchRule> ruleList = new ArrayList<>();
         for (languageTools.program.mas.LaunchRule rule: mas.getLaunchRules()) {

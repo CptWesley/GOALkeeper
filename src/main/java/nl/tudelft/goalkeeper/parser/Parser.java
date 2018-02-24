@@ -10,6 +10,7 @@ import lombok.Setter;
 import nl.tudelft.goalkeeper.parser.results.ParseResult;
 import languageTools.program.agent.Module;
 import nl.tudelft.goalkeeper.parser.results.files.actionspec.parsers.ActionSpecParser;
+import nl.tudelft.goalkeeper.parser.results.files.mas2g.parser.MasParser;
 import nl.tudelft.goalkeeper.parser.results.files.module.parsers.MessageParser;
 import nl.tudelft.goalkeeper.parser.results.files.module.parsers.ModuleParser;
 
@@ -23,6 +24,7 @@ public final class Parser {
     @Getter @Setter private MessageParser messageParser;
     @Getter @Setter private ModuleParser moduleParser;
     @Getter @Setter private ActionSpecParser actionSpecParser;
+    @Getter @Setter private MasParser masParser;
     @Getter @Setter private MASValidator validator;
 
     /**
@@ -33,6 +35,7 @@ public final class Parser {
         actionSpecParser = new ActionSpecParser();
         messageParser = new MessageParser();
         moduleParser = new ModuleParser();
+        masParser = new MasParser();
         validator = new MASValidator(fileName, new FileRegistry());
     }
 

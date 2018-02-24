@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import nl.tudelft.goalkeeper.checking.violations.Violation;
 import nl.tudelft.goalkeeper.parser.results.files.actionspec.ActionSpecFile;
+import nl.tudelft.goalkeeper.parser.results.files.mas2g.Mas2gFile;
 import nl.tudelft.goalkeeper.parser.results.files.module.ModuleFile;
 
 import java.util.Collections;
@@ -20,6 +21,7 @@ public final class ParseResult {
 
     private List<ModuleFile> modules;
     private List<ActionSpecFile> actionSpecs;
+    private List<Mas2gFile> mas2gFiles;
 
     /**
      * Creates a new parse result class.
@@ -29,6 +31,7 @@ public final class ParseResult {
         successful = false;
         modules = new LinkedList<>();
         actionSpecs = new LinkedList<>();
+        mas2gFiles = new LinkedList<>();
     }
 
     /**
@@ -83,5 +86,14 @@ public final class ParseResult {
      */
     public List<ActionSpecFile> getActionSpecs() {
         return Collections.unmodifiableList(actionSpecs);
+    }
+
+    public ParseResult addMas2gFile(Mas2gFile mas2g) {
+        mas2gFiles.add(mas2g);
+        return this;
+    }
+
+    public List<Mas2gFile> getMas2gFiles() {
+        return Collections.unmodifiableList(mas2gFiles);
     }
 }

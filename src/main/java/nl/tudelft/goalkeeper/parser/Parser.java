@@ -5,6 +5,7 @@ import languageTools.analyzer.mas.Analysis;
 import languageTools.analyzer.mas.MASValidator;
 import languageTools.errors.Message;
 import languageTools.program.actionspec.ActionSpecProgram;
+import languageTools.program.mas.MASProgram;
 import lombok.Getter;
 import lombok.Setter;
 import nl.tudelft.goalkeeper.parser.results.ParseResult;
@@ -90,5 +91,7 @@ public final class Parser {
                 e.printStackTrace();
             }
         }
+        MASProgram mas = analysis.getProgram();
+        result.addMas2gFile(masParser.parse(mas));
     }
 }

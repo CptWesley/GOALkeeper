@@ -15,8 +15,13 @@ import java.util.List;
 public final class MasParser {
     public MasParser() { }
 
-    public Mas2gFile parse(MASProgram mas) throws IOException {
-        Mas2gFile result = new Mas2gFile(mas.getSourceFile().toString());
+    public Mas2gFile parse(MASProgram mas) {
+        Mas2gFile result = null;
+        try {
+            result = new Mas2gFile(mas.getSourceFile().toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         List<LaunchRule> ruleList = new ArrayList<>();
         for (languageTools.program.mas.LaunchRule rule: mas.getLaunchRules()) {
             ruleList.add(LaunchRuleParser.parse(rule));

@@ -46,9 +46,9 @@ class ParserTest {
         parser.setMessageParser(messageParser);
         parser.setModuleParser(moduleParser);
         Mockito.when(messageParser.parse(message)).thenReturn(violation);
-        Mockito.when(validator.getErrors()).thenReturn(new TreeSet<>());
-        Mockito.when(validator.getSyntaxErrors()).thenReturn(new TreeSet<>());
-        Mockito.when(validator.getWarnings()).thenReturn(new TreeSet<>());
+        Mockito.when(validator.getRegistry().getErrors()).thenReturn(new TreeSet<>());
+        Mockito.when(validator.getRegistry().getSyntaxErrors()).thenReturn(new TreeSet<>());
+        Mockito.when(validator.getRegistry().getWarnings()).thenReturn(new TreeSet<>());
         analysis = Mockito.mock(Analysis.class);
         Mockito.when(validator.process()).thenReturn(analysis);
         Mockito.when(analysis.getModuleDefinitions()).thenReturn(new HashSet<>());
@@ -59,7 +59,7 @@ class ParserTest {
      */
     @Test
     void errorTest() {
-        validator.getErrors().add(message);
+        validator.getRegistry().getErrors().add(message);
         ParseResult result = parser.parse();
         assertThat(result.isSuccessful()).isFalse();
         assertThat(result.getViolations()).hasSize(1);
@@ -72,7 +72,7 @@ class ParserTest {
      */
     @Test
     void syntaxErrorTest() {
-        validator.getSyntaxErrors().add(message);
+        validator.getRegistry().getSyntaxErrors().add(message);
         ParseResult result = parser.parse();
         assertThat(result.isSuccessful()).isFalse();
         assertThat(result.getViolations()).hasSize(1);
@@ -85,7 +85,7 @@ class ParserTest {
      */
     @Test
     void warningTest() {
-        validator.getWarnings().add(message);
+        validator.getRegistry().getWarnings().add(message);
         ParseResult result = parser.parse();
         assertThat(result.isSuccessful()).isTrue();
         assertThat(result.getViolations()).hasSize(1);

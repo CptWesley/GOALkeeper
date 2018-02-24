@@ -46,15 +46,15 @@ public final class Parser {
         validator.validate();
         Analysis analysis = validator.process();
 
-        for (Message error : validator.getErrors()) {
+        for (Message error : validator.getRegistry().getErrors()) {
             result.addViolation(messageParser.parse(error).setError(true));
             result.setSuccessful(false);
         }
-        for (Message error : validator.getSyntaxErrors()) {
+        for (Message error : validator.getRegistry().getSyntaxErrors()) {
             result.addViolation(messageParser.parse(error).setError(true));
             result.setSuccessful(false);
         }
-        for (Message error : validator.getWarnings()) {
+        for (Message error : validator.getRegistry().getWarnings()) {
             result.addViolation(messageParser.parse(error).setError(false));
         }
 

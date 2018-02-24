@@ -33,6 +33,7 @@ class ParserTest {
     private Violation violation;
     private Message message;
     private Analysis analysis;
+    private FileRegistry fileRegistry;
 
     /**
      * Sets up the testing environment before each test.
@@ -48,7 +49,7 @@ class ParserTest {
         parser.setValidator(validator);
         parser.setMessageParser(messageParser);
         parser.setModuleParser(moduleParser);
-        FileRegistry fileRegistry = Mockito.mock(FileRegistry.class);
+        fileRegistry = Mockito.mock(FileRegistry.class);
         Mockito.when(messageParser.parse(message)).thenReturn(violation);
         Mockito.when(validator.getRegistry()).thenReturn(fileRegistry);
         Mockito.when(fileRegistry.getErrors()).thenReturn(new TreeSet<>());

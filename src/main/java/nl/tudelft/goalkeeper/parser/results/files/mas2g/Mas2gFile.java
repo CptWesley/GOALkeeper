@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * Created by Cedric Willekens (4530373) on 2/17/2018.
  */
-public class Mas2gFile extends File{
+public class Mas2gFile extends File {
 
     @Getter @Setter private java.io.File environment = null;
 
@@ -33,8 +33,8 @@ public class Mas2gFile extends File{
         launchRules = new ArrayList<>();
     }
 
-    public void addLaunchRules(List<LaunchRule> rules) {
-        launchRules.addAll(rules);
+    public void addLaunchRules(LaunchRule rules) {
+        launchRules.add(rules);
     }
 
     public List<LaunchRule> getLaunchRules() {

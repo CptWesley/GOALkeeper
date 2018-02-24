@@ -122,13 +122,14 @@ public class TestChecker implements CheckerInterface {
         TestValidator visitor = new TestValidator(path, new FileRegistry());
         visitor.validate();
         TestProgram program = visitor.getProgram();
-        if (program != null && program.isValid()) {
-            return program;
-        } else {
-            System.out.println(visitor.getSyntaxErrors());
-            System.out.println(visitor.getErrors());
-            throw new IOException();
-        }
+//        if (program != null && program.isValid()) {
+//            return program;
+//        } else {
+//            System.out.println(visitor.getSyntaxErrors());
+//            System.out.println(visitor.getErrors());
+//            throw new IOException();
+//        }
+        return program;
     }
 
     private List<File> getTestFiles(String[] files) {

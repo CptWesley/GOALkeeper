@@ -2,6 +2,7 @@ package nl.tudelft.goalkeeper.parser.results;
 
 import nl.tudelft.goalkeeper.checking.violations.Violation;
 import nl.tudelft.goalkeeper.parser.results.files.actionspec.ActionSpecFile;
+import nl.tudelft.goalkeeper.parser.results.files.mas2g.Mas2gFile;
 import nl.tudelft.goalkeeper.parser.results.files.module.ModuleFile;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -65,5 +66,16 @@ class ParseResultTest {
         ActionSpecFile file = Mockito.mock(ActionSpecFile.class);
         assertThat(result.addActionSpec(file)).isSameAs(result);
         assertThat(result.getActionSpecs()).containsExactly(file);
+    }
+
+    /**
+     * Check that mas2g's are added successfully.
+     */
+    @Test
+    void mas2gTest() {
+        assertThat(result.getMas2gFiles()).isEmpty();
+        Mas2gFile file = Mockito.mock(Mas2gFile.class);
+        assertThat(result.addMas2gFile(file)).isSameAs(result);
+        assertThat(result.getMas2gFiles()).containsExactly(file);
     }
 }

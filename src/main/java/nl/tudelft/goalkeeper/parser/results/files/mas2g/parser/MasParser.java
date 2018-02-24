@@ -10,10 +10,17 @@ import java.io.IOException;
  * Created by Cedric Willekens (4530373) on 2/17/2018.
  */
 public final class MasParser {
-    private MasParser() { }
+    public MasParser() { }
 
-    public static Mas2gFile parse(MASProgram mas) throws IOException {
-        Mas2gFile result = new Mas2gFile(mas.getSourceFile().toString());
+
+    public Mas2gFile parse(MASProgram mas) {
+        Mas2gFile result = null;
+        try {
+            result = new Mas2gFile(mas.getSourceFile().toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        assert result!=null;
         for (languageTools.program.mas.LaunchRule rule: mas.getLaunchRules()) {
             result.addLaunchRules(LaunchRuleParser.parse(rule));
         }

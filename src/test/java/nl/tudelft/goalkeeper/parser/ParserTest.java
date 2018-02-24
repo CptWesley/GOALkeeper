@@ -1,11 +1,13 @@
 package nl.tudelft.goalkeeper.parser;
 
+import languageTools.analyzer.FileRegistry;
 import languageTools.analyzer.mas.Analysis;
 import languageTools.analyzer.mas.MASValidator;
 import languageTools.errors.Message;
 import languageTools.program.agent.Module;
 import nl.tudelft.goalkeeper.checking.violations.Violation;
 import nl.tudelft.goalkeeper.parser.results.ParseResult;
+import nl.tudelft.goalkeeper.parser.results.files.File;
 import nl.tudelft.goalkeeper.parser.results.files.module.parsers.MessageParser;
 import nl.tudelft.goalkeeper.parser.results.files.module.parsers.ModuleParser;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,6 +16,7 @@ import org.mockito.Mockito;
 
 import java.io.IOException;
 import java.util.HashSet;
+import java.util.SortedSet;
 import java.util.TreeSet;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -45,10 +48,12 @@ class ParserTest {
         parser.setValidator(validator);
         parser.setMessageParser(messageParser);
         parser.setModuleParser(moduleParser);
+        FileRegistry fileRegistry = Mockito.mock(FileRegistry.class);
         Mockito.when(messageParser.parse(message)).thenReturn(violation);
-        Mockito.when(validator.getRegistry().getErrors()).thenReturn(new TreeSet<>());
-        Mockito.when(validator.getRegistry().getSyntaxErrors()).thenReturn(new TreeSet<>());
-        Mockito.when(validator.getRegistry().getWarnings()).thenReturn(new TreeSet<>());
+        Mockito.when(validator.getRegistry()).thenReturn(fileRegistry);
+        Mockito.when(fileRegistry.getErrors()).thenReturn(new TreeSet<>());
+        Mockito.when(fileRegistry.getSyntaxErrors()).thenReturn(new TreeSet<>());
+        Mockito.when(fileRegistry.getWarnings()).thenReturn(new TreeSet<>());
         analysis = Mockito.mock(Analysis.class);
         Mockito.when(validator.process()).thenReturn(analysis);
         Mockito.when(analysis.getModuleDefinitions()).thenReturn(new HashSet<>());

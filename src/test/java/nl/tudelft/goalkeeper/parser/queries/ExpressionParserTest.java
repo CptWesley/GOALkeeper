@@ -1,6 +1,6 @@
 package nl.tudelft.goalkeeper.parser.queries;
 
-import jpl.Term;
+import org.jpl7.Term;
 import krTools.language.Query;
 import krTools.parser.SourceInfo;
 import nl.tudelft.goalkeeper.checking.violations.source.CharacterSource;

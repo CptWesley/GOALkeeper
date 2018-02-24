@@ -1,6 +1,6 @@
 package nl.tudelft.goalkeeper.parser.results.files.module.parsers;
 
-import jpl.Term;
+import org.jpl7.Term;
 import krTools.parser.SourceInfo;
 import languageTools.program.agent.actions.Action;
 import languageTools.program.agent.actions.ActionCombo;

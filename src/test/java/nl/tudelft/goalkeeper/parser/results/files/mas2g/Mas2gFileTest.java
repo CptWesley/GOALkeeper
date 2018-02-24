@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+import java.io.File;
 import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -28,5 +29,13 @@ class Mas2gFileTest {
         mas2gFile.addLaunchRules(rule2);
         assertThat(mas2gFile.getLaunchRules()).hasSize(2);
         assertThat(mas2gFile.getLaunchRules()).containsExactly(rule1, rule2);
+    }
+
+    @Test
+    void checkEnvironment() {
+        assertThat(mas2gFile.getEnvironment()).isNull();
+        File env = Mockito.mock(File.class);
+        mas2gFile.setEnvironment(env);
+        assertThat(mas2gFile.getEnvironment()).isSameAs(env);
     }
 }

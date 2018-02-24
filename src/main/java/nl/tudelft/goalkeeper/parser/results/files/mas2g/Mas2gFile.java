@@ -3,7 +3,6 @@ package nl.tudelft.goalkeeper.parser.results.files.mas2g;
 import lombok.Getter;
 import lombok.Setter;
 import nl.tudelft.goalkeeper.parser.results.files.File;
-import nl.tudelft.goalkeeper.parser.results.files.mas2g.Launch.LaunchPolicy;
 import nl.tudelft.goalkeeper.parser.results.files.mas2g.Launch.LaunchRule;
 
 import java.io.IOException;
@@ -19,8 +18,6 @@ public class Mas2gFile extends File {
     @Getter @Setter private java.io.File environment = null;
 
     private List<LaunchRule> launchRules;
-
-    @Getter private LaunchPolicy launchPolicy;
 
     /**
      * Creates a new File instance.

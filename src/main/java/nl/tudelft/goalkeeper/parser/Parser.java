@@ -3,12 +3,11 @@ package nl.tudelft.goalkeeper.parser;
 import languageTools.analyzer.FileRegistry;
 import languageTools.analyzer.mas.Analysis;
 import languageTools.analyzer.mas.MASValidator;
-import languageTools.errors.Message;
 import languageTools.program.actionspec.ActionSpecProgram;
+import languageTools.program.agent.Module;
 import lombok.Getter;
 import lombok.Setter;
 import nl.tudelft.goalkeeper.parser.results.ParseResult;
-import languageTools.program.agent.Module;
 import nl.tudelft.goalkeeper.parser.results.files.actionspec.parsers.ActionSpecParser;
 import nl.tudelft.goalkeeper.parser.results.files.module.parsers.MessageParser;
 import nl.tudelft.goalkeeper.parser.results.files.module.parsers.ModuleParser;
@@ -46,17 +45,14 @@ public final class Parser {
         validator.validate();
         Analysis analysis = validator.process();
 
-        for (Message error : validator.getRegistry().getErrors()) {
-            result.addViolation(messageParser.parse(error).setError(true));
+        validator.getRegistry().getAllErrors().forEach(err -> {
+            result.addViolation((messageParser).parse(err).setError(true));
             result.setSuccessful(false);
-        }
-        for (Message error : validator.getRegistry().getSyntaxErrors()) {
-            result.addViolation(messageParser.parse(error).setError(true));
-            result.setSuccessful(false);
-        }
-        for (Message error : validator.getRegistry().getWarnings()) {
-            result.addViolation(messageParser.parse(error).setError(false));
-        }
+        } );
+
+        validator.getRegistry().getWarnings().forEach(err -> {
+            result.addViolation(((messageParser).parse(err).setError(false)));
+        });
 
         if (result.isSuccessful()) {
             convert(result, analysis);

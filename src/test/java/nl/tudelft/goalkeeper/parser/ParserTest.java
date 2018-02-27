@@ -7,7 +7,6 @@ import languageTools.errors.Message;
 import languageTools.program.agent.Module;
 import nl.tudelft.goalkeeper.checking.violations.Violation;
 import nl.tudelft.goalkeeper.parser.results.ParseResult;
-import nl.tudelft.goalkeeper.parser.results.files.File;
 import nl.tudelft.goalkeeper.parser.results.files.module.parsers.MessageParser;
 import nl.tudelft.goalkeeper.parser.results.files.module.parsers.ModuleParser;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,7 +15,6 @@ import org.mockito.Mockito;
 
 import java.io.IOException;
 import java.util.HashSet;
-import java.util.SortedSet;
 import java.util.TreeSet;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -52,9 +50,6 @@ class ParserTest {
         fileRegistry = Mockito.mock(FileRegistry.class);
         Mockito.when(messageParser.parse(message)).thenReturn(violation);
         Mockito.when(validator.getRegistry()).thenReturn(fileRegistry);
-        Mockito.when(fileRegistry.getErrors()).thenReturn(new TreeSet<>());
-        Mockito.when(fileRegistry.getSyntaxErrors()).thenReturn(new TreeSet<>());
-        Mockito.when(fileRegistry.getWarnings()).thenReturn(new TreeSet<>());
         analysis = Mockito.mock(Analysis.class);
         Mockito.when(validator.process()).thenReturn(analysis);
         Mockito.when(analysis.getModuleDefinitions()).thenReturn(new HashSet<>());
@@ -65,10 +60,12 @@ class ParserTest {
      */
     @Test
     void errorTest() {
-        validator.getRegistry().getErrors().add(message);
+        TreeSet set = new TreeSet<Message>();
+        set.add(message);
+        Mockito.when(fileRegistry.getAllErrors()).thenReturn(set);
         ParseResult result = parser.parse();
-        assertThat(result.isSuccessful()).isFalse();
         assertThat(result.getViolations()).hasSize(1);
+        assertThat(result.isSuccessful()).isFalse();
         Mockito.verify(messageParser, Mockito.times(1)).parse(message);
         Mockito.verify(violation, Mockito.times(1)).setError(true);
     }
@@ -78,10 +75,12 @@ class ParserTest {
      */
     @Test
     void syntaxErrorTest() {
-        validator.getRegistry().getSyntaxErrors().add(message);
+        TreeSet set = new TreeSet<Message>();
+        set.add(message);
+        Mockito.when(fileRegistry.getAllErrors()).thenReturn(set);
         ParseResult result = parser.parse();
-        assertThat(result.isSuccessful()).isFalse();
         assertThat(result.getViolations()).hasSize(1);
+        assertThat(result.isSuccessful()).isFalse();
         Mockito.verify(messageParser, Mockito.times(1)).parse(message);
         Mockito.verify(violation, Mockito.times(1)).setError(true);
     }
@@ -91,7 +90,9 @@ class ParserTest {
      */
     @Test
     void warningTest() {
-        validator.getRegistry().getWarnings().add(message);
+        TreeSet set = new TreeSet<Message>();
+        set.add(message);
+        Mockito.when(fileRegistry.getWarnings()).thenReturn(set);
         ParseResult result = parser.parse();
         assertThat(result.isSuccessful()).isTrue();
         assertThat(result.getViolations()).hasSize(1);

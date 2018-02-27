@@ -48,7 +48,7 @@ public final class Parser {
         validator.getRegistry().getAllErrors().forEach(err -> {
             result.addViolation((messageParser).parse(err).setError(true));
             result.setSuccessful(false);
-        } );
+        });
 
         validator.getRegistry().getWarnings().forEach(err -> {
             result.addViolation(((messageParser).parse(err).setError(false)));

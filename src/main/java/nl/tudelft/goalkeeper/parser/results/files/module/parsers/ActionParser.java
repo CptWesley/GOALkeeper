@@ -6,6 +6,8 @@ import languageTools.program.agent.actions.ExitModuleAction;
 import languageTools.program.agent.actions.ModuleCallAction;
 import languageTools.program.agent.actions.UserSpecCallAction;
 import languageTools.program.agent.msg.SentenceMood;
+import lombok.Getter;
+import lombok.Setter;
 import nl.tudelft.goalkeeper.checking.violations.source.SourceParser;
 import nl.tudelft.goalkeeper.exceptions.UnknownKRLanguageException;
 import nl.tudelft.goalkeeper.parser.queries.ExpressionParser;
@@ -31,10 +33,16 @@ public final class ActionParser {
 
     private static final String SUB_MODULE_PREFIX = "null/";
 
+    @Getter @Setter private ExpressionParser expressionParser;
+    @Getter @Setter private SourceParser sourceParser;
+
     /**
-     * Prevents instantiation.
+     * Creates a new ActionParser instance.
      */
-    private ActionParser() { }
+    public ActionParser() {
+        expressionParser = new ExpressionParser();
+        sourceParser = new SourceParser();
+    }
 
     /**
      * Parses an action to the GOALkeeper form.
@@ -42,12 +50,12 @@ public final class ActionParser {
      * @return GOALkeeper action.
      * @throws UnknownKRLanguageException Thrown when KR language could not be determined.
      */
-    public static Action parse(languageTools.program.agent.actions.Action a)
+    public Action parse(languageTools.program.agent.actions.Action a)
             throws UnknownKRLanguageException {
         Action action = getInstance(a);
         SourceInfo sourceInfo = a.getSourceInfo();
         if (sourceInfo != null) {
-            action.setSource(SourceParser.parse(sourceInfo));
+            action.setSource(sourceParser.parse(sourceInfo));
         }
         return action;
     }
@@ -58,7 +66,7 @@ public final class ActionParser {
      * @return GOALkeeper action.
      * @throws UnknownKRLanguageException Thrown when KR language could not be determined.
      */
-    private static Action getInstance(languageTools.program.agent.actions.Action a)
+    private Action getInstance(languageTools.program.agent.actions.Action a)
             throws UnknownKRLanguageException {
         if (a instanceof languageTools.program.agent.actions.SendAction) {
             return parseSendAction((languageTools.program.agent.actions.SendAction) a);
@@ -93,10 +101,10 @@ public final class ActionParser {
      * @return Expression of the action. Returns null if there is none.
      * @throws UnknownKRLanguageException Thrown when KR language could not be identified.
      */
-    private static Expression getExpression(languageTools.program.agent.actions.Action a)
+    private Expression getExpression(languageTools.program.agent.actions.Action a)
             throws UnknownKRLanguageException {
         if (a.getParameters().size() > 0) {
-            return ExpressionParser.parse((krTools.language.Expression) a.getParameters().get(0));
+            return expressionParser.parse((krTools.language.Expression) a.getParameters().get(0));
         }
         return null;
     }
@@ -107,11 +115,11 @@ public final class ActionParser {
      * @return GOALkeeper SendAction version of a.
      * @throws UnknownKRLanguageException Thrown when KR language could not be determined.
      */
-    private static SendAction parseSendAction(languageTools.program.agent.actions.SendAction a)
+    private SendAction parseSendAction(languageTools.program.agent.actions.SendAction a)
             throws UnknownKRLanguageException {
         List<Expression> recipients = new LinkedList<>();
         for (Term recipient : a.getSelector().getParameters()) {
-            recipients.add(ExpressionParser.parse(recipient));
+            recipients.add(expressionParser.parse(recipient));
         }
         MessageMood mood = MessageMood.INDICATIVE;
         if (a.getMood().equals(SentenceMood.IMPERATIVE)) {
@@ -128,11 +136,11 @@ public final class ActionParser {
      * @return GOALkeeper StartTimerAction version of a.
      * @throws UnknownKRLanguageException Thrown when KR language could not be determined.
      */
-    private static StartTimerAction parseStartTimerAction(
+    private StartTimerAction parseStartTimerAction(
             languageTools.program.agent.actions.StartTimerAction a)
             throws UnknownKRLanguageException {
-        Expression interval = ExpressionParser.parse(a.getParameters().get(1));
-        Expression duration = ExpressionParser.parse(a.getParameters().get(2));
+        Expression interval = expressionParser.parse(a.getParameters().get(1));
+        Expression duration = expressionParser.parse(a.getParameters().get(2));
         return new StartTimerAction(getExpression(a), interval, duration);
     }
 
@@ -141,8 +149,8 @@ public final class ActionParser {
      * @param a ModuleCallAction to parse.
      * @return GOALkeeper SubModuleAction version of a.
      */
-    private static SubModuleAction parseSubModuleAction(ModuleCallAction a) {
-        return new SubModuleAction(ModuleParser.parseToSubModule(a.getTarget()));
+    private SubModuleAction parseSubModuleAction(ModuleCallAction a) {
+        return new SubModuleAction(new ModuleParser().parseToSubModule(a.getTarget()));
     }
 
     /**
@@ -151,11 +159,11 @@ public final class ActionParser {
      * @return GOALkeeper ModuleAction version of a.
      * @throws UnknownKRLanguageException Thrown when KR language could not be determined.
      */
-    private static ModuleAction parseModuleAction(ModuleCallAction a)
+    private ModuleAction parseModuleAction(ModuleCallAction a)
             throws UnknownKRLanguageException {
         List<Expression> arguments = new LinkedList<>();
         for (Term t : a.getParameters()) {
-            arguments.add(ExpressionParser.parse(t));
+            arguments.add(expressionParser.parse(t));
         }
         String source = a.getTarget().getSourceInfo().getSource();
         return new ModuleAction(source, arguments);
@@ -167,11 +175,11 @@ public final class ActionParser {
      * @return GOALkeeper ExternalAction version of a.
      * @throws UnknownKRLanguageException Thrown when KR language could not be determined.
      */
-    private static ExternalAction parseExternalAction(UserSpecCallAction a)
+    private ExternalAction parseExternalAction(UserSpecCallAction a)
             throws UnknownKRLanguageException {
         List<Expression> arguments = new LinkedList<>();
         for (Term t : a.getParameters()) {
-            arguments.add(ExpressionParser.parse(t));
+            arguments.add(expressionParser.parse(t));
         }
         String source = a.getSpecification().getSourceInfo().getSource();
         return new ExternalAction(source, arguments);

@@ -50,18 +50,21 @@ class ConditionParserTest {
     private Selector selector;
     private PrologQuery query;
     private Term term;
-    private jpl.Term pTerm;
+    private org.jpl7.Term pTerm;
+
+    private ConditionParser parser;
 
     /**
      * Sets up the testing environment before each test.
      */
     @BeforeEach
     void setup() {
+        parser = new ConditionParser();
         literal = Mockito.mock(MentalLiteral.class);
         selector = Mockito.mock(Selector.class);
         query = Mockito.mock(PrologQuery.class);
         term = Mockito.mock(Var.class);
-        pTerm = Mockito.mock(jpl.Term.class);
+        pTerm = Mockito.mock(org.jpl7.Term.class);
 
         Mockito.when(pTerm.isVariable()).thenReturn(true);
         Mockito.when(literal.getSelector()).thenReturn(selector);
@@ -77,7 +80,7 @@ class ConditionParserTest {
     @Test
     void perceptTest() throws UnknownKRLanguageException {
         Mockito.when(literal.getOperator()).thenReturn(PERCEPT);
-        assertThat(ConditionParser.parse(literal)).isInstanceOf(PerceptCondition.class);
+        assertThat(parser.parse(literal)).isInstanceOf(PerceptCondition.class);
     }
 
     /**
@@ -86,7 +89,7 @@ class ConditionParserTest {
     @Test
     void beliefTest() throws UnknownKRLanguageException {
         Mockito.when(literal.getOperator()).thenReturn(BELIEF);
-        assertThat(ConditionParser.parse(literal)).isInstanceOf(BeliefCondition.class);
+        assertThat(parser.parse(literal)).isInstanceOf(BeliefCondition.class);
     }
 
     /**
@@ -95,7 +98,7 @@ class ConditionParserTest {
     @Test
     void goalTest() throws UnknownKRLanguageException {
         Mockito.when(literal.getOperator()).thenReturn(GOAL);
-        assertThat(ConditionParser.parse(literal)).isInstanceOf(GoalCondition.class);
+        assertThat(parser.parse(literal)).isInstanceOf(GoalCondition.class);
     }
 
     /**
@@ -104,7 +107,7 @@ class ConditionParserTest {
     @Test
     void aGoalTest() throws UnknownKRLanguageException {
         Mockito.when(literal.getOperator()).thenReturn(AGOAL);
-        assertThat(ConditionParser.parse(literal)).isInstanceOf(AGoalCondition.class);
+        assertThat(parser.parse(literal)).isInstanceOf(AGoalCondition.class);
     }
 
     /**
@@ -113,7 +116,7 @@ class ConditionParserTest {
     @Test
     void goalATest() throws UnknownKRLanguageException {
         Mockito.when(literal.getOperator()).thenReturn(GOALA);
-        assertThat(ConditionParser.parse(literal)).isInstanceOf(GoalACondition.class);
+        assertThat(parser.parse(literal)).isInstanceOf(GoalACondition.class);
     }
 
     /**
@@ -122,7 +125,7 @@ class ConditionParserTest {
     @Test
     void sentIndicativeTest() throws UnknownKRLanguageException {
         Mockito.when(literal.getOperator()).thenReturn(SENT_INDICATIVE);
-        Condition c = ConditionParser.parse(literal);
+        Condition c = parser.parse(literal);
         assertThat(c).isInstanceOf(SentCondition.class);
         SentCondition sc = (SentCondition) c;
         assertThat(sc.getMood()).isEqualTo(MessageMood.INDICATIVE);
@@ -135,7 +138,7 @@ class ConditionParserTest {
     @Test
     void sentImperativeTest() throws UnknownKRLanguageException {
         Mockito.when(literal.getOperator()).thenReturn(SENT_IMPERATIVE);
-        Condition c = ConditionParser.parse(literal);
+        Condition c = parser.parse(literal);
         assertThat(c).isInstanceOf(SentCondition.class);
         SentCondition sc = (SentCondition) c;
         assertThat(sc.getMood()).isEqualTo(MessageMood.IMPERATIVE);
@@ -148,7 +151,7 @@ class ConditionParserTest {
     @Test
     void sentInterrogativeTest() throws UnknownKRLanguageException {
         Mockito.when(literal.getOperator()).thenReturn(SENT_INTERROGATIVE);
-        Condition c = ConditionParser.parse(literal);
+        Condition c = parser.parse(literal);
         assertThat(c).isInstanceOf(SentCondition.class);
         SentCondition sc = (SentCondition) c;
         assertThat(sc.getMood()).isEqualTo(MessageMood.INTERROGATIVE);
@@ -164,7 +167,7 @@ class ConditionParserTest {
         Mockito.when(selector.getParameters()).thenReturn(Collections.singletonList(term));
         Mockito.when(term.getSignature()).thenReturn(SIGNATURE);
         Mockito.when(literal.getOperator()).thenReturn(SENT_INTERROGATIVE);
-        SentCondition sc = (SentCondition) ConditionParser.parse(literal);
+        SentCondition sc = (SentCondition) parser.parse(literal);
         assertThat(sc.getSender()).isEqualTo(new Constant(SIGNATURE));
     }
 
@@ -175,7 +178,7 @@ class ConditionParserTest {
     void noSelectorTest() throws UnknownKRLanguageException {
         Mockito.when(selector.getParameters()).thenReturn(new ArrayList<>());
         Mockito.when(literal.getOperator()).thenReturn(SENT_INTERROGATIVE);
-        SentCondition sc = (SentCondition) ConditionParser.parse(literal);
+        SentCondition sc = (SentCondition) parser.parse(literal);
         assertThat(sc.getSender()).isEqualTo(null);
     }
 
@@ -190,7 +193,7 @@ class ConditionParserTest {
         Mockito.when(si.getLineNumber()).thenReturn(LINE_NUMBER);
         Mockito.when(si.getCharacterPosition()).thenReturn(CHARACTER_POSITION);
         Mockito.when(literal.getSourceInfo()).thenReturn(si);
-        CharacterSource source = (CharacterSource) ConditionParser.parse(literal).getSource();
+        CharacterSource source = (CharacterSource) parser.parse(literal).getSource();
         assertThat(source.getFile()).isEqualTo(FILE_NAME);
         assertThat(source.getLine()).isEqualTo(LINE_NUMBER);
         assertThat(source.getPosition()).isEqualTo(CHARACTER_POSITION);

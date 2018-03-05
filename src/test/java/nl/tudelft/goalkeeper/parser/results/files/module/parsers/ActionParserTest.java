@@ -1,6 +1,6 @@
 package nl.tudelft.goalkeeper.parser.results.files.module.parsers;
 
-import jpl.Term;
+import org.jpl7.Term;
 import krTools.parser.SourceInfo;
 import languageTools.program.actionspec.UserSpecAction;
 import languageTools.program.agent.Module;
@@ -41,10 +41,13 @@ class ActionParserTest {
     private languageTools.program.agent.actions.Action input;
     private PrologTerm expression;
 
+    private ActionParser parser;
+
     /**
      * Sets up the testing environment before each test.
      */
     private void setup(Class<? extends languageTools.program.agent.actions.Action> type) {
+        parser = new ActionParser();
         expression = Mockito.mock(PrologTerm.class);
         Term term = Mockito.mock(Term.class);
         Mockito.when(expression.getTerm()).thenReturn(term);
@@ -65,12 +68,12 @@ class ActionParserTest {
         Mockito.when(selector.getParameters()).thenReturn(Collections.singletonList(expression));
         Mockito.when(sa.getSelector()).thenReturn(selector);
         Mockito.when((sa).getMood()).thenReturn(SentenceMood.IMPERATIVE);
-        assertThat(ActionParser.parse(input)).isInstanceOf(SendAction.class);
-        assertThat(((SendAction)ActionParser.parse(input)).getMood()).isEqualTo(MessageMood.IMPERATIVE);
+        assertThat(parser.parse(input)).isInstanceOf(SendAction.class);
+        assertThat(((SendAction)parser.parse(input)).getMood()).isEqualTo(MessageMood.IMPERATIVE);
         Mockito.when((sa).getMood()).thenReturn(SentenceMood.INDICATIVE);
-        assertThat(((SendAction)ActionParser.parse(input)).getMood()).isEqualTo(MessageMood.INDICATIVE);
+        assertThat(((SendAction)parser.parse(input)).getMood()).isEqualTo(MessageMood.INDICATIVE);
         Mockito.when((sa).getMood()).thenReturn(SentenceMood.INTERROGATIVE);
-        assertThat(((SendAction)ActionParser.parse(input)).getMood()).isEqualTo(MessageMood.INTERROGATIVE);
+        assertThat(((SendAction)parser.parse(input)).getMood()).isEqualTo(MessageMood.INTERROGATIVE);
     }
 
     /**
@@ -80,7 +83,7 @@ class ActionParserTest {
     void exitActionTest()
             throws UnknownKRLanguageException {
         setup(ExitModuleAction.class);
-        assertThat(ActionParser.parse(input)).isInstanceOf(ExitAction.class);
+        assertThat(parser.parse(input)).isInstanceOf(ExitAction.class);
     }
 
     /**
@@ -91,7 +94,7 @@ class ActionParserTest {
             throws UnknownKRLanguageException {
         setup(languageTools.program.agent.actions.StartTimerAction.class);
         Mockito.when(input.getParameters()).thenReturn(Arrays.asList(expression, expression, expression));
-        assertThat(ActionParser.parse(input)).isInstanceOf(StartTimerAction.class);
+        assertThat(parser.parse(input)).isInstanceOf(StartTimerAction.class);
     }
 
     /**
@@ -105,7 +108,7 @@ class ActionParserTest {
         Module module = Mockito.mock(Module.class);
         Mockito.when(module.getRules()).thenReturn(new ArrayList<>());
         Mockito.when(((ModuleCallAction)input).getTarget()).thenReturn(module);
-        assertThat(ActionParser.parse(input)).isInstanceOf(SubModuleAction.class);
+        assertThat(parser.parse(input)).isInstanceOf(SubModuleAction.class);
     }
 
     /**
@@ -122,8 +125,8 @@ class ActionParserTest {
         Mockito.when(module.getSourceInfo()).thenReturn(source);
         Mockito.when(source.getSource()).thenReturn("AMAZING SOURCE");
         Mockito.when(((ModuleCallAction)input).getTarget()).thenReturn(module);
-        assertThat(ActionParser.parse(input)).isInstanceOf(ModuleAction.class);
-        assertThat(((ModuleAction)ActionParser.parse(input)).getTarget()).isEqualTo("AMAZING SOURCE");
+        assertThat(parser.parse(input)).isInstanceOf(ModuleAction.class);
+        assertThat(((ModuleAction)parser.parse(input)).getTarget()).isEqualTo("AMAZING SOURCE");
     }
 
     /**
@@ -138,8 +141,8 @@ class ActionParserTest {
         SourceInfo source = Mockito.mock(SourceInfo.class);
         Mockito.when(spec.getSourceInfo()).thenReturn(source);
         Mockito.when(source.getSource()).thenReturn("LAME SOURCE");
-        assertThat(ActionParser.parse(input)).isInstanceOf(ExternalAction.class);
-        assertThat(((ExternalAction)ActionParser.parse(input)).getTarget()).isEqualTo("LAME SOURCE");
+        assertThat(parser.parse(input)).isInstanceOf(ExternalAction.class);
+        assertThat(((ExternalAction)parser.parse(input)).getTarget()).isEqualTo("LAME SOURCE");
     }
 
     /**
@@ -150,15 +153,15 @@ class ActionParserTest {
             throws UnknownKRLanguageException {
         setup(NonMentalAction.class);
         Mockito.when(input.getSignature()).thenReturn("print/1");
-        assertThat(ActionParser.parse(input)).isInstanceOf(InternalAction.class);
-        assertThat(ActionParser.parse(input).getIdentifier()).isEqualTo("print/1");
+        assertThat(parser.parse(input)).isInstanceOf(InternalAction.class);
+        assertThat(parser.parse(input).getIdentifier()).isEqualTo("print/1");
         Mockito.when(input.getSignature()).thenReturn("log/1");
-        assertThat(ActionParser.parse(input)).isInstanceOf(InternalAction.class);
-        assertThat(ActionParser.parse(input).getIdentifier()).isEqualTo("log/1");
+        assertThat(parser.parse(input)).isInstanceOf(InternalAction.class);
+        assertThat(parser.parse(input).getIdentifier()).isEqualTo("log/1");
         //TODO: Remove the following lines when goal fixes the copy paste error.
         Mockito.when(input.getSignature()).thenReturn("starttimer/1");
-        assertThat(ActionParser.parse(input)).isInstanceOf(InternalAction.class);
-        assertThat(ActionParser.parse(input).getIdentifier()).isEqualTo("canceltimer/1");
+        assertThat(parser.parse(input)).isInstanceOf(InternalAction.class);
+        assertThat(parser.parse(input).getIdentifier()).isEqualTo("canceltimer/1");
     }
 
     /**
@@ -172,7 +175,7 @@ class ActionParserTest {
         Mockito.when(si.getLineNumber()).thenReturn(LINE_NUMBER);
         Mockito.when(si.getCharacterPosition()).thenReturn(CHARACTER_POSITION);
         Mockito.when(input.getSourceInfo()).thenReturn(si);
-        CharacterSource output = (CharacterSource) ActionParser.parse(input).getSource();
+        CharacterSource output = (CharacterSource) parser.parse(input).getSource();
         assertThat(output.getFile()).isEqualTo(FILE_NAME);
         assertThat(output.getLine()).isEqualTo(LINE_NUMBER);
         assertThat(output.getPosition()).isEqualTo(CHARACTER_POSITION);

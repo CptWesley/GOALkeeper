@@ -1,6 +1,6 @@
 package nl.tudelft.goalkeeper.parser.results.files.module.parsers;
 
-import jpl.Term;
+import org.jpl7.Term;
 import krTools.parser.SourceInfo;
 import languageTools.program.agent.actions.Action;
 import languageTools.program.agent.actions.ActionCombo;
@@ -38,11 +38,14 @@ class RuleParserTest {
     private List<MentalLiteral> conditions;
     private List<Action<?>> actions;
 
+    private RuleParser parser;
+
     /**
      * Sets up the testing environment before each test.
      */
     @BeforeEach
     void setup() {
+        parser = new RuleParser();
         conditions = new ArrayList<>();
         actions = new ArrayList<>();
         rule = Mockito.mock(ListallDoRule.class);
@@ -59,7 +62,7 @@ class RuleParserTest {
      */
     @Test
     void getTypeListAllTest() {
-        assertThat(RuleParser.parse(rule).getType()).isEqualTo(RuleType.LISTALL);
+        assertThat(parser.parse(rule).getType()).isEqualTo(RuleType.LISTALL);
     }
 
     /**
@@ -77,12 +80,12 @@ class RuleParserTest {
         Selector selector = Mockito.mock(Selector.class);
         Mockito.when(lit.getSelector()).thenReturn(selector);
         Mockito.when(selector.getParameters()).thenReturn(new ArrayList<>());
-        assertThat(RuleParser.parse(rule).getConditions()).hasSize(0);
+        assertThat(parser.parse(rule).getConditions()).hasSize(0);
         conditions.add(lit);
-        assertThat(RuleParser.parse(rule).getConditions()).hasSize(1);
+        assertThat(parser.parse(rule).getConditions()).hasSize(1);
         conditions.add(lit);
-        assertThat(RuleParser.parse(rule).getConditions()).hasSize(2);
-        assertThat(RuleParser.parse(rule).getKRLanguage()).isEqualTo(KRLanguage.PROLOG);
+        assertThat(parser.parse(rule).getConditions()).hasSize(2);
+        assertThat(parser.parse(rule).getKRLanguage()).isEqualTo(KRLanguage.PROLOG);
     }
 
     /**
@@ -99,11 +102,11 @@ class RuleParserTest {
         Selector selector = Mockito.mock(Selector.class);
         Mockito.when(selector.getParameters()).thenReturn(new ArrayList<>());
         Mockito.when(action.getSignature()).thenReturn("exit-module/0");
-        assertThat(RuleParser.parse(rule).getActions()).hasSize(0);
+        assertThat(parser.parse(rule).getActions()).hasSize(0);
         actions.add(action);
-        assertThat(RuleParser.parse(rule).getActions()).hasSize(1);
+        assertThat(parser.parse(rule).getActions()).hasSize(1);
         actions.add(action);
-        assertThat(RuleParser.parse(rule).getActions()).hasSize(2);
+        assertThat(parser.parse(rule).getActions()).hasSize(2);
     }
 
     /**
@@ -126,7 +129,7 @@ class RuleParserTest {
         Mockito.when(asi.getLineNumber()).thenReturn(ENDING_LINE);
         Mockito.when(action.getSourceInfo()).thenReturn(asi);
         actions.add(action);
-        Source source = RuleParser.parse(rule).getSource();
+        Source source = parser.parse(rule).getSource();
         assertThat(source.getFile()).isEqualTo(FILE_NAME);
         assertThat(source).isInstanceOf(LineSource.class);
         assertThat(((LineSource) source).getLine()).isEqualTo(ENDING_LINE);
@@ -139,7 +142,7 @@ class RuleParserTest {
         Mockito.when(csi.getLineNumber()).thenReturn(STARTING_LINE);
         Mockito.when(lit.getSourceInfo()).thenReturn(csi);
         conditions.add(lit);
-        source = RuleParser.parse(rule).getSource();
+        source = parser.parse(rule).getSource();
         assertThat(source.getFile()).isEqualTo(FILE_NAME);
         assertThat(source).isInstanceOf(BlockSource.class);
         assertThat(((BlockSource) source).getStartingLine()).isEqualTo(STARTING_LINE);

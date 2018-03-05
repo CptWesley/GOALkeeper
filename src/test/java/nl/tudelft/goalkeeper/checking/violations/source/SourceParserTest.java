@@ -34,7 +34,7 @@ class SourceParserTest {
      */
     @Test
     void parseTest() {
-        Source s = SourceParser.parse(si);
+        Source s = new SourceParser().parse(si);
         assertThat(s.getFile()).isEqualTo(FILE_NAME);
         assertThat(s).isInstanceOf(CharacterSource.class);
         CharacterSource cs = (CharacterSource) s;

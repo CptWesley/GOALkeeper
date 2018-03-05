@@ -2,6 +2,8 @@ package nl.tudelft.goalkeeper.parser.results.files.module.parsers;
 
 import languageTools.program.agent.rules.ForallDoRule;
 import languageTools.program.agent.rules.ListallDoRule;
+import lombok.Getter;
+import lombok.Setter;
 import nl.tudelft.goalkeeper.checking.violations.source.BlockSource;
 import nl.tudelft.goalkeeper.checking.violations.source.CharacterSource;
 import nl.tudelft.goalkeeper.checking.violations.source.LineSource;
@@ -17,10 +19,16 @@ import nl.tudelft.goalkeeper.parser.results.parts.KRLanguage;
  */
 public final class RuleParser {
 
+    @Getter @Setter private ConditionParser conditionParser;
+    @Getter @Setter private ActionParser actionParser;
+
     /**
-     * Prevents instantiation.
+     * Creates a new RuleParser instance.
      */
-    private RuleParser() { }
+    public RuleParser() {
+        conditionParser = new ConditionParser();
+        actionParser = new ActionParser();
+    }
 
     /**
      * Parses a rule.
@@ -28,7 +36,7 @@ public final class RuleParser {
      * @return GOALkeeper rule version of the rule.
      */
     @SuppressWarnings("MethodLength")
-    public static Rule parse(languageTools.program.agent.rules.Rule r) {
+    public Rule parse(languageTools.program.agent.rules.Rule r) {
         Rule rule = new Rule(getType(r));
         String fileName = "";
         int startingLine = Integer.MAX_VALUE;
@@ -37,7 +45,7 @@ public final class RuleParser {
         for (languageTools.program.agent.msc.MentalLiteral l
                 : r.getCondition().getAllLiterals()) {
             try {
-                Condition c = ConditionParser.parse(l);
+                Condition c = conditionParser.parse(l);
                 rule.addCondition(c);
                 if (c.getSource() != null && c.getSource() instanceof CharacterSource) {
                     CharacterSource source = (CharacterSource) c.getSource();
@@ -54,7 +62,7 @@ public final class RuleParser {
         }
         for (languageTools.program.agent.actions.Action<?> a : r.getAction().getActions()) {
             try {
-                Action action = ActionParser.parse(a);
+                Action action = actionParser.parse(a);
                 rule.addAction(action);
                 if (action.getSource() != null && action.getSource() instanceof CharacterSource) {
                     CharacterSource source = (CharacterSource) action.getSource();

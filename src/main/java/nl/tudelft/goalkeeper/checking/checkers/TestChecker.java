@@ -68,10 +68,11 @@ public class TestChecker implements CheckerInterface {
             assert test != null;
             test.cleanup();
             // Add the result of the test run to the results list.
-            results.add(new Tuple2<>(testFile.getName(), 0.0));
+            results.add(new Tuple2<>(testFile.getName(), test.calculatePercentage()));
 
             // Calculate the severity of the errors and parse the violations.
             results.forEach((tuple) -> {
+                System.out.println(("Looking at a test result"));
                 int severity = rule.severityOf(tuple.getSecond());
                 if (severity > 0) {
                     boolean error = severity >= ruleSet.getErrorSeverity();

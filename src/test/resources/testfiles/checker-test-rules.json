@@ -21,10 +21,6 @@
       "enabled": true,
       "stages": [
         {
-          "severity": 0,
-          "min": 100
-        },
-        {
           "severity": 2,
           "max": 70
         }

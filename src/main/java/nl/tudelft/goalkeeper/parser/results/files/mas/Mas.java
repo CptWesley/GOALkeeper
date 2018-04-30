@@ -19,7 +19,7 @@ public final class Mas extends File {
      * @param fileName fileName of the file.
      * @throws IOException Thrown when file could not be read.
      */
-    protected Mas(String fileName) throws IOException {
+    public Mas(String fileName) throws IOException {
         super(fileName);
         definitions = new ArrayList<>();
     }

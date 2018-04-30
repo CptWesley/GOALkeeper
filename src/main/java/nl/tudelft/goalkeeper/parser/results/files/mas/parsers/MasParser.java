@@ -17,6 +17,7 @@ public final class MasParser {
      * @throws IOException Thrown when there is a problem reading the file.
      */
     public Mas parse(MASProgram program) throws IOException {
-        return null;
+        Mas mas = new Mas(program.getSourceFile().toString());
+        return mas;
     }
 }

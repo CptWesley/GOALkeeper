@@ -69,7 +69,6 @@ public final class Parser {
     private void convert(ParseResult result, Analysis analysis) {
         for (Module m : analysis.getModuleDefinitions()) {
             try {
-                ModuleParser parser = new ModuleParser();
                 result.addModule(moduleParser.parseToFile(m));
             } catch (IOException e) {
                 e.printStackTrace();

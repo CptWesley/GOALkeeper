@@ -4,7 +4,6 @@ import languageTools.program.mas.MASProgram;
 import lombok.Getter;
 import lombok.Setter;
 import nl.tudelft.goalkeeper.parser.results.files.mas.MasFile;
-import nl.tudelft.goalkeeper.parser.results.files.mas.MasFile;
 
 import java.io.IOException;
 

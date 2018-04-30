@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Class representing a MAS.
  */
-public final class Mas extends File {
+public final class MasFile extends File {
 
     private List<AgentDefinition> definitions;
 
@@ -19,7 +19,7 @@ public final class Mas extends File {
      * @param fileName fileName of the file.
      * @throws IOException Thrown when file could not be read.
      */
-    public Mas(String fileName) throws IOException {
+    public MasFile(String fileName) throws IOException {
         super(fileName);
         definitions = new ArrayList<>();
     }

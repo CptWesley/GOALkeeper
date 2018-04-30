@@ -4,7 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 import nl.tudelft.goalkeeper.checking.violations.Violation;
 import nl.tudelft.goalkeeper.parser.results.files.actionspec.ActionSpecFile;
-import nl.tudelft.goalkeeper.parser.results.files.mas.Mas;
+import nl.tudelft.goalkeeper.parser.results.files.mas.MasFile;
+import nl.tudelft.goalkeeper.parser.results.files.mas.MasFile;
 import nl.tudelft.goalkeeper.parser.results.files.module.ModuleFile;
 
 import java.util.Collections;
@@ -21,7 +22,7 @@ public final class ParseResult {
 
     private List<ModuleFile> modules;
     private List<ActionSpecFile> actionSpecs;
-    @Getter @Setter private Mas mas; //NOPMD PMD can't handle Lombok.
+    @Getter @Setter private MasFile masFile; //NOPMD PMD can't handle Lombok.
 
     /**
      * Creates a new parse result class.

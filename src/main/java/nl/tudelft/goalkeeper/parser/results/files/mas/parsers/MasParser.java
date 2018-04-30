@@ -3,7 +3,8 @@ package nl.tudelft.goalkeeper.parser.results.files.mas.parsers;
 import languageTools.program.mas.MASProgram;
 import lombok.Getter;
 import lombok.Setter;
-import nl.tudelft.goalkeeper.parser.results.files.mas.Mas;
+import nl.tudelft.goalkeeper.parser.results.files.mas.MasFile;
+import nl.tudelft.goalkeeper.parser.results.files.mas.MasFile;
 
 import java.io.IOException;
 
@@ -27,13 +28,13 @@ public final class MasParser {
      * @return GOALKeeper variant of the MASProgram.
      * @throws IOException Thrown when there is a problem reading the file.
      */
-    public Mas parse(MASProgram program) throws IOException {
-        Mas mas = new Mas(program.getSourceFile().toString());
+    public MasFile parse(MASProgram program) throws IOException {
+        MasFile masFile = new MasFile(program.getSourceFile().toString());
 
         for (String name : program.getAgentNames()) {
-            mas.addAgentDefinition(agentDefinitionParser.parse(program.getAgentDefinition(name)));
+            masFile.addAgentDefinition(agentDefinitionParser.parse(program.getAgentDefinition(name)));
         }
-        
-        return mas;
+
+        return masFile;
     }
 }

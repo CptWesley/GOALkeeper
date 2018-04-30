@@ -5,10 +5,10 @@ import lombok.Setter;
 import nl.tudelft.goalkeeper.checking.violations.source.Source;
 import nl.tudelft.goalkeeper.parser.results.files.module.actions.Action;
 import nl.tudelft.goalkeeper.parser.results.files.module.conditions.Condition;
+import nl.tudelft.goalkeeper.parser.results.files.module.conditions.ConditionComparator;
 import nl.tudelft.goalkeeper.parser.results.parts.KRLanguage;
 import nl.tudelft.goalkeeper.parser.results.parts.Linguistic;
 import nl.tudelft.goalkeeper.parser.results.parts.Sourceable;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -24,8 +24,10 @@ public final class Rule implements Sourceable, Linguistic {
     @Getter @Setter private Source source;
     @Getter @Setter private KRLanguage kRLanguage = KRLanguage.UNKNOWN;
 
+
     /**
      * Creates a rule instance.
+     *
      * @param type Type of rule.
      */
     public Rule(RuleType type) {
@@ -36,6 +38,7 @@ public final class Rule implements Sourceable, Linguistic {
 
     /**
      * Gets the condition of this rule.
+     *
      * @return Condition of this rule.
      */
     public List<Condition> getConditions() {
@@ -44,6 +47,7 @@ public final class Rule implements Sourceable, Linguistic {
 
     /**
      * Gets the action of this rule.
+     *
      * @return Action of this rule.
      */
     public List<Action> getActions() {
@@ -52,6 +56,7 @@ public final class Rule implements Sourceable, Linguistic {
 
     /**
      * Adds a condition to the set of conditions.
+     *
      * @param condition Condition to be added.
      * @return Current object.
      */
@@ -62,6 +67,7 @@ public final class Rule implements Sourceable, Linguistic {
 
     /**
      * Adds a action to the set of actions.
+     *
      * @param action Action to be added.
      * @return Current object.
      */
@@ -72,6 +78,7 @@ public final class Rule implements Sourceable, Linguistic {
 
     /**
      * Gets the hashcode of the condition collection.
+     *
      * @return Hashcode of the conditions.
      */
     public int getConditionsHashCode() {
@@ -84,6 +91,7 @@ public final class Rule implements Sourceable, Linguistic {
 
     /**
      * Gets the hashcode of the action collection.
+     *
      * @return Hashcode of the actions.
      */
     public int getActionsHashCode() {
@@ -92,6 +100,25 @@ public final class Rule implements Sourceable, Linguistic {
             result += actions.get(i).hashCode() * (i + 1);
         }
         return result;
+    }
+
+    /**
+     * This checks if two rules are equivalent.
+     *
+     * @param rule The rule to check against.
+     * @return True if they are equivalent else false.
+     */
+    public boolean equivalentTo(Rule rule) {
+        if (this.type.equals(rule.type)) {
+            List<Condition> r1;
+            List<Condition> r2;
+            r1 = this.conditions;
+            r1.sort(new ConditionComparator());
+            r2 = rule.conditions;
+            r2.sort(new ConditionComparator());
+            return r1.equals(r2);
+        }
+        return false;
     }
 
     /**

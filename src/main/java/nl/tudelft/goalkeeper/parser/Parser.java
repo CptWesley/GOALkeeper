@@ -86,7 +86,7 @@ public final class Parser {
             }
         }
         try {
-            result.setMas(masParser.parse(analysis.getProgram()));
+            result.setMasFile(masParser.parse(analysis.getProgram()));
         } catch (IOException e) {
             e.printStackTrace();
         }

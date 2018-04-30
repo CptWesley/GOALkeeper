@@ -10,5 +10,14 @@ import nl.tudelft.goalkeeper.parser.results.parts.Sourceable;
  */
 public final class AgentDefinition implements Sourceable {
 
-    @Getter @Setter Source source;
+    @Getter @Setter private Source source;
+    @Getter private String name;
+
+    /**
+     * Creates a new AgentDefinitionInstance.
+     * @param name Name of the agent.
+     */
+    public AgentDefinition(String name) {
+        this.name = name;
+    }
 }

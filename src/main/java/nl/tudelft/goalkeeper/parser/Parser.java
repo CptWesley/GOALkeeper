@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.Setter;
 import nl.tudelft.goalkeeper.parser.results.ParseResult;
 import nl.tudelft.goalkeeper.parser.results.files.actionspec.parsers.ActionSpecParser;
+import nl.tudelft.goalkeeper.parser.results.files.mas.parsers.MasParser;
 import nl.tudelft.goalkeeper.parser.results.files.module.parsers.MessageParser;
 import nl.tudelft.goalkeeper.parser.results.files.module.parsers.ModuleParser;
 
@@ -21,6 +22,7 @@ public final class Parser {
 
     @Getter @Setter private MessageParser messageParser;
     @Getter @Setter private ModuleParser moduleParser;
+    @Getter @Setter private MasParser masParser;
     @Getter @Setter private ActionSpecParser actionSpecParser;
     @Getter @Setter private MASValidator validator;
 
@@ -32,6 +34,7 @@ public final class Parser {
         actionSpecParser = new ActionSpecParser();
         messageParser = new MessageParser();
         moduleParser = new ModuleParser();
+        masParser = new MasParser();
         validator = new MASValidator(fileName, new FileRegistry());
     }
 
@@ -81,6 +84,11 @@ public final class Parser {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+        try {
+            result.setMas(masParser.parse(analysis.getProgram()));
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

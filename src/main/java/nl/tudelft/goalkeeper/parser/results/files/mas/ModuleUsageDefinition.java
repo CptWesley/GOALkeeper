@@ -17,7 +17,7 @@ public final class ModuleUsageDefinition implements Sourceable {
 
     /**
      * Creates a new ModuleUsageDefinitionInstance.
-     * @param target
+     * @param target File path of the target module.
      */
     public ModuleUsageDefinition(String target) {
         this.target = target;

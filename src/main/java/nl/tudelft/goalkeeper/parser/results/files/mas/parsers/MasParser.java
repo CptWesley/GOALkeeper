@@ -31,7 +31,8 @@ public final class MasParser {
         MasFile masFile = new MasFile(program.getSourceFile().toString());
 
         for (String name : program.getAgentNames()) {
-            masFile.addAgentDefinition(agentDefinitionParser.parse(program.getAgentDefinition(name)));
+            masFile.addAgentDefinition(agentDefinitionParser
+                    .parse(program.getAgentDefinition(name)));
         }
 
         return masFile;

@@ -5,7 +5,6 @@ import lombok.Setter;
 import nl.tudelft.goalkeeper.checking.violations.Violation;
 import nl.tudelft.goalkeeper.parser.results.files.actionspec.ActionSpecFile;
 import nl.tudelft.goalkeeper.parser.results.files.mas.MasFile;
-import nl.tudelft.goalkeeper.parser.results.files.mas.MasFile;
 import nl.tudelft.goalkeeper.parser.results.files.module.ModuleFile;
 
 import java.util.Collections;

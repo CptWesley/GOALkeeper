@@ -7,6 +7,7 @@ import languageTools.errors.Message;
 import languageTools.program.agent.Module;
 import nl.tudelft.goalkeeper.checking.violations.Violation;
 import nl.tudelft.goalkeeper.parser.results.ParseResult;
+import nl.tudelft.goalkeeper.parser.results.files.mas.parsers.MasParser;
 import nl.tudelft.goalkeeper.parser.results.files.module.parsers.MessageParser;
 import nl.tudelft.goalkeeper.parser.results.files.module.parsers.ModuleParser;
 import org.junit.jupiter.api.BeforeEach;
@@ -28,6 +29,7 @@ class ParserTest {
     private MASValidator validator;
     private MessageParser messageParser;
     private ModuleParser moduleParser;
+    private MasParser masParser;
     private Violation violation;
     private Message message;
     private Analysis analysis;
@@ -44,9 +46,11 @@ class ParserTest {
         violation = Mockito.mock(Violation.class);
         message = Mockito.mock(Message.class);
         moduleParser = Mockito.mock(ModuleParser.class);
+        masParser = Mockito.mock(MasParser.class);
         parser.setValidator(validator);
         parser.setMessageParser(messageParser);
         parser.setModuleParser(moduleParser);
+        parser.setMasParser(masParser);
         fileRegistry = Mockito.mock(FileRegistry.class);
         Mockito.when(messageParser.parse(message)).thenReturn(violation);
         Mockito.when(validator.getRegistry()).thenReturn(fileRegistry);

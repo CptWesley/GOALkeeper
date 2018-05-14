@@ -2,6 +2,7 @@ package nl.tudelft.goalkeeper.parser.results.files.module.parsers;
 
 import krTools.language.Term;
 import krTools.parser.SourceInfo;
+import languageTools.program.actionspec.UserSpecAction;
 import languageTools.program.agent.actions.ExitModuleAction;
 import languageTools.program.agent.actions.ModuleCallAction;
 import languageTools.program.agent.actions.UserSpecCallAction;
@@ -181,7 +182,9 @@ public final class ActionParser {
         for (Term t : a.getParameters()) {
             arguments.add(expressionParser.parse(t));
         }
-        String source = a.getSpecification().getSourceInfo().getSource();
-        return new ExternalAction(source, arguments);
+        UserSpecAction spec = a.getSpecification();
+        String source = spec.getSourceInfo().getSource();
+        return new ExternalAction(spec.getName(),
+                spec.getParameters().size(), source, arguments);
     }
 }

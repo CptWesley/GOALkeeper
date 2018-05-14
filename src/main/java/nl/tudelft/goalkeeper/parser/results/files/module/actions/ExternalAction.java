@@ -3,6 +3,7 @@ package nl.tudelft.goalkeeper.parser.results.files.module.actions;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import nl.tudelft.goalkeeper.parser.results.files.actionspec.ActionSpecification;
 import nl.tudelft.goalkeeper.parser.results.parts.Expression;
 
 import java.util.Collection;
@@ -16,15 +17,23 @@ import java.util.List;
 @EqualsAndHashCode
 public final class ExternalAction extends Action {
 
-    @Getter @Setter private String target; //NOPMD PMD can't handle Lombok.
+    @Getter private String name; //NOPMD PMD can't handle Lombok.
+    @Getter private String target; //NOPMD PMD can't handle Lombok.
+    @Getter private int arity; //NOPMD PMD can't handle Lombok.
+    @Getter @Setter private ActionSpecification action; //NOPMD PMD can't handle Lombok.
     private List<Expression> arguments;
 
     /**
      * Creates a new environment action call instance.
+     * @param name Name of the action.
+     * @param arity Arity of the action.
      * @param target Target actionspec source path.
      * @param arguments Arguments given to the call.
      */
-    public ExternalAction(String target, Collection<Expression> arguments) {
+    public ExternalAction(String name, int arity,
+                          String target, Collection<Expression> arguments) {
+        this.name = name;
+        this.arity = arity;
         this.target = target;
         this.arguments = new LinkedList<>();
         this.arguments.addAll(arguments);

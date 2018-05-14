@@ -3,6 +3,7 @@ package nl.tudelft.goalkeeper.parser.results.files.module.actions;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import nl.tudelft.goalkeeper.parser.results.files.actionspec.ActionSpecFile;
 import nl.tudelft.goalkeeper.parser.results.files.actionspec.ActionSpecification;
 import nl.tudelft.goalkeeper.parser.results.parts.Expression;
 
@@ -20,7 +21,7 @@ public final class ExternalAction extends Action {
     @Getter private String name; //NOPMD PMD can't handle Lombok.
     @Getter private String target; //NOPMD PMD can't handle Lombok.
     @Getter private int arity; //NOPMD PMD can't handle Lombok.
-    @Getter @Setter private ActionSpecification action; //NOPMD PMD can't handle Lombok.
+    @Getter @Setter private ActionSpecFile action; //NOPMD PMD can't handle Lombok.
     private List<Expression> arguments;
 
     /**

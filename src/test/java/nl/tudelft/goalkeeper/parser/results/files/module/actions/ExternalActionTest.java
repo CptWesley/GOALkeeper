@@ -1,5 +1,6 @@
 package nl.tudelft.goalkeeper.parser.results.files.module.actions;
 
+import nl.tudelft.goalkeeper.parser.results.files.actionspec.ActionSpecFile;
 import nl.tudelft.goalkeeper.parser.results.files.actionspec.ActionSpecification;
 import nl.tudelft.goalkeeper.parser.results.parts.Expression;
 import org.junit.jupiter.api.BeforeEach;
@@ -134,7 +135,7 @@ class ExternalActionTest {
     @Test
     void actionTest() {
         assertThat(action.getAction()).isNull();
-        ActionSpecification as = Mockito.mock(ActionSpecification.class);
+        ActionSpecFile as = Mockito.mock(ActionSpecFile.class);
         action.setAction(as);
         assertThat(action.getAction()).isSameAs(as);
     }

@@ -89,7 +89,7 @@ public final class FileLinker {
      * Link the module files.
      * @param module Module to link in.
      * @param modules Module map.
-     * @param modules ActionSpec map.
+     * @param actionSpecs ActionSpec map.
      */
     public void linkModule(Module module, Map<String,
             ModuleFile> modules, Map<String, ActionSpecFile> actionSpecs) {

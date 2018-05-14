@@ -4,7 +4,6 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import nl.tudelft.goalkeeper.parser.results.files.actionspec.ActionSpecFile;
-import nl.tudelft.goalkeeper.parser.results.files.actionspec.ActionSpecification;
 import nl.tudelft.goalkeeper.parser.results.parts.Expression;
 
 import java.util.Collection;

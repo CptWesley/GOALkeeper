@@ -9,7 +9,7 @@ import java.util.List;
  */
 public final class SubModule implements Module {
 
-    private List<Rule> rules;
+    private List<ModuleRule> rules;
 
     /**
      * Creates a new submodule instance.
@@ -22,7 +22,7 @@ public final class SubModule implements Module {
      * {@inheritDoc}
      */
     @Override
-    public List<Rule> getRules() {
+    public List<ModuleRule> getRules() {
         return Collections.unmodifiableList(rules);
     }
 
@@ -30,7 +30,7 @@ public final class SubModule implements Module {
      * {@inheritDoc}
      */
     @Override
-    public void addRule(Rule rule) {
+    public void addRule(ModuleRule rule) {
         rules.add(rule);
     }
 
@@ -40,7 +40,7 @@ public final class SubModule implements Module {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        for (Rule rule : rules) {
+        for (ModuleRule rule : rules) {
             sb.append(System.getProperty("line.separator")).append(rule);
         }
         return sb.toString();

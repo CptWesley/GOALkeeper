@@ -10,11 +10,11 @@ public interface Module {
      * Get a list of all rules in the module.
      * @return List of all rules in the module.
      */
-    List<Rule> getRules();
+    List<ModuleRule> getRules();
 
     /**
      * Adds a rule to the module.
-     * @param rule Rule to be added.
+     * @param rule ModuleRule to be added.
      */
-    void addRule(Rule rule);
+    void addRule(ModuleRule rule);
 }

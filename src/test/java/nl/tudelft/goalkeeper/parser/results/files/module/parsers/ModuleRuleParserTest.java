@@ -28,7 +28,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * Test class for the RuleParser class.
  */
-class RuleParserTest {
+class ModuleRuleParserTest {
 
     private static final String FILE_NAME = "fgdssfgd";
     private static int STARTING_LINE = 45;

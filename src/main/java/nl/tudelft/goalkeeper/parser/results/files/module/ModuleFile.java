@@ -20,7 +20,7 @@ import java.util.List;
  */
 public final class ModuleFile extends File implements Module, Linguistic {
 
-    private List<Rule> rules;
+    private List<ModuleRule> rules;
     @Getter @Setter private String name; //NOPMD PMD can't handle Lombok.
     @Getter @Setter private KRLanguage kRLanguage = KRLanguage.UNKNOWN;
     @Getter @Setter private EvaluationOrder evaluationOrder
@@ -42,7 +42,7 @@ public final class ModuleFile extends File implements Module, Linguistic {
      * {@inheritDoc}
      */
     @Override
-    public List<Rule> getRules() {
+    public List<ModuleRule> getRules() {
         return Collections.unmodifiableList(rules);
     }
 
@@ -50,7 +50,7 @@ public final class ModuleFile extends File implements Module, Linguistic {
      * {@inheritDoc}
      */
     @Override
-    public void addRule(Rule rule) {
+    public void addRule(ModuleRule rule) {
         rules.add(rule);
     }
 

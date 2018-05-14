@@ -5,6 +5,7 @@ import languageTools.program.agent.actions.ActionCombo;
 import languageTools.program.agent.msc.MentalStateCondition;
 import languageTools.program.agent.rules.Rule;
 import nl.tudelft.goalkeeper.parser.results.files.module.ModuleFile;
+import nl.tudelft.goalkeeper.parser.results.files.module.ModuleRule;
 import nl.tudelft.goalkeeper.parser.results.files.module.SubModule;
 import nl.tudelft.goalkeeper.parser.results.parts.KRLanguage;
 import org.junit.jupiter.api.BeforeEach;
@@ -101,8 +102,8 @@ class ModuleParserTest {
     void krLanguageTest() throws IOException {
         Mockito.when(module.getRules()).thenReturn(Collections.singletonList(null));
         RuleParser ruleParser = Mockito.mock(RuleParser.class);
-        nl.tudelft.goalkeeper.parser.results.files.module.Rule rule
-                = Mockito.mock(nl.tudelft.goalkeeper.parser.results.files.module.Rule.class);
+        ModuleRule rule
+                = Mockito.mock(ModuleRule.class);
         Mockito.when(rule.getKRLanguage()).thenReturn(KRLanguage.PROLOG);
         Mockito.when(ruleParser.parse(Mockito.any())).thenReturn(rule);
         parser.setRuleParser(ruleParser);

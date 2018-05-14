@@ -14,9 +14,9 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Rule class.
+ * ModuleRule class.
  */
-public final class Rule implements Sourceable, Linguistic {
+public final class ModuleRule implements Sourceable, Linguistic {
 
     @Getter private RuleType type;
     private List<Condition> conditions;
@@ -30,7 +30,7 @@ public final class Rule implements Sourceable, Linguistic {
      *
      * @param type Type of rule.
      */
-    public Rule(RuleType type) {
+    public ModuleRule(RuleType type) {
         this.type = type;
         this.conditions = new ArrayList<>();
         this.actions = new ArrayList<>();
@@ -60,7 +60,7 @@ public final class Rule implements Sourceable, Linguistic {
      * @param condition Condition to be added.
      * @return Current object.
      */
-    public Rule addCondition(Condition condition) {
+    public ModuleRule addCondition(Condition condition) {
         conditions.add(condition);
         return this;
     }
@@ -71,7 +71,7 @@ public final class Rule implements Sourceable, Linguistic {
      * @param action Action to be added.
      * @return Current object.
      */
-    public Rule addAction(Action action) {
+    public ModuleRule addAction(Action action) {
         actions.add(action);
         return this;
     }
@@ -108,7 +108,7 @@ public final class Rule implements Sourceable, Linguistic {
      * @param rule The rule to check against.
      * @return True if they are equivalent else false.
      */
-    public boolean equivalentTo(Rule rule) {
+    public boolean equivalentTo(ModuleRule rule) {
         if (this.type.equals(rule.type)) {
             List<Condition> r1;
             List<Condition> r2;
@@ -134,8 +134,8 @@ public final class Rule implements Sourceable, Linguistic {
      */
     @Override
     public boolean equals(Object o) {
-        if (o instanceof Rule) {
-            Rule that = (Rule) o;
+        if (o instanceof ModuleRule) {
+            ModuleRule that = (ModuleRule) o;
             if (!this.type.equals(that.type)) {
                 return false;
             }

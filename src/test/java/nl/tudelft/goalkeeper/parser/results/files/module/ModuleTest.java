@@ -21,8 +21,8 @@ abstract class ModuleTest {
      */
     @Test
     void addRuleTest() {
-        Rule r1 = Mockito.mock(Rule.class);
-        Rule r2 = Mockito.mock(Rule.class);
+        ModuleRule r1 = Mockito.mock(ModuleRule.class);
+        ModuleRule r2 = Mockito.mock(ModuleRule.class);
         assertThat(getModule().getRules()).isEmpty();
         getModule().addRule(r1);
         assertThat(getModule().getRules()).containsExactly(r1);

@@ -35,8 +35,8 @@ class SubModuleTest extends ModuleTest {
      */
     @Test
     void toStringTest() {
-        Rule r1 = Mockito.mock(Rule.class);
-        Rule r2 = Mockito.mock(Rule.class);
+        ModuleRule r1 = Mockito.mock(ModuleRule.class);
+        ModuleRule r2 = Mockito.mock(ModuleRule.class);
         Mockito.when(r1.toString()).thenReturn("a");
         Mockito.when(r2.toString()).thenReturn("b");
         module.addRule(r1);

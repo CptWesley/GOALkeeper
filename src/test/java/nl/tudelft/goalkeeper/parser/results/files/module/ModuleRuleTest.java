@@ -11,19 +11,19 @@ import org.mockito.Mockito;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Test class for the Rule class.
+ * Test class for the ModuleRule class.
  */
 @SuppressWarnings("PMD.TooManyMethods")
-class RuleTest {
+class ModuleRuleTest {
 
-    private Rule rule;
+    private ModuleRule rule;
 
     /**
      * Sets up the testing environment before each test.
      */
     @BeforeEach
     void setup() {
-        rule = new Rule(RuleType.IF);
+        rule = new ModuleRule(RuleType.IF);
     }
 
     /**
@@ -72,7 +72,7 @@ class RuleTest {
      */
     @Test
     void equalsSame() {
-        Rule other = new Rule(RuleType.IF);
+        ModuleRule other = new ModuleRule(RuleType.IF);
         assertThat(rule).isEqualTo(other);
         assertThat(rule.hashCode()).isEqualTo(other.hashCode());
     }
@@ -98,7 +98,7 @@ class RuleTest {
      */
     @Test
     void notEqualsDifferentRuleType() {
-        Rule other = new Rule(RuleType.FORALL);
+        ModuleRule other = new ModuleRule(RuleType.FORALL);
         assertThat(rule).isNotEqualTo(other);
     }
 
@@ -107,7 +107,7 @@ class RuleTest {
      */
     @Test
     void notEqualsDifferentConditionsSize() {
-        Rule other = new Rule(RuleType.IF);
+        ModuleRule other = new ModuleRule(RuleType.IF);
         rule.addCondition(Mockito.mock(Condition.class));
         assertThat(rule).isNotEqualTo(other);
     }
@@ -117,7 +117,7 @@ class RuleTest {
      */
     @Test
     void notEqualsDifferentConditions() {
-        Rule other = new Rule(RuleType.IF);
+        ModuleRule other = new ModuleRule(RuleType.IF);
         rule.addCondition(Mockito.mock(Condition.class));
         other.addCondition(Mockito.mock(Condition.class));
         assertThat(rule).isNotEqualTo(other);
@@ -128,7 +128,7 @@ class RuleTest {
      */
     @Test
     void notEqualsDifferentActionsSize() {
-        Rule other = new Rule(RuleType.IF);
+        ModuleRule other = new ModuleRule(RuleType.IF);
         rule.addAction(Mockito.mock(Action.class));
         assertThat(rule).isNotEqualTo(other);
     }
@@ -138,7 +138,7 @@ class RuleTest {
      */
     @Test
     void notEqualsDifferentActions() {
-        Rule other = new Rule(RuleType.IF);
+        ModuleRule other = new ModuleRule(RuleType.IF);
         rule.addAction(Mockito.mock(Action.class));
         other.addAction(Mockito.mock(Action.class));
         assertThat(rule).isNotEqualTo(other);
@@ -151,7 +151,7 @@ class RuleTest {
     void sameConditionsHashCodeTest() {
         Condition c1 = Mockito.mock(Condition.class);
         Condition c2 = Mockito.mock(Condition.class);
-        Rule other = new Rule(RuleType.LISTALL);
+        ModuleRule other = new ModuleRule(RuleType.LISTALL);
         rule.addCondition(c1).addCondition(c2);
         other.addCondition(c1).addCondition(c2);
         assertThat(rule.getConditionsHashCode()).isEqualTo(other.getConditionsHashCode());
@@ -164,7 +164,7 @@ class RuleTest {
     void sameActionsHashCodeTest() {
         Action a1 = Mockito.mock(Action.class);
         Action a2 = Mockito.mock(Action.class);
-        Rule other = new Rule(RuleType.LISTALL);
+        ModuleRule other = new ModuleRule(RuleType.LISTALL);
         rule.addAction(a1).addAction(a2);
         other.addAction(a1).addAction(a2);
         assertThat(rule.getActionsHashCode()).isEqualTo(other.getActionsHashCode());
@@ -180,7 +180,7 @@ class RuleTest {
 
     @Test
     void equivalentTest() {
-        Rule rule1 = new Rule(RuleType.IF);
+        ModuleRule rule1 = new ModuleRule(RuleType.IF);
         rule.addCondition(new AGoalCondition(new Variable("test")));
         rule1.addCondition(new AGoalCondition(new Variable("test")));
         assertThat(rule1.equivalentTo(rule)).isTrue();
@@ -188,7 +188,7 @@ class RuleTest {
 
     @Test
     void notEquivalentTest() {
-        Rule rule1 = new Rule(RuleType.IF);
+        ModuleRule rule1 = new ModuleRule(RuleType.IF);
         rule.addCondition(new AGoalCondition(new Variable("test")));
         rule1.addCondition(new AGoalCondition(new Variable("test2")));
         assertThat(rule1.equivalentTo(rule)).isFalse();

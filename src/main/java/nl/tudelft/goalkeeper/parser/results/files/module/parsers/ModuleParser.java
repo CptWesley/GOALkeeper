@@ -5,7 +5,7 @@ import lombok.Setter;
 import nl.tudelft.goalkeeper.checking.violations.source.LineSource;
 import nl.tudelft.goalkeeper.parser.results.files.module.Module;
 import nl.tudelft.goalkeeper.parser.results.files.module.ModuleFile;
-import nl.tudelft.goalkeeper.parser.results.files.module.Rule;
+import nl.tudelft.goalkeeper.parser.results.files.module.ModuleRule;
 import nl.tudelft.goalkeeper.parser.results.files.module.SubModule;
 import nl.tudelft.goalkeeper.parser.results.files.module.details.EvaluationOrder;
 import nl.tudelft.goalkeeper.parser.results.files.module.details.EvaluationOrderType;
@@ -50,8 +50,8 @@ public final class ModuleParser {
      * @param rules List of rules to find the KRLanguage of.
      * @return The KRLanguage of the rules list.
      */
-    private static KRLanguage getKRLanguage(List<Rule> rules) {
-        for (Rule rule : rules) {
+    private static KRLanguage getKRLanguage(List<ModuleRule> rules) {
+        for (ModuleRule rule : rules) {
             if (rule.getKRLanguage() != KRLanguage.UNKNOWN) {
                 return rule.getKRLanguage();
             }

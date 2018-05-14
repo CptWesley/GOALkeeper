@@ -8,7 +8,7 @@ import nl.tudelft.goalkeeper.checking.violations.source.BlockSource;
 import nl.tudelft.goalkeeper.checking.violations.source.CharacterSource;
 import nl.tudelft.goalkeeper.checking.violations.source.LineSource;
 import nl.tudelft.goalkeeper.exceptions.UnknownKRLanguageException;
-import nl.tudelft.goalkeeper.parser.results.files.module.Rule;
+import nl.tudelft.goalkeeper.parser.results.files.module.ModuleRule;
 import nl.tudelft.goalkeeper.parser.results.files.module.RuleType;
 import nl.tudelft.goalkeeper.parser.results.files.module.actions.Action;
 import nl.tudelft.goalkeeper.parser.results.files.module.conditions.Condition;
@@ -32,12 +32,12 @@ public final class RuleParser {
 
     /**
      * Parses a rule.
-     * @param r Rule to parse.
+     * @param r ModuleRule to parse.
      * @return GOALkeeper rule version of the rule.
      */
     @SuppressWarnings("MethodLength")
-    public Rule parse(languageTools.program.agent.rules.Rule r) {
-        Rule rule = new Rule(getType(r));
+    public ModuleRule parse(languageTools.program.agent.rules.Rule r) {
+        ModuleRule rule = new ModuleRule(getType(r));
         String fileName = "";
         int startingLine = Integer.MAX_VALUE;
         int endingLine = Integer.MIN_VALUE;
@@ -85,7 +85,7 @@ public final class RuleParser {
 
     /**
      * Gets the type of a rule.
-     * @param r Rule to get the type from.
+     * @param r ModuleRule to get the type from.
      * @return Type of the rule.
      */
     private static RuleType getType(languageTools.program.agent.rules.Rule r) {

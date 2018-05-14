@@ -59,7 +59,6 @@ public final class Parser {
 
         if (result.isSuccessful()) {
             convert(result, analysis);
-
         }
         return result;
     }
@@ -79,7 +78,6 @@ public final class Parser {
         }
         for (ActionSpecProgram actionSpec : analysis.getActionSpecDefinitions()) {
             try {
-
                 result.addActionSpec(actionSpecParser.parse(actionSpec));
             } catch (IOException e) {
                 e.printStackTrace();

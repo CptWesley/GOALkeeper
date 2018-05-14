@@ -175,6 +175,7 @@
                                 <exclude>nl.tudelft.goalkeeper.parser.results.parts.KRLanguage</exclude>
                                 <exclude>nl.tudelft.goalkeeper.parser.results.files.module.parsers.ModuleParser</exclude>
                                 <exclude>nl.tudelft.goalkeeper.parser.results.files.actionspec.parsers.ActionSpecParser</exclude>
+                                <exclude>nl.tudelft.goalkeeper.checking.CheckerRunner</exclude>
                             </excludes>
                             <limits>
                                 <limit>

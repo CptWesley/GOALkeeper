@@ -38,6 +38,7 @@ public final class Program {
         validateConfiguration();
 
         Console.println("Acquiring files...");
+        verifyMas(); //TODO: Remove/replace this.
 
         Console.println("Acquiring rules...");
         RuleSet rules = getRuleSet();
@@ -83,6 +84,27 @@ public final class Program {
         }
         System.exit(ExitCode.NO_RULES);
         return null;
+    }
+
+    /**
+     * Gets a file system from a mas2g file.
+     */
+    private static void verifyMas() {
+        //TODO: Replace/remove this. (this doesn't really do anything right now).
+        String fileName = Configuration.getInstance().getParameter("mas").getAsString();
+        try {
+            MasIndexer.create(fileName);
+        } catch (WrongFileTypeException e) {
+            Console.println("[ERROR] File '"
+                    + fileName
+                    + "' is not a '.mas2g' file.", ConsoleColor.RED);
+            System.exit(ExitCode.NO_MAS);
+        } catch (FileNotFoundException e) {
+            Console.println("[ERROR] File '"
+                    + fileName
+                    + "' does not exist.", ConsoleColor.RED);
+            System.exit(ExitCode.NO_MAS);
+        }
     }
 
     /**

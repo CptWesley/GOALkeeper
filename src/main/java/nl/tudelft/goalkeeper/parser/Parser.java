@@ -25,6 +25,7 @@ public final class Parser {
     @Getter @Setter private MasParser masParser;
     @Getter @Setter private ActionSpecParser actionSpecParser;
     @Getter @Setter private MASValidator validator;
+    @Getter @Setter private FileLinker fileLinker;
 
     /**
      * Creates a new Parser instance.
@@ -36,6 +37,7 @@ public final class Parser {
         moduleParser = new ModuleParser();
         masParser = new MasParser();
         validator = new MASValidator(fileName, new FileRegistry());
+        fileLinker = new FileLinker();
     }
 
     /**
@@ -59,7 +61,9 @@ public final class Parser {
 
         if (result.isSuccessful()) {
             convert(result, analysis);
+            fileLinker.link(result);
         }
+
         return result;
     }
 

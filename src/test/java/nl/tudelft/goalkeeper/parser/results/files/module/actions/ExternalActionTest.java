@@ -1,5 +1,7 @@
 package nl.tudelft.goalkeeper.parser.results.files.module.actions;
 
+import nl.tudelft.goalkeeper.parser.results.files.actionspec.ActionSpecFile;
+import nl.tudelft.goalkeeper.parser.results.files.actionspec.ActionSpecification;
 import nl.tudelft.goalkeeper.parser.results.parts.Expression;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,6 +16,8 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 class ExternalActionTest {
 
+    private static final String NAME = "435fgrwevc";
+    private static final int ARITY = 43;
     private static final String SOURCE = "WERGWSDAG";
 
     private ExternalAction action;
@@ -26,7 +30,7 @@ class ExternalActionTest {
     void setup() {
         arg1 = Mockito.mock(Expression.class);
         arg2 = Mockito.mock(Expression.class);
-        action = new ExternalAction(SOURCE, Arrays.asList(arg1, arg2));
+        action = new ExternalAction(NAME, ARITY, SOURCE, Arrays.asList(arg1, arg2));
     }
 
     /**
@@ -67,7 +71,7 @@ class ExternalActionTest {
      */
     @Test
     void equalsSame() {
-        ExternalAction other = new ExternalAction(SOURCE, Arrays.asList(arg1, arg2));
+        ExternalAction other = new ExternalAction(NAME, ARITY, SOURCE, Arrays.asList(arg1, arg2));
         assertThat(action).isEqualTo(other);
         assertThat(action.hashCode()).isEqualTo(other.hashCode());
     }
@@ -93,7 +97,7 @@ class ExternalActionTest {
      */
     @Test
     void notEqualsDifferentTarget() {
-        ExternalAction other = new ExternalAction("", Arrays.asList(arg1, arg2));
+        ExternalAction other = new ExternalAction(NAME, ARITY,"", Arrays.asList(arg1, arg2));
         assertThat(action).isNotEqualTo(other);
     }
 
@@ -102,7 +106,7 @@ class ExternalActionTest {
      */
     @Test
     void notEqualsDifferentArgumentsAmount() {
-        ExternalAction other = new ExternalAction(SOURCE, Arrays.asList(arg1));
+        ExternalAction other = new ExternalAction(NAME, ARITY,SOURCE, Arrays.asList(arg1));
         assertThat(action).isNotEqualTo(other);
     }
 
@@ -111,7 +115,7 @@ class ExternalActionTest {
      */
     @Test
     void notEqualsDifferentArguments() {
-        ExternalAction other = new ExternalAction(SOURCE, Arrays.asList(arg2, arg1));
+        ExternalAction other = new ExternalAction(NAME, ARITY,SOURCE, Arrays.asList(arg2, arg1));
         assertThat(action).isNotEqualTo(other);
     }
 
@@ -123,5 +127,16 @@ class ExternalActionTest {
         Mockito.when(arg1.toString()).thenReturn("a");
         Mockito.when(arg2.toString()).thenReturn("b");
         assertThat(action.toString()).isEqualTo("null/2(a, b)");
+    }
+
+    /**
+     * Checks if the actionSpecification can be correctly set.
+     */
+    @Test
+    void actionTest() {
+        assertThat(action.getAction()).isNull();
+        ActionSpecFile as = Mockito.mock(ActionSpecFile.class);
+        action.setAction(as);
+        assertThat(action.getAction()).isSameAs(as);
     }
 }

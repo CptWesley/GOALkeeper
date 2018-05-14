@@ -80,10 +80,10 @@ public final class ModuleParser {
         for (int i = 0; i < mf.getContent().length; ++i) {
             String line = mf.getContent()[i];
             if (!exitCondition.hasSource() && line.matches(exitPattern)) {
-                exitCondition.setSource(new LineSource(mf.getSource(), i + 1));
+                exitCondition.setSource(new LineSource(mf.getSource().getFile(), i + 1));
             }
             if (!evaluationOrder.hasSource() && line.matches(orderPattern)) {
-                evaluationOrder.setSource(new LineSource(mf.getSource(), i + 1));
+                evaluationOrder.setSource(new LineSource(mf.getSource().getFile(), i + 1));
             }
         }
     }

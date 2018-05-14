@@ -34,6 +34,7 @@ class ParserTest {
     private Message message;
     private Analysis analysis;
     private FileRegistry fileRegistry;
+    private FileLinker linker;
 
     /**
      * Sets up the testing environment before each test.
@@ -57,6 +58,8 @@ class ParserTest {
         analysis = Mockito.mock(Analysis.class);
         Mockito.when(validator.process()).thenReturn(analysis);
         Mockito.when(analysis.getModuleDefinitions()).thenReturn(new HashSet<>());
+        linker = Mockito.mock(FileLinker.class);
+        parser.setFileLinker(linker);
     }
 
     /**
@@ -122,5 +125,6 @@ class ParserTest {
 
         Mockito.verify(moduleParser, Mockito.times(1)).parseToFile(m1);
         Mockito.verify(moduleParser, Mockito.times(1)).parseToFile(m2);
+        Mockito.verify(linker, Mockito.times(1)).link(result);
     }
 }

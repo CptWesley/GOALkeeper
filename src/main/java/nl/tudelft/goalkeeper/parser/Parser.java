@@ -4,6 +4,7 @@ import languageTools.analyzer.FileRegistry;
 import languageTools.analyzer.mas.Analysis;
 import languageTools.analyzer.mas.MASValidator;
 import languageTools.errors.mas.MASError;
+import languageTools.errors.mas.MASWarning;
 import languageTools.program.actionspec.ActionSpecProgram;
 import languageTools.program.agent.Module;
 import lombok.Getter;
@@ -59,7 +60,9 @@ public final class Parser {
         });
 
         validator.getRegistry().getWarnings().forEach(err -> {
-            result.addViolation(((messageParser).parse(err).setError(false)));
+            if (err.getType() != MASWarning.LAUNCH_CONDITIONAL_RULE) {
+                result.addViolation(((messageParser).parse(err).setError(false)));
+            }
         });
 
         if (result.isSuccessful()) {

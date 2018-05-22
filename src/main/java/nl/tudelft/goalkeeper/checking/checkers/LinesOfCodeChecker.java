@@ -2,14 +2,11 @@ package nl.tudelft.goalkeeper.checking.checkers;
 
 import nl.tudelft.goalkeeper.checking.Checker;
 import nl.tudelft.goalkeeper.checking.violations.Violation;
-import nl.tudelft.goalkeeper.checking.violations.source.FileSource;
+import nl.tudelft.goalkeeper.parser.results.ParseResult;
+import nl.tudelft.goalkeeper.parser.results.files.File;
 import nl.tudelft.goalkeeper.rules.Rule;
 import nl.tudelft.goalkeeper.rules.RuleSet;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -24,31 +21,38 @@ public final class LinesOfCodeChecker implements CheckerInterface {
     private static final String VIOLATION_NAME = "Too Many Lines Of Code";
 
     @Override
-    public Collection<Violation> run(String[] files, RuleSet ruleSet) {
+    public Collection<Violation> run(ParseResult program, RuleSet ruleSet) {
         List<Violation> violations = new ArrayList<>();
         if (!isEnabled(ruleSet)) {
             return violations;
         }
-        Rule rule = ruleSet.getRule(RULE_NAME);
-        for (String fileName : files) {
-            int lines;
-            try {
-                lines = countLines(fileName);
-            } catch (IOException e) {
-                e.printStackTrace();
-                continue;
-            }
-            int severity = rule.severityOf(lines);
-            if (severity > 0) {
-                boolean error = severity >= ruleSet.getErrorSeverity();
-                violations.add(new Violation(VIOLATION_NAME, severity)
-                        .setActualValue(lines)
-                        .setMaximumValue(rule.maxValueBefore(1))
-                        .setSource(new FileSource(fileName))
-                        .setError(error));
-            }
+        for (File file : program.getModules()) {
+            createViolations(violations, ruleSet, file);
+        }
+        for (File file : program.getActionSpecs()) {
+            createViolations(violations, ruleSet, file);
         }
         return violations;
+    }
+
+    /**
+     *
+     * @param violations Violations list to add to.
+     * @param ruleSet Ruleset to check with.
+     * @param file File to check.
+     */
+    private static void createViolations(List<Violation> violations, RuleSet ruleSet, File file) {
+        Rule rule = ruleSet.getRule(RULE_NAME);
+        int lines = file.getContent().length;
+        int severity = rule.severityOf(lines);
+        if (severity > 0) {
+            boolean error = severity >= ruleSet.getErrorSeverity();
+            violations.add(new Violation(VIOLATION_NAME, severity)
+                    .setActualValue(lines)
+                    .setMaximumValue(rule.maxValueBefore(1))
+                    .setSource(file.getSource())
+                    .setError(error));
+        }
     }
 
     /**
@@ -65,22 +69,5 @@ public final class LinesOfCodeChecker implements CheckerInterface {
             return false;
         }
         return true;
-    }
-
-    /**
-     * Count the number of lines in a file.
-     * @param fileName File to check for.
-     * @return Number of lines.
-     */
-    private int countLines(String fileName) throws IOException {
-        BufferedReader reader = new BufferedReader(
-                new InputStreamReader(
-                        new FileInputStream(fileName), "UTF-8"));
-        int lines = 0;
-        while (reader.readLine() != null) {
-            ++lines;
-        }
-        reader.close();
-        return lines;
     }
 }

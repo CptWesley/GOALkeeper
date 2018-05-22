@@ -38,14 +38,16 @@ public final class Program {
         validateConfiguration();
 
         Console.println("Acquiring files...");
-        String[] fileSystem = getFileSystem();
+        verifyMas(); //TODO: Remove/replace this.
 
         Console.println("Acquiring rules...");
         RuleSet rules = getRuleSet();
 
         Console.println("Analyzing...");
         CheckerRunner runner = new CheckerRunner();
-        Collection<Violation> violations = runner.run(fileSystem, rules);
+        Collection<Violation> violations
+                = runner.run(Configuration.getInstance()
+                .getParameter("mas").getAsString(), rules);
         handleViolations(violations, rules.failsOnError());
     }
 
@@ -86,13 +88,12 @@ public final class Program {
 
     /**
      * Gets a file system from a mas2g file.
-     * @return
      */
-    private static String[] getFileSystem() {
+    private static void verifyMas() {
+        //TODO: Replace/remove this. (this doesn't really do anything right now).
         String fileName = Configuration.getInstance().getParameter("mas").getAsString();
-        MasIndexer indexer = null;
         try {
-            indexer = MasIndexer.create(fileName);
+            MasIndexer.create(fileName);
         } catch (WrongFileTypeException e) {
             Console.println("[ERROR] File '"
                     + fileName
@@ -104,7 +105,6 @@ public final class Program {
                     + "' does not exist.", ConsoleColor.RED);
             System.exit(ExitCode.NO_MAS);
         }
-        return indexer.getFileSystem();
     }
 
     /**

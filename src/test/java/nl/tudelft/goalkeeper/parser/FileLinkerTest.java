@@ -99,6 +99,10 @@ class FileLinkerTest {
         Mockito.when(agent.getInitModule()).thenReturn(md2);
         Mockito.when(agent.getMainModule()).thenReturn(md3);
         Mockito.when(agent.getShutDownModule()).thenReturn(md4);
+        Mockito.when(agent.hasEventModule()).thenReturn(true);
+        Mockito.when(agent.hasInitModule()).thenReturn(true);
+        Mockito.when(agent.hasMainModule()).thenReturn(true);
+        Mockito.when(agent.hasShutdownModule()).thenReturn(true);
         ModuleFile m1 = Mockito.mock(ModuleFile.class);
         ModuleFile m2 = Mockito.mock(ModuleFile.class);
         ModuleFile m3 = Mockito.mock(ModuleFile.class);

@@ -73,15 +73,22 @@ public final class FileLinker {
      */
     public void linkMas(MasFile mas, Map<String, ModuleFile> modules) {
         for (AgentDefinition agent : mas.getAgentDefinitions()) {
-            ModuleUsageDefinition event = agent.getEventModule();
-            ModuleUsageDefinition init = agent.getInitModule();
-            ModuleUsageDefinition main = agent.getMainModule();
-            ModuleUsageDefinition shutdown = agent.getShutDownModule();
-
-            event.setModule(modules.get(event.getTarget()));
-            init.setModule(modules.get(init.getTarget()));
-            main.setModule(modules.get(main.getTarget()));
-            shutdown.setModule(modules.get(shutdown.getTarget()));
+            if (agent.hasEventModule()) {
+                ModuleUsageDefinition event = agent.getEventModule();
+                event.setModule(modules.get(event.getTarget()));
+            }
+            if (agent.hasInitModule()) {
+                ModuleUsageDefinition init = agent.getInitModule();
+                init.setModule(modules.get(init.getTarget()));
+            }
+            if (agent.hasMainModule()) {
+                ModuleUsageDefinition main = agent.getMainModule();
+                main.setModule(modules.get(main.getTarget()));
+            }
+            if (agent.hasShutdownModule()) {
+                ModuleUsageDefinition shutdown = agent.getShutDownModule();
+                shutdown.setModule(modules.get(shutdown.getTarget()));
+            }
         }
     }
 

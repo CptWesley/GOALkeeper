@@ -2,6 +2,8 @@ package nl.tudelft.goalkeeper.checking;
 
 import nl.tudelft.goalkeeper.checking.checkers.CheckerInterface;
 import nl.tudelft.goalkeeper.checking.violations.Violation;
+import nl.tudelft.goalkeeper.parser.Parser;
+import nl.tudelft.goalkeeper.parser.results.ParseResult;
 import nl.tudelft.goalkeeper.rules.RuleSet;
 import org.reflections.Reflections;
 
@@ -17,11 +19,15 @@ public final class CheckerRunner {
 
     /**
      * Runs all checkers.
-     * @param files Files to check.
+     * @param masPath Path to the mas program to check.
      * @param ruleSet RuleSet to check against.
      * @return Collection of all violations.
      */
-    public Collection<Violation> run(String[] files, RuleSet ruleSet) {
+    public Collection<Violation> run(String masPath, RuleSet ruleSet) {
+
+        Parser parser = new Parser(masPath);
+        ParseResult parseResult = parser.parse();
+
         List<Violation> violations = new ArrayList<>();
         Set<Class<?>> classes
                 = new Reflections("nl.tudelft.goalkeeper.checking.checkers")
@@ -34,7 +40,7 @@ public final class CheckerRunner {
                 e.printStackTrace();
                 continue;
             }
-            violations.addAll(checker.run(files, ruleSet));
+            violations.addAll(checker.run(parseResult, ruleSet));
         }
         return violations;
     }

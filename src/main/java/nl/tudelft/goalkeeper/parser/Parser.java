@@ -3,6 +3,7 @@ package nl.tudelft.goalkeeper.parser;
 import languageTools.analyzer.FileRegistry;
 import languageTools.analyzer.mas.Analysis;
 import languageTools.analyzer.mas.MASValidator;
+import languageTools.errors.mas.MASError;
 import languageTools.program.actionspec.ActionSpecProgram;
 import languageTools.program.agent.Module;
 import lombok.Getter;
@@ -51,8 +52,10 @@ public final class Parser {
         Analysis analysis = validator.process();
 
         validator.getRegistry().getAllErrors().forEach(err -> {
-            result.addViolation((messageParser).parse(err).setError(true));
-            result.setSuccessful(false);
+            if (err.getType() != MASError.ENVIRONMENT_COULDNOT_FIND) {
+                result.addViolation((messageParser).parse(err).setError(true));
+                result.setSuccessful(false);
+            }
         });
 
         validator.getRegistry().getWarnings().forEach(err -> {

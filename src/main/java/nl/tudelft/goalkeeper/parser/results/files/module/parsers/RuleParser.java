@@ -7,6 +7,7 @@ import lombok.Setter;
 import nl.tudelft.goalkeeper.checking.violations.source.BlockSource;
 import nl.tudelft.goalkeeper.checking.violations.source.CharacterSource;
 import nl.tudelft.goalkeeper.checking.violations.source.LineSource;
+import nl.tudelft.goalkeeper.exceptions.InvalidKRLanguageException;
 import nl.tudelft.goalkeeper.exceptions.UnknownKRLanguageException;
 import nl.tudelft.goalkeeper.parser.results.files.module.ModuleRule;
 import nl.tudelft.goalkeeper.parser.results.files.module.RuleType;
@@ -56,7 +57,7 @@ public final class RuleParser {
                 if (c.getKRLanguage() != KRLanguage.UNKNOWN) {
                     language = c.getKRLanguage();
                 }
-            } catch (UnknownKRLanguageException e) {
+            } catch (UnknownKRLanguageException | InvalidKRLanguageException e) {
                 e.printStackTrace();
             }
         }
@@ -70,7 +71,7 @@ public final class RuleParser {
                     startingLine = Math.min(startingLine, source.getLine());
                     endingLine = Math.max(endingLine, source.getLine());
                 }
-            } catch (UnknownKRLanguageException e) {
+            } catch (UnknownKRLanguageException | InvalidKRLanguageException e) {
                 e.printStackTrace();
             }
         }

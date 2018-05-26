@@ -1,5 +1,6 @@
 package nl.tudelft.goalkeeper.parser.queries;
 
+import nl.tudelft.goalkeeper.exceptions.InvalidKRLanguageException;
 import nl.tudelft.goalkeeper.parser.results.parts.Expression;
 
 /**
@@ -12,5 +13,5 @@ public interface ExpressionParserInterface {
      * @param expression Original GOAL expression.
      * @return GOALkeeper expression version of the GOAL query.
      */
-    Expression parse(krTools.language.Expression expression);
+    Expression parse(krTools.language.Expression expression) throws InvalidKRLanguageException;
 }

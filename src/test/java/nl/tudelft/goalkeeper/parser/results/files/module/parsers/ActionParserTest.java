@@ -1,6 +1,6 @@
 package nl.tudelft.goalkeeper.parser.results.files.module.parsers;
 
-import org.jpl7.Term;
+import nl.tudelft.goalkeeper.exceptions.InvalidKRLanguageException;
 import krTools.parser.SourceInfo;
 import languageTools.program.actionspec.UserSpecAction;
 import languageTools.program.agent.Module;
@@ -23,6 +23,7 @@ import nl.tudelft.goalkeeper.parser.results.parts.MessageMood;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import swiprolog.language.PrologTerm;
+import swiprolog.language.PrologVar;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -48,10 +49,7 @@ class ActionParserTest {
      */
     private void setup(Class<? extends languageTools.program.agent.actions.Action> type) {
         parser = new ActionParser();
-        expression = Mockito.mock(PrologTerm.class);
-        Term term = Mockito.mock(Term.class);
-        Mockito.when(expression.getTerm()).thenReturn(term);
-        Mockito.when(term.isVariable()).thenReturn(true);
+        expression = Mockito.mock(PrologVar.class);
         input = Mockito.mock(type);
         Mockito.when(input.getParameters()).thenReturn(Collections.singletonList(expression));
     }
@@ -61,7 +59,7 @@ class ActionParserTest {
      */
     @Test
     void sendActionTest()
-            throws UnknownKRLanguageException {
+            throws UnknownKRLanguageException, InvalidKRLanguageException {
         setup(languageTools.program.agent.actions.SendAction.class);
         languageTools.program.agent.actions.SendAction sa = (languageTools.program.agent.actions.SendAction) input;
         Selector selector = Mockito.mock(Selector.class);
@@ -81,7 +79,7 @@ class ActionParserTest {
      */
     @Test
     void exitActionTest()
-            throws UnknownKRLanguageException {
+            throws UnknownKRLanguageException, InvalidKRLanguageException {
         setup(ExitModuleAction.class);
         assertThat(parser.parse(input)).isInstanceOf(ExitAction.class);
     }
@@ -91,7 +89,7 @@ class ActionParserTest {
      */
     @Test
     void startTimerActionTest()
-            throws UnknownKRLanguageException {
+            throws UnknownKRLanguageException, InvalidKRLanguageException {
         setup(languageTools.program.agent.actions.StartTimerAction.class);
         Mockito.when(input.getParameters()).thenReturn(Arrays.asList(expression, expression, expression));
         assertThat(parser.parse(input)).isInstanceOf(StartTimerAction.class);
@@ -102,7 +100,7 @@ class ActionParserTest {
      */
     @Test
     void subModuleActionTest()
-            throws UnknownKRLanguageException {
+            throws UnknownKRLanguageException, InvalidKRLanguageException {
         setup(ModuleCallAction.class);
         Mockito.when(input.getSignature()).thenReturn("null/5");
         Module module = Mockito.mock(Module.class);
@@ -116,7 +114,7 @@ class ActionParserTest {
      */
     @Test
     void moduleActionTest()
-            throws UnknownKRLanguageException {
+            throws UnknownKRLanguageException, InvalidKRLanguageException {
         setup(ModuleCallAction.class);
         Mockito.when(input.getSignature()).thenReturn("nullifier/5");
         Module module = Mockito.mock(Module.class);
@@ -134,7 +132,7 @@ class ActionParserTest {
      */
     @Test
     void externalActionTest()
-            throws UnknownKRLanguageException {
+            throws UnknownKRLanguageException, InvalidKRLanguageException {
         setup(UserSpecCallAction.class);
         UserSpecAction spec = Mockito.mock(UserSpecAction.class);
         Mockito.when(((UserSpecCallAction)input).getSpecification()).thenReturn(spec);
@@ -150,7 +148,7 @@ class ActionParserTest {
      */
     @Test
     void internalActionTest()
-            throws UnknownKRLanguageException {
+            throws UnknownKRLanguageException, InvalidKRLanguageException {
         setup(NonMentalAction.class);
         Mockito.when(input.getSignature()).thenReturn("print/1");
         assertThat(parser.parse(input)).isInstanceOf(InternalAction.class);
@@ -168,7 +166,7 @@ class ActionParserTest {
      * Checks if the source info is parsed correctly.
      */
     @Test
-    void sourceInfoTest() throws UnknownKRLanguageException {
+    void sourceInfoTest() throws UnknownKRLanguageException, InvalidKRLanguageException {
         setup(ExitModuleAction.class);
         SourceInfo si = Mockito.mock(SourceInfo.class);
         Mockito.when(si.getSource()).thenReturn(FILE_NAME);

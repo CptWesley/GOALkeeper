@@ -8,6 +8,7 @@ import languageTools.program.agent.selector.Selector;
 import lombok.Getter;
 import lombok.Setter;
 import nl.tudelft.goalkeeper.checking.violations.source.SourceParser;
+import nl.tudelft.goalkeeper.exceptions.InvalidKRLanguageException;
 import nl.tudelft.goalkeeper.exceptions.UnknownKRLanguageException;
 import nl.tudelft.goalkeeper.parser.queries.ExpressionParser;
 import nl.tudelft.goalkeeper.parser.results.files.module.conditions.AGoalCondition;
@@ -43,10 +44,11 @@ public final class ConditionParser {
      * Parses a query to a condition.
      * @param query Compound to parse.
      * @return Condition of our own type.
-     * @throws UnknownKRLanguageException Thrown when we can'thandle the language.
+     * @throws UnknownKRLanguageException Thrown when we don't know what language was given.
+     * @throws InvalidKRLanguageException Thrown when the expression is malformed.
      */
     public Condition parse(MentalLiteral query)
-            throws UnknownKRLanguageException {
+            throws UnknownKRLanguageException, InvalidKRLanguageException {
         Expression e = expressionParser.parse(query.getFormula());
         Condition condition = getInstance(query.getOperator(), query.getSelector(), e);
         SourceInfo sourceInfo = query.getSourceInfo();

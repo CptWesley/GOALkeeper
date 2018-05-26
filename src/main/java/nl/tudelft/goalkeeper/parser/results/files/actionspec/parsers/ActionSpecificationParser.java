@@ -2,6 +2,7 @@ package nl.tudelft.goalkeeper.parser.results.files.actionspec.parsers;
 
 import krTools.language.Term;
 import languageTools.program.actionspec.UserSpecAction;
+import nl.tudelft.goalkeeper.exceptions.InvalidKRLanguageException;
 import nl.tudelft.goalkeeper.exceptions.UnknownKRLanguageException;
 import nl.tudelft.goalkeeper.parser.queries.ExpressionParser;
 import nl.tudelft.goalkeeper.parser.results.files.actionspec.ActionSpecification;
@@ -39,7 +40,7 @@ public final class ActionSpecificationParser {
             for (Term t : action.getParameters()) {
                 parameters.add(expressionparser.parse(t));
             }
-        } catch (UnknownKRLanguageException e) {
+        } catch (UnknownKRLanguageException | InvalidKRLanguageException e) {
             e.printStackTrace();
         }
         return new ActionSpecification(name, pre, post, parameters);

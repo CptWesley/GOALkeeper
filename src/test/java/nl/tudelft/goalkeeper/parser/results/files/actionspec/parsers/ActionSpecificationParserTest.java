@@ -4,15 +4,17 @@ import krTools.language.Update;
 import languageTools.program.actionspec.ActionPostCondition;
 import languageTools.program.actionspec.ActionPreCondition;
 import languageTools.program.actionspec.UserSpecAction;
+import nl.tudelft.goalkeeper.exceptions.InvalidKRLanguageException;
 import nl.tudelft.goalkeeper.exceptions.UnknownKRLanguageException;
 import nl.tudelft.goalkeeper.parser.queries.ExpressionParser;
 import nl.tudelft.goalkeeper.parser.results.files.actionspec.ActionSpecification;
-import org.jpl7.Term;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import swiprolog.language.PrologCompound;
 import swiprolog.language.PrologQuery;
 import swiprolog.language.PrologTerm;
+import swiprolog.language.PrologVar;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,7 +30,8 @@ class ActionSpecificationParserTest {
 
     private UserSpecAction action;
     private PrologQuery prologQuery;
-    ExpressionParser parser;
+    private PrologCompound compound;
+    private ExpressionParser parser;
 
     /**
      * Sets up the testing environment before each test.
@@ -36,10 +39,9 @@ class ActionSpecificationParserTest {
     @BeforeEach
     void setup() {
         parser = new ExpressionParser();
+        compound = Mockito.mock(PrologCompound.class);
         prologQuery = Mockito.mock(PrologQuery.class);
-        Term term = Mockito.mock(Term.class);
-        Mockito.when(term.isVariable()).thenReturn(true);
-        Mockito.when(prologQuery.getTerm()).thenReturn(term);
+        Mockito.when(prologQuery.getCompound()).thenReturn(compound);
         action = Mockito.mock(UserSpecAction.class);
         Mockito.when(action.getName()).thenReturn(NAME);
         ActionPreCondition fullPreCondition = Mockito.mock(ActionPreCondition.class);
@@ -65,7 +67,7 @@ class ActionSpecificationParserTest {
      * Checks that the pre is set correctly.
      */
     @Test
-    void getPreTest() throws UnknownKRLanguageException {
+    void getPreTest() throws UnknownKRLanguageException, InvalidKRLanguageException {
         assertThat(ActionSpecificationParser.parse(action).getPre())
                 .isEqualTo(parser.parse(prologQuery));
     }
@@ -74,7 +76,7 @@ class ActionSpecificationParserTest {
      * Checks that the post is set correctly.
      */
     @Test
-    void getPostTest() throws UnknownKRLanguageException {
+    void getPostTest() throws UnknownKRLanguageException, InvalidKRLanguageException {
         assertThat(ActionSpecificationParser.parse(action).getPost())
                 .isEqualTo(parser.parse(prologQuery));
     }
@@ -91,11 +93,8 @@ class ActionSpecificationParserTest {
      * Checks that parameters are retrieved correctly.
      */
     @Test
-    void getParametersTest() throws UnknownKRLanguageException {
-        PrologTerm prologTerm = Mockito.mock(PrologTerm.class);
-        Term term = Mockito.mock(Term.class);
-        Mockito.when(term.isVariable()).thenReturn(true);
-        Mockito.when(prologTerm.getTerm()).thenReturn(term);
+    void getParametersTest() throws UnknownKRLanguageException, InvalidKRLanguageException {
+        PrologTerm prologTerm = Mockito.mock(PrologVar.class);
         Mockito.when(action.getParameters()).thenReturn(Arrays.asList(prologTerm, prologTerm));
         ActionSpecification result = ActionSpecificationParser.parse(action);
         assertThat(result.getParameters()).hasSize(2);

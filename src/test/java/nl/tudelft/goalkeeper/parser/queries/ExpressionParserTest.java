@@ -1,13 +1,15 @@
 package nl.tudelft.goalkeeper.parser.queries;
 
-import org.jpl7.Term;
 import krTools.language.Query;
 import krTools.parser.SourceInfo;
 import nl.tudelft.goalkeeper.checking.violations.source.CharacterSource;
+import nl.tudelft.goalkeeper.exceptions.InvalidKRLanguageException;
 import nl.tudelft.goalkeeper.exceptions.UnknownKRLanguageException;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import swiprolog.language.PrologExpression;
 import swiprolog.language.PrologQuery;
+import swiprolog.language.PrologVar;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
@@ -47,16 +49,13 @@ class ExpressionParserTest {
      * Checks that the source is parsed properly.
      */
     @Test
-    void sourceTest() throws UnknownKRLanguageException {
+    void sourceTest() throws UnknownKRLanguageException, InvalidKRLanguageException {
         SourceInfo si = Mockito.mock(SourceInfo.class);
         Mockito.when(si.getSource()).thenReturn(FILE_NAME);
         Mockito.when(si.getLineNumber()).thenReturn(LINE_NUMBER);
         Mockito.when(si.getCharacterPosition()).thenReturn(CHARACTER_POSITION);
-        PrologQuery query = Mockito.mock(PrologQuery.class);
+        PrologExpression query = Mockito.mock(PrologVar.class);
         Mockito.when(query.getSourceInfo()).thenReturn(si);
-        Term term = Mockito.mock(Term.class);
-        Mockito.when(term.isVariable()).thenReturn(true);
-        Mockito.when(query.getTerm()).thenReturn(term);
         CharacterSource source = (CharacterSource) new ExpressionParser().parse(query).getSource();
         assertThat(source.getFile()).isEqualTo(FILE_NAME);
         assertThat(source.getLine()).isEqualTo(LINE_NUMBER);

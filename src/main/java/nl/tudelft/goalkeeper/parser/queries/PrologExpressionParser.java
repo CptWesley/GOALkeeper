@@ -64,7 +64,6 @@ public final class PrologExpressionParser implements ExpressionParserInterface {
         if (expression instanceof PrologTerm) {
             return new Constant(expression.getSignature());
         }
-
         throw new InvalidKRLanguageException(
                 "Can't parse instance of type '" + expression.getClass() + "'.");
     }

@@ -53,10 +53,15 @@ jobs:
     steps:
       - setup_remote_docker:
           docker_layer_caching: true
+      - checkout
       - attach_workspace:
           at: ./target
-      - run: docker login -u "$DOCKER_USER" -p "$DOCKER_PASS"
-      - run: pwsh ./script/DockerDeploy.ps1 -Username $DOCKER_USER -TagAsLatest -Push
+      - run: 
+          name: Login to Docker
+          command: docker login -u "$DOCKER_USER" -p "$DOCKER_PASS"
+      - run:
+          name: Build and deploy Docker image
+          command: pwsh ./script/DockerDeploy.ps1 -Username $DOCKER_USER -TagAsLatest -Push
 
 workflows:
   version: 2

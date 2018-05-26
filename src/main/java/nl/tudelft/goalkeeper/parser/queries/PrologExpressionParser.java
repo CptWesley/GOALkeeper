@@ -10,6 +10,7 @@ import nl.tudelft.goalkeeper.parser.results.parts.Variable;
 import swiprolog.language.PrologCompound;
 import swiprolog.language.PrologDBFormula;
 import swiprolog.language.PrologQuery;
+import swiprolog.language.PrologTerm;
 import swiprolog.language.PrologUpdate;
 import swiprolog.language.PrologVar;
 
@@ -48,6 +49,9 @@ public final class PrologExpressionParser implements ExpressionParserInterface {
         }
         if (expression instanceof PrologUpdate) {
             return parse(((PrologUpdate) expression).getCompound());
+        }
+        if (expression instanceof PrologTerm) {
+            return new Constant(expression.getSignature());
         }
         if (expression instanceof PrologCompound) {
             PrologCompound compound = (PrologCompound) expression;

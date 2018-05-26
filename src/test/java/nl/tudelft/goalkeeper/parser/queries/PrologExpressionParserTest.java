@@ -1,9 +1,9 @@
 package nl.tudelft.goalkeeper.parser.queries;
 
+import nl.tudelft.goalkeeper.parser.results.parts.Compound;
 import org.jpl7.Term;
 import nl.tudelft.goalkeeper.parser.results.parts.Constant;
 import nl.tudelft.goalkeeper.parser.results.parts.Expression;
-import nl.tudelft.goalkeeper.parser.results.parts.Function;
 import nl.tudelft.goalkeeper.parser.results.parts.KRLanguage;
 import nl.tudelft.goalkeeper.parser.results.parts.Variable;
 import org.junit.jupiter.api.BeforeEach;
@@ -105,7 +105,7 @@ class PrologExpressionParserTest {
     @Test
     void compoundTest() {
         Mockito.when(term.isCompound()).thenReturn(true);
-        assertThat(parser.parse(query)).isInstanceOf(Function.class);
+        assertThat(parser.parse(query)).isInstanceOf(Compound.class);
         assertThat(parser.parse(query).getIdentifier()).isEqualTo(NAME + ZERO_ANARY);
     }
 
@@ -123,12 +123,12 @@ class PrologExpressionParserTest {
         Mockito.when(t2.name()).thenReturn("t2");
         Mockito.when(term.args()).thenReturn(new Term[] { t1, t2 });
         Expression result = parser.parse(query);
-        assertThat(result).isInstanceOf(Function.class);
-        Function function = (Function) result;
-        assertThat(function.getArguments()).hasSize(2);
-        assertThat(function.getArguments().get(0)).isInstanceOf(Variable.class);
-        assertThat(function.getArguments().get(0).getIdentifier()).isEqualTo("t1" + ZERO_ANARY);
-        assertThat(function.getArguments().get(1)).isInstanceOf(Constant.class);
-        assertThat(function.getArguments().get(1).getIdentifier()).isEqualTo("t2" + ZERO_ANARY);
+        assertThat(result).isInstanceOf(Compound.class);
+        Compound compound = (Compound) result;
+        assertThat(compound.getArguments()).hasSize(2);
+        assertThat(compound.getArguments().get(0)).isInstanceOf(Variable.class);
+        assertThat(compound.getArguments().get(0).getIdentifier()).isEqualTo("t1" + ZERO_ANARY);
+        assertThat(compound.getArguments().get(1)).isInstanceOf(Constant.class);
+        assertThat(compound.getArguments().get(1).getIdentifier()).isEqualTo("t2" + ZERO_ANARY);
     }
 }

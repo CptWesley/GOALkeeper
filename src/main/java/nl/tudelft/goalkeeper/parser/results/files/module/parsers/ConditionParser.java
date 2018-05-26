@@ -41,7 +41,7 @@ public final class ConditionParser {
 
     /**
      * Parses a query to a condition.
-     * @param query Function to parse.
+     * @param query Compound to parse.
      * @return Condition of our own type.
      * @throws UnknownKRLanguageException Thrown when we can'thandle the language.
      */

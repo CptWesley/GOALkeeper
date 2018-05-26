@@ -1,9 +1,9 @@
 package nl.tudelft.goalkeeper.parser.queries;
 
+import nl.tudelft.goalkeeper.parser.results.parts.Compound;
 import org.jpl7.Term;
 import nl.tudelft.goalkeeper.parser.results.parts.Constant;
 import nl.tudelft.goalkeeper.parser.results.parts.Expression;
-import nl.tudelft.goalkeeper.parser.results.parts.Function;
 import nl.tudelft.goalkeeper.parser.results.parts.KRLanguage;
 import nl.tudelft.goalkeeper.parser.results.parts.Variable;
 import swiprolog.language.JPLUtils;
@@ -43,7 +43,7 @@ public final class PrologExpressionParser implements ExpressionParserInterface {
         if (term.isInteger()) {
             return new Constant(JPLUtils.getSignature(term));
         }
-        Function result = new Function(JPLUtils.getSignature(term));
+        Compound result = new Compound(JPLUtils.getSignature(term));
         for (Term part : term.args()) {
             result.addArgument(parseTerm(part));
         }

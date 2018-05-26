@@ -12,13 +12,16 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import swiprolog.language.PrologCompound;
 import swiprolog.language.PrologExpression;
+import swiprolog.language.PrologQuery;
 import swiprolog.language.PrologVar;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 /**
  * Test class for the PrologExpressionParser class.
@@ -109,5 +112,29 @@ class PrologExpressionParserTest {
         assertThat(compound.getArguments().get(0).getIdentifier()).isEqualTo("t1");
         assertThat(compound.getArguments().get(1)).isInstanceOf(Variable.class);
         assertThat(compound.getArguments().get(1).getIdentifier()).isEqualTo("t2");
+    }
+
+    /**
+     * Checks that a query gets parsed like it's inner compound.
+     */
+    @Test
+    void queryTest() throws InvalidKRLanguageException {
+        PrologCompound expression = Mockito.mock(PrologCompound.class);
+        Mockito.when(expression.getSignature()).thenReturn(NAME);
+        Mockito.when(expression.iterator()).thenReturn(Collections.emptyIterator());
+        PrologQuery query = Mockito.mock(PrologQuery.class);
+        Mockito.when(query.getCompound()).thenReturn(expression);
+        assertThat(parser.parse(query)).isInstanceOf(Compound.class);
+        assertThat(parser.parse(query).getIdentifier()).isEqualTo(NAME);
+        assertThat(parser.parse(query).getKRLanguage()).isEqualTo(KRLanguage.PROLOG);
+    }
+
+    /**
+     * Checks that a we throw an exception when we don't know how to parse the type.
+     */
+    @Test
+    void invalidTest() {
+        PrologExpression expression = Mockito.mock(PrologExpression.class);
+        assertThatThrownBy(() -> parser.parse(expression)).isInstanceOf(InvalidKRLanguageException.class);
     }
 }

@@ -9,7 +9,7 @@
 FROM openjdk:8u171-jre-slim-stretch
 
 # Copy the build result to the home directory of root
-COPY target/goalkeeper-0.1.0-with-dependencies.jar /usr/local/bin/goalkeeper.jar
+COPY target/release.jar /usr/local/bin/goalkeeper.jar
 
 # Add a script to automatically run Goalkeeper with correct paths
 RUN echo '#!/bin/sh\njava -jar /usr/local/bin/goalkeeper.jar "$@"\n' > /usr/local/bin/gk && \

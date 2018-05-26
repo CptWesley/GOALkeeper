@@ -40,4 +40,25 @@ jobs:
       # run tests!
       - run: mvn test site
       - run: bash <(curl -s https://codecov.io/bash) -t a696a4d4-1715-4f06-98b3-e8b58cf12890
+  deploy:
+    docker:
+      - image: pvds/maven-pwsh
 
+    working_directory: ~/repo
+
+    steps:
+      - setup_remote_docker
+      - run: echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
+      - run: pwsh ./script/DockerDeploy.ps1 -Username $DOCKER_USER -TagAsLatest -Push
+
+workflows:
+  version: 2
+  full_pipeline:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build
+          # filters:
+          #   branches:
+          #     only: master

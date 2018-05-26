@@ -50,9 +50,6 @@ public final class PrologExpressionParser implements ExpressionParserInterface {
         if (expression instanceof PrologUpdate) {
             return parse(((PrologUpdate) expression).getCompound());
         }
-        if (expression instanceof PrologTerm) {
-            return new Constant(expression.getSignature());
-        }
         if (expression instanceof PrologCompound) {
             PrologCompound compound = (PrologCompound) expression;
             if (compound.getArity() == 0) {
@@ -63,6 +60,9 @@ public final class PrologExpressionParser implements ExpressionParserInterface {
                 result.addArgument(parse(t));
             }
             return result;
+        }
+        if (expression instanceof PrologTerm) {
+            return new Constant(expression.getSignature());
         }
 
         throw new InvalidKRLanguageException(

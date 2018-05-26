@@ -51,6 +51,7 @@ public final class ActionParser {
      * @param a Action to parse.
      * @return GOALkeeper action.
      * @throws UnknownKRLanguageException Thrown when KR language could not be determined.
+     * @throws InvalidKRLanguageException Thrown when KR language of an inner expression is invalid.
      */
     public Action parse(languageTools.program.agent.actions.Action a)
             throws UnknownKRLanguageException, InvalidKRLanguageException {

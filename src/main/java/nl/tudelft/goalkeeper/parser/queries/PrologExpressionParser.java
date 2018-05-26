@@ -33,7 +33,8 @@ public final class PrologExpressionParser implements ExpressionParserInterface {
      * @return GOALKeeper variant of the expression.
      * @throws InvalidKRLanguageException Thrown when the expression is of unknown format.
      */
-    private Expression parseExpression(krTools.language.Expression expression) throws InvalidKRLanguageException {
+    private Expression parseExpression(krTools.language.Expression expression)
+            throws InvalidKRLanguageException {
         if (expression instanceof PrologVar) {
             PrologVar var = (PrologVar) expression;
             if (var.isClosed()) {

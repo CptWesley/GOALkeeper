@@ -55,7 +55,7 @@ jobs:
           docker_layer_caching: true
       - checkout
       - attach_workspace:
-          at: ./target
+          at: .
       - run: 
           name: Login to Docker
           command: docker login -u "$DOCKER_USER" -p "$DOCKER_PASS"

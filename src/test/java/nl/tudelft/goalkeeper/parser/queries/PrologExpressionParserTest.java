@@ -14,10 +14,10 @@ import swiprolog.language.PrologCompound;
 import swiprolog.language.PrologExpression;
 import swiprolog.language.PrologQuery;
 import swiprolog.language.PrologVar;
+import swiprolog.language.impl.PrologImplFactory;
 
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -140,5 +140,81 @@ class PrologExpressionParserTest {
     void invalidTest() {
         PrologExpression expression = Mockito.mock(PrologExpression.class);
         assertThatThrownBy(() -> parser.parse(expression)).isInstanceOf(InvalidKRLanguageException.class);
+    }
+
+    /**
+     * Checks that an integer is correctly parsed to a constant.
+     */
+    @Test
+    void integrationIntTest() throws InvalidKRLanguageException {
+        Expression res = parser.parse(PrologImplFactory.getNumber(42, null));
+        assertThat(res).isInstanceOf(Constant.class);
+    }
+
+    /**
+     * Checks that a float is correctly parsed to a constant.
+     */
+    @Test
+    void integrationFloatTest() throws InvalidKRLanguageException {
+        Expression res = parser.parse(PrologImplFactory.getNumber(0.5, null));
+        assertThat(res).isInstanceOf(Constant.class);
+    }
+
+    /**
+     * Checks that an atom is correctly parsed to a constant.
+     */
+    @Test
+    void integrationAtomTest() throws InvalidKRLanguageException {
+        Expression res = parser.parse(PrologImplFactory.getAtom(NAME, null));
+        assertThat(res).isInstanceOf(Constant.class);
+    }
+
+    /**
+     * Checks that a var is correctly parsed to a variable.
+     */
+    @Test
+    void integrationVarTest() throws InvalidKRLanguageException {
+        Expression res = parser.parse(PrologImplFactory.getVar(NAME, null));
+        assertThat(res).isInstanceOf(Variable.class);
+    }
+
+    /**
+     * Checks that a compound is correctly parsed to a compound.
+     */
+    @Test
+    void integrationCompoundTest() throws InvalidKRLanguageException {
+        Term[] args = Collections.singleton(PrologImplFactory.getAtom(NAME, null)).toArray(new Term[1]);
+        Expression res = parser.parse(PrologImplFactory.getCompound(NAME, args, null));
+        assertThat(res).isInstanceOf(Compound.class);
+    }
+
+    /**
+     * Checks that a db formula is correctly parsed to an expression.
+     */
+    @Test
+    void integrationDBFormulaTest() throws InvalidKRLanguageException {
+        PrologCompound compound = PrologImplFactory.getCompound(NAME, new Term[0], null);
+        Expression res = parser.parse(PrologImplFactory.getDBFormula(compound));
+        assertThat(res).isInstanceOf(Constant.class);
+    }
+
+    /**
+     * Checks that a query is correctly parsed to an expression.
+     */
+    @Test
+    void integrationQueryTest() throws InvalidKRLanguageException {
+        PrologCompound compound = PrologImplFactory.getCompound(NAME, new Term[0], null);
+        Expression res = parser.parse(PrologImplFactory.getQuery(compound));
+        assertThat(res).isInstanceOf(Constant.class);
+    }
+
+    /**
+     * Checks that an update is correctly parsed to an expression.
+     */
+    @Test
+    void integrationUpdateTest() throws InvalidKRLanguageException {
+        PrologCompound compound = PrologImplFactory.getCompound(NAME, new Term[0], null);
+        Expression res = parser.parse(PrologImplFactory.getUpdate(compound));
+        assertThat(res).isInstanceOf(Constant.class);
     }
 }

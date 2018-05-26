@@ -14,6 +14,10 @@ import swiprolog.language.PrologCompound;
 import swiprolog.language.PrologExpression;
 import swiprolog.language.PrologVar;
 
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -77,33 +81,33 @@ class PrologExpressionParserTest {
      */
     @Test
     void compoundTest() throws InvalidKRLanguageException {
-        expression = Mockito.mock(PrologCompound.class);
+        PrologCompound expression = Mockito.mock(PrologCompound.class);
+        Mockito.when(expression.getSignature()).thenReturn(NAME);
+        Mockito.when(expression.iterator()).thenReturn(Mockito.mock(Iterator.class));
         assertThat(parser.parse(expression)).isInstanceOf(Compound.class);
         assertThat(parser.parse(expression).getIdentifier()).isEqualTo(NAME);
     }
 
     /**
-     * Checks that a function has it's proper arguments.
+     * Checks that a compound has it's proper arguments.
      */
     @Test
     void compoundArgumentsTest() throws InvalidKRLanguageException {
-        expression = Mockito.mock(PrologCompound.class);
-        assertThat(parser.parse(expression)).isInstanceOf(Compound.class);
-        assertThat(parser.parse(expression).getIdentifier()).isEqualTo(NAME);
+        PrologCompound expression = Mockito.mock(PrologCompound.class);
+        Mockito.when(expression.getSignature()).thenReturn(NAME);
         Term t1 = Mockito.mock(PrologVar.class);
         Term t2 = Mockito.mock(PrologVar.class);
         Mockito.when(t1.getSignature()).thenReturn("t1");
         Mockito.when(t2.getSignature()).thenReturn("t2");
-        /*
-        Mockito.when(expression.args()).thenReturn(new Term[] { t1, t2 });
-        Expression result = parser.parse(query);
+        List<Term> args = Arrays.asList(t1, t2);
+        Mockito.when(expression.iterator()).thenReturn(args.iterator());
+        Expression result = parser.parse(expression);
         assertThat(result).isInstanceOf(Compound.class);
         Compound compound = (Compound) result;
         assertThat(compound.getArguments()).hasSize(2);
         assertThat(compound.getArguments().get(0)).isInstanceOf(Variable.class);
-        assertThat(compound.getArguments().get(0).getIdentifier()).isEqualTo("t1" + ZERO_ANARY);
-        assertThat(compound.getArguments().get(1)).isInstanceOf(Constant.class);
-        assertThat(compound.getArguments().get(1).getIdentifier()).isEqualTo("t2" + ZERO_ANARY);
-        */
+        assertThat(compound.getArguments().get(0).getIdentifier()).isEqualTo("t1");
+        assertThat(compound.getArguments().get(1)).isInstanceOf(Variable.class);
+        assertThat(compound.getArguments().get(1).getIdentifier()).isEqualTo("t2");
     }
 }

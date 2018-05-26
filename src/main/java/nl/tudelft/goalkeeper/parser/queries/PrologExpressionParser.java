@@ -8,6 +8,7 @@ import nl.tudelft.goalkeeper.parser.results.parts.Expression;
 import nl.tudelft.goalkeeper.parser.results.parts.KRLanguage;
 import nl.tudelft.goalkeeper.parser.results.parts.Variable;
 import swiprolog.language.PrologCompound;
+import swiprolog.language.PrologQuery;
 import swiprolog.language.PrologVar;
 
 /**
@@ -49,7 +50,12 @@ public final class PrologExpressionParser implements ExpressionParserInterface {
             }
             return result;
         }
+        if (expression instanceof PrologQuery) {
+            PrologQuery query = (PrologQuery) expression;
+            return parse(query.getCompound());
+        }
 
-        throw new InvalidKRLanguageException();
+        throw new InvalidKRLanguageException(
+                "Can't parse instance of type '" + expression.getClass() + "'.");
     }
 }

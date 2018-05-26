@@ -10,6 +10,7 @@ import nl.tudelft.goalkeeper.parser.queries.ExpressionParser;
 import nl.tudelft.goalkeeper.parser.results.files.actionspec.ActionSpecification;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 import swiprolog.language.PrologCompound;
 import swiprolog.language.PrologQuery;
@@ -18,6 +19,7 @@ import swiprolog.language.PrologVar;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -40,6 +42,8 @@ class ActionSpecificationParserTest {
     void setup() {
         parser = new ExpressionParser();
         compound = Mockito.mock(PrologCompound.class);
+        Mockito.when(compound.iterator()).thenReturn(Collections.emptyIterator());
+        Mockito.when(compound.getSignature()).thenReturn(NAME);
         prologQuery = Mockito.mock(PrologQuery.class);
         Mockito.when(prologQuery.getCompound()).thenReturn(compound);
         action = Mockito.mock(UserSpecAction.class);
@@ -94,7 +98,8 @@ class ActionSpecificationParserTest {
      */
     @Test
     void getParametersTest() throws UnknownKRLanguageException, InvalidKRLanguageException {
-        PrologTerm prologTerm = Mockito.mock(PrologVar.class);
+        PrologVar prologTerm = Mockito.mock(PrologVar.class);
+        Mockito.when(prologTerm.getSignature()).thenReturn(NAME);
         Mockito.when(action.getParameters()).thenReturn(Arrays.asList(prologTerm, prologTerm));
         ActionSpecification result = ActionSpecificationParser.parse(action);
         assertThat(result.getParameters()).hasSize(2);

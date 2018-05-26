@@ -70,6 +70,8 @@ class ConditionParserTest {
         pTerm = Mockito.mock(org.jpl7.Term.class);
         compound = Mockito.mock(PrologCompound.class);
 
+        Mockito.when(compound.iterator()).thenReturn(Collections.emptyIterator());
+        Mockito.when(compound.getSignature()).thenReturn("");
         Mockito.when(query.getCompound()).thenReturn(compound);
         Mockito.when(pTerm.isVariable()).thenReturn(true);
         Mockito.when(literal.getSelector()).thenReturn(selector);

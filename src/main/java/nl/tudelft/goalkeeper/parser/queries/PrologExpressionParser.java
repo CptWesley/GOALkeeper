@@ -8,7 +8,9 @@ import nl.tudelft.goalkeeper.parser.results.parts.Expression;
 import nl.tudelft.goalkeeper.parser.results.parts.KRLanguage;
 import nl.tudelft.goalkeeper.parser.results.parts.Variable;
 import swiprolog.language.PrologCompound;
+import swiprolog.language.PrologDBFormula;
 import swiprolog.language.PrologQuery;
+import swiprolog.language.PrologUpdate;
 import swiprolog.language.PrologVar;
 
 /**
@@ -36,24 +38,27 @@ public final class PrologExpressionParser implements ExpressionParserInterface {
     private Expression parseExpression(krTools.language.Expression expression)
             throws InvalidKRLanguageException {
         if (expression instanceof PrologVar) {
-            PrologVar var = (PrologVar) expression;
-            if (var.isClosed()) {
-                return new Constant(var.getSignature());
-            } else {
-                return new Variable(var.getSignature());
-            }
+            return new Variable(expression.getSignature());
+        }
+        if (expression instanceof PrologQuery) {
+            return parse(((PrologQuery) expression).getCompound());
+        }
+        if (expression instanceof PrologDBFormula) {
+            return parse(((PrologDBFormula) expression).getCompound());
+        }
+        if (expression instanceof PrologUpdate) {
+            return parse(((PrologUpdate) expression).getCompound());
         }
         if (expression instanceof PrologCompound) {
             PrologCompound compound = (PrologCompound) expression;
+            if (compound.getArity() == 0) {
+                return new Constant(compound.getSignature());
+            }
             Compound result = new Compound(compound.getSignature());
             for (Term t : compound) {
                 result.addArgument(parse(t));
             }
             return result;
-        }
-        if (expression instanceof PrologQuery) {
-            PrologQuery query = (PrologQuery) expression;
-            return parse(query.getCompound());
         }
 
         throw new InvalidKRLanguageException(

@@ -64,6 +64,8 @@ class PrologExpressionParserTest {
      */
     @Test
     void constantTest() throws InvalidKRLanguageException {
+        expression = Mockito.mock(PrologCompound.class);
+        Mockito.when(expression.getSignature()).thenReturn(NAME);
         Mockito.when(expression.isClosed()).thenReturn(true);
         assertThat(parser.parse(expression)).isInstanceOf(Constant.class);
         assertThat(parser.parse(expression).getIdentifier()).isEqualTo(NAME);
@@ -86,7 +88,8 @@ class PrologExpressionParserTest {
     void compoundTest() throws InvalidKRLanguageException {
         PrologCompound expression = Mockito.mock(PrologCompound.class);
         Mockito.when(expression.getSignature()).thenReturn(NAME);
-        Mockito.when(expression.iterator()).thenReturn(Mockito.mock(Iterator.class));
+        Mockito.when(expression.iterator()).thenReturn(Collections.emptyIterator());
+        Mockito.when(expression.getArity()).thenReturn(2);
         assertThat(parser.parse(expression)).isInstanceOf(Compound.class);
         assertThat(parser.parse(expression).getIdentifier()).isEqualTo(NAME);
     }
@@ -104,6 +107,7 @@ class PrologExpressionParserTest {
         Mockito.when(t2.getSignature()).thenReturn("t2");
         List<Term> args = Arrays.asList(t1, t2);
         Mockito.when(expression.iterator()).thenReturn(args.iterator());
+        Mockito.when(expression.getArity()).thenReturn(2);
         Expression result = parser.parse(expression);
         assertThat(result).isInstanceOf(Compound.class);
         Compound compound = (Compound) result;
@@ -124,7 +128,7 @@ class PrologExpressionParserTest {
         Mockito.when(expression.iterator()).thenReturn(Collections.emptyIterator());
         PrologQuery query = Mockito.mock(PrologQuery.class);
         Mockito.when(query.getCompound()).thenReturn(expression);
-        assertThat(parser.parse(query)).isInstanceOf(Compound.class);
+        assertThat(parser.parse(query)).isInstanceOf(Constant.class);
         assertThat(parser.parse(query).getIdentifier()).isEqualTo(NAME);
         assertThat(parser.parse(query).getKRLanguage()).isEqualTo(KRLanguage.PROLOG);
     }

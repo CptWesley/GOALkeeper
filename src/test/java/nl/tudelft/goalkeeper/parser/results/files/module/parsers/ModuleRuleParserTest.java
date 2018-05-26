@@ -1,6 +1,5 @@
 package nl.tudelft.goalkeeper.parser.results.files.module.parsers;
 
-import org.jpl7.Term;
 import krTools.parser.SourceInfo;
 import languageTools.program.agent.actions.Action;
 import languageTools.program.agent.actions.ActionCombo;
@@ -17,6 +16,7 @@ import nl.tudelft.goalkeeper.parser.results.parts.KRLanguage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import swiprolog.language.PrologCompound;
 import swiprolog.language.PrologQuery;
 
 import java.util.ArrayList;
@@ -37,6 +37,8 @@ class ModuleRuleParserTest {
     private Rule rule;
     private List<MentalLiteral> conditions;
     private List<Action<?>> actions;
+    private PrologCompound compound;
+    private PrologQuery var;
 
     private RuleParser parser;
 
@@ -55,6 +57,12 @@ class ModuleRuleParserTest {
         Mockito.when(ac.getActions()).thenReturn(actions);
         Mockito.when(rule.getCondition()).thenReturn(msc);
         Mockito.when(rule.getAction()).thenReturn(ac);
+
+        var = Mockito.mock(PrologQuery.class);
+        compound = Mockito.mock(PrologCompound.class);
+        Mockito.when(var.getCompound()).thenReturn(compound);
+        Mockito.when(compound.iterator()).thenReturn(Collections.emptyIterator());
+        Mockito.when(compound.getSignature()).thenReturn("");
     }
 
     /**
@@ -71,11 +79,7 @@ class ModuleRuleParserTest {
     @Test
     void prologConditionTest() {
         MentalLiteral lit = Mockito.mock(MentalLiteral.class);
-        PrologQuery var = Mockito.mock(PrologQuery.class);
         Mockito.when(lit.getFormula()).thenReturn(var);
-        Term term = Mockito.mock(Term.class);
-        Mockito.when(var.getTerm()).thenReturn(term);
-        Mockito.when(term.isVariable()).thenReturn(true);
         Mockito.when(lit.getOperator()).thenReturn("percept");
         Selector selector = Mockito.mock(Selector.class);
         Mockito.when(lit.getSelector()).thenReturn(selector);
@@ -94,11 +98,7 @@ class ModuleRuleParserTest {
     @Test
     void actionTest() {
         Action action = Mockito.mock(Action.class);
-        PrologQuery var = Mockito.mock(PrologQuery.class);
         Mockito.when(action.getParameters()).thenReturn(Collections.singletonList(var));
-        Term term = Mockito.mock(Term.class);
-        Mockito.when(var.getTerm()).thenReturn(term);
-        Mockito.when(term.isVariable()).thenReturn(true);
         Selector selector = Mockito.mock(Selector.class);
         Mockito.when(selector.getParameters()).thenReturn(new ArrayList<>());
         Mockito.when(action.getSignature()).thenReturn("exit-module/0");
@@ -116,11 +116,7 @@ class ModuleRuleParserTest {
     @SuppressWarnings("PMD")
     void sourceTest() {
         Action action = Mockito.mock(Action.class);
-        PrologQuery var = Mockito.mock(PrologQuery.class);
         Mockito.when(action.getParameters()).thenReturn(Collections.singletonList(var));
-        Term term = Mockito.mock(Term.class);
-        Mockito.when(var.getTerm()).thenReturn(term);
-        Mockito.when(term.isVariable()).thenReturn(true);
         Selector selector = Mockito.mock(Selector.class);
         Mockito.when(selector.getParameters()).thenReturn(new ArrayList<>());
         Mockito.when(action.getSignature()).thenReturn("exit-module/0");

@@ -6,6 +6,7 @@ import krTools.parser.SourceInfo;
 import languageTools.program.agent.msc.MentalLiteral;
 import languageTools.program.agent.selector.Selector;
 import nl.tudelft.goalkeeper.checking.violations.source.CharacterSource;
+import nl.tudelft.goalkeeper.exceptions.InvalidKRLanguageException;
 import nl.tudelft.goalkeeper.exceptions.UnknownKRLanguageException;
 import nl.tudelft.goalkeeper.parser.results.files.module.conditions.AGoalCondition;
 import nl.tudelft.goalkeeper.parser.results.files.module.conditions.BeliefCondition;
@@ -20,6 +21,7 @@ import nl.tudelft.goalkeeper.parser.results.parts.Variable;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import swiprolog.language.PrologCompound;
 import swiprolog.language.PrologQuery;
 
 import java.util.ArrayList;
@@ -51,6 +53,7 @@ class ConditionParserTest {
     private PrologQuery query;
     private Term term;
     private org.jpl7.Term pTerm;
+    private PrologCompound compound;
 
     private ConditionParser parser;
 
@@ -65,11 +68,14 @@ class ConditionParserTest {
         query = Mockito.mock(PrologQuery.class);
         term = Mockito.mock(Var.class);
         pTerm = Mockito.mock(org.jpl7.Term.class);
+        compound = Mockito.mock(PrologCompound.class);
 
+        Mockito.when(compound.iterator()).thenReturn(Collections.emptyIterator());
+        Mockito.when(compound.getSignature()).thenReturn("");
+        Mockito.when(query.getCompound()).thenReturn(compound);
         Mockito.when(pTerm.isVariable()).thenReturn(true);
         Mockito.when(literal.getSelector()).thenReturn(selector);
         Mockito.when(literal.getFormula()).thenReturn(query);
-        Mockito.when(query.getTerm()).thenReturn(pTerm);
         Mockito.when(selector.getParameters()).thenReturn(Collections.singletonList(term));
         Mockito.when(term.getSignature()).thenReturn(SIGNATURE);
     }
@@ -78,7 +84,7 @@ class ConditionParserTest {
      * Tests that a percept condition is parsed correctly.
      */
     @Test
-    void perceptTest() throws UnknownKRLanguageException {
+    void perceptTest() throws UnknownKRLanguageException, InvalidKRLanguageException {
         Mockito.when(literal.getOperator()).thenReturn(PERCEPT);
         assertThat(parser.parse(literal)).isInstanceOf(PerceptCondition.class);
     }
@@ -87,7 +93,7 @@ class ConditionParserTest {
      * Tests that a belief condition is parsed correctly.
      */
     @Test
-    void beliefTest() throws UnknownKRLanguageException {
+    void beliefTest() throws UnknownKRLanguageException, InvalidKRLanguageException {
         Mockito.when(literal.getOperator()).thenReturn(BELIEF);
         assertThat(parser.parse(literal)).isInstanceOf(BeliefCondition.class);
     }
@@ -96,7 +102,7 @@ class ConditionParserTest {
      * Tests that a goal condition is parsed correctly.
      */
     @Test
-    void goalTest() throws UnknownKRLanguageException {
+    void goalTest() throws UnknownKRLanguageException, InvalidKRLanguageException {
         Mockito.when(literal.getOperator()).thenReturn(GOAL);
         assertThat(parser.parse(literal)).isInstanceOf(GoalCondition.class);
     }
@@ -105,7 +111,7 @@ class ConditionParserTest {
      * Tests that a a-goal condition is parsed correctly.
      */
     @Test
-    void aGoalTest() throws UnknownKRLanguageException {
+    void aGoalTest() throws UnknownKRLanguageException, InvalidKRLanguageException {
         Mockito.when(literal.getOperator()).thenReturn(AGOAL);
         assertThat(parser.parse(literal)).isInstanceOf(AGoalCondition.class);
     }
@@ -114,7 +120,7 @@ class ConditionParserTest {
      * Tests that a goal-a condition is parsed correctly.
      */
     @Test
-    void goalATest() throws UnknownKRLanguageException {
+    void goalATest() throws UnknownKRLanguageException, InvalidKRLanguageException {
         Mockito.when(literal.getOperator()).thenReturn(GOALA);
         assertThat(parser.parse(literal)).isInstanceOf(GoalACondition.class);
     }
@@ -123,7 +129,7 @@ class ConditionParserTest {
      * Tests that an indicative sent condition is parsed correctly.
      */
     @Test
-    void sentIndicativeTest() throws UnknownKRLanguageException {
+    void sentIndicativeTest() throws UnknownKRLanguageException, InvalidKRLanguageException {
         Mockito.when(literal.getOperator()).thenReturn(SENT_INDICATIVE);
         Condition c = parser.parse(literal);
         assertThat(c).isInstanceOf(SentCondition.class);
@@ -136,7 +142,7 @@ class ConditionParserTest {
      * Tests that an imperative sent condition is parsed correctly.
      */
     @Test
-    void sentImperativeTest() throws UnknownKRLanguageException {
+    void sentImperativeTest() throws UnknownKRLanguageException, InvalidKRLanguageException {
         Mockito.when(literal.getOperator()).thenReturn(SENT_IMPERATIVE);
         Condition c = parser.parse(literal);
         assertThat(c).isInstanceOf(SentCondition.class);
@@ -149,7 +155,7 @@ class ConditionParserTest {
      * Tests that an interrogative sent condition is parsed correctly.
      */
     @Test
-    void sentInterrogativeTest() throws UnknownKRLanguageException {
+    void sentInterrogativeTest() throws UnknownKRLanguageException, InvalidKRLanguageException {
         Mockito.when(literal.getOperator()).thenReturn(SENT_INTERROGATIVE);
         Condition c = parser.parse(literal);
         assertThat(c).isInstanceOf(SentCondition.class);
@@ -162,7 +168,7 @@ class ConditionParserTest {
      * Checks that we can parse constant selectors as well.
      */
     @Test
-    void constantSelectorTest() throws UnknownKRLanguageException {
+    void constantSelectorTest() throws UnknownKRLanguageException, InvalidKRLanguageException {
         term = Mockito.mock(Term.class);
         Mockito.when(selector.getParameters()).thenReturn(Collections.singletonList(term));
         Mockito.when(term.getSignature()).thenReturn(SIGNATURE);
@@ -175,7 +181,7 @@ class ConditionParserTest {
      * Checks that we don't crash when we don't have a selector.
      */
     @Test
-    void noSelectorTest() throws UnknownKRLanguageException {
+    void noSelectorTest() throws UnknownKRLanguageException, InvalidKRLanguageException {
         Mockito.when(selector.getParameters()).thenReturn(new ArrayList<>());
         Mockito.when(literal.getOperator()).thenReturn(SENT_INTERROGATIVE);
         SentCondition sc = (SentCondition) parser.parse(literal);
@@ -186,7 +192,7 @@ class ConditionParserTest {
      * Checks that the source is parsed properly.
      */
     @Test
-    void sourceTest() throws UnknownKRLanguageException {
+    void sourceTest() throws UnknownKRLanguageException, InvalidKRLanguageException {
         Mockito.when(literal.getOperator()).thenReturn(GOAL);
         SourceInfo si = Mockito.mock(SourceInfo.class);
         Mockito.when(si.getSource()).thenReturn(FILE_NAME);

@@ -3,8 +3,8 @@ package nl.tudelft.goalkeeper.parser.results.files.module.conditions;
 import lombok.Getter;
 import lombok.Setter;
 import nl.tudelft.goalkeeper.checking.violations.source.Source;
+import nl.tudelft.goalkeeper.parser.results.parts.Compound;
 import nl.tudelft.goalkeeper.parser.results.parts.Expression;
-import nl.tudelft.goalkeeper.parser.results.parts.Function;
 import nl.tudelft.goalkeeper.parser.results.parts.Parameter;
 import nl.tudelft.goalkeeper.parser.results.parts.KRLanguage;
 import nl.tudelft.goalkeeper.parser.results.parts.Linguistic;
@@ -60,9 +60,9 @@ public abstract class Condition implements Sourceable, Linguistic {
         expression.forEach(exp -> {
             if (exp instanceof Parameter) {
                 retList.add((Parameter) exp);
-            } else if (exp instanceof Function) {
+            } else if (exp instanceof Compound) {
                 List<Parameter> temp =
-                        getExpressionParameterRecursion(((Function) exp).getArguments());
+                        getExpressionParameterRecursion(((Compound) exp).getArguments());
                 if (temp != null && !temp.contains(null)) {
                     retList.addAll(temp);
                 }

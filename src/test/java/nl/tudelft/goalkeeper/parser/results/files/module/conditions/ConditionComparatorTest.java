@@ -1,7 +1,7 @@
 package nl.tudelft.goalkeeper.parser.results.files.module.conditions;
 
+import nl.tudelft.goalkeeper.parser.results.parts.Compound;
 import nl.tudelft.goalkeeper.parser.results.parts.Constant;
-import nl.tudelft.goalkeeper.parser.results.parts.Function;
 import nl.tudelft.goalkeeper.parser.results.parts.Variable;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -54,7 +54,7 @@ class ConditionComparatorTest {
 
     @Test
     void notVariable() {
-        Function func = new Function("test");
+        Compound func = new Compound("test");
         Condition o1 = new AGoalCondition(func);
         Condition o2 = new AGoalCondition(func);
         assertThat(comparator.compare(o1, o2)).isEqualTo(0);
@@ -62,18 +62,18 @@ class ConditionComparatorTest {
 
     @Test
     void firstVariable() {
-        Function function = new Function("test");
+        Compound compound = new Compound("test");
         Variable variable = new Variable("test1");
-        Condition o1 = new AGoalCondition(function);
+        Condition o1 = new AGoalCondition(compound);
         Condition o2 = new AGoalCondition(variable);
         assertThat(comparator.compare(o2, o1)).isNotEqualTo(0);
     }
 
     @Test
     void secondVariable() {
-        Function function = new Function("test");
+        Compound compound = new Compound("test");
         Variable variable = new Variable("test1");
-        Condition o1 = new AGoalCondition(function);
+        Condition o1 = new AGoalCondition(compound);
         Condition o2 = new AGoalCondition(variable);
         assertThat(comparator.compare(o1, o2)).isNotEqualTo(0);
     }

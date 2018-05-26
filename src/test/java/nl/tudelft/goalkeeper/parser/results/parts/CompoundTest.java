@@ -7,13 +7,13 @@ import org.mockito.Mockito;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Test class for the Function class.
+ * Test class for the Compound class.
  */
-class FunctionTest extends ExpressionTest {
+class CompoundTest extends ExpressionTest {
 
     private static final String identifier = "DGFDS";
 
-    private Function function;
+    private Compound compound;
     private Expression p1, p2;
 
     /**
@@ -21,7 +21,7 @@ class FunctionTest extends ExpressionTest {
      */
     @Override
     Expression getInstance() {
-        return function;
+        return compound;
     }
 
     /**
@@ -29,7 +29,7 @@ class FunctionTest extends ExpressionTest {
      */
     @BeforeEach
     void setup() {
-        function = new Function(identifier);
+        compound = new Compound(identifier);
         p1 = Mockito.mock(Expression.class);
         p2 = Mockito.mock(Expression.class);
         Mockito.when(p1.toString()).thenReturn("bla1");
@@ -41,7 +41,7 @@ class FunctionTest extends ExpressionTest {
      */
     @Test
     void getIdentifierTest() {
-        assertThat(function.getIdentifier()).isEqualTo(identifier);
+        assertThat(compound.getIdentifier()).isEqualTo(identifier);
     }
 
     /**
@@ -49,11 +49,11 @@ class FunctionTest extends ExpressionTest {
      */
     @Test
     void addPartsTest() {
-        assertThat(function.getArguments()).isEmpty();
+        assertThat(compound.getArguments()).isEmpty();
         Expression part = Mockito.mock(Expression.class);
-        assertThat(function.addArgument(part)).isSameAs(function);
-        assertThat(function.getArguments()).hasSize(1);
-        assertThat(function.getArguments()).containsExactly(part);
+        assertThat(compound.addArgument(part)).isSameAs(compound);
+        assertThat(compound.getArguments()).hasSize(1);
+        assertThat(compound.getArguments()).containsExactly(part);
     }
 
     /**
@@ -61,9 +61,9 @@ class FunctionTest extends ExpressionTest {
      */
     @Test
     void toStringTest() {
-        assertThat(function.toString()).isEqualTo(identifier + "()");
-        assertThat(function.addArgument(p1).toString()).isEqualTo(identifier + "(bla1)");
-        assertThat(function.addArgument(p2).toString()).isEqualTo(identifier + "(bla1, bla2)");
+        assertThat(compound.toString()).isEqualTo(identifier + "()");
+        assertThat(compound.addArgument(p1).toString()).isEqualTo(identifier + "(bla1)");
+        assertThat(compound.addArgument(p2).toString()).isEqualTo(identifier + "(bla1, bla2)");
     }
 
     /**
@@ -71,8 +71,8 @@ class FunctionTest extends ExpressionTest {
      */
     @Test
     void hashCodeTest() {
-        Function other = new Function(identifier);
-        assertThat(function.hashCode()).isEqualTo(other.hashCode());
+        Compound other = new Compound(identifier);
+        assertThat(compound.hashCode()).isEqualTo(other.hashCode());
     }
 
     /**
@@ -80,7 +80,7 @@ class FunctionTest extends ExpressionTest {
      */
     @Test
     void equalSameObject() {
-        assertThat(function).isEqualTo(function);
+        assertThat(compound).isEqualTo(compound);
     }
 
     /**
@@ -88,7 +88,7 @@ class FunctionTest extends ExpressionTest {
      */
     @Test
     void equalSameIdentifier() {
-        assertThat(function).isEqualTo(new Function(identifier));
+        assertThat(compound).isEqualTo(new Compound(identifier));
     }
 
     /**
@@ -96,7 +96,7 @@ class FunctionTest extends ExpressionTest {
      */
     @Test
     void equalSameParts() {
-        assertThat(function.addArgument(p1)).isEqualTo(new Function(identifier).addArgument(p1));
+        assertThat(compound.addArgument(p1)).isEqualTo(new Compound(identifier).addArgument(p1));
     }
 
     /**
@@ -104,7 +104,7 @@ class FunctionTest extends ExpressionTest {
      */
     @Test
     void notEqualDifferentIdentifier() {
-        assertThat(function).isNotEqualTo(new Function("WGD"));
+        assertThat(compound).isNotEqualTo(new Compound("WGD"));
     }
 
     /**
@@ -112,8 +112,8 @@ class FunctionTest extends ExpressionTest {
      */
     @Test
     void notEqualDifferentParts() {
-        assertThat(function).isNotEqualTo(new Function(identifier).addArgument(p2));
-        assertThat(function.addArgument(p1)).isNotEqualTo(new Function(identifier).addArgument(p2));
+        assertThat(compound).isNotEqualTo(new Compound(identifier).addArgument(p2));
+        assertThat(compound.addArgument(p1)).isNotEqualTo(new Compound(identifier).addArgument(p2));
     }
 
     /**
@@ -121,7 +121,7 @@ class FunctionTest extends ExpressionTest {
      */
     @Test
     void notEqualDifferentType() {
-        assertThat(function).isNotEqualTo(new Constant(identifier));
+        assertThat(compound).isNotEqualTo(new Constant(identifier));
     }
 
     /**
@@ -129,6 +129,6 @@ class FunctionTest extends ExpressionTest {
      */
     @Test
     void notEqualNull() {
-        assertThat(function).isNotEqualTo(null);
+        assertThat(compound).isNotEqualTo(null);
     }
 }

@@ -4,6 +4,7 @@ import krTools.parser.SourceInfo;
 import lombok.Getter;
 import lombok.Setter;
 import nl.tudelft.goalkeeper.checking.violations.source.SourceParser;
+import nl.tudelft.goalkeeper.exceptions.InvalidKRLanguageException;
 import nl.tudelft.goalkeeper.exceptions.UnknownKRLanguageException;
 import nl.tudelft.goalkeeper.parser.results.parts.Expression;
 import swiprolog.language.PrologExpression;
@@ -27,9 +28,10 @@ public final class ExpressionParser {
      * @param expression Expression to parse.
      * @return Parsed expression.
      * @throws UnknownKRLanguageException Thrown when we can't handle the query.
+     * @throws InvalidKRLanguageException Thrown when we can't handle the query.
      */
     public Expression parse(krTools.language.Expression expression)
-            throws UnknownKRLanguageException {
+            throws UnknownKRLanguageException, InvalidKRLanguageException {
         Expression result = getParser(expression).parse(expression);
         SourceInfo sourceInfo = expression.getSourceInfo();
         if (sourceInfo != null) {

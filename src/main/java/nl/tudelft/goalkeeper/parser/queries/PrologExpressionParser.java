@@ -1,13 +1,15 @@
 package nl.tudelft.goalkeeper.parser.queries;
 
-import org.jpl7.Term;
+import krTools.language.Term;
+import nl.tudelft.goalkeeper.exceptions.InvalidKRLanguageException;
+import nl.tudelft.goalkeeper.parser.results.parts.Compound;
 import nl.tudelft.goalkeeper.parser.results.parts.Constant;
 import nl.tudelft.goalkeeper.parser.results.parts.Expression;
-import nl.tudelft.goalkeeper.parser.results.parts.Function;
 import nl.tudelft.goalkeeper.parser.results.parts.KRLanguage;
 import nl.tudelft.goalkeeper.parser.results.parts.Variable;
-import swiprolog.language.JPLUtils;
-import swiprolog.language.PrologExpression;
+import swiprolog.language.PrologCompound;
+import swiprolog.language.PrologQuery;
+import swiprolog.language.PrologVar;
 
 /**
  * Class which parses Prolog queries to GOALkeeper queries.
@@ -18,35 +20,43 @@ public final class PrologExpressionParser implements ExpressionParserInterface {
      * {@inheritDoc}
      */
     @Override
-    public Expression parse(krTools.language.Expression expression) {
-        Term term = ((PrologExpression) expression).getTerm();
-        Expression result = parseTerm(term);
+    public Expression parse(krTools.language.Expression expression)
+            throws InvalidKRLanguageException {
+        Expression result = parseExpression(expression);
         result.setKRLanguage(KRLanguage.PROLOG);
         return result;
     }
 
     /**
-     * Parses a prolog term to an expression.
-     * @param term Term to parse.
-     * @return Parsed expression.
+     * Parses an expression.
+     * @param expression Expression to parse.
+     * @return GOALKeeper variant of the expression.
+     * @throws InvalidKRLanguageException Thrown when the expression is of unknown format.
      */
-    private static Expression parseTerm(Term term) {
-        if (term.isVariable()) {
-            return new Variable(JPLUtils.getSignature(term));
+    private Expression parseExpression(krTools.language.Expression expression)
+            throws InvalidKRLanguageException {
+        if (expression instanceof PrologVar) {
+            PrologVar var = (PrologVar) expression;
+            if (var.isClosed()) {
+                return new Constant(var.getSignature());
+            } else {
+                return new Variable(var.getSignature());
+            }
         }
-        if (term.isAtom()) {
-            return new Constant(JPLUtils.getSignature(term));
+        if (expression instanceof PrologCompound) {
+            PrologCompound compound = (PrologCompound) expression;
+            Compound result = new Compound(compound.getSignature());
+            for (Term t : compound) {
+                result.addArgument(parse(t));
+            }
+            return result;
         }
-        if (term.isFloat()) {
-            return new Constant(JPLUtils.getSignature(term));
+        if (expression instanceof PrologQuery) {
+            PrologQuery query = (PrologQuery) expression;
+            return parse(query.getCompound());
         }
-        if (term.isInteger()) {
-            return new Constant(JPLUtils.getSignature(term));
-        }
-        Function result = new Function(JPLUtils.getSignature(term));
-        for (Term part : term.args()) {
-            result.addArgument(parseTerm(part));
-        }
-        return result;
+
+        throw new InvalidKRLanguageException(
+                "Can't parse instance of type '" + expression.getClass() + "'.");
     }
 }

@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Class for holding queries and subqueries.
  */
-public final class Function extends Expression {
+public final class Compound extends Expression {
 
     private static final int HASH_MODIFIER = 43;
 
@@ -20,7 +20,7 @@ public final class Function extends Expression {
      * Creates a query instance.
      * @param identifier Identifier of the query.
      */
-    public Function(String identifier) {
+    public Compound(String identifier) {
         super();
         this.identifier = identifier;
         this.arguments = new LinkedList<>();
@@ -31,7 +31,7 @@ public final class Function extends Expression {
      * @param argument Part of the query.
      * @return Current query.
      */
-    public Function addArgument(Expression argument) {
+    public Compound addArgument(Expression argument) {
         arguments.add(argument);
         return this;
     }
@@ -49,8 +49,8 @@ public final class Function extends Expression {
      */
     @Override
     public boolean equals(Object o) {
-        if (o instanceof Function) {
-            Function that = (Function) o;
+        if (o instanceof Compound) {
+            Compound that = (Compound) o;
             if (!this.identifier.equals(that.identifier)) {
                 return false;
             }

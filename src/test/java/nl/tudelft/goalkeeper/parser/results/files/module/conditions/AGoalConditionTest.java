@@ -1,8 +1,8 @@
 package nl.tudelft.goalkeeper.parser.results.files.module.conditions;
 
+import nl.tudelft.goalkeeper.parser.results.parts.Compound;
 import nl.tudelft.goalkeeper.parser.results.parts.Constant;
 import nl.tudelft.goalkeeper.parser.results.parts.Expression;
-import nl.tudelft.goalkeeper.parser.results.parts.Function;
 import nl.tudelft.goalkeeper.parser.results.parts.Parameter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -92,7 +92,7 @@ class AGoalConditionTest extends ConditionTest {
 
     @Test
     void getExpressionVariableEmpty() {
-        expression = new Function("test");
+        expression = new Compound("test");
         condition = new AGoalCondition(expression);
         List conditionExpressionVariable = condition.getExpressionVariable();
         assertThat(condition.getExpressionVariable()).hasSize(0);
@@ -100,9 +100,9 @@ class AGoalConditionTest extends ConditionTest {
 
     @Test
     void getExpressionVariableFromFunction() {
-        expression = new Function("test");
+        expression = new Compound("test");
         Constant constant = new Constant("2");
-        ((Function)expression).addArgument(constant);
+        ((Compound)expression).addArgument(constant);
         condition = new AGoalCondition(expression);
 
         assertThat(condition.getExpressionVariable()).contains(constant);
@@ -111,11 +111,11 @@ class AGoalConditionTest extends ConditionTest {
 
     @Test
     void getExpressionVariableFromFunction2() {
-        expression = new Function("test");
+        expression = new Compound("test");
         Constant constant = new Constant("2");
         Constant constant1 = new Constant("2");
-        ((Function)expression).addArgument(constant);
-        ((Function) expression).addArgument(constant1);
+        ((Compound)expression).addArgument(constant);
+        ((Compound) expression).addArgument(constant1);
         condition = new AGoalCondition(expression);
 
         assertThat(condition.getExpressionVariable()).contains(constant);

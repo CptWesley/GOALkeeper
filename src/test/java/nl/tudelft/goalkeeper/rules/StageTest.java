@@ -25,8 +25,7 @@ class StageTest {
      */
     @Test
     void defaultTest() {
-        assertThat(stage.getMin()).isEqualTo(Double.MIN_VALUE);
-        assertThat(stage.getMax()).isEqualTo(Double.MAX_VALUE);
+        assertThat(stage.getLimit()).isEqualTo(0);
         assertThat(stage.getSeverity()).isEqualTo(0);
     }
 
@@ -43,17 +42,8 @@ class StageTest {
      * Checks that minimum setting is properly handled.
      */
     @Test
-    void setMinTest() {
-        assertThat(stage.setMin(3)).isSameAs(stage);
-        assertThat(stage.getMin()).isEqualTo(3);
-    }
-
-    /**
-     * Checks that maximum setting is properly handled.
-     */
-    @Test
-    void setMaxTest() {
-        assertThat(stage.setMax(6)).isSameAs(stage);
-        assertThat(stage.getMax()).isEqualTo(6);
+    void setLimitTest() {
+        assertThat(stage.setLimit(3)).isSameAs(stage);
+        assertThat(stage.getLimit()).isEqualTo(3);
     }
 }

@@ -57,12 +57,13 @@ public class Rule {
      * @return Severity level of the value.
      */
     public int severityOf(double value) {
+        int severity = 0;
         for (Stage stage : stages) {
-            if (value >= stage.getMin() && value < stage.getMax()) {
-                return stage.getSeverity();
+            if (value >= stage.getLimit()) {
+                severity = stage.getSeverity();
             }
         }
-        return 0;
+        return severity;
     }
 
     /**
@@ -73,8 +74,8 @@ public class Rule {
     public double maxValueBefore(int severity) {
         double max = Double.MIN_VALUE;
         for (Stage stage : stages) {
-            if (stage.getSeverity() < severity) {
-                max = stage.getMax();
+            if (stage.getSeverity() <= severity) {
+                max = stage.getLimit();
             }
         }
         return max;

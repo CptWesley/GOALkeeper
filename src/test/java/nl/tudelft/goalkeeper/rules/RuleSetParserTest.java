@@ -7,8 +7,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
-import java.util.Scanner;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -19,7 +21,7 @@ import static org.assertj.core.api.Assertions.assertThatCode;
  */
 class RuleSetParserTest {
 
-    private static String content;
+    private static InputStream content;
 
     private RuleSetParser parser;
 
@@ -28,9 +30,8 @@ class RuleSetParserTest {
      */
     @BeforeAll
     static void setupAll() {
-        content = new Scanner(RuleSetParserTest.class.getClassLoader()
-                        .getResourceAsStream("rules.json"), "UTF-8")
-                        .useDelimiter("\\A").next();
+        content = RuleSetParserTest.class.getClassLoader()
+                .getResourceAsStream("default_rules.xml");
     }
 
     /**
@@ -49,7 +50,7 @@ class RuleSetParserTest {
     @Test
     void parseTest() {
         parser = new RuleSetParser();
-        assertThatCode(() -> parser.parse("{}")).doesNotThrowAnyException();
+        assertThatCode(() -> parser.parse(createStream("{}"))).doesNotThrowAnyException();
         assertThat(parser.isParsed()).isTrue();
     }
 
@@ -59,7 +60,7 @@ class RuleSetParserTest {
     @Test
     void parseExceptionTest() {
         parser = new RuleSetParser();
-        assertThatThrownBy(() -> parser.parse(""))
+        assertThatThrownBy(() -> parser.parse(createStream("")))
                 .isInstanceOf(MalformedRulesException.class)
                 .hasMessage("Invalid JSON file.");
         assertThat(parser.isParsed()).isFalse();
@@ -94,7 +95,7 @@ class RuleSetParserTest {
     @Test
     void getErrorSeverityNotDefinedTest() throws MalformedRulesException {
         parser = new RuleSetParser();
-        parser.parse("{}");
+        parser.parse(createStream("{}"));
         assertThatThrownBy(() -> parser.getErrorSeverity())
                 .isInstanceOf(MalformedRulesException.class)
                 .hasMessage("Missing 'error-severity' setting.");
@@ -107,7 +108,7 @@ class RuleSetParserTest {
     @Test
     void getErrorSeverityWronglyDefinedTest() throws MalformedRulesException {
         parser = new RuleSetParser();
-        parser.parse("{\"error-severity\": 3.2}");
+        parser.parse(createStream("{\"error-severity\": 3.2}"));
         assertThatThrownBy(() -> parser.getErrorSeverity())
                 .isInstanceOf(MalformedRulesException.class)
                 .hasMessage("Invalid 'error-severity' type.");
@@ -142,7 +143,7 @@ class RuleSetParserTest {
     @Test
     void getFailOnErrorNotDefinedTest() throws MalformedRulesException {
         parser = new RuleSetParser();
-        parser.parse("{}");
+        parser.parse(createStream("{}"));
         assertThatThrownBy(() -> parser.getFailOnError())
                 .isInstanceOf(MalformedRulesException.class)
                 .hasMessage("Missing 'fail-on-error' setting.");
@@ -162,16 +163,15 @@ class RuleSetParserTest {
         assertThat(loc.isEnabled()).isTrue();
         assertThat(eloc.isEnabled()).isFalse();
         assertThat(loc.getStages().size()).isEqualTo(3);
-        Stage s0 = loc.getStages().get(0);
-        Stage s1 = loc.getStages().get(1);
-        Stage s2 = loc.getStages().get(2);
-        assertThat(s0.getSeverity()).isEqualTo(0);
+        Stage s1 = loc.getStages().get(0);
+        Stage s2 = loc.getStages().get(1);
         assertThat(s1.getSeverity()).isEqualTo(1);
-        assertThat(s0.getMin()).isEqualTo(Double.MIN_VALUE);
-        assertThat(s0.getMax()).isEqualTo(200);
-        assertThat(s1.getMin()).isEqualTo(200);
-        assertThat(s1.getMax()).isEqualTo(300);
-        assertThat(s2.getMin()).isEqualTo(300);
-        assertThat(s2.getMax()).isEqualTo(Double.MAX_VALUE);
+        assertThat(s2.getSeverity()).isEqualTo(2);
+        assertThat(s1.getLimit()).isEqualTo(200);
+        assertThat(s2.getLimit()).isEqualTo(300);
+    }
+
+    private InputStream createStream(String input) {
+        return new ByteArrayInputStream(input.getBytes(StandardCharsets.UTF_8));
     }
 }

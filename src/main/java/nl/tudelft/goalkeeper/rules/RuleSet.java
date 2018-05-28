@@ -38,7 +38,7 @@ public final class RuleSet {
     public static RuleSet load(String path) throws MalformedRulesException, IOException {
         RuleSetParser parser = new RuleSetParser();
         String content = new String(Files.readAllBytes(Paths.get(path)), "UTF-8");
-        parser.parse(content);
+        //parser.parse(content);
         int errorSeverity = parser.getErrorSeverity();
         boolean failOnError = parser.getFailOnError();
         Map<String, Rule> rules = parser.getRules();

@@ -3,6 +3,7 @@ package nl.tudelft.goalkeeper.rules;
 import lombok.Getter;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -26,7 +27,7 @@ public class Rule {
      * @return Stages contained in this rule.
      */
     public List<Stage> getStages() {
-        return new ArrayList<>(stages);
+        return Collections.unmodifiableList(stages);
     }
 
     /**
@@ -72,9 +73,9 @@ public class Rule {
      * @return The maximum value before we reach a certain severity.
      */
     public double maxValueBefore(int severity) {
-        double max = Double.MIN_VALUE;
+        double max = Double.MAX_VALUE;
         for (Stage stage : stages) {
-            if (stage.getSeverity() <= severity) {
+            if (stage.getSeverity() == severity) {
                 max = stage.getLimit();
             }
         }

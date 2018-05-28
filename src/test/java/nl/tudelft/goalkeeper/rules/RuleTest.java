@@ -55,10 +55,9 @@ class RuleTest {
     @Test
     void severityOfTest() {
         assertThat(rule.severityOf(5)).isEqualTo(0);
-        Stage s1 = new Stage().setSeverity(0).setMin(0).setMax(3);
-        Stage s2 = new Stage().setSeverity(1).setMin(3).setMax(5);
-        Stage s3 = new Stage().setSeverity(2).setMin(5);
-        rule.addStage(s1).addStage(s2).addStage(s3);
+        Stage s2 = new Stage().setSeverity(1).setLimit(3);
+        Stage s3 = new Stage().setSeverity(2).setLimit(5);
+        rule.addStage(s2).addStage(s3);
         assertThat(rule.severityOf(5)).isEqualTo(2);
     }
 
@@ -67,10 +66,9 @@ class RuleTest {
      */
     @Test
     void maxValueBeforeTest() {
-        Stage s1 = new Stage().setSeverity(0).setMin(0).setMax(3);
-        Stage s2 = new Stage().setSeverity(1).setMin(3).setMax(5);
-        Stage s3 = new Stage().setSeverity(2).setMin(5);
-        rule.addStage(s1).addStage(s2).addStage(s3);
+        Stage s2 = new Stage().setSeverity(1).setLimit(3);
+        Stage s3 = new Stage().setSeverity(2).setLimit(5);
+        rule.addStage(s2).addStage(s3);
         assertThat(rule.maxValueBefore(1)).isEqualTo(3);
         assertThat(rule.maxValueBefore(5)).isEqualTo(Double.MAX_VALUE);
     }

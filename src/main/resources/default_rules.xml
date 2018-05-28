@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset>
+    <property name="error-severity" value="2"/>
+    <property name="fail-on-error" value="true"/>
+    <category name="GOAL">
+        <category name="Errors">
+            <property name="severity" value="2"/>
+        </category>
+        <category name="Warnings">
+            <property name="severity" value="1"/>
+        </category>
+    </category>
+    <category name="Style">
+        <property name="severity" value="1"/>
+    </category>
+    <category name="Metrics">
+        <rule name="LOC">
+            <property name="severity" limit="200" value="1"/>
+            <property name="severity" limit="300" value="2"/>
+        </rule>
+    </category>
+</ruleset>
